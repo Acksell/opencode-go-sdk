@@ -1,0 +1,12 @@
+{
+  "cliVersion": "5.27.5",
+  "generatorName": "fernapi/fern-go-sdk",
+  "generatorVersion": "1.41.4",
+  "generatorConfig": {
+    "module": {
+      "path": "github.com/Acksell/opencode-go-sdk/sdk"
+    },
+    "retryStatusCodes": "legacy"
+  },
+  "invokedBy": "manual"
+}

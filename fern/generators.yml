@@ -1,0 +1,25 @@
+api:
+  specs:
+    - openapi: openapi/trimmed.json
+
+default-group: local
+
+groups:
+  local:
+    generators:
+      # Fern's Go SDK generator. Source lives in the fern-api/fern monorepo:
+      #   https://github.com/fern-api/fern/tree/main/generators/go
+      # Bump periodically by running `fern generator upgrade --include-major`
+      # — that auto-resolves the latest Docker-tag the CLI is compatible with
+      # AND applies any migrations the new generator requires (e.g. adding
+      # the `retryStatusCodes: legacy` field below was a 1.0.0 migration).
+      # Changelog: https://buildwithfern.com/learn/sdks/generators/go/changelog
+      - name: fernapi/fern-go-sdk
+        version: 1.41.4
+        output:
+          location: local-file-system
+          path: ../sdk
+        config:
+          module:
+            path: github.com/Acksell/opencode-go-sdk/sdk
+          retryStatusCodes: legacy

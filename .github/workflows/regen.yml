@@ -1,0 +1,61 @@
+name: regen
+
+# Automated regeneration of the SDK from upstream opencode. Runs:
+#   - On manual trigger (workflow_dispatch)
+#   - Weekly on Mondays at 03:00 UTC
+#
+# Opens a PR with the regenerated SDK if anything changed. The job fails fast
+# if generation fails or the resulting SDK doesn't build/test.
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * 1"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  regen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
+          cache: false
+
+      - name: install fern CLI
+        run: npm install -g fern-api
+
+      - name: pull + trim + generate
+        run: make regen
+
+      - name: build + test generated SDK
+        run: make test
+
+      - name: open PR with regeneration
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: regen/${{ github.run_id }}
+          commit-message: "regen: sync from upstream opencode spec"
+          title: "regen: sync from upstream opencode spec"
+          body: |
+            Automated SDK regeneration.
+
+            - Pulled opencode OpenAPI from upstream (anomalyco/opencode dev branch)
+            - Filtered to allow-list via `scripts/trim-opencode-spec.py`
+            - Regenerated Go SDK via Fern
+
+            See the trim-script stats in the job log for kept/dropped counts.
+          delete-branch: true
