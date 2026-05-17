@@ -1,4 +1,4 @@
-module github.com/Acksell/opencode-go-sdk/sdk
+module github.com/acksell/opencode-go-sdk/sdk
 
 go 1.21
 

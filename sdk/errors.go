@@ -4,7 +4,7 @@ package api
 
 import (
 	json "encoding/json"
-	core "github.com/Acksell/opencode-go-sdk/sdk/core"
+	core "github.com/acksell/opencode-go-sdk/sdk/core"
 )
 
 // Bad request

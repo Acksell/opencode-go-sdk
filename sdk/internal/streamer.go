@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/Acksell/opencode-go-sdk/sdk/core"
+	"github.com/acksell/opencode-go-sdk/sdk/core"
 )
 
 const (

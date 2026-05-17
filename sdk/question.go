@@ -4,7 +4,7 @@ package api
 
 import (
 	json "encoding/json"
-	internal "github.com/Acksell/opencode-go-sdk/sdk/internal"
+	internal "github.com/acksell/opencode-go-sdk/sdk/internal"
 	big "math/big"
 )
 

@@ -3,18 +3,18 @@
 package client
 
 import (
-	config "github.com/Acksell/opencode-go-sdk/sdk/config"
-	control "github.com/Acksell/opencode-go-sdk/sdk/control"
-	core "github.com/Acksell/opencode-go-sdk/sdk/core"
-	global "github.com/Acksell/opencode-go-sdk/sdk/global"
-	instance "github.com/Acksell/opencode-go-sdk/sdk/instance"
-	internal "github.com/Acksell/opencode-go-sdk/sdk/internal"
-	option "github.com/Acksell/opencode-go-sdk/sdk/option"
-	permission "github.com/Acksell/opencode-go-sdk/sdk/permission"
-	project "github.com/Acksell/opencode-go-sdk/sdk/project"
-	provider "github.com/Acksell/opencode-go-sdk/sdk/provider"
-	question "github.com/Acksell/opencode-go-sdk/sdk/question"
-	session "github.com/Acksell/opencode-go-sdk/sdk/session"
+	config "github.com/acksell/opencode-go-sdk/sdk/config"
+	control "github.com/acksell/opencode-go-sdk/sdk/control"
+	core "github.com/acksell/opencode-go-sdk/sdk/core"
+	global "github.com/acksell/opencode-go-sdk/sdk/global"
+	instance "github.com/acksell/opencode-go-sdk/sdk/instance"
+	internal "github.com/acksell/opencode-go-sdk/sdk/internal"
+	option "github.com/acksell/opencode-go-sdk/sdk/option"
+	permission "github.com/acksell/opencode-go-sdk/sdk/permission"
+	project "github.com/acksell/opencode-go-sdk/sdk/project"
+	provider "github.com/acksell/opencode-go-sdk/sdk/provider"
+	question "github.com/acksell/opencode-go-sdk/sdk/question"
+	session "github.com/acksell/opencode-go-sdk/sdk/session"
 )
 
 type Client struct {

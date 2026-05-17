@@ -5,10 +5,10 @@ package project
 import (
 	context "context"
 
-	sdk "github.com/Acksell/opencode-go-sdk/sdk"
-	core "github.com/Acksell/opencode-go-sdk/sdk/core"
-	internal "github.com/Acksell/opencode-go-sdk/sdk/internal"
-	option "github.com/Acksell/opencode-go-sdk/sdk/option"
+	sdk "github.com/acksell/opencode-go-sdk/sdk"
+	core "github.com/acksell/opencode-go-sdk/sdk/core"
+	internal "github.com/acksell/opencode-go-sdk/sdk/internal"
+	option "github.com/acksell/opencode-go-sdk/sdk/option"
 )
 
 type Client struct {

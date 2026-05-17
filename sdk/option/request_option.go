@@ -3,7 +3,7 @@
 package option
 
 import (
-	core "github.com/Acksell/opencode-go-sdk/sdk/core"
+	core "github.com/acksell/opencode-go-sdk/sdk/core"
 	http "net/http"
 	url "net/url"
 )

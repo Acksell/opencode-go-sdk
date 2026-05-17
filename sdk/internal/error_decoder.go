@@ -8,7 +8,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/Acksell/opencode-go-sdk/sdk/core"
+	"github.com/acksell/opencode-go-sdk/sdk/core"
 )
 
 // ErrorCodes maps HTTP status codes to error constructors.

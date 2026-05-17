@@ -14,7 +14,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Acksell/opencode-go-sdk/sdk/core"
+	"github.com/acksell/opencode-go-sdk/sdk/core"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

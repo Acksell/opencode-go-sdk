@@ -96,7 +96,7 @@ opencode-go-sdk/
 │   └── trim-opencode-spec.py         allow-list filter + schema pruner
 ├── opencode-spec.json                produced by `make pull` (committed)
 └── sdk/                              ← the generated Go module
-    ├── go.mod                            module github.com/Acksell/opencode-go-sdk/sdk
+    ├── go.mod                            module github.com/acksell/opencode-go-sdk/sdk
     ├── client/, session/, project/,
     │   provider/, permission/, …         one package per resource
     ├── core/, option/, internal/         shared HTTP + request-option plumbing
@@ -133,13 +133,13 @@ The generated Go module lives in `./sdk/` to keep it isolated from the build
 scaffolding at the repo root. So consumers import via the `/sdk` subpath:
 
 ```
-require github.com/Acksell/opencode-go-sdk/sdk <pseudo-version>
+require github.com/acksell/opencode-go-sdk/sdk <pseudo-version>
 ```
 
 ```go
 import (
-    opencodeclient "github.com/Acksell/opencode-go-sdk/sdk/client"
-    "github.com/Acksell/opencode-go-sdk/sdk/session"
+    opencodeclient "github.com/acksell/opencode-go-sdk/sdk/client"
+    "github.com/acksell/opencode-go-sdk/sdk/session"
     // …
 )
 ```
@@ -148,7 +148,7 @@ For a local-checkout dev loop (no GitHub round-trip), add a `replace`
 directive in clank's `go.mod` pointing at this repo's `sdk/` directory:
 
 ```
-replace github.com/Acksell/opencode-go-sdk/sdk => /path/to/opencode-go-sdk/sdk
+replace github.com/acksell/opencode-go-sdk/sdk => /path/to/opencode-go-sdk/sdk
 ```
 
 This mirrors the pattern clank already uses for the Stainless SDK during

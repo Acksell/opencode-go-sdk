@@ -21,5 +21,5 @@ groups:
           path: ../sdk
         config:
           module:
-            path: github.com/Acksell/opencode-go-sdk/sdk
+            path: github.com/acksell/opencode-go-sdk/sdk
           retryStatusCodes: legacy

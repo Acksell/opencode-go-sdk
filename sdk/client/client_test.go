@@ -3,7 +3,7 @@
 package client
 
 import (
-	option "github.com/Acksell/opencode-go-sdk/sdk/option"
+	option "github.com/acksell/opencode-go-sdk/sdk/option"
 	assert "github.com/stretchr/testify/assert"
 	http "net/http"
 	testing "testing"

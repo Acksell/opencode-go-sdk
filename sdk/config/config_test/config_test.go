@@ -10,9 +10,9 @@ import (
 	os "os"
 	testing "testing"
 
-	sdk "github.com/Acksell/opencode-go-sdk/sdk"
-	client "github.com/Acksell/opencode-go-sdk/sdk/client"
-	option "github.com/Acksell/opencode-go-sdk/sdk/option"
+	sdk "github.com/acksell/opencode-go-sdk/sdk"
+	client "github.com/acksell/opencode-go-sdk/sdk/client"
+	option "github.com/acksell/opencode-go-sdk/sdk/option"
 	require "github.com/stretchr/testify/require"
 )
 

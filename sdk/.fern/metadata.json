@@ -4,11 +4,11 @@
   "generatorVersion": "1.41.4",
   "generatorConfig": {
     "module": {
-      "path": "github.com/Acksell/opencode-go-sdk/sdk"
+      "path": "github.com/acksell/opencode-go-sdk/sdk"
     },
     "retryStatusCodes": "legacy"
   },
-  "originGitCommit": "6eff5f0298f70defe460beab81ace9e9f406759a",
+  "originGitCommit": "34b645e32d348244dce592061898deed3369dfc2",
   "originGitCommitIsDirty": true,
   "invokedBy": "manual"
 }

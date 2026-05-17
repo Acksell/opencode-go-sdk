@@ -3,8 +3,8 @@
 package api
 
 import (
-	core "github.com/Acksell/opencode-go-sdk/sdk/core"
-	internal "github.com/Acksell/opencode-go-sdk/sdk/internal"
+	core "github.com/acksell/opencode-go-sdk/sdk/core"
+	internal "github.com/acksell/opencode-go-sdk/sdk/internal"
 )
 
 var ErrorCodes internal.ErrorCodes = internal.ErrorCodes{
