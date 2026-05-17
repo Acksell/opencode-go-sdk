@@ -8,5 +8,7 @@
     },
     "retryStatusCodes": "legacy"
   },
+  "originGitCommit": "6eff5f0298f70defe460beab81ace9e9f406759a",
+  "originGitCommitIsDirty": true,
   "invokedBy": "manual"
 }

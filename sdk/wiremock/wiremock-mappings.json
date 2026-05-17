@@ -98,7 +98,7 @@
       },
       "response": {
         "status": 200,
-        "body": "event: message\ndata: {\"directory\":\"directory\",\"project\":\"project\",\"workspace\":\"workspace\",\"payload\":{\"id\":\"id\",\"type\":\"server.instance.disposed\",\"properties\":{\"directory\":\"directory\"}}}\n",
+        "body": "event: message\ndata: {\"directory\":\"directory\",\"project\":\"project\",\"workspace\":\"workspace\",\"payload\":{\"id\":\"id\",\"properties\":{\"directory\":\"directory\"},\"type\":\"server.instance.disposed\"}}\n",
         "headers": {
           "Content-Type": "text/event-stream"
         }

@@ -11,13 +11,11 @@ import (
 
 var (
 	eventCatalogModelUpdatedFieldID         = big.NewInt(1 << 0)
-	eventCatalogModelUpdatedFieldType       = big.NewInt(1 << 1)
-	eventCatalogModelUpdatedFieldProperties = big.NewInt(1 << 2)
+	eventCatalogModelUpdatedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventCatalogModelUpdated struct {
 	ID         string                              `json:"id" url:"id"`
-	Type       EventCatalogModelUpdatedType        `json:"type" url:"type"`
 	Properties *EventCatalogModelUpdatedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -32,13 +30,6 @@ func (e *EventCatalogModelUpdated) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventCatalogModelUpdated) GetType() EventCatalogModelUpdatedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventCatalogModelUpdated) GetProperties() *EventCatalogModelUpdatedProperties {
@@ -67,13 +58,6 @@ func (e *EventCatalogModelUpdated) require(field *big.Int) {
 func (e *EventCatalogModelUpdated) SetID(id string) {
 	e.ID = id
 	e.require(eventCatalogModelUpdatedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventCatalogModelUpdated) SetType(type_ EventCatalogModelUpdatedType) {
-	e.Type = type_
-	e.require(eventCatalogModelUpdatedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -209,34 +193,13 @@ func (e *EventCatalogModelUpdatedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventCatalogModelUpdatedType string
-
-const (
-	EventCatalogModelUpdatedTypeCatalogModelUpdated EventCatalogModelUpdatedType = "catalog.model.updated"
-)
-
-func NewEventCatalogModelUpdatedTypeFromString(s string) (EventCatalogModelUpdatedType, error) {
-	switch s {
-	case "catalog.model.updated":
-		return EventCatalogModelUpdatedTypeCatalogModelUpdated, nil
-	}
-	var t EventCatalogModelUpdatedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventCatalogModelUpdatedType) Ptr() *EventCatalogModelUpdatedType {
-	return &e
-}
-
 var (
 	eventCommandExecutedFieldID         = big.NewInt(1 << 0)
-	eventCommandExecutedFieldType       = big.NewInt(1 << 1)
-	eventCommandExecutedFieldProperties = big.NewInt(1 << 2)
+	eventCommandExecutedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventCommandExecuted struct {
 	ID         string                          `json:"id" url:"id"`
-	Type       EventCommandExecutedType        `json:"type" url:"type"`
 	Properties *EventCommandExecutedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -251,13 +214,6 @@ func (e *EventCommandExecuted) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventCommandExecuted) GetType() EventCommandExecutedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventCommandExecuted) GetProperties() *EventCommandExecutedProperties {
@@ -286,13 +242,6 @@ func (e *EventCommandExecuted) require(field *big.Int) {
 func (e *EventCommandExecuted) SetID(id string) {
 	e.ID = id
 	e.require(eventCommandExecutedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventCommandExecuted) SetType(type_ EventCommandExecutedType) {
-	e.Type = type_
-	e.require(eventCommandExecutedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -476,34 +425,13 @@ func (e *EventCommandExecutedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventCommandExecutedType string
-
-const (
-	EventCommandExecutedTypeCommandExecuted EventCommandExecutedType = "command.executed"
-)
-
-func NewEventCommandExecutedTypeFromString(s string) (EventCommandExecutedType, error) {
-	switch s {
-	case "command.executed":
-		return EventCommandExecutedTypeCommandExecuted, nil
-	}
-	var t EventCommandExecutedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventCommandExecutedType) Ptr() *EventCommandExecutedType {
-	return &e
-}
-
 var (
 	eventFileEditedFieldID         = big.NewInt(1 << 0)
-	eventFileEditedFieldType       = big.NewInt(1 << 1)
-	eventFileEditedFieldProperties = big.NewInt(1 << 2)
+	eventFileEditedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventFileEdited struct {
 	ID         string                     `json:"id" url:"id"`
-	Type       EventFileEditedType        `json:"type" url:"type"`
 	Properties *EventFileEditedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -518,13 +446,6 @@ func (e *EventFileEdited) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventFileEdited) GetType() EventFileEditedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventFileEdited) GetProperties() *EventFileEditedProperties {
@@ -553,13 +474,6 @@ func (e *EventFileEdited) require(field *big.Int) {
 func (e *EventFileEdited) SetID(id string) {
 	e.ID = id
 	e.require(eventFileEditedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventFileEdited) SetType(type_ EventFileEditedType) {
-	e.Type = type_
-	e.require(eventFileEditedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -695,34 +609,13 @@ func (e *EventFileEditedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventFileEditedType string
-
-const (
-	EventFileEditedTypeFileEdited EventFileEditedType = "file.edited"
-)
-
-func NewEventFileEditedTypeFromString(s string) (EventFileEditedType, error) {
-	switch s {
-	case "file.edited":
-		return EventFileEditedTypeFileEdited, nil
-	}
-	var t EventFileEditedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventFileEditedType) Ptr() *EventFileEditedType {
-	return &e
-}
-
 var (
 	eventFileWatcherUpdatedFieldID         = big.NewInt(1 << 0)
-	eventFileWatcherUpdatedFieldType       = big.NewInt(1 << 1)
-	eventFileWatcherUpdatedFieldProperties = big.NewInt(1 << 2)
+	eventFileWatcherUpdatedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventFileWatcherUpdated struct {
 	ID         string                             `json:"id" url:"id"`
-	Type       EventFileWatcherUpdatedType        `json:"type" url:"type"`
 	Properties *EventFileWatcherUpdatedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -737,13 +630,6 @@ func (e *EventFileWatcherUpdated) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventFileWatcherUpdated) GetType() EventFileWatcherUpdatedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventFileWatcherUpdated) GetProperties() *EventFileWatcherUpdatedProperties {
@@ -772,13 +658,6 @@ func (e *EventFileWatcherUpdated) require(field *big.Int) {
 func (e *EventFileWatcherUpdated) SetID(id string) {
 	e.ID = id
 	e.require(eventFileWatcherUpdatedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventFileWatcherUpdated) SetType(type_ EventFileWatcherUpdatedType) {
-	e.Type = type_
-	e.require(eventFileWatcherUpdatedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -955,34 +834,13 @@ func (e EventFileWatcherUpdatedPropertiesEvent) Ptr() *EventFileWatcherUpdatedPr
 	return &e
 }
 
-type EventFileWatcherUpdatedType string
-
-const (
-	EventFileWatcherUpdatedTypeFileWatcherUpdated EventFileWatcherUpdatedType = "file.watcher.updated"
-)
-
-func NewEventFileWatcherUpdatedTypeFromString(s string) (EventFileWatcherUpdatedType, error) {
-	switch s {
-	case "file.watcher.updated":
-		return EventFileWatcherUpdatedTypeFileWatcherUpdated, nil
-	}
-	var t EventFileWatcherUpdatedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventFileWatcherUpdatedType) Ptr() *EventFileWatcherUpdatedType {
-	return &e
-}
-
 var (
 	eventGlobalDisposedFieldID         = big.NewInt(1 << 0)
-	eventGlobalDisposedFieldType       = big.NewInt(1 << 1)
-	eventGlobalDisposedFieldProperties = big.NewInt(1 << 2)
+	eventGlobalDisposedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventGlobalDisposed struct {
 	ID         string                         `json:"id" url:"id"`
-	Type       EventGlobalDisposedType        `json:"type" url:"type"`
 	Properties *EventGlobalDisposedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -997,13 +855,6 @@ func (e *EventGlobalDisposed) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventGlobalDisposed) GetType() EventGlobalDisposedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventGlobalDisposed) GetProperties() *EventGlobalDisposedProperties {
@@ -1032,13 +883,6 @@ func (e *EventGlobalDisposed) require(field *big.Int) {
 func (e *EventGlobalDisposed) SetID(id string) {
 	e.ID = id
 	e.require(eventGlobalDisposedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventGlobalDisposed) SetType(type_ EventGlobalDisposedType) {
-	e.Type = type_
-	e.require(eventGlobalDisposedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -1155,34 +999,13 @@ func (e *EventGlobalDisposedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventGlobalDisposedType string
-
-const (
-	EventGlobalDisposedTypeGlobalDisposed EventGlobalDisposedType = "global.disposed"
-)
-
-func NewEventGlobalDisposedTypeFromString(s string) (EventGlobalDisposedType, error) {
-	switch s {
-	case "global.disposed":
-		return EventGlobalDisposedTypeGlobalDisposed, nil
-	}
-	var t EventGlobalDisposedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventGlobalDisposedType) Ptr() *EventGlobalDisposedType {
-	return &e
-}
-
 var (
 	eventInstallationUpdateAvailableFieldID         = big.NewInt(1 << 0)
-	eventInstallationUpdateAvailableFieldType       = big.NewInt(1 << 1)
-	eventInstallationUpdateAvailableFieldProperties = big.NewInt(1 << 2)
+	eventInstallationUpdateAvailableFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventInstallationUpdateAvailable struct {
 	ID         string                                      `json:"id" url:"id"`
-	Type       EventInstallationUpdateAvailableType        `json:"type" url:"type"`
 	Properties *EventInstallationUpdateAvailableProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -1197,13 +1020,6 @@ func (e *EventInstallationUpdateAvailable) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventInstallationUpdateAvailable) GetType() EventInstallationUpdateAvailableType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventInstallationUpdateAvailable) GetProperties() *EventInstallationUpdateAvailableProperties {
@@ -1232,13 +1048,6 @@ func (e *EventInstallationUpdateAvailable) require(field *big.Int) {
 func (e *EventInstallationUpdateAvailable) SetID(id string) {
 	e.ID = id
 	e.require(eventInstallationUpdateAvailableFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventInstallationUpdateAvailable) SetType(type_ EventInstallationUpdateAvailableType) {
-	e.Type = type_
-	e.require(eventInstallationUpdateAvailableFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -1374,34 +1183,13 @@ func (e *EventInstallationUpdateAvailableProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventInstallationUpdateAvailableType string
-
-const (
-	EventInstallationUpdateAvailableTypeInstallationUpdateAvailable EventInstallationUpdateAvailableType = "installation.update-available"
-)
-
-func NewEventInstallationUpdateAvailableTypeFromString(s string) (EventInstallationUpdateAvailableType, error) {
-	switch s {
-	case "installation.update-available":
-		return EventInstallationUpdateAvailableTypeInstallationUpdateAvailable, nil
-	}
-	var t EventInstallationUpdateAvailableType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventInstallationUpdateAvailableType) Ptr() *EventInstallationUpdateAvailableType {
-	return &e
-}
-
 var (
 	eventInstallationUpdatedFieldID         = big.NewInt(1 << 0)
-	eventInstallationUpdatedFieldType       = big.NewInt(1 << 1)
-	eventInstallationUpdatedFieldProperties = big.NewInt(1 << 2)
+	eventInstallationUpdatedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventInstallationUpdated struct {
 	ID         string                              `json:"id" url:"id"`
-	Type       EventInstallationUpdatedType        `json:"type" url:"type"`
 	Properties *EventInstallationUpdatedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -1416,13 +1204,6 @@ func (e *EventInstallationUpdated) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventInstallationUpdated) GetType() EventInstallationUpdatedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventInstallationUpdated) GetProperties() *EventInstallationUpdatedProperties {
@@ -1451,13 +1232,6 @@ func (e *EventInstallationUpdated) require(field *big.Int) {
 func (e *EventInstallationUpdated) SetID(id string) {
 	e.ID = id
 	e.require(eventInstallationUpdatedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventInstallationUpdated) SetType(type_ EventInstallationUpdatedType) {
-	e.Type = type_
-	e.require(eventInstallationUpdatedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -1593,34 +1367,13 @@ func (e *EventInstallationUpdatedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventInstallationUpdatedType string
-
-const (
-	EventInstallationUpdatedTypeInstallationUpdated EventInstallationUpdatedType = "installation.updated"
-)
-
-func NewEventInstallationUpdatedTypeFromString(s string) (EventInstallationUpdatedType, error) {
-	switch s {
-	case "installation.updated":
-		return EventInstallationUpdatedTypeInstallationUpdated, nil
-	}
-	var t EventInstallationUpdatedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventInstallationUpdatedType) Ptr() *EventInstallationUpdatedType {
-	return &e
-}
-
 var (
 	eventLspClientDiagnosticsFieldID         = big.NewInt(1 << 0)
-	eventLspClientDiagnosticsFieldType       = big.NewInt(1 << 1)
-	eventLspClientDiagnosticsFieldProperties = big.NewInt(1 << 2)
+	eventLspClientDiagnosticsFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventLspClientDiagnostics struct {
 	ID         string                               `json:"id" url:"id"`
-	Type       EventLspClientDiagnosticsType        `json:"type" url:"type"`
 	Properties *EventLspClientDiagnosticsProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -1635,13 +1388,6 @@ func (e *EventLspClientDiagnostics) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventLspClientDiagnostics) GetType() EventLspClientDiagnosticsType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventLspClientDiagnostics) GetProperties() *EventLspClientDiagnosticsProperties {
@@ -1670,13 +1416,6 @@ func (e *EventLspClientDiagnostics) require(field *big.Int) {
 func (e *EventLspClientDiagnostics) SetID(id string) {
 	e.ID = id
 	e.require(eventLspClientDiagnosticsFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventLspClientDiagnostics) SetType(type_ EventLspClientDiagnosticsType) {
-	e.Type = type_
-	e.require(eventLspClientDiagnosticsFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -1828,34 +1567,13 @@ func (e *EventLspClientDiagnosticsProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventLspClientDiagnosticsType string
-
-const (
-	EventLspClientDiagnosticsTypeLspClientDiagnostics EventLspClientDiagnosticsType = "lsp.client.diagnostics"
-)
-
-func NewEventLspClientDiagnosticsTypeFromString(s string) (EventLspClientDiagnosticsType, error) {
-	switch s {
-	case "lsp.client.diagnostics":
-		return EventLspClientDiagnosticsTypeLspClientDiagnostics, nil
-	}
-	var t EventLspClientDiagnosticsType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventLspClientDiagnosticsType) Ptr() *EventLspClientDiagnosticsType {
-	return &e
-}
-
 var (
 	eventLspUpdatedFieldID         = big.NewInt(1 << 0)
-	eventLspUpdatedFieldType       = big.NewInt(1 << 1)
-	eventLspUpdatedFieldProperties = big.NewInt(1 << 2)
+	eventLspUpdatedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventLspUpdated struct {
 	ID         string                     `json:"id" url:"id"`
-	Type       EventLspUpdatedType        `json:"type" url:"type"`
 	Properties *EventLspUpdatedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -1870,13 +1588,6 @@ func (e *EventLspUpdated) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventLspUpdated) GetType() EventLspUpdatedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventLspUpdated) GetProperties() *EventLspUpdatedProperties {
@@ -1905,13 +1616,6 @@ func (e *EventLspUpdated) require(field *big.Int) {
 func (e *EventLspUpdated) SetID(id string) {
 	e.ID = id
 	e.require(eventLspUpdatedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventLspUpdated) SetType(type_ EventLspUpdatedType) {
-	e.Type = type_
-	e.require(eventLspUpdatedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -2028,34 +1732,13 @@ func (e *EventLspUpdatedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventLspUpdatedType string
-
-const (
-	EventLspUpdatedTypeLspUpdated EventLspUpdatedType = "lsp.updated"
-)
-
-func NewEventLspUpdatedTypeFromString(s string) (EventLspUpdatedType, error) {
-	switch s {
-	case "lsp.updated":
-		return EventLspUpdatedTypeLspUpdated, nil
-	}
-	var t EventLspUpdatedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventLspUpdatedType) Ptr() *EventLspUpdatedType {
-	return &e
-}
-
 var (
 	eventMcpBrowserOpenFailedFieldID         = big.NewInt(1 << 0)
-	eventMcpBrowserOpenFailedFieldType       = big.NewInt(1 << 1)
-	eventMcpBrowserOpenFailedFieldProperties = big.NewInt(1 << 2)
+	eventMcpBrowserOpenFailedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventMcpBrowserOpenFailed struct {
 	ID         string                               `json:"id" url:"id"`
-	Type       EventMcpBrowserOpenFailedType        `json:"type" url:"type"`
 	Properties *EventMcpBrowserOpenFailedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -2070,13 +1753,6 @@ func (e *EventMcpBrowserOpenFailed) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventMcpBrowserOpenFailed) GetType() EventMcpBrowserOpenFailedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventMcpBrowserOpenFailed) GetProperties() *EventMcpBrowserOpenFailedProperties {
@@ -2105,13 +1781,6 @@ func (e *EventMcpBrowserOpenFailed) require(field *big.Int) {
 func (e *EventMcpBrowserOpenFailed) SetID(id string) {
 	e.ID = id
 	e.require(eventMcpBrowserOpenFailedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventMcpBrowserOpenFailed) SetType(type_ EventMcpBrowserOpenFailedType) {
-	e.Type = type_
-	e.require(eventMcpBrowserOpenFailedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -2263,34 +1932,13 @@ func (e *EventMcpBrowserOpenFailedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventMcpBrowserOpenFailedType string
-
-const (
-	EventMcpBrowserOpenFailedTypeMcpBrowserOpenFailed EventMcpBrowserOpenFailedType = "mcp.browser.open.failed"
-)
-
-func NewEventMcpBrowserOpenFailedTypeFromString(s string) (EventMcpBrowserOpenFailedType, error) {
-	switch s {
-	case "mcp.browser.open.failed":
-		return EventMcpBrowserOpenFailedTypeMcpBrowserOpenFailed, nil
-	}
-	var t EventMcpBrowserOpenFailedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventMcpBrowserOpenFailedType) Ptr() *EventMcpBrowserOpenFailedType {
-	return &e
-}
-
 var (
 	eventMcpToolsChangedFieldID         = big.NewInt(1 << 0)
-	eventMcpToolsChangedFieldType       = big.NewInt(1 << 1)
-	eventMcpToolsChangedFieldProperties = big.NewInt(1 << 2)
+	eventMcpToolsChangedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventMcpToolsChanged struct {
 	ID         string                          `json:"id" url:"id"`
-	Type       EventMcpToolsChangedType        `json:"type" url:"type"`
 	Properties *EventMcpToolsChangedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -2305,13 +1953,6 @@ func (e *EventMcpToolsChanged) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventMcpToolsChanged) GetType() EventMcpToolsChangedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventMcpToolsChanged) GetProperties() *EventMcpToolsChangedProperties {
@@ -2340,13 +1981,6 @@ func (e *EventMcpToolsChanged) require(field *big.Int) {
 func (e *EventMcpToolsChanged) SetID(id string) {
 	e.ID = id
 	e.require(eventMcpToolsChangedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventMcpToolsChanged) SetType(type_ EventMcpToolsChangedType) {
-	e.Type = type_
-	e.require(eventMcpToolsChangedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -2482,34 +2116,13 @@ func (e *EventMcpToolsChangedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventMcpToolsChangedType string
-
-const (
-	EventMcpToolsChangedTypeMcpToolsChanged EventMcpToolsChangedType = "mcp.tools.changed"
-)
-
-func NewEventMcpToolsChangedTypeFromString(s string) (EventMcpToolsChangedType, error) {
-	switch s {
-	case "mcp.tools.changed":
-		return EventMcpToolsChangedTypeMcpToolsChanged, nil
-	}
-	var t EventMcpToolsChangedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventMcpToolsChangedType) Ptr() *EventMcpToolsChangedType {
-	return &e
-}
-
 var (
 	eventMessagePartDeltaFieldID         = big.NewInt(1 << 0)
-	eventMessagePartDeltaFieldType       = big.NewInt(1 << 1)
-	eventMessagePartDeltaFieldProperties = big.NewInt(1 << 2)
+	eventMessagePartDeltaFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventMessagePartDelta struct {
 	ID         string                           `json:"id" url:"id"`
-	Type       EventMessagePartDeltaType        `json:"type" url:"type"`
 	Properties *EventMessagePartDeltaProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -2524,13 +2137,6 @@ func (e *EventMessagePartDelta) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventMessagePartDelta) GetType() EventMessagePartDeltaType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventMessagePartDelta) GetProperties() *EventMessagePartDeltaProperties {
@@ -2559,13 +2165,6 @@ func (e *EventMessagePartDelta) require(field *big.Int) {
 func (e *EventMessagePartDelta) SetID(id string) {
 	e.ID = id
 	e.require(eventMessagePartDeltaFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventMessagePartDelta) SetType(type_ EventMessagePartDeltaType) {
-	e.Type = type_
-	e.require(eventMessagePartDeltaFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -2765,34 +2364,13 @@ func (e *EventMessagePartDeltaProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventMessagePartDeltaType string
-
-const (
-	EventMessagePartDeltaTypeMessagePartDelta EventMessagePartDeltaType = "message.part.delta"
-)
-
-func NewEventMessagePartDeltaTypeFromString(s string) (EventMessagePartDeltaType, error) {
-	switch s {
-	case "message.part.delta":
-		return EventMessagePartDeltaTypeMessagePartDelta, nil
-	}
-	var t EventMessagePartDeltaType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventMessagePartDeltaType) Ptr() *EventMessagePartDeltaType {
-	return &e
-}
-
 var (
 	eventMessagePartRemovedFieldID         = big.NewInt(1 << 0)
-	eventMessagePartRemovedFieldType       = big.NewInt(1 << 1)
-	eventMessagePartRemovedFieldProperties = big.NewInt(1 << 2)
+	eventMessagePartRemovedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventMessagePartRemoved struct {
 	ID         string                             `json:"id" url:"id"`
-	Type       EventMessagePartRemovedType        `json:"type" url:"type"`
 	Properties *EventMessagePartRemovedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -2807,13 +2385,6 @@ func (e *EventMessagePartRemoved) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventMessagePartRemoved) GetType() EventMessagePartRemovedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventMessagePartRemoved) GetProperties() *EventMessagePartRemovedProperties {
@@ -2842,13 +2413,6 @@ func (e *EventMessagePartRemoved) require(field *big.Int) {
 func (e *EventMessagePartRemoved) SetID(id string) {
 	e.ID = id
 	e.require(eventMessagePartRemovedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventMessagePartRemoved) SetType(type_ EventMessagePartRemovedType) {
-	e.Type = type_
-	e.require(eventMessagePartRemovedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -3016,34 +2580,13 @@ func (e *EventMessagePartRemovedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventMessagePartRemovedType string
-
-const (
-	EventMessagePartRemovedTypeMessagePartRemoved EventMessagePartRemovedType = "message.part.removed"
-)
-
-func NewEventMessagePartRemovedTypeFromString(s string) (EventMessagePartRemovedType, error) {
-	switch s {
-	case "message.part.removed":
-		return EventMessagePartRemovedTypeMessagePartRemoved, nil
-	}
-	var t EventMessagePartRemovedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventMessagePartRemovedType) Ptr() *EventMessagePartRemovedType {
-	return &e
-}
-
 var (
 	eventMessagePartUpdatedFieldID         = big.NewInt(1 << 0)
-	eventMessagePartUpdatedFieldType       = big.NewInt(1 << 1)
-	eventMessagePartUpdatedFieldProperties = big.NewInt(1 << 2)
+	eventMessagePartUpdatedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventMessagePartUpdated struct {
 	ID         string                             `json:"id" url:"id"`
-	Type       EventMessagePartUpdatedType        `json:"type" url:"type"`
 	Properties *EventMessagePartUpdatedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -3058,13 +2601,6 @@ func (e *EventMessagePartUpdated) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventMessagePartUpdated) GetType() EventMessagePartUpdatedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventMessagePartUpdated) GetProperties() *EventMessagePartUpdatedProperties {
@@ -3093,13 +2629,6 @@ func (e *EventMessagePartUpdated) require(field *big.Int) {
 func (e *EventMessagePartUpdated) SetID(id string) {
 	e.ID = id
 	e.require(eventMessagePartUpdatedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventMessagePartUpdated) SetType(type_ EventMessagePartUpdatedType) {
-	e.Type = type_
-	e.require(eventMessagePartUpdatedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -3267,34 +2796,13 @@ func (e *EventMessagePartUpdatedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventMessagePartUpdatedType string
-
-const (
-	EventMessagePartUpdatedTypeMessagePartUpdated EventMessagePartUpdatedType = "message.part.updated"
-)
-
-func NewEventMessagePartUpdatedTypeFromString(s string) (EventMessagePartUpdatedType, error) {
-	switch s {
-	case "message.part.updated":
-		return EventMessagePartUpdatedTypeMessagePartUpdated, nil
-	}
-	var t EventMessagePartUpdatedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventMessagePartUpdatedType) Ptr() *EventMessagePartUpdatedType {
-	return &e
-}
-
 var (
 	eventMessageRemovedFieldID         = big.NewInt(1 << 0)
-	eventMessageRemovedFieldType       = big.NewInt(1 << 1)
-	eventMessageRemovedFieldProperties = big.NewInt(1 << 2)
+	eventMessageRemovedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventMessageRemoved struct {
 	ID         string                         `json:"id" url:"id"`
-	Type       EventMessageRemovedType        `json:"type" url:"type"`
 	Properties *EventMessageRemovedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -3309,13 +2817,6 @@ func (e *EventMessageRemoved) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventMessageRemoved) GetType() EventMessageRemovedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventMessageRemoved) GetProperties() *EventMessageRemovedProperties {
@@ -3344,13 +2845,6 @@ func (e *EventMessageRemoved) require(field *big.Int) {
 func (e *EventMessageRemoved) SetID(id string) {
 	e.ID = id
 	e.require(eventMessageRemovedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventMessageRemoved) SetType(type_ EventMessageRemovedType) {
-	e.Type = type_
-	e.require(eventMessageRemovedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -3502,34 +2996,13 @@ func (e *EventMessageRemovedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventMessageRemovedType string
-
-const (
-	EventMessageRemovedTypeMessageRemoved EventMessageRemovedType = "message.removed"
-)
-
-func NewEventMessageRemovedTypeFromString(s string) (EventMessageRemovedType, error) {
-	switch s {
-	case "message.removed":
-		return EventMessageRemovedTypeMessageRemoved, nil
-	}
-	var t EventMessageRemovedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventMessageRemovedType) Ptr() *EventMessageRemovedType {
-	return &e
-}
-
 var (
 	eventMessageUpdatedFieldID         = big.NewInt(1 << 0)
-	eventMessageUpdatedFieldType       = big.NewInt(1 << 1)
-	eventMessageUpdatedFieldProperties = big.NewInt(1 << 2)
+	eventMessageUpdatedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventMessageUpdated struct {
 	ID         string                         `json:"id" url:"id"`
-	Type       EventMessageUpdatedType        `json:"type" url:"type"`
 	Properties *EventMessageUpdatedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -3544,13 +3017,6 @@ func (e *EventMessageUpdated) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventMessageUpdated) GetType() EventMessageUpdatedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventMessageUpdated) GetProperties() *EventMessageUpdatedProperties {
@@ -3579,13 +3045,6 @@ func (e *EventMessageUpdated) require(field *big.Int) {
 func (e *EventMessageUpdated) SetID(id string) {
 	e.ID = id
 	e.require(eventMessageUpdatedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventMessageUpdated) SetType(type_ EventMessageUpdatedType) {
-	e.Type = type_
-	e.require(eventMessageUpdatedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -3737,35 +3196,14 @@ func (e *EventMessageUpdatedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventMessageUpdatedType string
-
-const (
-	EventMessageUpdatedTypeMessageUpdated EventMessageUpdatedType = "message.updated"
-)
-
-func NewEventMessageUpdatedTypeFromString(s string) (EventMessageUpdatedType, error) {
-	switch s {
-	case "message.updated":
-		return EventMessageUpdatedTypeMessageUpdated, nil
-	}
-	var t EventMessageUpdatedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventMessageUpdatedType) Ptr() *EventMessageUpdatedType {
-	return &e
-}
-
 var (
 	eventPermissionAskedFieldID         = big.NewInt(1 << 0)
-	eventPermissionAskedFieldType       = big.NewInt(1 << 1)
-	eventPermissionAskedFieldProperties = big.NewInt(1 << 2)
+	eventPermissionAskedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventPermissionAsked struct {
-	ID         string                   `json:"id" url:"id"`
-	Type       EventPermissionAskedType `json:"type" url:"type"`
-	Properties *PermissionRequest       `json:"properties" url:"properties"`
+	ID         string             `json:"id" url:"id"`
+	Properties *PermissionRequest `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -3779,13 +3217,6 @@ func (e *EventPermissionAsked) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventPermissionAsked) GetType() EventPermissionAskedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventPermissionAsked) GetProperties() *PermissionRequest {
@@ -3814,13 +3245,6 @@ func (e *EventPermissionAsked) require(field *big.Int) {
 func (e *EventPermissionAsked) SetID(id string) {
 	e.ID = id
 	e.require(eventPermissionAskedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventPermissionAsked) SetType(type_ EventPermissionAskedType) {
-	e.Type = type_
-	e.require(eventPermissionAskedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -3872,34 +3296,13 @@ func (e *EventPermissionAsked) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventPermissionAskedType string
-
-const (
-	EventPermissionAskedTypePermissionAsked EventPermissionAskedType = "permission.asked"
-)
-
-func NewEventPermissionAskedTypeFromString(s string) (EventPermissionAskedType, error) {
-	switch s {
-	case "permission.asked":
-		return EventPermissionAskedTypePermissionAsked, nil
-	}
-	var t EventPermissionAskedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventPermissionAskedType) Ptr() *EventPermissionAskedType {
-	return &e
-}
-
 var (
 	eventPermissionRepliedFieldID         = big.NewInt(1 << 0)
-	eventPermissionRepliedFieldType       = big.NewInt(1 << 1)
-	eventPermissionRepliedFieldProperties = big.NewInt(1 << 2)
+	eventPermissionRepliedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventPermissionReplied struct {
 	ID         string                            `json:"id" url:"id"`
-	Type       EventPermissionRepliedType        `json:"type" url:"type"`
 	Properties *EventPermissionRepliedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -3914,13 +3317,6 @@ func (e *EventPermissionReplied) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventPermissionReplied) GetType() EventPermissionRepliedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventPermissionReplied) GetProperties() *EventPermissionRepliedProperties {
@@ -3949,13 +3345,6 @@ func (e *EventPermissionReplied) require(field *big.Int) {
 func (e *EventPermissionReplied) SetID(id string) {
 	e.ID = id
 	e.require(eventPermissionRepliedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventPermissionReplied) SetType(type_ EventPermissionRepliedType) {
-	e.Type = type_
-	e.require(eventPermissionRepliedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -4148,35 +3537,14 @@ func (e EventPermissionRepliedPropertiesReply) Ptr() *EventPermissionRepliedProp
 	return &e
 }
 
-type EventPermissionRepliedType string
-
-const (
-	EventPermissionRepliedTypePermissionReplied EventPermissionRepliedType = "permission.replied"
-)
-
-func NewEventPermissionRepliedTypeFromString(s string) (EventPermissionRepliedType, error) {
-	switch s {
-	case "permission.replied":
-		return EventPermissionRepliedTypePermissionReplied, nil
-	}
-	var t EventPermissionRepliedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventPermissionRepliedType) Ptr() *EventPermissionRepliedType {
-	return &e
-}
-
 var (
 	eventProjectUpdatedFieldID         = big.NewInt(1 << 0)
-	eventProjectUpdatedFieldType       = big.NewInt(1 << 1)
-	eventProjectUpdatedFieldProperties = big.NewInt(1 << 2)
+	eventProjectUpdatedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventProjectUpdated struct {
-	ID         string                  `json:"id" url:"id"`
-	Type       EventProjectUpdatedType `json:"type" url:"type"`
-	Properties *Project                `json:"properties" url:"properties"`
+	ID         string   `json:"id" url:"id"`
+	Properties *Project `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -4190,13 +3558,6 @@ func (e *EventProjectUpdated) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventProjectUpdated) GetType() EventProjectUpdatedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventProjectUpdated) GetProperties() *Project {
@@ -4225,13 +3586,6 @@ func (e *EventProjectUpdated) require(field *big.Int) {
 func (e *EventProjectUpdated) SetID(id string) {
 	e.ID = id
 	e.require(eventProjectUpdatedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventProjectUpdated) SetType(type_ EventProjectUpdatedType) {
-	e.Type = type_
-	e.require(eventProjectUpdatedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -4283,34 +3637,13 @@ func (e *EventProjectUpdated) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventProjectUpdatedType string
-
-const (
-	EventProjectUpdatedTypeProjectUpdated EventProjectUpdatedType = "project.updated"
-)
-
-func NewEventProjectUpdatedTypeFromString(s string) (EventProjectUpdatedType, error) {
-	switch s {
-	case "project.updated":
-		return EventProjectUpdatedTypeProjectUpdated, nil
-	}
-	var t EventProjectUpdatedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventProjectUpdatedType) Ptr() *EventProjectUpdatedType {
-	return &e
-}
-
 var (
 	eventPtyCreatedFieldID         = big.NewInt(1 << 0)
-	eventPtyCreatedFieldType       = big.NewInt(1 << 1)
-	eventPtyCreatedFieldProperties = big.NewInt(1 << 2)
+	eventPtyCreatedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventPtyCreated struct {
 	ID         string                     `json:"id" url:"id"`
-	Type       EventPtyCreatedType        `json:"type" url:"type"`
 	Properties *EventPtyCreatedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -4325,13 +3658,6 @@ func (e *EventPtyCreated) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventPtyCreated) GetType() EventPtyCreatedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventPtyCreated) GetProperties() *EventPtyCreatedProperties {
@@ -4360,13 +3686,6 @@ func (e *EventPtyCreated) require(field *big.Int) {
 func (e *EventPtyCreated) SetID(id string) {
 	e.ID = id
 	e.require(eventPtyCreatedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventPtyCreated) SetType(type_ EventPtyCreatedType) {
-	e.Type = type_
-	e.require(eventPtyCreatedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -4502,34 +3821,13 @@ func (e *EventPtyCreatedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventPtyCreatedType string
-
-const (
-	EventPtyCreatedTypePtyCreated EventPtyCreatedType = "pty.created"
-)
-
-func NewEventPtyCreatedTypeFromString(s string) (EventPtyCreatedType, error) {
-	switch s {
-	case "pty.created":
-		return EventPtyCreatedTypePtyCreated, nil
-	}
-	var t EventPtyCreatedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventPtyCreatedType) Ptr() *EventPtyCreatedType {
-	return &e
-}
-
 var (
 	eventPtyDeletedFieldID         = big.NewInt(1 << 0)
-	eventPtyDeletedFieldType       = big.NewInt(1 << 1)
-	eventPtyDeletedFieldProperties = big.NewInt(1 << 2)
+	eventPtyDeletedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventPtyDeleted struct {
 	ID         string                     `json:"id" url:"id"`
-	Type       EventPtyDeletedType        `json:"type" url:"type"`
 	Properties *EventPtyDeletedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -4544,13 +3842,6 @@ func (e *EventPtyDeleted) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventPtyDeleted) GetType() EventPtyDeletedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventPtyDeleted) GetProperties() *EventPtyDeletedProperties {
@@ -4579,13 +3870,6 @@ func (e *EventPtyDeleted) require(field *big.Int) {
 func (e *EventPtyDeleted) SetID(id string) {
 	e.ID = id
 	e.require(eventPtyDeletedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventPtyDeleted) SetType(type_ EventPtyDeletedType) {
-	e.Type = type_
-	e.require(eventPtyDeletedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -4721,34 +4005,13 @@ func (e *EventPtyDeletedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventPtyDeletedType string
-
-const (
-	EventPtyDeletedTypePtyDeleted EventPtyDeletedType = "pty.deleted"
-)
-
-func NewEventPtyDeletedTypeFromString(s string) (EventPtyDeletedType, error) {
-	switch s {
-	case "pty.deleted":
-		return EventPtyDeletedTypePtyDeleted, nil
-	}
-	var t EventPtyDeletedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventPtyDeletedType) Ptr() *EventPtyDeletedType {
-	return &e
-}
-
 var (
 	eventPtyExitedFieldID         = big.NewInt(1 << 0)
-	eventPtyExitedFieldType       = big.NewInt(1 << 1)
-	eventPtyExitedFieldProperties = big.NewInt(1 << 2)
+	eventPtyExitedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventPtyExited struct {
 	ID         string                    `json:"id" url:"id"`
-	Type       EventPtyExitedType        `json:"type" url:"type"`
 	Properties *EventPtyExitedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -4763,13 +4026,6 @@ func (e *EventPtyExited) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventPtyExited) GetType() EventPtyExitedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventPtyExited) GetProperties() *EventPtyExitedProperties {
@@ -4798,13 +4054,6 @@ func (e *EventPtyExited) require(field *big.Int) {
 func (e *EventPtyExited) SetID(id string) {
 	e.ID = id
 	e.require(eventPtyExitedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventPtyExited) SetType(type_ EventPtyExitedType) {
-	e.Type = type_
-	e.require(eventPtyExitedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -4956,34 +4205,13 @@ func (e *EventPtyExitedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventPtyExitedType string
-
-const (
-	EventPtyExitedTypePtyExited EventPtyExitedType = "pty.exited"
-)
-
-func NewEventPtyExitedTypeFromString(s string) (EventPtyExitedType, error) {
-	switch s {
-	case "pty.exited":
-		return EventPtyExitedTypePtyExited, nil
-	}
-	var t EventPtyExitedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventPtyExitedType) Ptr() *EventPtyExitedType {
-	return &e
-}
-
 var (
 	eventPtyUpdatedFieldID         = big.NewInt(1 << 0)
-	eventPtyUpdatedFieldType       = big.NewInt(1 << 1)
-	eventPtyUpdatedFieldProperties = big.NewInt(1 << 2)
+	eventPtyUpdatedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventPtyUpdated struct {
 	ID         string                     `json:"id" url:"id"`
-	Type       EventPtyUpdatedType        `json:"type" url:"type"`
 	Properties *EventPtyUpdatedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -4998,13 +4226,6 @@ func (e *EventPtyUpdated) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventPtyUpdated) GetType() EventPtyUpdatedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventPtyUpdated) GetProperties() *EventPtyUpdatedProperties {
@@ -5033,13 +4254,6 @@ func (e *EventPtyUpdated) require(field *big.Int) {
 func (e *EventPtyUpdated) SetID(id string) {
 	e.ID = id
 	e.require(eventPtyUpdatedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventPtyUpdated) SetType(type_ EventPtyUpdatedType) {
-	e.Type = type_
-	e.require(eventPtyUpdatedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -5175,35 +4389,14 @@ func (e *EventPtyUpdatedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventPtyUpdatedType string
-
-const (
-	EventPtyUpdatedTypePtyUpdated EventPtyUpdatedType = "pty.updated"
-)
-
-func NewEventPtyUpdatedTypeFromString(s string) (EventPtyUpdatedType, error) {
-	switch s {
-	case "pty.updated":
-		return EventPtyUpdatedTypePtyUpdated, nil
-	}
-	var t EventPtyUpdatedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventPtyUpdatedType) Ptr() *EventPtyUpdatedType {
-	return &e
-}
-
 var (
 	eventQuestionAskedFieldID         = big.NewInt(1 << 0)
-	eventQuestionAskedFieldType       = big.NewInt(1 << 1)
-	eventQuestionAskedFieldProperties = big.NewInt(1 << 2)
+	eventQuestionAskedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventQuestionAsked struct {
-	ID         string                 `json:"id" url:"id"`
-	Type       EventQuestionAskedType `json:"type" url:"type"`
-	Properties *QuestionRequest       `json:"properties" url:"properties"`
+	ID         string           `json:"id" url:"id"`
+	Properties *QuestionRequest `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -5217,13 +4410,6 @@ func (e *EventQuestionAsked) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventQuestionAsked) GetType() EventQuestionAskedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventQuestionAsked) GetProperties() *QuestionRequest {
@@ -5252,13 +4438,6 @@ func (e *EventQuestionAsked) require(field *big.Int) {
 func (e *EventQuestionAsked) SetID(id string) {
 	e.ID = id
 	e.require(eventQuestionAskedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventQuestionAsked) SetType(type_ EventQuestionAskedType) {
-	e.Type = type_
-	e.require(eventQuestionAskedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -5310,35 +4489,14 @@ func (e *EventQuestionAsked) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventQuestionAskedType string
-
-const (
-	EventQuestionAskedTypeQuestionAsked EventQuestionAskedType = "question.asked"
-)
-
-func NewEventQuestionAskedTypeFromString(s string) (EventQuestionAskedType, error) {
-	switch s {
-	case "question.asked":
-		return EventQuestionAskedTypeQuestionAsked, nil
-	}
-	var t EventQuestionAskedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventQuestionAskedType) Ptr() *EventQuestionAskedType {
-	return &e
-}
-
 var (
 	eventQuestionRejectedFieldID         = big.NewInt(1 << 0)
-	eventQuestionRejectedFieldType       = big.NewInt(1 << 1)
-	eventQuestionRejectedFieldProperties = big.NewInt(1 << 2)
+	eventQuestionRejectedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventQuestionRejected struct {
-	ID         string                    `json:"id" url:"id"`
-	Type       EventQuestionRejectedType `json:"type" url:"type"`
-	Properties *QuestionRejected         `json:"properties" url:"properties"`
+	ID         string            `json:"id" url:"id"`
+	Properties *QuestionRejected `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -5352,13 +4510,6 @@ func (e *EventQuestionRejected) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventQuestionRejected) GetType() EventQuestionRejectedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventQuestionRejected) GetProperties() *QuestionRejected {
@@ -5387,13 +4538,6 @@ func (e *EventQuestionRejected) require(field *big.Int) {
 func (e *EventQuestionRejected) SetID(id string) {
 	e.ID = id
 	e.require(eventQuestionRejectedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventQuestionRejected) SetType(type_ EventQuestionRejectedType) {
-	e.Type = type_
-	e.require(eventQuestionRejectedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -5445,35 +4589,14 @@ func (e *EventQuestionRejected) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventQuestionRejectedType string
-
-const (
-	EventQuestionRejectedTypeQuestionRejected EventQuestionRejectedType = "question.rejected"
-)
-
-func NewEventQuestionRejectedTypeFromString(s string) (EventQuestionRejectedType, error) {
-	switch s {
-	case "question.rejected":
-		return EventQuestionRejectedTypeQuestionRejected, nil
-	}
-	var t EventQuestionRejectedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventQuestionRejectedType) Ptr() *EventQuestionRejectedType {
-	return &e
-}
-
 var (
 	eventQuestionRepliedFieldID         = big.NewInt(1 << 0)
-	eventQuestionRepliedFieldType       = big.NewInt(1 << 1)
-	eventQuestionRepliedFieldProperties = big.NewInt(1 << 2)
+	eventQuestionRepliedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventQuestionReplied struct {
-	ID         string                   `json:"id" url:"id"`
-	Type       EventQuestionRepliedType `json:"type" url:"type"`
-	Properties *QuestionReplied         `json:"properties" url:"properties"`
+	ID         string           `json:"id" url:"id"`
+	Properties *QuestionReplied `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -5487,13 +4610,6 @@ func (e *EventQuestionReplied) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventQuestionReplied) GetType() EventQuestionRepliedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventQuestionReplied) GetProperties() *QuestionReplied {
@@ -5522,13 +4638,6 @@ func (e *EventQuestionReplied) require(field *big.Int) {
 func (e *EventQuestionReplied) SetID(id string) {
 	e.ID = id
 	e.require(eventQuestionRepliedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventQuestionReplied) SetType(type_ EventQuestionRepliedType) {
-	e.Type = type_
-	e.require(eventQuestionRepliedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -5580,34 +4689,13 @@ func (e *EventQuestionReplied) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventQuestionRepliedType string
-
-const (
-	EventQuestionRepliedTypeQuestionReplied EventQuestionRepliedType = "question.replied"
-)
-
-func NewEventQuestionRepliedTypeFromString(s string) (EventQuestionRepliedType, error) {
-	switch s {
-	case "question.replied":
-		return EventQuestionRepliedTypeQuestionReplied, nil
-	}
-	var t EventQuestionRepliedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventQuestionRepliedType) Ptr() *EventQuestionRepliedType {
-	return &e
-}
-
 var (
 	eventServerConnectedFieldID         = big.NewInt(1 << 0)
-	eventServerConnectedFieldType       = big.NewInt(1 << 1)
-	eventServerConnectedFieldProperties = big.NewInt(1 << 2)
+	eventServerConnectedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventServerConnected struct {
 	ID         string                          `json:"id" url:"id"`
-	Type       EventServerConnectedType        `json:"type" url:"type"`
 	Properties *EventServerConnectedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -5622,13 +4710,6 @@ func (e *EventServerConnected) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventServerConnected) GetType() EventServerConnectedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventServerConnected) GetProperties() *EventServerConnectedProperties {
@@ -5657,13 +4738,6 @@ func (e *EventServerConnected) require(field *big.Int) {
 func (e *EventServerConnected) SetID(id string) {
 	e.ID = id
 	e.require(eventServerConnectedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventServerConnected) SetType(type_ EventServerConnectedType) {
-	e.Type = type_
-	e.require(eventServerConnectedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -5780,34 +4854,13 @@ func (e *EventServerConnectedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventServerConnectedType string
-
-const (
-	EventServerConnectedTypeServerConnected EventServerConnectedType = "server.connected"
-)
-
-func NewEventServerConnectedTypeFromString(s string) (EventServerConnectedType, error) {
-	switch s {
-	case "server.connected":
-		return EventServerConnectedTypeServerConnected, nil
-	}
-	var t EventServerConnectedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventServerConnectedType) Ptr() *EventServerConnectedType {
-	return &e
-}
-
 var (
 	eventServerInstanceDisposedFieldID         = big.NewInt(1 << 0)
-	eventServerInstanceDisposedFieldType       = big.NewInt(1 << 1)
-	eventServerInstanceDisposedFieldProperties = big.NewInt(1 << 2)
+	eventServerInstanceDisposedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventServerInstanceDisposed struct {
 	ID         string                                 `json:"id" url:"id"`
-	Type       EventServerInstanceDisposedType        `json:"type" url:"type"`
 	Properties *EventServerInstanceDisposedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -5822,13 +4875,6 @@ func (e *EventServerInstanceDisposed) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventServerInstanceDisposed) GetType() EventServerInstanceDisposedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventServerInstanceDisposed) GetProperties() *EventServerInstanceDisposedProperties {
@@ -5857,13 +4903,6 @@ func (e *EventServerInstanceDisposed) require(field *big.Int) {
 func (e *EventServerInstanceDisposed) SetID(id string) {
 	e.ID = id
 	e.require(eventServerInstanceDisposedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventServerInstanceDisposed) SetType(type_ EventServerInstanceDisposedType) {
-	e.Type = type_
-	e.require(eventServerInstanceDisposedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -5999,34 +5038,13 @@ func (e *EventServerInstanceDisposedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventServerInstanceDisposedType string
-
-const (
-	EventServerInstanceDisposedTypeServerInstanceDisposed EventServerInstanceDisposedType = "server.instance.disposed"
-)
-
-func NewEventServerInstanceDisposedTypeFromString(s string) (EventServerInstanceDisposedType, error) {
-	switch s {
-	case "server.instance.disposed":
-		return EventServerInstanceDisposedTypeServerInstanceDisposed, nil
-	}
-	var t EventServerInstanceDisposedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventServerInstanceDisposedType) Ptr() *EventServerInstanceDisposedType {
-	return &e
-}
-
 var (
 	eventSessionCompactedFieldID         = big.NewInt(1 << 0)
-	eventSessionCompactedFieldType       = big.NewInt(1 << 1)
-	eventSessionCompactedFieldProperties = big.NewInt(1 << 2)
+	eventSessionCompactedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionCompacted struct {
 	ID         string                           `json:"id" url:"id"`
-	Type       EventSessionCompactedType        `json:"type" url:"type"`
 	Properties *EventSessionCompactedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -6041,13 +5059,6 @@ func (e *EventSessionCompacted) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionCompacted) GetType() EventSessionCompactedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionCompacted) GetProperties() *EventSessionCompactedProperties {
@@ -6076,13 +5087,6 @@ func (e *EventSessionCompacted) require(field *big.Int) {
 func (e *EventSessionCompacted) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionCompactedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionCompacted) SetType(type_ EventSessionCompactedType) {
-	e.Type = type_
-	e.require(eventSessionCompactedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -6218,34 +5222,13 @@ func (e *EventSessionCompactedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionCompactedType string
-
-const (
-	EventSessionCompactedTypeSessionCompacted EventSessionCompactedType = "session.compacted"
-)
-
-func NewEventSessionCompactedTypeFromString(s string) (EventSessionCompactedType, error) {
-	switch s {
-	case "session.compacted":
-		return EventSessionCompactedTypeSessionCompacted, nil
-	}
-	var t EventSessionCompactedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionCompactedType) Ptr() *EventSessionCompactedType {
-	return &e
-}
-
 var (
 	eventSessionCreatedFieldID         = big.NewInt(1 << 0)
-	eventSessionCreatedFieldType       = big.NewInt(1 << 1)
-	eventSessionCreatedFieldProperties = big.NewInt(1 << 2)
+	eventSessionCreatedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionCreated struct {
 	ID         string                         `json:"id" url:"id"`
-	Type       EventSessionCreatedType        `json:"type" url:"type"`
 	Properties *EventSessionCreatedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -6260,13 +5243,6 @@ func (e *EventSessionCreated) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionCreated) GetType() EventSessionCreatedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionCreated) GetProperties() *EventSessionCreatedProperties {
@@ -6295,13 +5271,6 @@ func (e *EventSessionCreated) require(field *big.Int) {
 func (e *EventSessionCreated) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionCreatedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionCreated) SetType(type_ EventSessionCreatedType) {
-	e.Type = type_
-	e.require(eventSessionCreatedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -6453,34 +5422,13 @@ func (e *EventSessionCreatedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionCreatedType string
-
-const (
-	EventSessionCreatedTypeSessionCreated EventSessionCreatedType = "session.created"
-)
-
-func NewEventSessionCreatedTypeFromString(s string) (EventSessionCreatedType, error) {
-	switch s {
-	case "session.created":
-		return EventSessionCreatedTypeSessionCreated, nil
-	}
-	var t EventSessionCreatedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionCreatedType) Ptr() *EventSessionCreatedType {
-	return &e
-}
-
 var (
 	eventSessionDeletedFieldID         = big.NewInt(1 << 0)
-	eventSessionDeletedFieldType       = big.NewInt(1 << 1)
-	eventSessionDeletedFieldProperties = big.NewInt(1 << 2)
+	eventSessionDeletedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionDeleted struct {
 	ID         string                         `json:"id" url:"id"`
-	Type       EventSessionDeletedType        `json:"type" url:"type"`
 	Properties *EventSessionDeletedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -6495,13 +5443,6 @@ func (e *EventSessionDeleted) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionDeleted) GetType() EventSessionDeletedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionDeleted) GetProperties() *EventSessionDeletedProperties {
@@ -6530,13 +5471,6 @@ func (e *EventSessionDeleted) require(field *big.Int) {
 func (e *EventSessionDeleted) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionDeletedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionDeleted) SetType(type_ EventSessionDeletedType) {
-	e.Type = type_
-	e.require(eventSessionDeletedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -6688,34 +5622,13 @@ func (e *EventSessionDeletedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionDeletedType string
-
-const (
-	EventSessionDeletedTypeSessionDeleted EventSessionDeletedType = "session.deleted"
-)
-
-func NewEventSessionDeletedTypeFromString(s string) (EventSessionDeletedType, error) {
-	switch s {
-	case "session.deleted":
-		return EventSessionDeletedTypeSessionDeleted, nil
-	}
-	var t EventSessionDeletedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionDeletedType) Ptr() *EventSessionDeletedType {
-	return &e
-}
-
 var (
 	eventSessionDiffFieldID         = big.NewInt(1 << 0)
-	eventSessionDiffFieldType       = big.NewInt(1 << 1)
-	eventSessionDiffFieldProperties = big.NewInt(1 << 2)
+	eventSessionDiffFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionDiff struct {
 	ID         string                      `json:"id" url:"id"`
-	Type       EventSessionDiffType        `json:"type" url:"type"`
 	Properties *EventSessionDiffProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -6730,13 +5643,6 @@ func (e *EventSessionDiff) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionDiff) GetType() EventSessionDiffType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionDiff) GetProperties() *EventSessionDiffProperties {
@@ -6765,13 +5671,6 @@ func (e *EventSessionDiff) require(field *big.Int) {
 func (e *EventSessionDiff) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionDiffFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionDiff) SetType(type_ EventSessionDiffType) {
-	e.Type = type_
-	e.require(eventSessionDiffFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -6923,34 +5822,13 @@ func (e *EventSessionDiffProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionDiffType string
-
-const (
-	EventSessionDiffTypeSessionDiff EventSessionDiffType = "session.diff"
-)
-
-func NewEventSessionDiffTypeFromString(s string) (EventSessionDiffType, error) {
-	switch s {
-	case "session.diff":
-		return EventSessionDiffTypeSessionDiff, nil
-	}
-	var t EventSessionDiffType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionDiffType) Ptr() *EventSessionDiffType {
-	return &e
-}
-
 var (
 	eventSessionErrorFieldID         = big.NewInt(1 << 0)
-	eventSessionErrorFieldType       = big.NewInt(1 << 1)
-	eventSessionErrorFieldProperties = big.NewInt(1 << 2)
+	eventSessionErrorFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionError struct {
 	ID         string                       `json:"id" url:"id"`
-	Type       EventSessionErrorType        `json:"type" url:"type"`
 	Properties *EventSessionErrorProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -6965,13 +5843,6 @@ func (e *EventSessionError) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionError) GetType() EventSessionErrorType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionError) GetProperties() *EventSessionErrorProperties {
@@ -7000,13 +5871,6 @@ func (e *EventSessionError) require(field *big.Int) {
 func (e *EventSessionError) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionErrorFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionError) SetType(type_ EventSessionErrorType) {
-	e.Type = type_
-	e.require(eventSessionErrorFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -7395,34 +6259,13 @@ func (e *EventSessionErrorPropertiesError) validate() error {
 	return nil
 }
 
-type EventSessionErrorType string
-
-const (
-	EventSessionErrorTypeSessionError EventSessionErrorType = "session.error"
-)
-
-func NewEventSessionErrorTypeFromString(s string) (EventSessionErrorType, error) {
-	switch s {
-	case "session.error":
-		return EventSessionErrorTypeSessionError, nil
-	}
-	var t EventSessionErrorType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionErrorType) Ptr() *EventSessionErrorType {
-	return &e
-}
-
 var (
 	eventSessionIdleFieldID         = big.NewInt(1 << 0)
-	eventSessionIdleFieldType       = big.NewInt(1 << 1)
-	eventSessionIdleFieldProperties = big.NewInt(1 << 2)
+	eventSessionIdleFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionIdle struct {
 	ID         string                      `json:"id" url:"id"`
-	Type       EventSessionIdleType        `json:"type" url:"type"`
 	Properties *EventSessionIdleProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -7437,13 +6280,6 @@ func (e *EventSessionIdle) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionIdle) GetType() EventSessionIdleType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionIdle) GetProperties() *EventSessionIdleProperties {
@@ -7472,13 +6308,6 @@ func (e *EventSessionIdle) require(field *big.Int) {
 func (e *EventSessionIdle) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionIdleFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionIdle) SetType(type_ EventSessionIdleType) {
-	e.Type = type_
-	e.require(eventSessionIdleFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -7614,34 +6443,13 @@ func (e *EventSessionIdleProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionIdleType string
-
-const (
-	EventSessionIdleTypeSessionIdle EventSessionIdleType = "session.idle"
-)
-
-func NewEventSessionIdleTypeFromString(s string) (EventSessionIdleType, error) {
-	switch s {
-	case "session.idle":
-		return EventSessionIdleTypeSessionIdle, nil
-	}
-	var t EventSessionIdleType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionIdleType) Ptr() *EventSessionIdleType {
-	return &e
-}
-
 var (
 	eventSessionNextAgentSwitchedFieldID         = big.NewInt(1 << 0)
-	eventSessionNextAgentSwitchedFieldType       = big.NewInt(1 << 1)
-	eventSessionNextAgentSwitchedFieldProperties = big.NewInt(1 << 2)
+	eventSessionNextAgentSwitchedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionNextAgentSwitched struct {
 	ID         string                                   `json:"id" url:"id"`
-	Type       EventSessionNextAgentSwitchedType        `json:"type" url:"type"`
 	Properties *EventSessionNextAgentSwitchedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -7656,13 +6464,6 @@ func (e *EventSessionNextAgentSwitched) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionNextAgentSwitched) GetType() EventSessionNextAgentSwitchedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionNextAgentSwitched) GetProperties() *EventSessionNextAgentSwitchedProperties {
@@ -7691,13 +6492,6 @@ func (e *EventSessionNextAgentSwitched) require(field *big.Int) {
 func (e *EventSessionNextAgentSwitched) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionNextAgentSwitchedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionNextAgentSwitched) SetType(type_ EventSessionNextAgentSwitchedType) {
-	e.Type = type_
-	e.require(eventSessionNextAgentSwitchedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -7865,34 +6659,13 @@ func (e *EventSessionNextAgentSwitchedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionNextAgentSwitchedType string
-
-const (
-	EventSessionNextAgentSwitchedTypeSessionNextAgentSwitched EventSessionNextAgentSwitchedType = "session.next.agent.switched"
-)
-
-func NewEventSessionNextAgentSwitchedTypeFromString(s string) (EventSessionNextAgentSwitchedType, error) {
-	switch s {
-	case "session.next.agent.switched":
-		return EventSessionNextAgentSwitchedTypeSessionNextAgentSwitched, nil
-	}
-	var t EventSessionNextAgentSwitchedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionNextAgentSwitchedType) Ptr() *EventSessionNextAgentSwitchedType {
-	return &e
-}
-
 var (
 	eventSessionNextCompactionDeltaFieldID         = big.NewInt(1 << 0)
-	eventSessionNextCompactionDeltaFieldType       = big.NewInt(1 << 1)
-	eventSessionNextCompactionDeltaFieldProperties = big.NewInt(1 << 2)
+	eventSessionNextCompactionDeltaFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionNextCompactionDelta struct {
 	ID         string                                     `json:"id" url:"id"`
-	Type       EventSessionNextCompactionDeltaType        `json:"type" url:"type"`
 	Properties *EventSessionNextCompactionDeltaProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -7907,13 +6680,6 @@ func (e *EventSessionNextCompactionDelta) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionNextCompactionDelta) GetType() EventSessionNextCompactionDeltaType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionNextCompactionDelta) GetProperties() *EventSessionNextCompactionDeltaProperties {
@@ -7942,13 +6708,6 @@ func (e *EventSessionNextCompactionDelta) require(field *big.Int) {
 func (e *EventSessionNextCompactionDelta) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionNextCompactionDeltaFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionNextCompactionDelta) SetType(type_ EventSessionNextCompactionDeltaType) {
-	e.Type = type_
-	e.require(eventSessionNextCompactionDeltaFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -8116,34 +6875,13 @@ func (e *EventSessionNextCompactionDeltaProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionNextCompactionDeltaType string
-
-const (
-	EventSessionNextCompactionDeltaTypeSessionNextCompactionDelta EventSessionNextCompactionDeltaType = "session.next.compaction.delta"
-)
-
-func NewEventSessionNextCompactionDeltaTypeFromString(s string) (EventSessionNextCompactionDeltaType, error) {
-	switch s {
-	case "session.next.compaction.delta":
-		return EventSessionNextCompactionDeltaTypeSessionNextCompactionDelta, nil
-	}
-	var t EventSessionNextCompactionDeltaType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionNextCompactionDeltaType) Ptr() *EventSessionNextCompactionDeltaType {
-	return &e
-}
-
 var (
 	eventSessionNextCompactionEndedFieldID         = big.NewInt(1 << 0)
-	eventSessionNextCompactionEndedFieldType       = big.NewInt(1 << 1)
-	eventSessionNextCompactionEndedFieldProperties = big.NewInt(1 << 2)
+	eventSessionNextCompactionEndedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionNextCompactionEnded struct {
 	ID         string                                     `json:"id" url:"id"`
-	Type       EventSessionNextCompactionEndedType        `json:"type" url:"type"`
 	Properties *EventSessionNextCompactionEndedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -8158,13 +6896,6 @@ func (e *EventSessionNextCompactionEnded) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionNextCompactionEnded) GetType() EventSessionNextCompactionEndedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionNextCompactionEnded) GetProperties() *EventSessionNextCompactionEndedProperties {
@@ -8193,13 +6924,6 @@ func (e *EventSessionNextCompactionEnded) require(field *big.Int) {
 func (e *EventSessionNextCompactionEnded) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionNextCompactionEndedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionNextCompactionEnded) SetType(type_ EventSessionNextCompactionEndedType) {
-	e.Type = type_
-	e.require(eventSessionNextCompactionEndedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -8383,34 +7107,13 @@ func (e *EventSessionNextCompactionEndedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionNextCompactionEndedType string
-
-const (
-	EventSessionNextCompactionEndedTypeSessionNextCompactionEnded EventSessionNextCompactionEndedType = "session.next.compaction.ended"
-)
-
-func NewEventSessionNextCompactionEndedTypeFromString(s string) (EventSessionNextCompactionEndedType, error) {
-	switch s {
-	case "session.next.compaction.ended":
-		return EventSessionNextCompactionEndedTypeSessionNextCompactionEnded, nil
-	}
-	var t EventSessionNextCompactionEndedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionNextCompactionEndedType) Ptr() *EventSessionNextCompactionEndedType {
-	return &e
-}
-
 var (
 	eventSessionNextCompactionStartedFieldID         = big.NewInt(1 << 0)
-	eventSessionNextCompactionStartedFieldType       = big.NewInt(1 << 1)
-	eventSessionNextCompactionStartedFieldProperties = big.NewInt(1 << 2)
+	eventSessionNextCompactionStartedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionNextCompactionStarted struct {
 	ID         string                                       `json:"id" url:"id"`
-	Type       EventSessionNextCompactionStartedType        `json:"type" url:"type"`
 	Properties *EventSessionNextCompactionStartedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -8425,13 +7128,6 @@ func (e *EventSessionNextCompactionStarted) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionNextCompactionStarted) GetType() EventSessionNextCompactionStartedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionNextCompactionStarted) GetProperties() *EventSessionNextCompactionStartedProperties {
@@ -8460,13 +7156,6 @@ func (e *EventSessionNextCompactionStarted) require(field *big.Int) {
 func (e *EventSessionNextCompactionStarted) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionNextCompactionStartedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionNextCompactionStarted) SetType(type_ EventSessionNextCompactionStartedType) {
-	e.Type = type_
-	e.require(eventSessionNextCompactionStartedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -8656,34 +7345,13 @@ func (e EventSessionNextCompactionStartedPropertiesReason) Ptr() *EventSessionNe
 	return &e
 }
 
-type EventSessionNextCompactionStartedType string
-
-const (
-	EventSessionNextCompactionStartedTypeSessionNextCompactionStarted EventSessionNextCompactionStartedType = "session.next.compaction.started"
-)
-
-func NewEventSessionNextCompactionStartedTypeFromString(s string) (EventSessionNextCompactionStartedType, error) {
-	switch s {
-	case "session.next.compaction.started":
-		return EventSessionNextCompactionStartedTypeSessionNextCompactionStarted, nil
-	}
-	var t EventSessionNextCompactionStartedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionNextCompactionStartedType) Ptr() *EventSessionNextCompactionStartedType {
-	return &e
-}
-
 var (
 	eventSessionNextModelSwitchedFieldID         = big.NewInt(1 << 0)
-	eventSessionNextModelSwitchedFieldType       = big.NewInt(1 << 1)
-	eventSessionNextModelSwitchedFieldProperties = big.NewInt(1 << 2)
+	eventSessionNextModelSwitchedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionNextModelSwitched struct {
 	ID         string                                   `json:"id" url:"id"`
-	Type       EventSessionNextModelSwitchedType        `json:"type" url:"type"`
 	Properties *EventSessionNextModelSwitchedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -8698,13 +7366,6 @@ func (e *EventSessionNextModelSwitched) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionNextModelSwitched) GetType() EventSessionNextModelSwitchedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionNextModelSwitched) GetProperties() *EventSessionNextModelSwitchedProperties {
@@ -8733,13 +7394,6 @@ func (e *EventSessionNextModelSwitched) require(field *big.Int) {
 func (e *EventSessionNextModelSwitched) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionNextModelSwitchedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionNextModelSwitched) SetType(type_ EventSessionNextModelSwitchedType) {
-	e.Type = type_
-	e.require(eventSessionNextModelSwitchedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -9023,34 +7677,13 @@ func (e *EventSessionNextModelSwitchedPropertiesModel) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionNextModelSwitchedType string
-
-const (
-	EventSessionNextModelSwitchedTypeSessionNextModelSwitched EventSessionNextModelSwitchedType = "session.next.model.switched"
-)
-
-func NewEventSessionNextModelSwitchedTypeFromString(s string) (EventSessionNextModelSwitchedType, error) {
-	switch s {
-	case "session.next.model.switched":
-		return EventSessionNextModelSwitchedTypeSessionNextModelSwitched, nil
-	}
-	var t EventSessionNextModelSwitchedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionNextModelSwitchedType) Ptr() *EventSessionNextModelSwitchedType {
-	return &e
-}
-
 var (
 	eventSessionNextPromptedFieldID         = big.NewInt(1 << 0)
-	eventSessionNextPromptedFieldType       = big.NewInt(1 << 1)
-	eventSessionNextPromptedFieldProperties = big.NewInt(1 << 2)
+	eventSessionNextPromptedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionNextPrompted struct {
 	ID         string                              `json:"id" url:"id"`
-	Type       EventSessionNextPromptedType        `json:"type" url:"type"`
 	Properties *EventSessionNextPromptedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -9065,13 +7698,6 @@ func (e *EventSessionNextPrompted) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionNextPrompted) GetType() EventSessionNextPromptedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionNextPrompted) GetProperties() *EventSessionNextPromptedProperties {
@@ -9100,13 +7726,6 @@ func (e *EventSessionNextPrompted) require(field *big.Int) {
 func (e *EventSessionNextPrompted) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionNextPromptedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionNextPrompted) SetType(type_ EventSessionNextPromptedType) {
-	e.Type = type_
-	e.require(eventSessionNextPromptedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -9274,34 +7893,13 @@ func (e *EventSessionNextPromptedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionNextPromptedType string
-
-const (
-	EventSessionNextPromptedTypeSessionNextPrompted EventSessionNextPromptedType = "session.next.prompted"
-)
-
-func NewEventSessionNextPromptedTypeFromString(s string) (EventSessionNextPromptedType, error) {
-	switch s {
-	case "session.next.prompted":
-		return EventSessionNextPromptedTypeSessionNextPrompted, nil
-	}
-	var t EventSessionNextPromptedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionNextPromptedType) Ptr() *EventSessionNextPromptedType {
-	return &e
-}
-
 var (
 	eventSessionNextReasoningDeltaFieldID         = big.NewInt(1 << 0)
-	eventSessionNextReasoningDeltaFieldType       = big.NewInt(1 << 1)
-	eventSessionNextReasoningDeltaFieldProperties = big.NewInt(1 << 2)
+	eventSessionNextReasoningDeltaFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionNextReasoningDelta struct {
 	ID         string                                    `json:"id" url:"id"`
-	Type       EventSessionNextReasoningDeltaType        `json:"type" url:"type"`
 	Properties *EventSessionNextReasoningDeltaProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -9316,13 +7914,6 @@ func (e *EventSessionNextReasoningDelta) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionNextReasoningDelta) GetType() EventSessionNextReasoningDeltaType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionNextReasoningDelta) GetProperties() *EventSessionNextReasoningDeltaProperties {
@@ -9351,13 +7942,6 @@ func (e *EventSessionNextReasoningDelta) require(field *big.Int) {
 func (e *EventSessionNextReasoningDelta) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionNextReasoningDeltaFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionNextReasoningDelta) SetType(type_ EventSessionNextReasoningDeltaType) {
-	e.Type = type_
-	e.require(eventSessionNextReasoningDeltaFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -9541,34 +8125,13 @@ func (e *EventSessionNextReasoningDeltaProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionNextReasoningDeltaType string
-
-const (
-	EventSessionNextReasoningDeltaTypeSessionNextReasoningDelta EventSessionNextReasoningDeltaType = "session.next.reasoning.delta"
-)
-
-func NewEventSessionNextReasoningDeltaTypeFromString(s string) (EventSessionNextReasoningDeltaType, error) {
-	switch s {
-	case "session.next.reasoning.delta":
-		return EventSessionNextReasoningDeltaTypeSessionNextReasoningDelta, nil
-	}
-	var t EventSessionNextReasoningDeltaType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionNextReasoningDeltaType) Ptr() *EventSessionNextReasoningDeltaType {
-	return &e
-}
-
 var (
 	eventSessionNextReasoningEndedFieldID         = big.NewInt(1 << 0)
-	eventSessionNextReasoningEndedFieldType       = big.NewInt(1 << 1)
-	eventSessionNextReasoningEndedFieldProperties = big.NewInt(1 << 2)
+	eventSessionNextReasoningEndedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionNextReasoningEnded struct {
 	ID         string                                    `json:"id" url:"id"`
-	Type       EventSessionNextReasoningEndedType        `json:"type" url:"type"`
 	Properties *EventSessionNextReasoningEndedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -9583,13 +8146,6 @@ func (e *EventSessionNextReasoningEnded) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionNextReasoningEnded) GetType() EventSessionNextReasoningEndedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionNextReasoningEnded) GetProperties() *EventSessionNextReasoningEndedProperties {
@@ -9618,13 +8174,6 @@ func (e *EventSessionNextReasoningEnded) require(field *big.Int) {
 func (e *EventSessionNextReasoningEnded) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionNextReasoningEndedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionNextReasoningEnded) SetType(type_ EventSessionNextReasoningEndedType) {
-	e.Type = type_
-	e.require(eventSessionNextReasoningEndedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -9808,34 +8357,13 @@ func (e *EventSessionNextReasoningEndedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionNextReasoningEndedType string
-
-const (
-	EventSessionNextReasoningEndedTypeSessionNextReasoningEnded EventSessionNextReasoningEndedType = "session.next.reasoning.ended"
-)
-
-func NewEventSessionNextReasoningEndedTypeFromString(s string) (EventSessionNextReasoningEndedType, error) {
-	switch s {
-	case "session.next.reasoning.ended":
-		return EventSessionNextReasoningEndedTypeSessionNextReasoningEnded, nil
-	}
-	var t EventSessionNextReasoningEndedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionNextReasoningEndedType) Ptr() *EventSessionNextReasoningEndedType {
-	return &e
-}
-
 var (
 	eventSessionNextReasoningStartedFieldID         = big.NewInt(1 << 0)
-	eventSessionNextReasoningStartedFieldType       = big.NewInt(1 << 1)
-	eventSessionNextReasoningStartedFieldProperties = big.NewInt(1 << 2)
+	eventSessionNextReasoningStartedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionNextReasoningStarted struct {
 	ID         string                                      `json:"id" url:"id"`
-	Type       EventSessionNextReasoningStartedType        `json:"type" url:"type"`
 	Properties *EventSessionNextReasoningStartedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -9850,13 +8378,6 @@ func (e *EventSessionNextReasoningStarted) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionNextReasoningStarted) GetType() EventSessionNextReasoningStartedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionNextReasoningStarted) GetProperties() *EventSessionNextReasoningStartedProperties {
@@ -9885,13 +8406,6 @@ func (e *EventSessionNextReasoningStarted) require(field *big.Int) {
 func (e *EventSessionNextReasoningStarted) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionNextReasoningStartedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionNextReasoningStarted) SetType(type_ EventSessionNextReasoningStartedType) {
-	e.Type = type_
-	e.require(eventSessionNextReasoningStartedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -10059,34 +8573,13 @@ func (e *EventSessionNextReasoningStartedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionNextReasoningStartedType string
-
-const (
-	EventSessionNextReasoningStartedTypeSessionNextReasoningStarted EventSessionNextReasoningStartedType = "session.next.reasoning.started"
-)
-
-func NewEventSessionNextReasoningStartedTypeFromString(s string) (EventSessionNextReasoningStartedType, error) {
-	switch s {
-	case "session.next.reasoning.started":
-		return EventSessionNextReasoningStartedTypeSessionNextReasoningStarted, nil
-	}
-	var t EventSessionNextReasoningStartedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionNextReasoningStartedType) Ptr() *EventSessionNextReasoningStartedType {
-	return &e
-}
-
 var (
 	eventSessionNextRetriedFieldID         = big.NewInt(1 << 0)
-	eventSessionNextRetriedFieldType       = big.NewInt(1 << 1)
-	eventSessionNextRetriedFieldProperties = big.NewInt(1 << 2)
+	eventSessionNextRetriedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionNextRetried struct {
 	ID         string                             `json:"id" url:"id"`
-	Type       EventSessionNextRetriedType        `json:"type" url:"type"`
 	Properties *EventSessionNextRetriedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -10101,13 +8594,6 @@ func (e *EventSessionNextRetried) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionNextRetried) GetType() EventSessionNextRetriedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionNextRetried) GetProperties() *EventSessionNextRetriedProperties {
@@ -10136,13 +8622,6 @@ func (e *EventSessionNextRetried) require(field *big.Int) {
 func (e *EventSessionNextRetried) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionNextRetriedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionNextRetried) SetType(type_ EventSessionNextRetriedType) {
-	e.Type = type_
-	e.require(eventSessionNextRetriedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -10326,34 +8805,13 @@ func (e *EventSessionNextRetriedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionNextRetriedType string
-
-const (
-	EventSessionNextRetriedTypeSessionNextRetried EventSessionNextRetriedType = "session.next.retried"
-)
-
-func NewEventSessionNextRetriedTypeFromString(s string) (EventSessionNextRetriedType, error) {
-	switch s {
-	case "session.next.retried":
-		return EventSessionNextRetriedTypeSessionNextRetried, nil
-	}
-	var t EventSessionNextRetriedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionNextRetriedType) Ptr() *EventSessionNextRetriedType {
-	return &e
-}
-
 var (
 	eventSessionNextShellEndedFieldID         = big.NewInt(1 << 0)
-	eventSessionNextShellEndedFieldType       = big.NewInt(1 << 1)
-	eventSessionNextShellEndedFieldProperties = big.NewInt(1 << 2)
+	eventSessionNextShellEndedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionNextShellEnded struct {
 	ID         string                                `json:"id" url:"id"`
-	Type       EventSessionNextShellEndedType        `json:"type" url:"type"`
 	Properties *EventSessionNextShellEndedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -10368,13 +8826,6 @@ func (e *EventSessionNextShellEnded) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionNextShellEnded) GetType() EventSessionNextShellEndedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionNextShellEnded) GetProperties() *EventSessionNextShellEndedProperties {
@@ -10403,13 +8854,6 @@ func (e *EventSessionNextShellEnded) require(field *big.Int) {
 func (e *EventSessionNextShellEnded) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionNextShellEndedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionNextShellEnded) SetType(type_ EventSessionNextShellEndedType) {
-	e.Type = type_
-	e.require(eventSessionNextShellEndedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -10593,34 +9037,13 @@ func (e *EventSessionNextShellEndedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionNextShellEndedType string
-
-const (
-	EventSessionNextShellEndedTypeSessionNextShellEnded EventSessionNextShellEndedType = "session.next.shell.ended"
-)
-
-func NewEventSessionNextShellEndedTypeFromString(s string) (EventSessionNextShellEndedType, error) {
-	switch s {
-	case "session.next.shell.ended":
-		return EventSessionNextShellEndedTypeSessionNextShellEnded, nil
-	}
-	var t EventSessionNextShellEndedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionNextShellEndedType) Ptr() *EventSessionNextShellEndedType {
-	return &e
-}
-
 var (
 	eventSessionNextShellStartedFieldID         = big.NewInt(1 << 0)
-	eventSessionNextShellStartedFieldType       = big.NewInt(1 << 1)
-	eventSessionNextShellStartedFieldProperties = big.NewInt(1 << 2)
+	eventSessionNextShellStartedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionNextShellStarted struct {
 	ID         string                                  `json:"id" url:"id"`
-	Type       EventSessionNextShellStartedType        `json:"type" url:"type"`
 	Properties *EventSessionNextShellStartedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -10635,13 +9058,6 @@ func (e *EventSessionNextShellStarted) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionNextShellStarted) GetType() EventSessionNextShellStartedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionNextShellStarted) GetProperties() *EventSessionNextShellStartedProperties {
@@ -10670,13 +9086,6 @@ func (e *EventSessionNextShellStarted) require(field *big.Int) {
 func (e *EventSessionNextShellStarted) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionNextShellStartedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionNextShellStarted) SetType(type_ EventSessionNextShellStartedType) {
-	e.Type = type_
-	e.require(eventSessionNextShellStartedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -10860,34 +9269,13 @@ func (e *EventSessionNextShellStartedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionNextShellStartedType string
-
-const (
-	EventSessionNextShellStartedTypeSessionNextShellStarted EventSessionNextShellStartedType = "session.next.shell.started"
-)
-
-func NewEventSessionNextShellStartedTypeFromString(s string) (EventSessionNextShellStartedType, error) {
-	switch s {
-	case "session.next.shell.started":
-		return EventSessionNextShellStartedTypeSessionNextShellStarted, nil
-	}
-	var t EventSessionNextShellStartedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionNextShellStartedType) Ptr() *EventSessionNextShellStartedType {
-	return &e
-}
-
 var (
 	eventSessionNextStepEndedFieldID         = big.NewInt(1 << 0)
-	eventSessionNextStepEndedFieldType       = big.NewInt(1 << 1)
-	eventSessionNextStepEndedFieldProperties = big.NewInt(1 << 2)
+	eventSessionNextStepEndedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionNextStepEnded struct {
 	ID         string                               `json:"id" url:"id"`
-	Type       EventSessionNextStepEndedType        `json:"type" url:"type"`
 	Properties *EventSessionNextStepEndedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -10902,13 +9290,6 @@ func (e *EventSessionNextStepEnded) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionNextStepEnded) GetType() EventSessionNextStepEndedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionNextStepEnded) GetProperties() *EventSessionNextStepEndedProperties {
@@ -10937,13 +9318,6 @@ func (e *EventSessionNextStepEnded) require(field *big.Int) {
 func (e *EventSessionNextStepEnded) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionNextStepEndedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionNextStepEnded) SetType(type_ EventSessionNextStepEndedType) {
-	e.Type = type_
-	e.require(eventSessionNextStepEndedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -11391,34 +9765,13 @@ func (e *EventSessionNextStepEndedPropertiesTokensCache) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionNextStepEndedType string
-
-const (
-	EventSessionNextStepEndedTypeSessionNextStepEnded EventSessionNextStepEndedType = "session.next.step.ended"
-)
-
-func NewEventSessionNextStepEndedTypeFromString(s string) (EventSessionNextStepEndedType, error) {
-	switch s {
-	case "session.next.step.ended":
-		return EventSessionNextStepEndedTypeSessionNextStepEnded, nil
-	}
-	var t EventSessionNextStepEndedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionNextStepEndedType) Ptr() *EventSessionNextStepEndedType {
-	return &e
-}
-
 var (
 	eventSessionNextStepFailedFieldID         = big.NewInt(1 << 0)
-	eventSessionNextStepFailedFieldType       = big.NewInt(1 << 1)
-	eventSessionNextStepFailedFieldProperties = big.NewInt(1 << 2)
+	eventSessionNextStepFailedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionNextStepFailed struct {
 	ID         string                                `json:"id" url:"id"`
-	Type       EventSessionNextStepFailedType        `json:"type" url:"type"`
 	Properties *EventSessionNextStepFailedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -11433,13 +9786,6 @@ func (e *EventSessionNextStepFailed) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionNextStepFailed) GetType() EventSessionNextStepFailedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionNextStepFailed) GetProperties() *EventSessionNextStepFailedProperties {
@@ -11468,13 +9814,6 @@ func (e *EventSessionNextStepFailed) require(field *big.Int) {
 func (e *EventSessionNextStepFailed) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionNextStepFailedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionNextStepFailed) SetType(type_ EventSessionNextStepFailedType) {
-	e.Type = type_
-	e.require(eventSessionNextStepFailedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -11642,34 +9981,13 @@ func (e *EventSessionNextStepFailedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionNextStepFailedType string
-
-const (
-	EventSessionNextStepFailedTypeSessionNextStepFailed EventSessionNextStepFailedType = "session.next.step.failed"
-)
-
-func NewEventSessionNextStepFailedTypeFromString(s string) (EventSessionNextStepFailedType, error) {
-	switch s {
-	case "session.next.step.failed":
-		return EventSessionNextStepFailedTypeSessionNextStepFailed, nil
-	}
-	var t EventSessionNextStepFailedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionNextStepFailedType) Ptr() *EventSessionNextStepFailedType {
-	return &e
-}
-
 var (
 	eventSessionNextStepStartedFieldID         = big.NewInt(1 << 0)
-	eventSessionNextStepStartedFieldType       = big.NewInt(1 << 1)
-	eventSessionNextStepStartedFieldProperties = big.NewInt(1 << 2)
+	eventSessionNextStepStartedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionNextStepStarted struct {
 	ID         string                                 `json:"id" url:"id"`
-	Type       EventSessionNextStepStartedType        `json:"type" url:"type"`
 	Properties *EventSessionNextStepStartedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -11684,13 +10002,6 @@ func (e *EventSessionNextStepStarted) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionNextStepStarted) GetType() EventSessionNextStepStartedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionNextStepStarted) GetProperties() *EventSessionNextStepStartedProperties {
@@ -11719,13 +10030,6 @@ func (e *EventSessionNextStepStarted) require(field *big.Int) {
 func (e *EventSessionNextStepStarted) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionNextStepStartedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionNextStepStarted) SetType(type_ EventSessionNextStepStartedType) {
-	e.Type = type_
-	e.require(eventSessionNextStepStartedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -12041,34 +10345,13 @@ func (e *EventSessionNextStepStartedPropertiesModel) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionNextStepStartedType string
-
-const (
-	EventSessionNextStepStartedTypeSessionNextStepStarted EventSessionNextStepStartedType = "session.next.step.started"
-)
-
-func NewEventSessionNextStepStartedTypeFromString(s string) (EventSessionNextStepStartedType, error) {
-	switch s {
-	case "session.next.step.started":
-		return EventSessionNextStepStartedTypeSessionNextStepStarted, nil
-	}
-	var t EventSessionNextStepStartedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionNextStepStartedType) Ptr() *EventSessionNextStepStartedType {
-	return &e
-}
-
 var (
 	eventSessionNextSyntheticFieldID         = big.NewInt(1 << 0)
-	eventSessionNextSyntheticFieldType       = big.NewInt(1 << 1)
-	eventSessionNextSyntheticFieldProperties = big.NewInt(1 << 2)
+	eventSessionNextSyntheticFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionNextSynthetic struct {
 	ID         string                               `json:"id" url:"id"`
-	Type       EventSessionNextSyntheticType        `json:"type" url:"type"`
 	Properties *EventSessionNextSyntheticProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -12083,13 +10366,6 @@ func (e *EventSessionNextSynthetic) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionNextSynthetic) GetType() EventSessionNextSyntheticType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionNextSynthetic) GetProperties() *EventSessionNextSyntheticProperties {
@@ -12118,13 +10394,6 @@ func (e *EventSessionNextSynthetic) require(field *big.Int) {
 func (e *EventSessionNextSynthetic) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionNextSyntheticFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionNextSynthetic) SetType(type_ EventSessionNextSyntheticType) {
-	e.Type = type_
-	e.require(eventSessionNextSyntheticFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -12292,34 +10561,13 @@ func (e *EventSessionNextSyntheticProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionNextSyntheticType string
-
-const (
-	EventSessionNextSyntheticTypeSessionNextSynthetic EventSessionNextSyntheticType = "session.next.synthetic"
-)
-
-func NewEventSessionNextSyntheticTypeFromString(s string) (EventSessionNextSyntheticType, error) {
-	switch s {
-	case "session.next.synthetic":
-		return EventSessionNextSyntheticTypeSessionNextSynthetic, nil
-	}
-	var t EventSessionNextSyntheticType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionNextSyntheticType) Ptr() *EventSessionNextSyntheticType {
-	return &e
-}
-
 var (
 	eventSessionNextTextDeltaFieldID         = big.NewInt(1 << 0)
-	eventSessionNextTextDeltaFieldType       = big.NewInt(1 << 1)
-	eventSessionNextTextDeltaFieldProperties = big.NewInt(1 << 2)
+	eventSessionNextTextDeltaFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionNextTextDelta struct {
 	ID         string                               `json:"id" url:"id"`
-	Type       EventSessionNextTextDeltaType        `json:"type" url:"type"`
 	Properties *EventSessionNextTextDeltaProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -12334,13 +10582,6 @@ func (e *EventSessionNextTextDelta) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionNextTextDelta) GetType() EventSessionNextTextDeltaType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionNextTextDelta) GetProperties() *EventSessionNextTextDeltaProperties {
@@ -12369,13 +10610,6 @@ func (e *EventSessionNextTextDelta) require(field *big.Int) {
 func (e *EventSessionNextTextDelta) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionNextTextDeltaFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionNextTextDelta) SetType(type_ EventSessionNextTextDeltaType) {
-	e.Type = type_
-	e.require(eventSessionNextTextDeltaFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -12543,34 +10777,13 @@ func (e *EventSessionNextTextDeltaProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionNextTextDeltaType string
-
-const (
-	EventSessionNextTextDeltaTypeSessionNextTextDelta EventSessionNextTextDeltaType = "session.next.text.delta"
-)
-
-func NewEventSessionNextTextDeltaTypeFromString(s string) (EventSessionNextTextDeltaType, error) {
-	switch s {
-	case "session.next.text.delta":
-		return EventSessionNextTextDeltaTypeSessionNextTextDelta, nil
-	}
-	var t EventSessionNextTextDeltaType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionNextTextDeltaType) Ptr() *EventSessionNextTextDeltaType {
-	return &e
-}
-
 var (
 	eventSessionNextTextEndedFieldID         = big.NewInt(1 << 0)
-	eventSessionNextTextEndedFieldType       = big.NewInt(1 << 1)
-	eventSessionNextTextEndedFieldProperties = big.NewInt(1 << 2)
+	eventSessionNextTextEndedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionNextTextEnded struct {
 	ID         string                               `json:"id" url:"id"`
-	Type       EventSessionNextTextEndedType        `json:"type" url:"type"`
 	Properties *EventSessionNextTextEndedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -12585,13 +10798,6 @@ func (e *EventSessionNextTextEnded) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionNextTextEnded) GetType() EventSessionNextTextEndedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionNextTextEnded) GetProperties() *EventSessionNextTextEndedProperties {
@@ -12620,13 +10826,6 @@ func (e *EventSessionNextTextEnded) require(field *big.Int) {
 func (e *EventSessionNextTextEnded) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionNextTextEndedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionNextTextEnded) SetType(type_ EventSessionNextTextEndedType) {
-	e.Type = type_
-	e.require(eventSessionNextTextEndedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -12794,34 +10993,13 @@ func (e *EventSessionNextTextEndedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionNextTextEndedType string
-
-const (
-	EventSessionNextTextEndedTypeSessionNextTextEnded EventSessionNextTextEndedType = "session.next.text.ended"
-)
-
-func NewEventSessionNextTextEndedTypeFromString(s string) (EventSessionNextTextEndedType, error) {
-	switch s {
-	case "session.next.text.ended":
-		return EventSessionNextTextEndedTypeSessionNextTextEnded, nil
-	}
-	var t EventSessionNextTextEndedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionNextTextEndedType) Ptr() *EventSessionNextTextEndedType {
-	return &e
-}
-
 var (
 	eventSessionNextTextStartedFieldID         = big.NewInt(1 << 0)
-	eventSessionNextTextStartedFieldType       = big.NewInt(1 << 1)
-	eventSessionNextTextStartedFieldProperties = big.NewInt(1 << 2)
+	eventSessionNextTextStartedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionNextTextStarted struct {
 	ID         string                                 `json:"id" url:"id"`
-	Type       EventSessionNextTextStartedType        `json:"type" url:"type"`
 	Properties *EventSessionNextTextStartedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -12836,13 +11014,6 @@ func (e *EventSessionNextTextStarted) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionNextTextStarted) GetType() EventSessionNextTextStartedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionNextTextStarted) GetProperties() *EventSessionNextTextStartedProperties {
@@ -12871,13 +11042,6 @@ func (e *EventSessionNextTextStarted) require(field *big.Int) {
 func (e *EventSessionNextTextStarted) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionNextTextStartedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionNextTextStarted) SetType(type_ EventSessionNextTextStartedType) {
-	e.Type = type_
-	e.require(eventSessionNextTextStartedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -13029,34 +11193,13 @@ func (e *EventSessionNextTextStartedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionNextTextStartedType string
-
-const (
-	EventSessionNextTextStartedTypeSessionNextTextStarted EventSessionNextTextStartedType = "session.next.text.started"
-)
-
-func NewEventSessionNextTextStartedTypeFromString(s string) (EventSessionNextTextStartedType, error) {
-	switch s {
-	case "session.next.text.started":
-		return EventSessionNextTextStartedTypeSessionNextTextStarted, nil
-	}
-	var t EventSessionNextTextStartedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionNextTextStartedType) Ptr() *EventSessionNextTextStartedType {
-	return &e
-}
-
 var (
 	eventSessionNextToolCalledFieldID         = big.NewInt(1 << 0)
-	eventSessionNextToolCalledFieldType       = big.NewInt(1 << 1)
-	eventSessionNextToolCalledFieldProperties = big.NewInt(1 << 2)
+	eventSessionNextToolCalledFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionNextToolCalled struct {
 	ID         string                                `json:"id" url:"id"`
-	Type       EventSessionNextToolCalledType        `json:"type" url:"type"`
 	Properties *EventSessionNextToolCalledProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -13071,13 +11214,6 @@ func (e *EventSessionNextToolCalled) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionNextToolCalled) GetType() EventSessionNextToolCalledType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionNextToolCalled) GetProperties() *EventSessionNextToolCalledProperties {
@@ -13106,13 +11242,6 @@ func (e *EventSessionNextToolCalled) require(field *big.Int) {
 func (e *EventSessionNextToolCalled) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionNextToolCalledFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionNextToolCalled) SetType(type_ EventSessionNextToolCalledType) {
-	e.Type = type_
-	e.require(eventSessionNextToolCalledFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -13428,34 +11557,13 @@ func (e *EventSessionNextToolCalledPropertiesProvider) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionNextToolCalledType string
-
-const (
-	EventSessionNextToolCalledTypeSessionNextToolCalled EventSessionNextToolCalledType = "session.next.tool.called"
-)
-
-func NewEventSessionNextToolCalledTypeFromString(s string) (EventSessionNextToolCalledType, error) {
-	switch s {
-	case "session.next.tool.called":
-		return EventSessionNextToolCalledTypeSessionNextToolCalled, nil
-	}
-	var t EventSessionNextToolCalledType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionNextToolCalledType) Ptr() *EventSessionNextToolCalledType {
-	return &e
-}
-
 var (
 	eventSessionNextToolFailedFieldID         = big.NewInt(1 << 0)
-	eventSessionNextToolFailedFieldType       = big.NewInt(1 << 1)
-	eventSessionNextToolFailedFieldProperties = big.NewInt(1 << 2)
+	eventSessionNextToolFailedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionNextToolFailed struct {
 	ID         string                                `json:"id" url:"id"`
-	Type       EventSessionNextToolFailedType        `json:"type" url:"type"`
 	Properties *EventSessionNextToolFailedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -13470,13 +11578,6 @@ func (e *EventSessionNextToolFailed) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionNextToolFailed) GetType() EventSessionNextToolFailedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionNextToolFailed) GetProperties() *EventSessionNextToolFailedProperties {
@@ -13505,13 +11606,6 @@ func (e *EventSessionNextToolFailed) require(field *big.Int) {
 func (e *EventSessionNextToolFailed) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionNextToolFailedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionNextToolFailed) SetType(type_ EventSessionNextToolFailedType) {
-	e.Type = type_
-	e.require(eventSessionNextToolFailedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -13811,34 +11905,13 @@ func (e *EventSessionNextToolFailedPropertiesProvider) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionNextToolFailedType string
-
-const (
-	EventSessionNextToolFailedTypeSessionNextToolFailed EventSessionNextToolFailedType = "session.next.tool.failed"
-)
-
-func NewEventSessionNextToolFailedTypeFromString(s string) (EventSessionNextToolFailedType, error) {
-	switch s {
-	case "session.next.tool.failed":
-		return EventSessionNextToolFailedTypeSessionNextToolFailed, nil
-	}
-	var t EventSessionNextToolFailedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionNextToolFailedType) Ptr() *EventSessionNextToolFailedType {
-	return &e
-}
-
 var (
 	eventSessionNextToolInputDeltaFieldID         = big.NewInt(1 << 0)
-	eventSessionNextToolInputDeltaFieldType       = big.NewInt(1 << 1)
-	eventSessionNextToolInputDeltaFieldProperties = big.NewInt(1 << 2)
+	eventSessionNextToolInputDeltaFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionNextToolInputDelta struct {
 	ID         string                                    `json:"id" url:"id"`
-	Type       EventSessionNextToolInputDeltaType        `json:"type" url:"type"`
 	Properties *EventSessionNextToolInputDeltaProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -13853,13 +11926,6 @@ func (e *EventSessionNextToolInputDelta) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionNextToolInputDelta) GetType() EventSessionNextToolInputDeltaType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionNextToolInputDelta) GetProperties() *EventSessionNextToolInputDeltaProperties {
@@ -13888,13 +11954,6 @@ func (e *EventSessionNextToolInputDelta) require(field *big.Int) {
 func (e *EventSessionNextToolInputDelta) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionNextToolInputDeltaFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionNextToolInputDelta) SetType(type_ EventSessionNextToolInputDeltaType) {
-	e.Type = type_
-	e.require(eventSessionNextToolInputDeltaFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -14078,34 +12137,13 @@ func (e *EventSessionNextToolInputDeltaProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionNextToolInputDeltaType string
-
-const (
-	EventSessionNextToolInputDeltaTypeSessionNextToolInputDelta EventSessionNextToolInputDeltaType = "session.next.tool.input.delta"
-)
-
-func NewEventSessionNextToolInputDeltaTypeFromString(s string) (EventSessionNextToolInputDeltaType, error) {
-	switch s {
-	case "session.next.tool.input.delta":
-		return EventSessionNextToolInputDeltaTypeSessionNextToolInputDelta, nil
-	}
-	var t EventSessionNextToolInputDeltaType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionNextToolInputDeltaType) Ptr() *EventSessionNextToolInputDeltaType {
-	return &e
-}
-
 var (
 	eventSessionNextToolInputEndedFieldID         = big.NewInt(1 << 0)
-	eventSessionNextToolInputEndedFieldType       = big.NewInt(1 << 1)
-	eventSessionNextToolInputEndedFieldProperties = big.NewInt(1 << 2)
+	eventSessionNextToolInputEndedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionNextToolInputEnded struct {
 	ID         string                                    `json:"id" url:"id"`
-	Type       EventSessionNextToolInputEndedType        `json:"type" url:"type"`
 	Properties *EventSessionNextToolInputEndedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -14120,13 +12158,6 @@ func (e *EventSessionNextToolInputEnded) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionNextToolInputEnded) GetType() EventSessionNextToolInputEndedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionNextToolInputEnded) GetProperties() *EventSessionNextToolInputEndedProperties {
@@ -14155,13 +12186,6 @@ func (e *EventSessionNextToolInputEnded) require(field *big.Int) {
 func (e *EventSessionNextToolInputEnded) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionNextToolInputEndedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionNextToolInputEnded) SetType(type_ EventSessionNextToolInputEndedType) {
-	e.Type = type_
-	e.require(eventSessionNextToolInputEndedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -14345,34 +12369,13 @@ func (e *EventSessionNextToolInputEndedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionNextToolInputEndedType string
-
-const (
-	EventSessionNextToolInputEndedTypeSessionNextToolInputEnded EventSessionNextToolInputEndedType = "session.next.tool.input.ended"
-)
-
-func NewEventSessionNextToolInputEndedTypeFromString(s string) (EventSessionNextToolInputEndedType, error) {
-	switch s {
-	case "session.next.tool.input.ended":
-		return EventSessionNextToolInputEndedTypeSessionNextToolInputEnded, nil
-	}
-	var t EventSessionNextToolInputEndedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionNextToolInputEndedType) Ptr() *EventSessionNextToolInputEndedType {
-	return &e
-}
-
 var (
 	eventSessionNextToolInputStartedFieldID         = big.NewInt(1 << 0)
-	eventSessionNextToolInputStartedFieldType       = big.NewInt(1 << 1)
-	eventSessionNextToolInputStartedFieldProperties = big.NewInt(1 << 2)
+	eventSessionNextToolInputStartedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionNextToolInputStarted struct {
 	ID         string                                      `json:"id" url:"id"`
-	Type       EventSessionNextToolInputStartedType        `json:"type" url:"type"`
 	Properties *EventSessionNextToolInputStartedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -14387,13 +12390,6 @@ func (e *EventSessionNextToolInputStarted) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionNextToolInputStarted) GetType() EventSessionNextToolInputStartedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionNextToolInputStarted) GetProperties() *EventSessionNextToolInputStartedProperties {
@@ -14422,13 +12418,6 @@ func (e *EventSessionNextToolInputStarted) require(field *big.Int) {
 func (e *EventSessionNextToolInputStarted) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionNextToolInputStartedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionNextToolInputStarted) SetType(type_ EventSessionNextToolInputStartedType) {
-	e.Type = type_
-	e.require(eventSessionNextToolInputStartedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -14612,34 +12601,13 @@ func (e *EventSessionNextToolInputStartedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionNextToolInputStartedType string
-
-const (
-	EventSessionNextToolInputStartedTypeSessionNextToolInputStarted EventSessionNextToolInputStartedType = "session.next.tool.input.started"
-)
-
-func NewEventSessionNextToolInputStartedTypeFromString(s string) (EventSessionNextToolInputStartedType, error) {
-	switch s {
-	case "session.next.tool.input.started":
-		return EventSessionNextToolInputStartedTypeSessionNextToolInputStarted, nil
-	}
-	var t EventSessionNextToolInputStartedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionNextToolInputStartedType) Ptr() *EventSessionNextToolInputStartedType {
-	return &e
-}
-
 var (
 	eventSessionNextToolProgressFieldID         = big.NewInt(1 << 0)
-	eventSessionNextToolProgressFieldType       = big.NewInt(1 << 1)
-	eventSessionNextToolProgressFieldProperties = big.NewInt(1 << 2)
+	eventSessionNextToolProgressFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionNextToolProgress struct {
 	ID         string                                  `json:"id" url:"id"`
-	Type       EventSessionNextToolProgressType        `json:"type" url:"type"`
 	Properties *EventSessionNextToolProgressProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -14654,13 +12622,6 @@ func (e *EventSessionNextToolProgress) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionNextToolProgress) GetType() EventSessionNextToolProgressType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionNextToolProgress) GetProperties() *EventSessionNextToolProgressProperties {
@@ -14689,13 +12650,6 @@ func (e *EventSessionNextToolProgress) require(field *big.Int) {
 func (e *EventSessionNextToolProgress) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionNextToolProgressFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionNextToolProgress) SetType(type_ EventSessionNextToolProgressType) {
-	e.Type = type_
-	e.require(eventSessionNextToolProgressFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -15012,34 +12966,13 @@ func (e *EventSessionNextToolProgressPropertiesContentItem) validate() error {
 	return nil
 }
 
-type EventSessionNextToolProgressType string
-
-const (
-	EventSessionNextToolProgressTypeSessionNextToolProgress EventSessionNextToolProgressType = "session.next.tool.progress"
-)
-
-func NewEventSessionNextToolProgressTypeFromString(s string) (EventSessionNextToolProgressType, error) {
-	switch s {
-	case "session.next.tool.progress":
-		return EventSessionNextToolProgressTypeSessionNextToolProgress, nil
-	}
-	var t EventSessionNextToolProgressType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionNextToolProgressType) Ptr() *EventSessionNextToolProgressType {
-	return &e
-}
-
 var (
 	eventSessionNextToolSuccessFieldID         = big.NewInt(1 << 0)
-	eventSessionNextToolSuccessFieldType       = big.NewInt(1 << 1)
-	eventSessionNextToolSuccessFieldProperties = big.NewInt(1 << 2)
+	eventSessionNextToolSuccessFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionNextToolSuccess struct {
 	ID         string                                 `json:"id" url:"id"`
-	Type       EventSessionNextToolSuccessType        `json:"type" url:"type"`
 	Properties *EventSessionNextToolSuccessProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -15054,13 +12987,6 @@ func (e *EventSessionNextToolSuccess) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionNextToolSuccess) GetType() EventSessionNextToolSuccessType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionNextToolSuccess) GetProperties() *EventSessionNextToolSuccessProperties {
@@ -15089,13 +13015,6 @@ func (e *EventSessionNextToolSuccess) require(field *big.Int) {
 func (e *EventSessionNextToolSuccess) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionNextToolSuccessFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionNextToolSuccess) SetType(type_ EventSessionNextToolSuccessType) {
-	e.Type = type_
-	e.require(eventSessionNextToolSuccessFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -15528,34 +13447,13 @@ func (e *EventSessionNextToolSuccessPropertiesProvider) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionNextToolSuccessType string
-
-const (
-	EventSessionNextToolSuccessTypeSessionNextToolSuccess EventSessionNextToolSuccessType = "session.next.tool.success"
-)
-
-func NewEventSessionNextToolSuccessTypeFromString(s string) (EventSessionNextToolSuccessType, error) {
-	switch s {
-	case "session.next.tool.success":
-		return EventSessionNextToolSuccessTypeSessionNextToolSuccess, nil
-	}
-	var t EventSessionNextToolSuccessType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionNextToolSuccessType) Ptr() *EventSessionNextToolSuccessType {
-	return &e
-}
-
 var (
 	eventSessionStatusFieldID         = big.NewInt(1 << 0)
-	eventSessionStatusFieldType       = big.NewInt(1 << 1)
-	eventSessionStatusFieldProperties = big.NewInt(1 << 2)
+	eventSessionStatusFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionStatus struct {
 	ID         string                        `json:"id" url:"id"`
-	Type       EventSessionStatusType        `json:"type" url:"type"`
 	Properties *EventSessionStatusProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -15570,13 +13468,6 @@ func (e *EventSessionStatus) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionStatus) GetType() EventSessionStatusType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionStatus) GetProperties() *EventSessionStatusProperties {
@@ -15605,13 +13496,6 @@ func (e *EventSessionStatus) require(field *big.Int) {
 func (e *EventSessionStatus) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionStatusFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionStatus) SetType(type_ EventSessionStatusType) {
-	e.Type = type_
-	e.require(eventSessionStatusFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -15763,34 +13647,13 @@ func (e *EventSessionStatusProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionStatusType string
-
-const (
-	EventSessionStatusTypeSessionStatus EventSessionStatusType = "session.status"
-)
-
-func NewEventSessionStatusTypeFromString(s string) (EventSessionStatusType, error) {
-	switch s {
-	case "session.status":
-		return EventSessionStatusTypeSessionStatus, nil
-	}
-	var t EventSessionStatusType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionStatusType) Ptr() *EventSessionStatusType {
-	return &e
-}
-
 var (
 	eventSessionUpdatedFieldID         = big.NewInt(1 << 0)
-	eventSessionUpdatedFieldType       = big.NewInt(1 << 1)
-	eventSessionUpdatedFieldProperties = big.NewInt(1 << 2)
+	eventSessionUpdatedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventSessionUpdated struct {
 	ID         string                         `json:"id" url:"id"`
-	Type       EventSessionUpdatedType        `json:"type" url:"type"`
 	Properties *EventSessionUpdatedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -15805,13 +13668,6 @@ func (e *EventSessionUpdated) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventSessionUpdated) GetType() EventSessionUpdatedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventSessionUpdated) GetProperties() *EventSessionUpdatedProperties {
@@ -15840,13 +13696,6 @@ func (e *EventSessionUpdated) require(field *big.Int) {
 func (e *EventSessionUpdated) SetID(id string) {
 	e.ID = id
 	e.require(eventSessionUpdatedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventSessionUpdated) SetType(type_ EventSessionUpdatedType) {
-	e.Type = type_
-	e.require(eventSessionUpdatedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -15998,34 +13847,13 @@ func (e *EventSessionUpdatedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventSessionUpdatedType string
-
-const (
-	EventSessionUpdatedTypeSessionUpdated EventSessionUpdatedType = "session.updated"
-)
-
-func NewEventSessionUpdatedTypeFromString(s string) (EventSessionUpdatedType, error) {
-	switch s {
-	case "session.updated":
-		return EventSessionUpdatedTypeSessionUpdated, nil
-	}
-	var t EventSessionUpdatedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventSessionUpdatedType) Ptr() *EventSessionUpdatedType {
-	return &e
-}
-
 var (
 	eventTodoUpdatedFieldID         = big.NewInt(1 << 0)
-	eventTodoUpdatedFieldType       = big.NewInt(1 << 1)
-	eventTodoUpdatedFieldProperties = big.NewInt(1 << 2)
+	eventTodoUpdatedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventTodoUpdated struct {
 	ID         string                      `json:"id" url:"id"`
-	Type       EventTodoUpdatedType        `json:"type" url:"type"`
 	Properties *EventTodoUpdatedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -16040,13 +13868,6 @@ func (e *EventTodoUpdated) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventTodoUpdated) GetType() EventTodoUpdatedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventTodoUpdated) GetProperties() *EventTodoUpdatedProperties {
@@ -16075,13 +13896,6 @@ func (e *EventTodoUpdated) require(field *big.Int) {
 func (e *EventTodoUpdated) SetID(id string) {
 	e.ID = id
 	e.require(eventTodoUpdatedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventTodoUpdated) SetType(type_ EventTodoUpdatedType) {
-	e.Type = type_
-	e.require(eventTodoUpdatedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -16233,34 +14047,13 @@ func (e *EventTodoUpdatedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventTodoUpdatedType string
-
-const (
-	EventTodoUpdatedTypeTodoUpdated EventTodoUpdatedType = "todo.updated"
-)
-
-func NewEventTodoUpdatedTypeFromString(s string) (EventTodoUpdatedType, error) {
-	switch s {
-	case "todo.updated":
-		return EventTodoUpdatedTypeTodoUpdated, nil
-	}
-	var t EventTodoUpdatedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventTodoUpdatedType) Ptr() *EventTodoUpdatedType {
-	return &e
-}
-
 var (
 	eventTuiCommandExecuteFieldID         = big.NewInt(1 << 0)
-	eventTuiCommandExecuteFieldType       = big.NewInt(1 << 1)
-	eventTuiCommandExecuteFieldProperties = big.NewInt(1 << 2)
+	eventTuiCommandExecuteFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventTuiCommandExecute struct {
 	ID         string                            `json:"id" url:"id"`
-	Type       EventTuiCommandExecuteType        `json:"type" url:"type"`
 	Properties *EventTuiCommandExecuteProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -16275,13 +14068,6 @@ func (e *EventTuiCommandExecute) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventTuiCommandExecute) GetType() EventTuiCommandExecuteType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventTuiCommandExecute) GetProperties() *EventTuiCommandExecuteProperties {
@@ -16310,13 +14096,6 @@ func (e *EventTuiCommandExecute) require(field *big.Int) {
 func (e *EventTuiCommandExecute) SetID(id string) {
 	e.ID = id
 	e.require(eventTuiCommandExecuteFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventTuiCommandExecute) SetType(type_ EventTuiCommandExecuteType) {
-	e.Type = type_
-	e.require(eventTuiCommandExecuteFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -16578,34 +14357,13 @@ func (e EventTuiCommandExecutePropertiesCommandZero) Ptr() *EventTuiCommandExecu
 	return &e
 }
 
-type EventTuiCommandExecuteType string
-
-const (
-	EventTuiCommandExecuteTypeTuiCommandExecute EventTuiCommandExecuteType = "tui.command.execute"
-)
-
-func NewEventTuiCommandExecuteTypeFromString(s string) (EventTuiCommandExecuteType, error) {
-	switch s {
-	case "tui.command.execute":
-		return EventTuiCommandExecuteTypeTuiCommandExecute, nil
-	}
-	var t EventTuiCommandExecuteType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventTuiCommandExecuteType) Ptr() *EventTuiCommandExecuteType {
-	return &e
-}
-
 var (
 	eventTuiPromptAppendFieldID         = big.NewInt(1 << 0)
-	eventTuiPromptAppendFieldType       = big.NewInt(1 << 1)
-	eventTuiPromptAppendFieldProperties = big.NewInt(1 << 2)
+	eventTuiPromptAppendFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventTuiPromptAppend struct {
 	ID         string                          `json:"id" url:"id"`
-	Type       EventTuiPromptAppendType        `json:"type" url:"type"`
 	Properties *EventTuiPromptAppendProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -16620,13 +14378,6 @@ func (e *EventTuiPromptAppend) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventTuiPromptAppend) GetType() EventTuiPromptAppendType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventTuiPromptAppend) GetProperties() *EventTuiPromptAppendProperties {
@@ -16655,13 +14406,6 @@ func (e *EventTuiPromptAppend) require(field *big.Int) {
 func (e *EventTuiPromptAppend) SetID(id string) {
 	e.ID = id
 	e.require(eventTuiPromptAppendFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventTuiPromptAppend) SetType(type_ EventTuiPromptAppendType) {
-	e.Type = type_
-	e.require(eventTuiPromptAppendFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -16797,34 +14541,13 @@ func (e *EventTuiPromptAppendProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventTuiPromptAppendType string
-
-const (
-	EventTuiPromptAppendTypeTuiPromptAppend EventTuiPromptAppendType = "tui.prompt.append"
-)
-
-func NewEventTuiPromptAppendTypeFromString(s string) (EventTuiPromptAppendType, error) {
-	switch s {
-	case "tui.prompt.append":
-		return EventTuiPromptAppendTypeTuiPromptAppend, nil
-	}
-	var t EventTuiPromptAppendType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventTuiPromptAppendType) Ptr() *EventTuiPromptAppendType {
-	return &e
-}
-
 var (
 	eventTuiSessionSelectFieldID         = big.NewInt(1 << 0)
-	eventTuiSessionSelectFieldType       = big.NewInt(1 << 1)
-	eventTuiSessionSelectFieldProperties = big.NewInt(1 << 2)
+	eventTuiSessionSelectFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventTuiSessionSelect struct {
 	ID         string                           `json:"id" url:"id"`
-	Type       EventTuiSessionSelectType        `json:"type" url:"type"`
 	Properties *EventTuiSessionSelectProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -16839,13 +14562,6 @@ func (e *EventTuiSessionSelect) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventTuiSessionSelect) GetType() EventTuiSessionSelectType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventTuiSessionSelect) GetProperties() *EventTuiSessionSelectProperties {
@@ -16874,13 +14590,6 @@ func (e *EventTuiSessionSelect) require(field *big.Int) {
 func (e *EventTuiSessionSelect) SetID(id string) {
 	e.ID = id
 	e.require(eventTuiSessionSelectFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventTuiSessionSelect) SetType(type_ EventTuiSessionSelectType) {
-	e.Type = type_
-	e.require(eventTuiSessionSelectFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -17017,34 +14726,13 @@ func (e *EventTuiSessionSelectProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventTuiSessionSelectType string
-
-const (
-	EventTuiSessionSelectTypeTuiSessionSelect EventTuiSessionSelectType = "tui.session.select"
-)
-
-func NewEventTuiSessionSelectTypeFromString(s string) (EventTuiSessionSelectType, error) {
-	switch s {
-	case "tui.session.select":
-		return EventTuiSessionSelectTypeTuiSessionSelect, nil
-	}
-	var t EventTuiSessionSelectType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventTuiSessionSelectType) Ptr() *EventTuiSessionSelectType {
-	return &e
-}
-
 var (
 	eventTuiToastShowFieldID         = big.NewInt(1 << 0)
-	eventTuiToastShowFieldType       = big.NewInt(1 << 1)
-	eventTuiToastShowFieldProperties = big.NewInt(1 << 2)
+	eventTuiToastShowFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventTuiToastShow struct {
 	ID         string                       `json:"id" url:"id"`
-	Type       EventTuiToastShowType        `json:"type" url:"type"`
 	Properties *EventTuiToastShowProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -17059,13 +14747,6 @@ func (e *EventTuiToastShow) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventTuiToastShow) GetType() EventTuiToastShowType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventTuiToastShow) GetProperties() *EventTuiToastShowProperties {
@@ -17094,13 +14775,6 @@ func (e *EventTuiToastShow) require(field *big.Int) {
 func (e *EventTuiToastShow) SetID(id string) {
 	e.ID = id
 	e.require(eventTuiToastShowFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventTuiToastShow) SetType(type_ EventTuiToastShowType) {
-	e.Type = type_
-	e.require(eventTuiToastShowFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -17312,34 +14986,13 @@ func (e EventTuiToastShowPropertiesVariant) Ptr() *EventTuiToastShowPropertiesVa
 	return &e
 }
 
-type EventTuiToastShowType string
-
-const (
-	EventTuiToastShowTypeTuiToastShow EventTuiToastShowType = "tui.toast.show"
-)
-
-func NewEventTuiToastShowTypeFromString(s string) (EventTuiToastShowType, error) {
-	switch s {
-	case "tui.toast.show":
-		return EventTuiToastShowTypeTuiToastShow, nil
-	}
-	var t EventTuiToastShowType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventTuiToastShowType) Ptr() *EventTuiToastShowType {
-	return &e
-}
-
 var (
 	eventVcsBranchUpdatedFieldID         = big.NewInt(1 << 0)
-	eventVcsBranchUpdatedFieldType       = big.NewInt(1 << 1)
-	eventVcsBranchUpdatedFieldProperties = big.NewInt(1 << 2)
+	eventVcsBranchUpdatedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventVcsBranchUpdated struct {
 	ID         string                           `json:"id" url:"id"`
-	Type       EventVcsBranchUpdatedType        `json:"type" url:"type"`
 	Properties *EventVcsBranchUpdatedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -17354,13 +15007,6 @@ func (e *EventVcsBranchUpdated) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventVcsBranchUpdated) GetType() EventVcsBranchUpdatedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventVcsBranchUpdated) GetProperties() *EventVcsBranchUpdatedProperties {
@@ -17389,13 +15035,6 @@ func (e *EventVcsBranchUpdated) require(field *big.Int) {
 func (e *EventVcsBranchUpdated) SetID(id string) {
 	e.ID = id
 	e.require(eventVcsBranchUpdatedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventVcsBranchUpdated) SetType(type_ EventVcsBranchUpdatedType) {
-	e.Type = type_
-	e.require(eventVcsBranchUpdatedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -17531,34 +15170,13 @@ func (e *EventVcsBranchUpdatedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventVcsBranchUpdatedType string
-
-const (
-	EventVcsBranchUpdatedTypeVcsBranchUpdated EventVcsBranchUpdatedType = "vcs.branch.updated"
-)
-
-func NewEventVcsBranchUpdatedTypeFromString(s string) (EventVcsBranchUpdatedType, error) {
-	switch s {
-	case "vcs.branch.updated":
-		return EventVcsBranchUpdatedTypeVcsBranchUpdated, nil
-	}
-	var t EventVcsBranchUpdatedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventVcsBranchUpdatedType) Ptr() *EventVcsBranchUpdatedType {
-	return &e
-}
-
 var (
 	eventWorkspaceFailedFieldID         = big.NewInt(1 << 0)
-	eventWorkspaceFailedFieldType       = big.NewInt(1 << 1)
-	eventWorkspaceFailedFieldProperties = big.NewInt(1 << 2)
+	eventWorkspaceFailedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventWorkspaceFailed struct {
 	ID         string                          `json:"id" url:"id"`
-	Type       EventWorkspaceFailedType        `json:"type" url:"type"`
 	Properties *EventWorkspaceFailedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -17573,13 +15191,6 @@ func (e *EventWorkspaceFailed) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventWorkspaceFailed) GetType() EventWorkspaceFailedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventWorkspaceFailed) GetProperties() *EventWorkspaceFailedProperties {
@@ -17608,13 +15219,6 @@ func (e *EventWorkspaceFailed) require(field *big.Int) {
 func (e *EventWorkspaceFailed) SetID(id string) {
 	e.ID = id
 	e.require(eventWorkspaceFailedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventWorkspaceFailed) SetType(type_ EventWorkspaceFailedType) {
-	e.Type = type_
-	e.require(eventWorkspaceFailedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -17750,34 +15354,13 @@ func (e *EventWorkspaceFailedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventWorkspaceFailedType string
-
-const (
-	EventWorkspaceFailedTypeWorkspaceFailed EventWorkspaceFailedType = "workspace.failed"
-)
-
-func NewEventWorkspaceFailedTypeFromString(s string) (EventWorkspaceFailedType, error) {
-	switch s {
-	case "workspace.failed":
-		return EventWorkspaceFailedTypeWorkspaceFailed, nil
-	}
-	var t EventWorkspaceFailedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventWorkspaceFailedType) Ptr() *EventWorkspaceFailedType {
-	return &e
-}
-
 var (
 	eventWorkspaceReadyFieldID         = big.NewInt(1 << 0)
-	eventWorkspaceReadyFieldType       = big.NewInt(1 << 1)
-	eventWorkspaceReadyFieldProperties = big.NewInt(1 << 2)
+	eventWorkspaceReadyFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventWorkspaceReady struct {
 	ID         string                         `json:"id" url:"id"`
-	Type       EventWorkspaceReadyType        `json:"type" url:"type"`
 	Properties *EventWorkspaceReadyProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -17792,13 +15375,6 @@ func (e *EventWorkspaceReady) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventWorkspaceReady) GetType() EventWorkspaceReadyType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventWorkspaceReady) GetProperties() *EventWorkspaceReadyProperties {
@@ -17827,13 +15403,6 @@ func (e *EventWorkspaceReady) require(field *big.Int) {
 func (e *EventWorkspaceReady) SetID(id string) {
 	e.ID = id
 	e.require(eventWorkspaceReadyFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventWorkspaceReady) SetType(type_ EventWorkspaceReadyType) {
-	e.Type = type_
-	e.require(eventWorkspaceReadyFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -17969,34 +15538,13 @@ func (e *EventWorkspaceReadyProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventWorkspaceReadyType string
-
-const (
-	EventWorkspaceReadyTypeWorkspaceReady EventWorkspaceReadyType = "workspace.ready"
-)
-
-func NewEventWorkspaceReadyTypeFromString(s string) (EventWorkspaceReadyType, error) {
-	switch s {
-	case "workspace.ready":
-		return EventWorkspaceReadyTypeWorkspaceReady, nil
-	}
-	var t EventWorkspaceReadyType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventWorkspaceReadyType) Ptr() *EventWorkspaceReadyType {
-	return &e
-}
-
 var (
 	eventWorkspaceStatusFieldID         = big.NewInt(1 << 0)
-	eventWorkspaceStatusFieldType       = big.NewInt(1 << 1)
-	eventWorkspaceStatusFieldProperties = big.NewInt(1 << 2)
+	eventWorkspaceStatusFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventWorkspaceStatus struct {
 	ID         string                          `json:"id" url:"id"`
-	Type       EventWorkspaceStatusType        `json:"type" url:"type"`
 	Properties *EventWorkspaceStatusProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -18011,13 +15559,6 @@ func (e *EventWorkspaceStatus) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventWorkspaceStatus) GetType() EventWorkspaceStatusType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventWorkspaceStatus) GetProperties() *EventWorkspaceStatusProperties {
@@ -18046,13 +15587,6 @@ func (e *EventWorkspaceStatus) require(field *big.Int) {
 func (e *EventWorkspaceStatus) SetID(id string) {
 	e.ID = id
 	e.require(eventWorkspaceStatusFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventWorkspaceStatus) SetType(type_ EventWorkspaceStatusType) {
-	e.Type = type_
-	e.require(eventWorkspaceStatusFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -18232,34 +15766,13 @@ func (e EventWorkspaceStatusPropertiesStatus) Ptr() *EventWorkspaceStatusPropert
 	return &e
 }
 
-type EventWorkspaceStatusType string
-
-const (
-	EventWorkspaceStatusTypeWorkspaceStatus EventWorkspaceStatusType = "workspace.status"
-)
-
-func NewEventWorkspaceStatusTypeFromString(s string) (EventWorkspaceStatusType, error) {
-	switch s {
-	case "workspace.status":
-		return EventWorkspaceStatusTypeWorkspaceStatus, nil
-	}
-	var t EventWorkspaceStatusType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventWorkspaceStatusType) Ptr() *EventWorkspaceStatusType {
-	return &e
-}
-
 var (
 	eventWorktreeFailedFieldID         = big.NewInt(1 << 0)
-	eventWorktreeFailedFieldType       = big.NewInt(1 << 1)
-	eventWorktreeFailedFieldProperties = big.NewInt(1 << 2)
+	eventWorktreeFailedFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventWorktreeFailed struct {
 	ID         string                         `json:"id" url:"id"`
-	Type       EventWorktreeFailedType        `json:"type" url:"type"`
 	Properties *EventWorktreeFailedProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -18274,13 +15787,6 @@ func (e *EventWorktreeFailed) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventWorktreeFailed) GetType() EventWorktreeFailedType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventWorktreeFailed) GetProperties() *EventWorktreeFailedProperties {
@@ -18309,13 +15815,6 @@ func (e *EventWorktreeFailed) require(field *big.Int) {
 func (e *EventWorktreeFailed) SetID(id string) {
 	e.ID = id
 	e.require(eventWorktreeFailedFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventWorktreeFailed) SetType(type_ EventWorktreeFailedType) {
-	e.Type = type_
-	e.require(eventWorktreeFailedFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -18451,34 +15950,13 @@ func (e *EventWorktreeFailedProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventWorktreeFailedType string
-
-const (
-	EventWorktreeFailedTypeWorktreeFailed EventWorktreeFailedType = "worktree.failed"
-)
-
-func NewEventWorktreeFailedTypeFromString(s string) (EventWorktreeFailedType, error) {
-	switch s {
-	case "worktree.failed":
-		return EventWorktreeFailedTypeWorktreeFailed, nil
-	}
-	var t EventWorktreeFailedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventWorktreeFailedType) Ptr() *EventWorktreeFailedType {
-	return &e
-}
-
 var (
 	eventWorktreeReadyFieldID         = big.NewInt(1 << 0)
-	eventWorktreeReadyFieldType       = big.NewInt(1 << 1)
-	eventWorktreeReadyFieldProperties = big.NewInt(1 << 2)
+	eventWorktreeReadyFieldProperties = big.NewInt(1 << 1)
 )
 
 type EventWorktreeReady struct {
 	ID         string                        `json:"id" url:"id"`
-	Type       EventWorktreeReadyType        `json:"type" url:"type"`
 	Properties *EventWorktreeReadyProperties `json:"properties" url:"properties"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -18493,13 +15971,6 @@ func (e *EventWorktreeReady) GetID() string {
 		return ""
 	}
 	return e.ID
-}
-
-func (e *EventWorktreeReady) GetType() EventWorktreeReadyType {
-	if e == nil {
-		return ""
-	}
-	return e.Type
 }
 
 func (e *EventWorktreeReady) GetProperties() *EventWorktreeReadyProperties {
@@ -18528,13 +15999,6 @@ func (e *EventWorktreeReady) require(field *big.Int) {
 func (e *EventWorktreeReady) SetID(id string) {
 	e.ID = id
 	e.require(eventWorktreeReadyFieldID)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EventWorktreeReady) SetType(type_ EventWorktreeReadyType) {
-	e.Type = type_
-	e.require(eventWorktreeReadyFieldType)
 }
 
 // SetProperties sets the Properties field and marks it as non-optional;
@@ -18686,25 +16150,6 @@ func (e *EventWorktreeReadyProperties) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EventWorktreeReadyType string
-
-const (
-	EventWorktreeReadyTypeWorktreeReady EventWorktreeReadyType = "worktree.ready"
-)
-
-func NewEventWorktreeReadyTypeFromString(s string) (EventWorktreeReadyType, error) {
-	switch s {
-	case "worktree.ready":
-		return EventWorktreeReadyTypeWorktreeReady, nil
-	}
-	var t EventWorktreeReadyType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EventWorktreeReadyType) Ptr() *EventWorktreeReadyType {
-	return &e
-}
-
 var (
 	globalEventFieldDirectory = big.NewInt(1 << 0)
 	globalEventFieldProject   = big.NewInt(1 << 1)
@@ -18838,2249 +16283,1824 @@ func (g *GlobalEvent) String() string {
 }
 
 type GlobalEventPayload struct {
-	EventServerInstanceDisposed           *EventServerInstanceDisposed
-	EventFileEdited                       *EventFileEdited
-	EventFileWatcherUpdated               *EventFileWatcherUpdated
-	EventLspClientDiagnostics             *EventLspClientDiagnostics
-	EventLspUpdated                       *EventLspUpdated
-	EventMessagePartDelta                 *EventMessagePartDelta
-	EventPermissionAsked                  *EventPermissionAsked
-	EventPermissionReplied                *EventPermissionReplied
-	EventSessionDiff                      *EventSessionDiff
-	EventSessionError                     *EventSessionError
-	EventQuestionAsked                    *EventQuestionAsked
-	EventQuestionReplied                  *EventQuestionReplied
-	EventQuestionRejected                 *EventQuestionRejected
-	EventTodoUpdated                      *EventTodoUpdated
-	EventSessionStatus                    *EventSessionStatus
-	EventSessionIdle                      *EventSessionIdle
-	EventTuiPromptAppend                  *EventTuiPromptAppend
-	EventTuiCommandExecute                *EventTuiCommandExecute
-	EventTuiToastShow                     *EventTuiToastShow
-	EventTuiSessionSelect                 *EventTuiSessionSelect
-	EventMcpToolsChanged                  *EventMcpToolsChanged
-	EventMcpBrowserOpenFailed             *EventMcpBrowserOpenFailed
-	EventCommandExecuted                  *EventCommandExecuted
-	EventProjectUpdated                   *EventProjectUpdated
-	EventSessionCompacted                 *EventSessionCompacted
-	EventVcsBranchUpdated                 *EventVcsBranchUpdated
-	EventWorkspaceReady                   *EventWorkspaceReady
-	EventWorkspaceFailed                  *EventWorkspaceFailed
-	EventWorkspaceStatus                  *EventWorkspaceStatus
-	EventWorktreeReady                    *EventWorktreeReady
-	EventWorktreeFailed                   *EventWorktreeFailed
-	EventPtyCreated                       *EventPtyCreated
-	EventPtyUpdated                       *EventPtyUpdated
-	EventPtyExited                        *EventPtyExited
-	EventPtyDeleted                       *EventPtyDeleted
-	EventInstallationUpdated              *EventInstallationUpdated
-	EventInstallationUpdateAvailable      *EventInstallationUpdateAvailable
-	EventMessageUpdated                   *EventMessageUpdated
-	EventMessageRemoved                   *EventMessageRemoved
-	EventMessagePartUpdated               *EventMessagePartUpdated
-	EventMessagePartRemoved               *EventMessagePartRemoved
-	EventSessionCreated                   *EventSessionCreated
-	EventSessionUpdated                   *EventSessionUpdated
-	EventSessionDeleted                   *EventSessionDeleted
-	EventServerConnected                  *EventServerConnected
-	EventGlobalDisposed                   *EventGlobalDisposed
-	EventCatalogModelUpdated              *EventCatalogModelUpdated
-	EventSessionNextAgentSwitched         *EventSessionNextAgentSwitched
-	EventSessionNextModelSwitched         *EventSessionNextModelSwitched
-	EventSessionNextPrompted              *EventSessionNextPrompted
-	EventSessionNextSynthetic             *EventSessionNextSynthetic
-	EventSessionNextShellStarted          *EventSessionNextShellStarted
-	EventSessionNextShellEnded            *EventSessionNextShellEnded
-	EventSessionNextStepStarted           *EventSessionNextStepStarted
-	EventSessionNextStepEnded             *EventSessionNextStepEnded
-	EventSessionNextStepFailed            *EventSessionNextStepFailed
-	EventSessionNextTextStarted           *EventSessionNextTextStarted
-	EventSessionNextTextDelta             *EventSessionNextTextDelta
-	EventSessionNextTextEnded             *EventSessionNextTextEnded
-	EventSessionNextReasoningStarted      *EventSessionNextReasoningStarted
-	EventSessionNextReasoningDelta        *EventSessionNextReasoningDelta
-	EventSessionNextReasoningEnded        *EventSessionNextReasoningEnded
-	EventSessionNextToolInputStarted      *EventSessionNextToolInputStarted
-	EventSessionNextToolInputDelta        *EventSessionNextToolInputDelta
-	EventSessionNextToolInputEnded        *EventSessionNextToolInputEnded
-	EventSessionNextToolCalled            *EventSessionNextToolCalled
-	EventSessionNextToolProgress          *EventSessionNextToolProgress
-	EventSessionNextToolSuccess           *EventSessionNextToolSuccess
-	EventSessionNextToolFailed            *EventSessionNextToolFailed
-	EventSessionNextRetried               *EventSessionNextRetried
-	EventSessionNextCompactionStarted     *EventSessionNextCompactionStarted
-	EventSessionNextCompactionDelta       *EventSessionNextCompactionDelta
-	EventSessionNextCompactionEnded       *EventSessionNextCompactionEnded
-	SyncEventMessageUpdated               *SyncEventMessageUpdated
-	SyncEventMessageRemoved               *SyncEventMessageRemoved
-	SyncEventMessagePartUpdated           *SyncEventMessagePartUpdated
-	SyncEventMessagePartRemoved           *SyncEventMessagePartRemoved
-	SyncEventSessionCreated               *SyncEventSessionCreated
-	SyncEventSessionUpdated               *SyncEventSessionUpdated
-	SyncEventSessionDeleted               *SyncEventSessionDeleted
-	SyncEventSessionNextAgentSwitched     *SyncEventSessionNextAgentSwitched
-	SyncEventSessionNextModelSwitched     *SyncEventSessionNextModelSwitched
-	SyncEventSessionNextPrompted          *SyncEventSessionNextPrompted
-	SyncEventSessionNextSynthetic         *SyncEventSessionNextSynthetic
-	SyncEventSessionNextShellStarted      *SyncEventSessionNextShellStarted
-	SyncEventSessionNextShellEnded        *SyncEventSessionNextShellEnded
-	SyncEventSessionNextStepStarted       *SyncEventSessionNextStepStarted
-	SyncEventSessionNextStepEnded         *SyncEventSessionNextStepEnded
-	SyncEventSessionNextStepFailed        *SyncEventSessionNextStepFailed
-	SyncEventSessionNextTextStarted       *SyncEventSessionNextTextStarted
-	SyncEventSessionNextTextDelta         *SyncEventSessionNextTextDelta
-	SyncEventSessionNextTextEnded         *SyncEventSessionNextTextEnded
-	SyncEventSessionNextReasoningStarted  *SyncEventSessionNextReasoningStarted
-	SyncEventSessionNextReasoningDelta    *SyncEventSessionNextReasoningDelta
-	SyncEventSessionNextReasoningEnded    *SyncEventSessionNextReasoningEnded
-	SyncEventSessionNextToolInputStarted  *SyncEventSessionNextToolInputStarted
-	SyncEventSessionNextToolInputDelta    *SyncEventSessionNextToolInputDelta
-	SyncEventSessionNextToolInputEnded    *SyncEventSessionNextToolInputEnded
-	SyncEventSessionNextToolCalled        *SyncEventSessionNextToolCalled
-	SyncEventSessionNextToolProgress      *SyncEventSessionNextToolProgress
-	SyncEventSessionNextToolSuccess       *SyncEventSessionNextToolSuccess
-	SyncEventSessionNextToolFailed        *SyncEventSessionNextToolFailed
-	SyncEventSessionNextRetried           *SyncEventSessionNextRetried
-	SyncEventSessionNextCompactionStarted *SyncEventSessionNextCompactionStarted
-	SyncEventSessionNextCompactionDelta   *SyncEventSessionNextCompactionDelta
-	SyncEventSessionNextCompactionEnded   *SyncEventSessionNextCompactionEnded
-
-	typ string
-}
-
-func (g *GlobalEventPayload) GetEventServerInstanceDisposed() *EventServerInstanceDisposed {
-	if g == nil {
-		return nil
-	}
-	return g.EventServerInstanceDisposed
-}
-
-func (g *GlobalEventPayload) GetEventFileEdited() *EventFileEdited {
-	if g == nil {
-		return nil
-	}
-	return g.EventFileEdited
-}
-
-func (g *GlobalEventPayload) GetEventFileWatcherUpdated() *EventFileWatcherUpdated {
-	if g == nil {
-		return nil
-	}
-	return g.EventFileWatcherUpdated
-}
-
-func (g *GlobalEventPayload) GetEventLspClientDiagnostics() *EventLspClientDiagnostics {
-	if g == nil {
-		return nil
-	}
-	return g.EventLspClientDiagnostics
-}
-
-func (g *GlobalEventPayload) GetEventLspUpdated() *EventLspUpdated {
-	if g == nil {
-		return nil
-	}
-	return g.EventLspUpdated
-}
-
-func (g *GlobalEventPayload) GetEventMessagePartDelta() *EventMessagePartDelta {
-	if g == nil {
-		return nil
-	}
-	return g.EventMessagePartDelta
-}
-
-func (g *GlobalEventPayload) GetEventPermissionAsked() *EventPermissionAsked {
-	if g == nil {
-		return nil
-	}
-	return g.EventPermissionAsked
-}
-
-func (g *GlobalEventPayload) GetEventPermissionReplied() *EventPermissionReplied {
-	if g == nil {
-		return nil
-	}
-	return g.EventPermissionReplied
-}
-
-func (g *GlobalEventPayload) GetEventSessionDiff() *EventSessionDiff {
-	if g == nil {
-		return nil
-	}
-	return g.EventSessionDiff
-}
-
-func (g *GlobalEventPayload) GetEventSessionError() *EventSessionError {
-	if g == nil {
-		return nil
-	}
-	return g.EventSessionError
-}
-
-func (g *GlobalEventPayload) GetEventQuestionAsked() *EventQuestionAsked {
-	if g == nil {
-		return nil
-	}
-	return g.EventQuestionAsked
-}
-
-func (g *GlobalEventPayload) GetEventQuestionReplied() *EventQuestionReplied {
-	if g == nil {
-		return nil
-	}
-	return g.EventQuestionReplied
-}
-
-func (g *GlobalEventPayload) GetEventQuestionRejected() *EventQuestionRejected {
-	if g == nil {
-		return nil
-	}
-	return g.EventQuestionRejected
-}
-
-func (g *GlobalEventPayload) GetEventTodoUpdated() *EventTodoUpdated {
-	if g == nil {
-		return nil
-	}
-	return g.EventTodoUpdated
-}
-
-func (g *GlobalEventPayload) GetEventSessionStatus() *EventSessionStatus {
-	if g == nil {
-		return nil
-	}
-	return g.EventSessionStatus
-}
-
-func (g *GlobalEventPayload) GetEventSessionIdle() *EventSessionIdle {
-	if g == nil {
-		return nil
-	}
-	return g.EventSessionIdle
+	Type                         string
+	ServerInstanceDisposed       *EventServerInstanceDisposed
+	FileEdited                   *EventFileEdited
+	FileWatcherUpdated           *EventFileWatcherUpdated
+	LspClientDiagnostics         *EventLspClientDiagnostics
+	LspUpdated                   *EventLspUpdated
+	MessagePartDelta             *EventMessagePartDelta
+	PermissionAsked              *EventPermissionAsked
+	PermissionReplied            *EventPermissionReplied
+	SessionDiff                  *EventSessionDiff
+	SessionError                 *EventSessionError
+	QuestionAsked                *EventQuestionAsked
+	QuestionReplied              *EventQuestionReplied
+	QuestionRejected             *EventQuestionRejected
+	TodoUpdated                  *EventTodoUpdated
+	SessionStatus                *EventSessionStatus
+	SessionIdle                  *EventSessionIdle
+	TuiPromptAppend              *EventTuiPromptAppend
+	TuiCommandExecute            *EventTuiCommandExecute
+	TuiToastShow                 *EventTuiToastShow
+	TuiSessionSelect             *EventTuiSessionSelect
+	McpToolsChanged              *EventMcpToolsChanged
+	McpBrowserOpenFailed         *EventMcpBrowserOpenFailed
+	CommandExecuted              *EventCommandExecuted
+	ProjectUpdated               *EventProjectUpdated
+	SessionCompacted             *EventSessionCompacted
+	VcsBranchUpdated             *EventVcsBranchUpdated
+	WorkspaceReady               *EventWorkspaceReady
+	WorkspaceFailed              *EventWorkspaceFailed
+	WorkspaceStatus              *EventWorkspaceStatus
+	WorktreeReady                *EventWorktreeReady
+	WorktreeFailed               *EventWorktreeFailed
+	PtyCreated                   *EventPtyCreated
+	PtyUpdated                   *EventPtyUpdated
+	PtyExited                    *EventPtyExited
+	PtyDeleted                   *EventPtyDeleted
+	InstallationUpdated          *EventInstallationUpdated
+	InstallationUpdateAvailable  *EventInstallationUpdateAvailable
+	MessageUpdated               *EventMessageUpdated
+	MessageRemoved               *EventMessageRemoved
+	MessagePartUpdated           *EventMessagePartUpdated
+	MessagePartRemoved           *EventMessagePartRemoved
+	SessionCreated               *EventSessionCreated
+	SessionUpdated               *EventSessionUpdated
+	SessionDeleted               *EventSessionDeleted
+	SessionNextAgentSwitched     *EventSessionNextAgentSwitched
+	SessionNextModelSwitched     *EventSessionNextModelSwitched
+	SessionNextPrompted          *EventSessionNextPrompted
+	SessionNextSynthetic         *EventSessionNextSynthetic
+	SessionNextShellStarted      *EventSessionNextShellStarted
+	SessionNextShellEnded        *EventSessionNextShellEnded
+	SessionNextStepStarted       *EventSessionNextStepStarted
+	SessionNextStepEnded         *EventSessionNextStepEnded
+	SessionNextStepFailed        *EventSessionNextStepFailed
+	SessionNextTextStarted       *EventSessionNextTextStarted
+	SessionNextTextDelta         *EventSessionNextTextDelta
+	SessionNextTextEnded         *EventSessionNextTextEnded
+	SessionNextReasoningStarted  *EventSessionNextReasoningStarted
+	SessionNextReasoningDelta    *EventSessionNextReasoningDelta
+	SessionNextReasoningEnded    *EventSessionNextReasoningEnded
+	SessionNextToolInputStarted  *EventSessionNextToolInputStarted
+	SessionNextToolInputDelta    *EventSessionNextToolInputDelta
+	SessionNextToolInputEnded    *EventSessionNextToolInputEnded
+	SessionNextToolCalled        *EventSessionNextToolCalled
+	SessionNextToolProgress      *EventSessionNextToolProgress
+	SessionNextToolSuccess       *EventSessionNextToolSuccess
+	SessionNextToolFailed        *EventSessionNextToolFailed
+	SessionNextRetried           *EventSessionNextRetried
+	SessionNextCompactionStarted *EventSessionNextCompactionStarted
+	SessionNextCompactionDelta   *EventSessionNextCompactionDelta
+	SessionNextCompactionEnded   *EventSessionNextCompactionEnded
+	ServerConnected              *EventServerConnected
+	GlobalDisposed               *EventGlobalDisposed
+	CatalogModelUpdated          *EventCatalogModelUpdated
 }
 
-func (g *GlobalEventPayload) GetEventTuiPromptAppend() *EventTuiPromptAppend {
+func (g *GlobalEventPayload) GetType() string {
 	if g == nil {
-		return nil
-	}
-	return g.EventTuiPromptAppend
-}
-
-func (g *GlobalEventPayload) GetEventTuiCommandExecute() *EventTuiCommandExecute {
-	if g == nil {
-		return nil
-	}
-	return g.EventTuiCommandExecute
-}
-
-func (g *GlobalEventPayload) GetEventTuiToastShow() *EventTuiToastShow {
-	if g == nil {
-		return nil
-	}
-	return g.EventTuiToastShow
-}
-
-func (g *GlobalEventPayload) GetEventTuiSessionSelect() *EventTuiSessionSelect {
-	if g == nil {
-		return nil
-	}
-	return g.EventTuiSessionSelect
-}
-
-func (g *GlobalEventPayload) GetEventMcpToolsChanged() *EventMcpToolsChanged {
-	if g == nil {
-		return nil
-	}
-	return g.EventMcpToolsChanged
-}
-
-func (g *GlobalEventPayload) GetEventMcpBrowserOpenFailed() *EventMcpBrowserOpenFailed {
-	if g == nil {
-		return nil
-	}
-	return g.EventMcpBrowserOpenFailed
-}
-
-func (g *GlobalEventPayload) GetEventCommandExecuted() *EventCommandExecuted {
-	if g == nil {
-		return nil
-	}
-	return g.EventCommandExecuted
-}
-
-func (g *GlobalEventPayload) GetEventProjectUpdated() *EventProjectUpdated {
-	if g == nil {
-		return nil
-	}
-	return g.EventProjectUpdated
-}
-
-func (g *GlobalEventPayload) GetEventSessionCompacted() *EventSessionCompacted {
-	if g == nil {
-		return nil
-	}
-	return g.EventSessionCompacted
-}
-
-func (g *GlobalEventPayload) GetEventVcsBranchUpdated() *EventVcsBranchUpdated {
-	if g == nil {
-		return nil
-	}
-	return g.EventVcsBranchUpdated
-}
-
-func (g *GlobalEventPayload) GetEventWorkspaceReady() *EventWorkspaceReady {
-	if g == nil {
-		return nil
-	}
-	return g.EventWorkspaceReady
-}
-
-func (g *GlobalEventPayload) GetEventWorkspaceFailed() *EventWorkspaceFailed {
-	if g == nil {
-		return nil
-	}
-	return g.EventWorkspaceFailed
-}
-
-func (g *GlobalEventPayload) GetEventWorkspaceStatus() *EventWorkspaceStatus {
-	if g == nil {
-		return nil
-	}
-	return g.EventWorkspaceStatus
-}
-
-func (g *GlobalEventPayload) GetEventWorktreeReady() *EventWorktreeReady {
-	if g == nil {
-		return nil
-	}
-	return g.EventWorktreeReady
-}
-
-func (g *GlobalEventPayload) GetEventWorktreeFailed() *EventWorktreeFailed {
-	if g == nil {
-		return nil
-	}
-	return g.EventWorktreeFailed
-}
-
-func (g *GlobalEventPayload) GetEventPtyCreated() *EventPtyCreated {
-	if g == nil {
-		return nil
-	}
-	return g.EventPtyCreated
-}
-
-func (g *GlobalEventPayload) GetEventPtyUpdated() *EventPtyUpdated {
-	if g == nil {
-		return nil
+		return ""
 	}
-	return g.EventPtyUpdated
+	return g.Type
 }
 
-func (g *GlobalEventPayload) GetEventPtyExited() *EventPtyExited {
+func (g *GlobalEventPayload) GetServerInstanceDisposed() *EventServerInstanceDisposed {
 	if g == nil {
 		return nil
 	}
-	return g.EventPtyExited
+	return g.ServerInstanceDisposed
 }
 
-func (g *GlobalEventPayload) GetEventPtyDeleted() *EventPtyDeleted {
+func (g *GlobalEventPayload) GetFileEdited() *EventFileEdited {
 	if g == nil {
 		return nil
 	}
-	return g.EventPtyDeleted
+	return g.FileEdited
 }
 
-func (g *GlobalEventPayload) GetEventInstallationUpdated() *EventInstallationUpdated {
+func (g *GlobalEventPayload) GetFileWatcherUpdated() *EventFileWatcherUpdated {
 	if g == nil {
 		return nil
 	}
-	return g.EventInstallationUpdated
+	return g.FileWatcherUpdated
 }
 
-func (g *GlobalEventPayload) GetEventInstallationUpdateAvailable() *EventInstallationUpdateAvailable {
+func (g *GlobalEventPayload) GetLspClientDiagnostics() *EventLspClientDiagnostics {
 	if g == nil {
 		return nil
 	}
-	return g.EventInstallationUpdateAvailable
+	return g.LspClientDiagnostics
 }
 
-func (g *GlobalEventPayload) GetEventMessageUpdated() *EventMessageUpdated {
+func (g *GlobalEventPayload) GetLspUpdated() *EventLspUpdated {
 	if g == nil {
 		return nil
 	}
-	return g.EventMessageUpdated
+	return g.LspUpdated
 }
 
-func (g *GlobalEventPayload) GetEventMessageRemoved() *EventMessageRemoved {
+func (g *GlobalEventPayload) GetMessagePartDelta() *EventMessagePartDelta {
 	if g == nil {
 		return nil
 	}
-	return g.EventMessageRemoved
+	return g.MessagePartDelta
 }
 
-func (g *GlobalEventPayload) GetEventMessagePartUpdated() *EventMessagePartUpdated {
+func (g *GlobalEventPayload) GetPermissionAsked() *EventPermissionAsked {
 	if g == nil {
 		return nil
 	}
-	return g.EventMessagePartUpdated
+	return g.PermissionAsked
 }
 
-func (g *GlobalEventPayload) GetEventMessagePartRemoved() *EventMessagePartRemoved {
+func (g *GlobalEventPayload) GetPermissionReplied() *EventPermissionReplied {
 	if g == nil {
 		return nil
 	}
-	return g.EventMessagePartRemoved
+	return g.PermissionReplied
 }
 
-func (g *GlobalEventPayload) GetEventSessionCreated() *EventSessionCreated {
+func (g *GlobalEventPayload) GetSessionDiff() *EventSessionDiff {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionCreated
+	return g.SessionDiff
 }
 
-func (g *GlobalEventPayload) GetEventSessionUpdated() *EventSessionUpdated {
+func (g *GlobalEventPayload) GetSessionError() *EventSessionError {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionUpdated
+	return g.SessionError
 }
 
-func (g *GlobalEventPayload) GetEventSessionDeleted() *EventSessionDeleted {
+func (g *GlobalEventPayload) GetQuestionAsked() *EventQuestionAsked {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionDeleted
+	return g.QuestionAsked
 }
 
-func (g *GlobalEventPayload) GetEventServerConnected() *EventServerConnected {
+func (g *GlobalEventPayload) GetQuestionReplied() *EventQuestionReplied {
 	if g == nil {
 		return nil
 	}
-	return g.EventServerConnected
+	return g.QuestionReplied
 }
 
-func (g *GlobalEventPayload) GetEventGlobalDisposed() *EventGlobalDisposed {
+func (g *GlobalEventPayload) GetQuestionRejected() *EventQuestionRejected {
 	if g == nil {
 		return nil
 	}
-	return g.EventGlobalDisposed
+	return g.QuestionRejected
 }
 
-func (g *GlobalEventPayload) GetEventCatalogModelUpdated() *EventCatalogModelUpdated {
+func (g *GlobalEventPayload) GetTodoUpdated() *EventTodoUpdated {
 	if g == nil {
 		return nil
 	}
-	return g.EventCatalogModelUpdated
+	return g.TodoUpdated
 }
 
-func (g *GlobalEventPayload) GetEventSessionNextAgentSwitched() *EventSessionNextAgentSwitched {
+func (g *GlobalEventPayload) GetSessionStatus() *EventSessionStatus {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionNextAgentSwitched
+	return g.SessionStatus
 }
 
-func (g *GlobalEventPayload) GetEventSessionNextModelSwitched() *EventSessionNextModelSwitched {
+func (g *GlobalEventPayload) GetSessionIdle() *EventSessionIdle {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionNextModelSwitched
+	return g.SessionIdle
 }
 
-func (g *GlobalEventPayload) GetEventSessionNextPrompted() *EventSessionNextPrompted {
+func (g *GlobalEventPayload) GetTuiPromptAppend() *EventTuiPromptAppend {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionNextPrompted
+	return g.TuiPromptAppend
 }
 
-func (g *GlobalEventPayload) GetEventSessionNextSynthetic() *EventSessionNextSynthetic {
+func (g *GlobalEventPayload) GetTuiCommandExecute() *EventTuiCommandExecute {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionNextSynthetic
+	return g.TuiCommandExecute
 }
 
-func (g *GlobalEventPayload) GetEventSessionNextShellStarted() *EventSessionNextShellStarted {
+func (g *GlobalEventPayload) GetTuiToastShow() *EventTuiToastShow {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionNextShellStarted
+	return g.TuiToastShow
 }
 
-func (g *GlobalEventPayload) GetEventSessionNextShellEnded() *EventSessionNextShellEnded {
+func (g *GlobalEventPayload) GetTuiSessionSelect() *EventTuiSessionSelect {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionNextShellEnded
+	return g.TuiSessionSelect
 }
 
-func (g *GlobalEventPayload) GetEventSessionNextStepStarted() *EventSessionNextStepStarted {
+func (g *GlobalEventPayload) GetMcpToolsChanged() *EventMcpToolsChanged {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionNextStepStarted
+	return g.McpToolsChanged
 }
 
-func (g *GlobalEventPayload) GetEventSessionNextStepEnded() *EventSessionNextStepEnded {
+func (g *GlobalEventPayload) GetMcpBrowserOpenFailed() *EventMcpBrowserOpenFailed {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionNextStepEnded
+	return g.McpBrowserOpenFailed
 }
 
-func (g *GlobalEventPayload) GetEventSessionNextStepFailed() *EventSessionNextStepFailed {
+func (g *GlobalEventPayload) GetCommandExecuted() *EventCommandExecuted {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionNextStepFailed
+	return g.CommandExecuted
 }
 
-func (g *GlobalEventPayload) GetEventSessionNextTextStarted() *EventSessionNextTextStarted {
+func (g *GlobalEventPayload) GetProjectUpdated() *EventProjectUpdated {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionNextTextStarted
+	return g.ProjectUpdated
 }
 
-func (g *GlobalEventPayload) GetEventSessionNextTextDelta() *EventSessionNextTextDelta {
+func (g *GlobalEventPayload) GetSessionCompacted() *EventSessionCompacted {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionNextTextDelta
+	return g.SessionCompacted
 }
 
-func (g *GlobalEventPayload) GetEventSessionNextTextEnded() *EventSessionNextTextEnded {
+func (g *GlobalEventPayload) GetVcsBranchUpdated() *EventVcsBranchUpdated {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionNextTextEnded
+	return g.VcsBranchUpdated
 }
 
-func (g *GlobalEventPayload) GetEventSessionNextReasoningStarted() *EventSessionNextReasoningStarted {
+func (g *GlobalEventPayload) GetWorkspaceReady() *EventWorkspaceReady {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionNextReasoningStarted
+	return g.WorkspaceReady
 }
 
-func (g *GlobalEventPayload) GetEventSessionNextReasoningDelta() *EventSessionNextReasoningDelta {
+func (g *GlobalEventPayload) GetWorkspaceFailed() *EventWorkspaceFailed {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionNextReasoningDelta
+	return g.WorkspaceFailed
 }
 
-func (g *GlobalEventPayload) GetEventSessionNextReasoningEnded() *EventSessionNextReasoningEnded {
+func (g *GlobalEventPayload) GetWorkspaceStatus() *EventWorkspaceStatus {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionNextReasoningEnded
+	return g.WorkspaceStatus
 }
 
-func (g *GlobalEventPayload) GetEventSessionNextToolInputStarted() *EventSessionNextToolInputStarted {
+func (g *GlobalEventPayload) GetWorktreeReady() *EventWorktreeReady {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionNextToolInputStarted
+	return g.WorktreeReady
 }
 
-func (g *GlobalEventPayload) GetEventSessionNextToolInputDelta() *EventSessionNextToolInputDelta {
+func (g *GlobalEventPayload) GetWorktreeFailed() *EventWorktreeFailed {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionNextToolInputDelta
+	return g.WorktreeFailed
 }
 
-func (g *GlobalEventPayload) GetEventSessionNextToolInputEnded() *EventSessionNextToolInputEnded {
+func (g *GlobalEventPayload) GetPtyCreated() *EventPtyCreated {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionNextToolInputEnded
+	return g.PtyCreated
 }
 
-func (g *GlobalEventPayload) GetEventSessionNextToolCalled() *EventSessionNextToolCalled {
+func (g *GlobalEventPayload) GetPtyUpdated() *EventPtyUpdated {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionNextToolCalled
+	return g.PtyUpdated
 }
 
-func (g *GlobalEventPayload) GetEventSessionNextToolProgress() *EventSessionNextToolProgress {
+func (g *GlobalEventPayload) GetPtyExited() *EventPtyExited {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionNextToolProgress
+	return g.PtyExited
 }
 
-func (g *GlobalEventPayload) GetEventSessionNextToolSuccess() *EventSessionNextToolSuccess {
+func (g *GlobalEventPayload) GetPtyDeleted() *EventPtyDeleted {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionNextToolSuccess
+	return g.PtyDeleted
 }
 
-func (g *GlobalEventPayload) GetEventSessionNextToolFailed() *EventSessionNextToolFailed {
+func (g *GlobalEventPayload) GetInstallationUpdated() *EventInstallationUpdated {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionNextToolFailed
+	return g.InstallationUpdated
 }
 
-func (g *GlobalEventPayload) GetEventSessionNextRetried() *EventSessionNextRetried {
+func (g *GlobalEventPayload) GetInstallationUpdateAvailable() *EventInstallationUpdateAvailable {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionNextRetried
+	return g.InstallationUpdateAvailable
 }
 
-func (g *GlobalEventPayload) GetEventSessionNextCompactionStarted() *EventSessionNextCompactionStarted {
+func (g *GlobalEventPayload) GetMessageUpdated() *EventMessageUpdated {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionNextCompactionStarted
+	return g.MessageUpdated
 }
 
-func (g *GlobalEventPayload) GetEventSessionNextCompactionDelta() *EventSessionNextCompactionDelta {
+func (g *GlobalEventPayload) GetMessageRemoved() *EventMessageRemoved {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionNextCompactionDelta
+	return g.MessageRemoved
 }
 
-func (g *GlobalEventPayload) GetEventSessionNextCompactionEnded() *EventSessionNextCompactionEnded {
+func (g *GlobalEventPayload) GetMessagePartUpdated() *EventMessagePartUpdated {
 	if g == nil {
 		return nil
 	}
-	return g.EventSessionNextCompactionEnded
+	return g.MessagePartUpdated
 }
 
-func (g *GlobalEventPayload) GetSyncEventMessageUpdated() *SyncEventMessageUpdated {
+func (g *GlobalEventPayload) GetMessagePartRemoved() *EventMessagePartRemoved {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventMessageUpdated
+	return g.MessagePartRemoved
 }
 
-func (g *GlobalEventPayload) GetSyncEventMessageRemoved() *SyncEventMessageRemoved {
+func (g *GlobalEventPayload) GetSessionCreated() *EventSessionCreated {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventMessageRemoved
+	return g.SessionCreated
 }
 
-func (g *GlobalEventPayload) GetSyncEventMessagePartUpdated() *SyncEventMessagePartUpdated {
+func (g *GlobalEventPayload) GetSessionUpdated() *EventSessionUpdated {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventMessagePartUpdated
+	return g.SessionUpdated
 }
 
-func (g *GlobalEventPayload) GetSyncEventMessagePartRemoved() *SyncEventMessagePartRemoved {
+func (g *GlobalEventPayload) GetSessionDeleted() *EventSessionDeleted {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventMessagePartRemoved
+	return g.SessionDeleted
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionCreated() *SyncEventSessionCreated {
+func (g *GlobalEventPayload) GetSessionNextAgentSwitched() *EventSessionNextAgentSwitched {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionCreated
+	return g.SessionNextAgentSwitched
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionUpdated() *SyncEventSessionUpdated {
+func (g *GlobalEventPayload) GetSessionNextModelSwitched() *EventSessionNextModelSwitched {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionUpdated
+	return g.SessionNextModelSwitched
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionDeleted() *SyncEventSessionDeleted {
+func (g *GlobalEventPayload) GetSessionNextPrompted() *EventSessionNextPrompted {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionDeleted
+	return g.SessionNextPrompted
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionNextAgentSwitched() *SyncEventSessionNextAgentSwitched {
+func (g *GlobalEventPayload) GetSessionNextSynthetic() *EventSessionNextSynthetic {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionNextAgentSwitched
+	return g.SessionNextSynthetic
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionNextModelSwitched() *SyncEventSessionNextModelSwitched {
+func (g *GlobalEventPayload) GetSessionNextShellStarted() *EventSessionNextShellStarted {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionNextModelSwitched
+	return g.SessionNextShellStarted
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionNextPrompted() *SyncEventSessionNextPrompted {
+func (g *GlobalEventPayload) GetSessionNextShellEnded() *EventSessionNextShellEnded {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionNextPrompted
+	return g.SessionNextShellEnded
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionNextSynthetic() *SyncEventSessionNextSynthetic {
+func (g *GlobalEventPayload) GetSessionNextStepStarted() *EventSessionNextStepStarted {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionNextSynthetic
+	return g.SessionNextStepStarted
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionNextShellStarted() *SyncEventSessionNextShellStarted {
+func (g *GlobalEventPayload) GetSessionNextStepEnded() *EventSessionNextStepEnded {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionNextShellStarted
+	return g.SessionNextStepEnded
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionNextShellEnded() *SyncEventSessionNextShellEnded {
+func (g *GlobalEventPayload) GetSessionNextStepFailed() *EventSessionNextStepFailed {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionNextShellEnded
+	return g.SessionNextStepFailed
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionNextStepStarted() *SyncEventSessionNextStepStarted {
+func (g *GlobalEventPayload) GetSessionNextTextStarted() *EventSessionNextTextStarted {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionNextStepStarted
+	return g.SessionNextTextStarted
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionNextStepEnded() *SyncEventSessionNextStepEnded {
+func (g *GlobalEventPayload) GetSessionNextTextDelta() *EventSessionNextTextDelta {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionNextStepEnded
+	return g.SessionNextTextDelta
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionNextStepFailed() *SyncEventSessionNextStepFailed {
+func (g *GlobalEventPayload) GetSessionNextTextEnded() *EventSessionNextTextEnded {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionNextStepFailed
+	return g.SessionNextTextEnded
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionNextTextStarted() *SyncEventSessionNextTextStarted {
+func (g *GlobalEventPayload) GetSessionNextReasoningStarted() *EventSessionNextReasoningStarted {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionNextTextStarted
+	return g.SessionNextReasoningStarted
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionNextTextDelta() *SyncEventSessionNextTextDelta {
+func (g *GlobalEventPayload) GetSessionNextReasoningDelta() *EventSessionNextReasoningDelta {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionNextTextDelta
+	return g.SessionNextReasoningDelta
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionNextTextEnded() *SyncEventSessionNextTextEnded {
+func (g *GlobalEventPayload) GetSessionNextReasoningEnded() *EventSessionNextReasoningEnded {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionNextTextEnded
+	return g.SessionNextReasoningEnded
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionNextReasoningStarted() *SyncEventSessionNextReasoningStarted {
+func (g *GlobalEventPayload) GetSessionNextToolInputStarted() *EventSessionNextToolInputStarted {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionNextReasoningStarted
+	return g.SessionNextToolInputStarted
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionNextReasoningDelta() *SyncEventSessionNextReasoningDelta {
+func (g *GlobalEventPayload) GetSessionNextToolInputDelta() *EventSessionNextToolInputDelta {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionNextReasoningDelta
+	return g.SessionNextToolInputDelta
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionNextReasoningEnded() *SyncEventSessionNextReasoningEnded {
+func (g *GlobalEventPayload) GetSessionNextToolInputEnded() *EventSessionNextToolInputEnded {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionNextReasoningEnded
+	return g.SessionNextToolInputEnded
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionNextToolInputStarted() *SyncEventSessionNextToolInputStarted {
+func (g *GlobalEventPayload) GetSessionNextToolCalled() *EventSessionNextToolCalled {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionNextToolInputStarted
+	return g.SessionNextToolCalled
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionNextToolInputDelta() *SyncEventSessionNextToolInputDelta {
+func (g *GlobalEventPayload) GetSessionNextToolProgress() *EventSessionNextToolProgress {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionNextToolInputDelta
+	return g.SessionNextToolProgress
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionNextToolInputEnded() *SyncEventSessionNextToolInputEnded {
+func (g *GlobalEventPayload) GetSessionNextToolSuccess() *EventSessionNextToolSuccess {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionNextToolInputEnded
+	return g.SessionNextToolSuccess
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionNextToolCalled() *SyncEventSessionNextToolCalled {
+func (g *GlobalEventPayload) GetSessionNextToolFailed() *EventSessionNextToolFailed {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionNextToolCalled
+	return g.SessionNextToolFailed
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionNextToolProgress() *SyncEventSessionNextToolProgress {
+func (g *GlobalEventPayload) GetSessionNextRetried() *EventSessionNextRetried {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionNextToolProgress
+	return g.SessionNextRetried
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionNextToolSuccess() *SyncEventSessionNextToolSuccess {
+func (g *GlobalEventPayload) GetSessionNextCompactionStarted() *EventSessionNextCompactionStarted {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionNextToolSuccess
+	return g.SessionNextCompactionStarted
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionNextToolFailed() *SyncEventSessionNextToolFailed {
+func (g *GlobalEventPayload) GetSessionNextCompactionDelta() *EventSessionNextCompactionDelta {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionNextToolFailed
+	return g.SessionNextCompactionDelta
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionNextRetried() *SyncEventSessionNextRetried {
+func (g *GlobalEventPayload) GetSessionNextCompactionEnded() *EventSessionNextCompactionEnded {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionNextRetried
+	return g.SessionNextCompactionEnded
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionNextCompactionStarted() *SyncEventSessionNextCompactionStarted {
+func (g *GlobalEventPayload) GetServerConnected() *EventServerConnected {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionNextCompactionStarted
+	return g.ServerConnected
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionNextCompactionDelta() *SyncEventSessionNextCompactionDelta {
+func (g *GlobalEventPayload) GetGlobalDisposed() *EventGlobalDisposed {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionNextCompactionDelta
+	return g.GlobalDisposed
 }
 
-func (g *GlobalEventPayload) GetSyncEventSessionNextCompactionEnded() *SyncEventSessionNextCompactionEnded {
+func (g *GlobalEventPayload) GetCatalogModelUpdated() *EventCatalogModelUpdated {
 	if g == nil {
 		return nil
 	}
-	return g.SyncEventSessionNextCompactionEnded
+	return g.CatalogModelUpdated
 }
 
 func (g *GlobalEventPayload) UnmarshalJSON(data []byte) error {
-	valueEventServerInstanceDisposed := new(EventServerInstanceDisposed)
-	if err := json.Unmarshal(data, &valueEventServerInstanceDisposed); err == nil {
-		g.typ = "EventServerInstanceDisposed"
-		g.EventServerInstanceDisposed = valueEventServerInstanceDisposed
-		return nil
-	}
-	valueEventFileEdited := new(EventFileEdited)
-	if err := json.Unmarshal(data, &valueEventFileEdited); err == nil {
-		g.typ = "EventFileEdited"
-		g.EventFileEdited = valueEventFileEdited
-		return nil
-	}
-	valueEventFileWatcherUpdated := new(EventFileWatcherUpdated)
-	if err := json.Unmarshal(data, &valueEventFileWatcherUpdated); err == nil {
-		g.typ = "EventFileWatcherUpdated"
-		g.EventFileWatcherUpdated = valueEventFileWatcherUpdated
-		return nil
-	}
-	valueEventLspClientDiagnostics := new(EventLspClientDiagnostics)
-	if err := json.Unmarshal(data, &valueEventLspClientDiagnostics); err == nil {
-		g.typ = "EventLspClientDiagnostics"
-		g.EventLspClientDiagnostics = valueEventLspClientDiagnostics
-		return nil
-	}
-	valueEventLspUpdated := new(EventLspUpdated)
-	if err := json.Unmarshal(data, &valueEventLspUpdated); err == nil {
-		g.typ = "EventLspUpdated"
-		g.EventLspUpdated = valueEventLspUpdated
-		return nil
-	}
-	valueEventMessagePartDelta := new(EventMessagePartDelta)
-	if err := json.Unmarshal(data, &valueEventMessagePartDelta); err == nil {
-		g.typ = "EventMessagePartDelta"
-		g.EventMessagePartDelta = valueEventMessagePartDelta
-		return nil
-	}
-	valueEventPermissionAsked := new(EventPermissionAsked)
-	if err := json.Unmarshal(data, &valueEventPermissionAsked); err == nil {
-		g.typ = "EventPermissionAsked"
-		g.EventPermissionAsked = valueEventPermissionAsked
-		return nil
-	}
-	valueEventPermissionReplied := new(EventPermissionReplied)
-	if err := json.Unmarshal(data, &valueEventPermissionReplied); err == nil {
-		g.typ = "EventPermissionReplied"
-		g.EventPermissionReplied = valueEventPermissionReplied
-		return nil
-	}
-	valueEventSessionDiff := new(EventSessionDiff)
-	if err := json.Unmarshal(data, &valueEventSessionDiff); err == nil {
-		g.typ = "EventSessionDiff"
-		g.EventSessionDiff = valueEventSessionDiff
-		return nil
-	}
-	valueEventSessionError := new(EventSessionError)
-	if err := json.Unmarshal(data, &valueEventSessionError); err == nil {
-		g.typ = "EventSessionError"
-		g.EventSessionError = valueEventSessionError
-		return nil
-	}
-	valueEventQuestionAsked := new(EventQuestionAsked)
-	if err := json.Unmarshal(data, &valueEventQuestionAsked); err == nil {
-		g.typ = "EventQuestionAsked"
-		g.EventQuestionAsked = valueEventQuestionAsked
-		return nil
-	}
-	valueEventQuestionReplied := new(EventQuestionReplied)
-	if err := json.Unmarshal(data, &valueEventQuestionReplied); err == nil {
-		g.typ = "EventQuestionReplied"
-		g.EventQuestionReplied = valueEventQuestionReplied
-		return nil
-	}
-	valueEventQuestionRejected := new(EventQuestionRejected)
-	if err := json.Unmarshal(data, &valueEventQuestionRejected); err == nil {
-		g.typ = "EventQuestionRejected"
-		g.EventQuestionRejected = valueEventQuestionRejected
-		return nil
-	}
-	valueEventTodoUpdated := new(EventTodoUpdated)
-	if err := json.Unmarshal(data, &valueEventTodoUpdated); err == nil {
-		g.typ = "EventTodoUpdated"
-		g.EventTodoUpdated = valueEventTodoUpdated
-		return nil
-	}
-	valueEventSessionStatus := new(EventSessionStatus)
-	if err := json.Unmarshal(data, &valueEventSessionStatus); err == nil {
-		g.typ = "EventSessionStatus"
-		g.EventSessionStatus = valueEventSessionStatus
-		return nil
-	}
-	valueEventSessionIdle := new(EventSessionIdle)
-	if err := json.Unmarshal(data, &valueEventSessionIdle); err == nil {
-		g.typ = "EventSessionIdle"
-		g.EventSessionIdle = valueEventSessionIdle
-		return nil
-	}
-	valueEventTuiPromptAppend := new(EventTuiPromptAppend)
-	if err := json.Unmarshal(data, &valueEventTuiPromptAppend); err == nil {
-		g.typ = "EventTuiPromptAppend"
-		g.EventTuiPromptAppend = valueEventTuiPromptAppend
-		return nil
-	}
-	valueEventTuiCommandExecute := new(EventTuiCommandExecute)
-	if err := json.Unmarshal(data, &valueEventTuiCommandExecute); err == nil {
-		g.typ = "EventTuiCommandExecute"
-		g.EventTuiCommandExecute = valueEventTuiCommandExecute
-		return nil
-	}
-	valueEventTuiToastShow := new(EventTuiToastShow)
-	if err := json.Unmarshal(data, &valueEventTuiToastShow); err == nil {
-		g.typ = "EventTuiToastShow"
-		g.EventTuiToastShow = valueEventTuiToastShow
-		return nil
-	}
-	valueEventTuiSessionSelect := new(EventTuiSessionSelect)
-	if err := json.Unmarshal(data, &valueEventTuiSessionSelect); err == nil {
-		g.typ = "EventTuiSessionSelect"
-		g.EventTuiSessionSelect = valueEventTuiSessionSelect
-		return nil
-	}
-	valueEventMcpToolsChanged := new(EventMcpToolsChanged)
-	if err := json.Unmarshal(data, &valueEventMcpToolsChanged); err == nil {
-		g.typ = "EventMcpToolsChanged"
-		g.EventMcpToolsChanged = valueEventMcpToolsChanged
-		return nil
-	}
-	valueEventMcpBrowserOpenFailed := new(EventMcpBrowserOpenFailed)
-	if err := json.Unmarshal(data, &valueEventMcpBrowserOpenFailed); err == nil {
-		g.typ = "EventMcpBrowserOpenFailed"
-		g.EventMcpBrowserOpenFailed = valueEventMcpBrowserOpenFailed
-		return nil
-	}
-	valueEventCommandExecuted := new(EventCommandExecuted)
-	if err := json.Unmarshal(data, &valueEventCommandExecuted); err == nil {
-		g.typ = "EventCommandExecuted"
-		g.EventCommandExecuted = valueEventCommandExecuted
-		return nil
-	}
-	valueEventProjectUpdated := new(EventProjectUpdated)
-	if err := json.Unmarshal(data, &valueEventProjectUpdated); err == nil {
-		g.typ = "EventProjectUpdated"
-		g.EventProjectUpdated = valueEventProjectUpdated
-		return nil
-	}
-	valueEventSessionCompacted := new(EventSessionCompacted)
-	if err := json.Unmarshal(data, &valueEventSessionCompacted); err == nil {
-		g.typ = "EventSessionCompacted"
-		g.EventSessionCompacted = valueEventSessionCompacted
-		return nil
-	}
-	valueEventVcsBranchUpdated := new(EventVcsBranchUpdated)
-	if err := json.Unmarshal(data, &valueEventVcsBranchUpdated); err == nil {
-		g.typ = "EventVcsBranchUpdated"
-		g.EventVcsBranchUpdated = valueEventVcsBranchUpdated
-		return nil
-	}
-	valueEventWorkspaceReady := new(EventWorkspaceReady)
-	if err := json.Unmarshal(data, &valueEventWorkspaceReady); err == nil {
-		g.typ = "EventWorkspaceReady"
-		g.EventWorkspaceReady = valueEventWorkspaceReady
-		return nil
-	}
-	valueEventWorkspaceFailed := new(EventWorkspaceFailed)
-	if err := json.Unmarshal(data, &valueEventWorkspaceFailed); err == nil {
-		g.typ = "EventWorkspaceFailed"
-		g.EventWorkspaceFailed = valueEventWorkspaceFailed
-		return nil
-	}
-	valueEventWorkspaceStatus := new(EventWorkspaceStatus)
-	if err := json.Unmarshal(data, &valueEventWorkspaceStatus); err == nil {
-		g.typ = "EventWorkspaceStatus"
-		g.EventWorkspaceStatus = valueEventWorkspaceStatus
-		return nil
-	}
-	valueEventWorktreeReady := new(EventWorktreeReady)
-	if err := json.Unmarshal(data, &valueEventWorktreeReady); err == nil {
-		g.typ = "EventWorktreeReady"
-		g.EventWorktreeReady = valueEventWorktreeReady
-		return nil
-	}
-	valueEventWorktreeFailed := new(EventWorktreeFailed)
-	if err := json.Unmarshal(data, &valueEventWorktreeFailed); err == nil {
-		g.typ = "EventWorktreeFailed"
-		g.EventWorktreeFailed = valueEventWorktreeFailed
-		return nil
-	}
-	valueEventPtyCreated := new(EventPtyCreated)
-	if err := json.Unmarshal(data, &valueEventPtyCreated); err == nil {
-		g.typ = "EventPtyCreated"
-		g.EventPtyCreated = valueEventPtyCreated
-		return nil
-	}
-	valueEventPtyUpdated := new(EventPtyUpdated)
-	if err := json.Unmarshal(data, &valueEventPtyUpdated); err == nil {
-		g.typ = "EventPtyUpdated"
-		g.EventPtyUpdated = valueEventPtyUpdated
-		return nil
-	}
-	valueEventPtyExited := new(EventPtyExited)
-	if err := json.Unmarshal(data, &valueEventPtyExited); err == nil {
-		g.typ = "EventPtyExited"
-		g.EventPtyExited = valueEventPtyExited
-		return nil
-	}
-	valueEventPtyDeleted := new(EventPtyDeleted)
-	if err := json.Unmarshal(data, &valueEventPtyDeleted); err == nil {
-		g.typ = "EventPtyDeleted"
-		g.EventPtyDeleted = valueEventPtyDeleted
-		return nil
-	}
-	valueEventInstallationUpdated := new(EventInstallationUpdated)
-	if err := json.Unmarshal(data, &valueEventInstallationUpdated); err == nil {
-		g.typ = "EventInstallationUpdated"
-		g.EventInstallationUpdated = valueEventInstallationUpdated
-		return nil
-	}
-	valueEventInstallationUpdateAvailable := new(EventInstallationUpdateAvailable)
-	if err := json.Unmarshal(data, &valueEventInstallationUpdateAvailable); err == nil {
-		g.typ = "EventInstallationUpdateAvailable"
-		g.EventInstallationUpdateAvailable = valueEventInstallationUpdateAvailable
-		return nil
-	}
-	valueEventMessageUpdated := new(EventMessageUpdated)
-	if err := json.Unmarshal(data, &valueEventMessageUpdated); err == nil {
-		g.typ = "EventMessageUpdated"
-		g.EventMessageUpdated = valueEventMessageUpdated
-		return nil
-	}
-	valueEventMessageRemoved := new(EventMessageRemoved)
-	if err := json.Unmarshal(data, &valueEventMessageRemoved); err == nil {
-		g.typ = "EventMessageRemoved"
-		g.EventMessageRemoved = valueEventMessageRemoved
-		return nil
-	}
-	valueEventMessagePartUpdated := new(EventMessagePartUpdated)
-	if err := json.Unmarshal(data, &valueEventMessagePartUpdated); err == nil {
-		g.typ = "EventMessagePartUpdated"
-		g.EventMessagePartUpdated = valueEventMessagePartUpdated
-		return nil
-	}
-	valueEventMessagePartRemoved := new(EventMessagePartRemoved)
-	if err := json.Unmarshal(data, &valueEventMessagePartRemoved); err == nil {
-		g.typ = "EventMessagePartRemoved"
-		g.EventMessagePartRemoved = valueEventMessagePartRemoved
-		return nil
-	}
-	valueEventSessionCreated := new(EventSessionCreated)
-	if err := json.Unmarshal(data, &valueEventSessionCreated); err == nil {
-		g.typ = "EventSessionCreated"
-		g.EventSessionCreated = valueEventSessionCreated
-		return nil
-	}
-	valueEventSessionUpdated := new(EventSessionUpdated)
-	if err := json.Unmarshal(data, &valueEventSessionUpdated); err == nil {
-		g.typ = "EventSessionUpdated"
-		g.EventSessionUpdated = valueEventSessionUpdated
-		return nil
-	}
-	valueEventSessionDeleted := new(EventSessionDeleted)
-	if err := json.Unmarshal(data, &valueEventSessionDeleted); err == nil {
-		g.typ = "EventSessionDeleted"
-		g.EventSessionDeleted = valueEventSessionDeleted
-		return nil
-	}
-	valueEventServerConnected := new(EventServerConnected)
-	if err := json.Unmarshal(data, &valueEventServerConnected); err == nil {
-		g.typ = "EventServerConnected"
-		g.EventServerConnected = valueEventServerConnected
-		return nil
-	}
-	valueEventGlobalDisposed := new(EventGlobalDisposed)
-	if err := json.Unmarshal(data, &valueEventGlobalDisposed); err == nil {
-		g.typ = "EventGlobalDisposed"
-		g.EventGlobalDisposed = valueEventGlobalDisposed
-		return nil
-	}
-	valueEventCatalogModelUpdated := new(EventCatalogModelUpdated)
-	if err := json.Unmarshal(data, &valueEventCatalogModelUpdated); err == nil {
-		g.typ = "EventCatalogModelUpdated"
-		g.EventCatalogModelUpdated = valueEventCatalogModelUpdated
-		return nil
-	}
-	valueEventSessionNextAgentSwitched := new(EventSessionNextAgentSwitched)
-	if err := json.Unmarshal(data, &valueEventSessionNextAgentSwitched); err == nil {
-		g.typ = "EventSessionNextAgentSwitched"
-		g.EventSessionNextAgentSwitched = valueEventSessionNextAgentSwitched
-		return nil
-	}
-	valueEventSessionNextModelSwitched := new(EventSessionNextModelSwitched)
-	if err := json.Unmarshal(data, &valueEventSessionNextModelSwitched); err == nil {
-		g.typ = "EventSessionNextModelSwitched"
-		g.EventSessionNextModelSwitched = valueEventSessionNextModelSwitched
-		return nil
-	}
-	valueEventSessionNextPrompted := new(EventSessionNextPrompted)
-	if err := json.Unmarshal(data, &valueEventSessionNextPrompted); err == nil {
-		g.typ = "EventSessionNextPrompted"
-		g.EventSessionNextPrompted = valueEventSessionNextPrompted
-		return nil
-	}
-	valueEventSessionNextSynthetic := new(EventSessionNextSynthetic)
-	if err := json.Unmarshal(data, &valueEventSessionNextSynthetic); err == nil {
-		g.typ = "EventSessionNextSynthetic"
-		g.EventSessionNextSynthetic = valueEventSessionNextSynthetic
-		return nil
-	}
-	valueEventSessionNextShellStarted := new(EventSessionNextShellStarted)
-	if err := json.Unmarshal(data, &valueEventSessionNextShellStarted); err == nil {
-		g.typ = "EventSessionNextShellStarted"
-		g.EventSessionNextShellStarted = valueEventSessionNextShellStarted
-		return nil
-	}
-	valueEventSessionNextShellEnded := new(EventSessionNextShellEnded)
-	if err := json.Unmarshal(data, &valueEventSessionNextShellEnded); err == nil {
-		g.typ = "EventSessionNextShellEnded"
-		g.EventSessionNextShellEnded = valueEventSessionNextShellEnded
-		return nil
-	}
-	valueEventSessionNextStepStarted := new(EventSessionNextStepStarted)
-	if err := json.Unmarshal(data, &valueEventSessionNextStepStarted); err == nil {
-		g.typ = "EventSessionNextStepStarted"
-		g.EventSessionNextStepStarted = valueEventSessionNextStepStarted
-		return nil
-	}
-	valueEventSessionNextStepEnded := new(EventSessionNextStepEnded)
-	if err := json.Unmarshal(data, &valueEventSessionNextStepEnded); err == nil {
-		g.typ = "EventSessionNextStepEnded"
-		g.EventSessionNextStepEnded = valueEventSessionNextStepEnded
-		return nil
-	}
-	valueEventSessionNextStepFailed := new(EventSessionNextStepFailed)
-	if err := json.Unmarshal(data, &valueEventSessionNextStepFailed); err == nil {
-		g.typ = "EventSessionNextStepFailed"
-		g.EventSessionNextStepFailed = valueEventSessionNextStepFailed
-		return nil
-	}
-	valueEventSessionNextTextStarted := new(EventSessionNextTextStarted)
-	if err := json.Unmarshal(data, &valueEventSessionNextTextStarted); err == nil {
-		g.typ = "EventSessionNextTextStarted"
-		g.EventSessionNextTextStarted = valueEventSessionNextTextStarted
-		return nil
-	}
-	valueEventSessionNextTextDelta := new(EventSessionNextTextDelta)
-	if err := json.Unmarshal(data, &valueEventSessionNextTextDelta); err == nil {
-		g.typ = "EventSessionNextTextDelta"
-		g.EventSessionNextTextDelta = valueEventSessionNextTextDelta
-		return nil
-	}
-	valueEventSessionNextTextEnded := new(EventSessionNextTextEnded)
-	if err := json.Unmarshal(data, &valueEventSessionNextTextEnded); err == nil {
-		g.typ = "EventSessionNextTextEnded"
-		g.EventSessionNextTextEnded = valueEventSessionNextTextEnded
-		return nil
-	}
-	valueEventSessionNextReasoningStarted := new(EventSessionNextReasoningStarted)
-	if err := json.Unmarshal(data, &valueEventSessionNextReasoningStarted); err == nil {
-		g.typ = "EventSessionNextReasoningStarted"
-		g.EventSessionNextReasoningStarted = valueEventSessionNextReasoningStarted
-		return nil
-	}
-	valueEventSessionNextReasoningDelta := new(EventSessionNextReasoningDelta)
-	if err := json.Unmarshal(data, &valueEventSessionNextReasoningDelta); err == nil {
-		g.typ = "EventSessionNextReasoningDelta"
-		g.EventSessionNextReasoningDelta = valueEventSessionNextReasoningDelta
-		return nil
-	}
-	valueEventSessionNextReasoningEnded := new(EventSessionNextReasoningEnded)
-	if err := json.Unmarshal(data, &valueEventSessionNextReasoningEnded); err == nil {
-		g.typ = "EventSessionNextReasoningEnded"
-		g.EventSessionNextReasoningEnded = valueEventSessionNextReasoningEnded
-		return nil
-	}
-	valueEventSessionNextToolInputStarted := new(EventSessionNextToolInputStarted)
-	if err := json.Unmarshal(data, &valueEventSessionNextToolInputStarted); err == nil {
-		g.typ = "EventSessionNextToolInputStarted"
-		g.EventSessionNextToolInputStarted = valueEventSessionNextToolInputStarted
-		return nil
-	}
-	valueEventSessionNextToolInputDelta := new(EventSessionNextToolInputDelta)
-	if err := json.Unmarshal(data, &valueEventSessionNextToolInputDelta); err == nil {
-		g.typ = "EventSessionNextToolInputDelta"
-		g.EventSessionNextToolInputDelta = valueEventSessionNextToolInputDelta
-		return nil
-	}
-	valueEventSessionNextToolInputEnded := new(EventSessionNextToolInputEnded)
-	if err := json.Unmarshal(data, &valueEventSessionNextToolInputEnded); err == nil {
-		g.typ = "EventSessionNextToolInputEnded"
-		g.EventSessionNextToolInputEnded = valueEventSessionNextToolInputEnded
-		return nil
-	}
-	valueEventSessionNextToolCalled := new(EventSessionNextToolCalled)
-	if err := json.Unmarshal(data, &valueEventSessionNextToolCalled); err == nil {
-		g.typ = "EventSessionNextToolCalled"
-		g.EventSessionNextToolCalled = valueEventSessionNextToolCalled
-		return nil
-	}
-	valueEventSessionNextToolProgress := new(EventSessionNextToolProgress)
-	if err := json.Unmarshal(data, &valueEventSessionNextToolProgress); err == nil {
-		g.typ = "EventSessionNextToolProgress"
-		g.EventSessionNextToolProgress = valueEventSessionNextToolProgress
-		return nil
-	}
-	valueEventSessionNextToolSuccess := new(EventSessionNextToolSuccess)
-	if err := json.Unmarshal(data, &valueEventSessionNextToolSuccess); err == nil {
-		g.typ = "EventSessionNextToolSuccess"
-		g.EventSessionNextToolSuccess = valueEventSessionNextToolSuccess
-		return nil
-	}
-	valueEventSessionNextToolFailed := new(EventSessionNextToolFailed)
-	if err := json.Unmarshal(data, &valueEventSessionNextToolFailed); err == nil {
-		g.typ = "EventSessionNextToolFailed"
-		g.EventSessionNextToolFailed = valueEventSessionNextToolFailed
-		return nil
-	}
-	valueEventSessionNextRetried := new(EventSessionNextRetried)
-	if err := json.Unmarshal(data, &valueEventSessionNextRetried); err == nil {
-		g.typ = "EventSessionNextRetried"
-		g.EventSessionNextRetried = valueEventSessionNextRetried
-		return nil
-	}
-	valueEventSessionNextCompactionStarted := new(EventSessionNextCompactionStarted)
-	if err := json.Unmarshal(data, &valueEventSessionNextCompactionStarted); err == nil {
-		g.typ = "EventSessionNextCompactionStarted"
-		g.EventSessionNextCompactionStarted = valueEventSessionNextCompactionStarted
-		return nil
-	}
-	valueEventSessionNextCompactionDelta := new(EventSessionNextCompactionDelta)
-	if err := json.Unmarshal(data, &valueEventSessionNextCompactionDelta); err == nil {
-		g.typ = "EventSessionNextCompactionDelta"
-		g.EventSessionNextCompactionDelta = valueEventSessionNextCompactionDelta
-		return nil
-	}
-	valueEventSessionNextCompactionEnded := new(EventSessionNextCompactionEnded)
-	if err := json.Unmarshal(data, &valueEventSessionNextCompactionEnded); err == nil {
-		g.typ = "EventSessionNextCompactionEnded"
-		g.EventSessionNextCompactionEnded = valueEventSessionNextCompactionEnded
-		return nil
-	}
-	valueSyncEventMessageUpdated := new(SyncEventMessageUpdated)
-	if err := json.Unmarshal(data, &valueSyncEventMessageUpdated); err == nil {
-		g.typ = "SyncEventMessageUpdated"
-		g.SyncEventMessageUpdated = valueSyncEventMessageUpdated
-		return nil
-	}
-	valueSyncEventMessageRemoved := new(SyncEventMessageRemoved)
-	if err := json.Unmarshal(data, &valueSyncEventMessageRemoved); err == nil {
-		g.typ = "SyncEventMessageRemoved"
-		g.SyncEventMessageRemoved = valueSyncEventMessageRemoved
-		return nil
-	}
-	valueSyncEventMessagePartUpdated := new(SyncEventMessagePartUpdated)
-	if err := json.Unmarshal(data, &valueSyncEventMessagePartUpdated); err == nil {
-		g.typ = "SyncEventMessagePartUpdated"
-		g.SyncEventMessagePartUpdated = valueSyncEventMessagePartUpdated
-		return nil
-	}
-	valueSyncEventMessagePartRemoved := new(SyncEventMessagePartRemoved)
-	if err := json.Unmarshal(data, &valueSyncEventMessagePartRemoved); err == nil {
-		g.typ = "SyncEventMessagePartRemoved"
-		g.SyncEventMessagePartRemoved = valueSyncEventMessagePartRemoved
-		return nil
-	}
-	valueSyncEventSessionCreated := new(SyncEventSessionCreated)
-	if err := json.Unmarshal(data, &valueSyncEventSessionCreated); err == nil {
-		g.typ = "SyncEventSessionCreated"
-		g.SyncEventSessionCreated = valueSyncEventSessionCreated
-		return nil
-	}
-	valueSyncEventSessionUpdated := new(SyncEventSessionUpdated)
-	if err := json.Unmarshal(data, &valueSyncEventSessionUpdated); err == nil {
-		g.typ = "SyncEventSessionUpdated"
-		g.SyncEventSessionUpdated = valueSyncEventSessionUpdated
-		return nil
-	}
-	valueSyncEventSessionDeleted := new(SyncEventSessionDeleted)
-	if err := json.Unmarshal(data, &valueSyncEventSessionDeleted); err == nil {
-		g.typ = "SyncEventSessionDeleted"
-		g.SyncEventSessionDeleted = valueSyncEventSessionDeleted
-		return nil
-	}
-	valueSyncEventSessionNextAgentSwitched := new(SyncEventSessionNextAgentSwitched)
-	if err := json.Unmarshal(data, &valueSyncEventSessionNextAgentSwitched); err == nil {
-		g.typ = "SyncEventSessionNextAgentSwitched"
-		g.SyncEventSessionNextAgentSwitched = valueSyncEventSessionNextAgentSwitched
-		return nil
-	}
-	valueSyncEventSessionNextModelSwitched := new(SyncEventSessionNextModelSwitched)
-	if err := json.Unmarshal(data, &valueSyncEventSessionNextModelSwitched); err == nil {
-		g.typ = "SyncEventSessionNextModelSwitched"
-		g.SyncEventSessionNextModelSwitched = valueSyncEventSessionNextModelSwitched
-		return nil
-	}
-	valueSyncEventSessionNextPrompted := new(SyncEventSessionNextPrompted)
-	if err := json.Unmarshal(data, &valueSyncEventSessionNextPrompted); err == nil {
-		g.typ = "SyncEventSessionNextPrompted"
-		g.SyncEventSessionNextPrompted = valueSyncEventSessionNextPrompted
-		return nil
-	}
-	valueSyncEventSessionNextSynthetic := new(SyncEventSessionNextSynthetic)
-	if err := json.Unmarshal(data, &valueSyncEventSessionNextSynthetic); err == nil {
-		g.typ = "SyncEventSessionNextSynthetic"
-		g.SyncEventSessionNextSynthetic = valueSyncEventSessionNextSynthetic
-		return nil
-	}
-	valueSyncEventSessionNextShellStarted := new(SyncEventSessionNextShellStarted)
-	if err := json.Unmarshal(data, &valueSyncEventSessionNextShellStarted); err == nil {
-		g.typ = "SyncEventSessionNextShellStarted"
-		g.SyncEventSessionNextShellStarted = valueSyncEventSessionNextShellStarted
-		return nil
-	}
-	valueSyncEventSessionNextShellEnded := new(SyncEventSessionNextShellEnded)
-	if err := json.Unmarshal(data, &valueSyncEventSessionNextShellEnded); err == nil {
-		g.typ = "SyncEventSessionNextShellEnded"
-		g.SyncEventSessionNextShellEnded = valueSyncEventSessionNextShellEnded
-		return nil
-	}
-	valueSyncEventSessionNextStepStarted := new(SyncEventSessionNextStepStarted)
-	if err := json.Unmarshal(data, &valueSyncEventSessionNextStepStarted); err == nil {
-		g.typ = "SyncEventSessionNextStepStarted"
-		g.SyncEventSessionNextStepStarted = valueSyncEventSessionNextStepStarted
-		return nil
-	}
-	valueSyncEventSessionNextStepEnded := new(SyncEventSessionNextStepEnded)
-	if err := json.Unmarshal(data, &valueSyncEventSessionNextStepEnded); err == nil {
-		g.typ = "SyncEventSessionNextStepEnded"
-		g.SyncEventSessionNextStepEnded = valueSyncEventSessionNextStepEnded
-		return nil
-	}
-	valueSyncEventSessionNextStepFailed := new(SyncEventSessionNextStepFailed)
-	if err := json.Unmarshal(data, &valueSyncEventSessionNextStepFailed); err == nil {
-		g.typ = "SyncEventSessionNextStepFailed"
-		g.SyncEventSessionNextStepFailed = valueSyncEventSessionNextStepFailed
-		return nil
-	}
-	valueSyncEventSessionNextTextStarted := new(SyncEventSessionNextTextStarted)
-	if err := json.Unmarshal(data, &valueSyncEventSessionNextTextStarted); err == nil {
-		g.typ = "SyncEventSessionNextTextStarted"
-		g.SyncEventSessionNextTextStarted = valueSyncEventSessionNextTextStarted
-		return nil
-	}
-	valueSyncEventSessionNextTextDelta := new(SyncEventSessionNextTextDelta)
-	if err := json.Unmarshal(data, &valueSyncEventSessionNextTextDelta); err == nil {
-		g.typ = "SyncEventSessionNextTextDelta"
-		g.SyncEventSessionNextTextDelta = valueSyncEventSessionNextTextDelta
-		return nil
-	}
-	valueSyncEventSessionNextTextEnded := new(SyncEventSessionNextTextEnded)
-	if err := json.Unmarshal(data, &valueSyncEventSessionNextTextEnded); err == nil {
-		g.typ = "SyncEventSessionNextTextEnded"
-		g.SyncEventSessionNextTextEnded = valueSyncEventSessionNextTextEnded
-		return nil
-	}
-	valueSyncEventSessionNextReasoningStarted := new(SyncEventSessionNextReasoningStarted)
-	if err := json.Unmarshal(data, &valueSyncEventSessionNextReasoningStarted); err == nil {
-		g.typ = "SyncEventSessionNextReasoningStarted"
-		g.SyncEventSessionNextReasoningStarted = valueSyncEventSessionNextReasoningStarted
-		return nil
-	}
-	valueSyncEventSessionNextReasoningDelta := new(SyncEventSessionNextReasoningDelta)
-	if err := json.Unmarshal(data, &valueSyncEventSessionNextReasoningDelta); err == nil {
-		g.typ = "SyncEventSessionNextReasoningDelta"
-		g.SyncEventSessionNextReasoningDelta = valueSyncEventSessionNextReasoningDelta
-		return nil
-	}
-	valueSyncEventSessionNextReasoningEnded := new(SyncEventSessionNextReasoningEnded)
-	if err := json.Unmarshal(data, &valueSyncEventSessionNextReasoningEnded); err == nil {
-		g.typ = "SyncEventSessionNextReasoningEnded"
-		g.SyncEventSessionNextReasoningEnded = valueSyncEventSessionNextReasoningEnded
-		return nil
-	}
-	valueSyncEventSessionNextToolInputStarted := new(SyncEventSessionNextToolInputStarted)
-	if err := json.Unmarshal(data, &valueSyncEventSessionNextToolInputStarted); err == nil {
-		g.typ = "SyncEventSessionNextToolInputStarted"
-		g.SyncEventSessionNextToolInputStarted = valueSyncEventSessionNextToolInputStarted
-		return nil
-	}
-	valueSyncEventSessionNextToolInputDelta := new(SyncEventSessionNextToolInputDelta)
-	if err := json.Unmarshal(data, &valueSyncEventSessionNextToolInputDelta); err == nil {
-		g.typ = "SyncEventSessionNextToolInputDelta"
-		g.SyncEventSessionNextToolInputDelta = valueSyncEventSessionNextToolInputDelta
-		return nil
-	}
-	valueSyncEventSessionNextToolInputEnded := new(SyncEventSessionNextToolInputEnded)
-	if err := json.Unmarshal(data, &valueSyncEventSessionNextToolInputEnded); err == nil {
-		g.typ = "SyncEventSessionNextToolInputEnded"
-		g.SyncEventSessionNextToolInputEnded = valueSyncEventSessionNextToolInputEnded
-		return nil
-	}
-	valueSyncEventSessionNextToolCalled := new(SyncEventSessionNextToolCalled)
-	if err := json.Unmarshal(data, &valueSyncEventSessionNextToolCalled); err == nil {
-		g.typ = "SyncEventSessionNextToolCalled"
-		g.SyncEventSessionNextToolCalled = valueSyncEventSessionNextToolCalled
-		return nil
-	}
-	valueSyncEventSessionNextToolProgress := new(SyncEventSessionNextToolProgress)
-	if err := json.Unmarshal(data, &valueSyncEventSessionNextToolProgress); err == nil {
-		g.typ = "SyncEventSessionNextToolProgress"
-		g.SyncEventSessionNextToolProgress = valueSyncEventSessionNextToolProgress
-		return nil
-	}
-	valueSyncEventSessionNextToolSuccess := new(SyncEventSessionNextToolSuccess)
-	if err := json.Unmarshal(data, &valueSyncEventSessionNextToolSuccess); err == nil {
-		g.typ = "SyncEventSessionNextToolSuccess"
-		g.SyncEventSessionNextToolSuccess = valueSyncEventSessionNextToolSuccess
-		return nil
-	}
-	valueSyncEventSessionNextToolFailed := new(SyncEventSessionNextToolFailed)
-	if err := json.Unmarshal(data, &valueSyncEventSessionNextToolFailed); err == nil {
-		g.typ = "SyncEventSessionNextToolFailed"
-		g.SyncEventSessionNextToolFailed = valueSyncEventSessionNextToolFailed
-		return nil
-	}
-	valueSyncEventSessionNextRetried := new(SyncEventSessionNextRetried)
-	if err := json.Unmarshal(data, &valueSyncEventSessionNextRetried); err == nil {
-		g.typ = "SyncEventSessionNextRetried"
-		g.SyncEventSessionNextRetried = valueSyncEventSessionNextRetried
-		return nil
-	}
-	valueSyncEventSessionNextCompactionStarted := new(SyncEventSessionNextCompactionStarted)
-	if err := json.Unmarshal(data, &valueSyncEventSessionNextCompactionStarted); err == nil {
-		g.typ = "SyncEventSessionNextCompactionStarted"
-		g.SyncEventSessionNextCompactionStarted = valueSyncEventSessionNextCompactionStarted
-		return nil
-	}
-	valueSyncEventSessionNextCompactionDelta := new(SyncEventSessionNextCompactionDelta)
-	if err := json.Unmarshal(data, &valueSyncEventSessionNextCompactionDelta); err == nil {
-		g.typ = "SyncEventSessionNextCompactionDelta"
-		g.SyncEventSessionNextCompactionDelta = valueSyncEventSessionNextCompactionDelta
-		return nil
-	}
-	valueSyncEventSessionNextCompactionEnded := new(SyncEventSessionNextCompactionEnded)
-	if err := json.Unmarshal(data, &valueSyncEventSessionNextCompactionEnded); err == nil {
-		g.typ = "SyncEventSessionNextCompactionEnded"
-		g.SyncEventSessionNextCompactionEnded = valueSyncEventSessionNextCompactionEnded
-		return nil
-	}
-	return fmt.Errorf("%s cannot be deserialized as a %T", data, g)
+	var unmarshaler struct {
+		Type string `json:"type"`
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	g.Type = unmarshaler.Type
+	if unmarshaler.Type == "" {
+		return fmt.Errorf("%T did not include discriminant type", g)
+	}
+	switch unmarshaler.Type {
+	case "server.instance.disposed":
+		value := new(EventServerInstanceDisposed)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.ServerInstanceDisposed = value
+	case "file.edited":
+		value := new(EventFileEdited)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.FileEdited = value
+	case "file.watcher.updated":
+		value := new(EventFileWatcherUpdated)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.FileWatcherUpdated = value
+	case "lsp.client.diagnostics":
+		value := new(EventLspClientDiagnostics)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.LspClientDiagnostics = value
+	case "lsp.updated":
+		value := new(EventLspUpdated)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.LspUpdated = value
+	case "message.part.delta":
+		value := new(EventMessagePartDelta)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.MessagePartDelta = value
+	case "permission.asked":
+		value := new(EventPermissionAsked)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.PermissionAsked = value
+	case "permission.replied":
+		value := new(EventPermissionReplied)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.PermissionReplied = value
+	case "session.diff":
+		value := new(EventSessionDiff)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionDiff = value
+	case "session.error":
+		value := new(EventSessionError)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionError = value
+	case "question.asked":
+		value := new(EventQuestionAsked)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.QuestionAsked = value
+	case "question.replied":
+		value := new(EventQuestionReplied)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.QuestionReplied = value
+	case "question.rejected":
+		value := new(EventQuestionRejected)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.QuestionRejected = value
+	case "todo.updated":
+		value := new(EventTodoUpdated)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.TodoUpdated = value
+	case "session.status":
+		value := new(EventSessionStatus)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionStatus = value
+	case "session.idle":
+		value := new(EventSessionIdle)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionIdle = value
+	case "tui.prompt.append":
+		value := new(EventTuiPromptAppend)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.TuiPromptAppend = value
+	case "tui.command.execute":
+		value := new(EventTuiCommandExecute)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.TuiCommandExecute = value
+	case "tui.toast.show":
+		value := new(EventTuiToastShow)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.TuiToastShow = value
+	case "tui.session.select":
+		value := new(EventTuiSessionSelect)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.TuiSessionSelect = value
+	case "mcp.tools.changed":
+		value := new(EventMcpToolsChanged)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.McpToolsChanged = value
+	case "mcp.browser.open.failed":
+		value := new(EventMcpBrowserOpenFailed)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.McpBrowserOpenFailed = value
+	case "command.executed":
+		value := new(EventCommandExecuted)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.CommandExecuted = value
+	case "project.updated":
+		value := new(EventProjectUpdated)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.ProjectUpdated = value
+	case "session.compacted":
+		value := new(EventSessionCompacted)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionCompacted = value
+	case "vcs.branch.updated":
+		value := new(EventVcsBranchUpdated)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.VcsBranchUpdated = value
+	case "workspace.ready":
+		value := new(EventWorkspaceReady)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.WorkspaceReady = value
+	case "workspace.failed":
+		value := new(EventWorkspaceFailed)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.WorkspaceFailed = value
+	case "workspace.status":
+		value := new(EventWorkspaceStatus)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.WorkspaceStatus = value
+	case "worktree.ready":
+		value := new(EventWorktreeReady)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.WorktreeReady = value
+	case "worktree.failed":
+		value := new(EventWorktreeFailed)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.WorktreeFailed = value
+	case "pty.created":
+		value := new(EventPtyCreated)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.PtyCreated = value
+	case "pty.updated":
+		value := new(EventPtyUpdated)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.PtyUpdated = value
+	case "pty.exited":
+		value := new(EventPtyExited)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.PtyExited = value
+	case "pty.deleted":
+		value := new(EventPtyDeleted)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.PtyDeleted = value
+	case "installation.updated":
+		value := new(EventInstallationUpdated)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.InstallationUpdated = value
+	case "installation.update-available":
+		value := new(EventInstallationUpdateAvailable)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.InstallationUpdateAvailable = value
+	case "message.updated":
+		value := new(EventMessageUpdated)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.MessageUpdated = value
+	case "message.removed":
+		value := new(EventMessageRemoved)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.MessageRemoved = value
+	case "message.part.updated":
+		value := new(EventMessagePartUpdated)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.MessagePartUpdated = value
+	case "message.part.removed":
+		value := new(EventMessagePartRemoved)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.MessagePartRemoved = value
+	case "session.created":
+		value := new(EventSessionCreated)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionCreated = value
+	case "session.updated":
+		value := new(EventSessionUpdated)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionUpdated = value
+	case "session.deleted":
+		value := new(EventSessionDeleted)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionDeleted = value
+	case "session.next.agent.switched":
+		value := new(EventSessionNextAgentSwitched)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextAgentSwitched = value
+	case "session.next.model.switched":
+		value := new(EventSessionNextModelSwitched)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextModelSwitched = value
+	case "session.next.prompted":
+		value := new(EventSessionNextPrompted)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextPrompted = value
+	case "session.next.synthetic":
+		value := new(EventSessionNextSynthetic)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextSynthetic = value
+	case "session.next.shell.started":
+		value := new(EventSessionNextShellStarted)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextShellStarted = value
+	case "session.next.shell.ended":
+		value := new(EventSessionNextShellEnded)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextShellEnded = value
+	case "session.next.step.started":
+		value := new(EventSessionNextStepStarted)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextStepStarted = value
+	case "session.next.step.ended":
+		value := new(EventSessionNextStepEnded)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextStepEnded = value
+	case "session.next.step.failed":
+		value := new(EventSessionNextStepFailed)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextStepFailed = value
+	case "session.next.text.started":
+		value := new(EventSessionNextTextStarted)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextTextStarted = value
+	case "session.next.text.delta":
+		value := new(EventSessionNextTextDelta)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextTextDelta = value
+	case "session.next.text.ended":
+		value := new(EventSessionNextTextEnded)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextTextEnded = value
+	case "session.next.reasoning.started":
+		value := new(EventSessionNextReasoningStarted)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextReasoningStarted = value
+	case "session.next.reasoning.delta":
+		value := new(EventSessionNextReasoningDelta)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextReasoningDelta = value
+	case "session.next.reasoning.ended":
+		value := new(EventSessionNextReasoningEnded)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextReasoningEnded = value
+	case "session.next.tool.input.started":
+		value := new(EventSessionNextToolInputStarted)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextToolInputStarted = value
+	case "session.next.tool.input.delta":
+		value := new(EventSessionNextToolInputDelta)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextToolInputDelta = value
+	case "session.next.tool.input.ended":
+		value := new(EventSessionNextToolInputEnded)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextToolInputEnded = value
+	case "session.next.tool.called":
+		value := new(EventSessionNextToolCalled)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextToolCalled = value
+	case "session.next.tool.progress":
+		value := new(EventSessionNextToolProgress)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextToolProgress = value
+	case "session.next.tool.success":
+		value := new(EventSessionNextToolSuccess)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextToolSuccess = value
+	case "session.next.tool.failed":
+		value := new(EventSessionNextToolFailed)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextToolFailed = value
+	case "session.next.retried":
+		value := new(EventSessionNextRetried)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextRetried = value
+	case "session.next.compaction.started":
+		value := new(EventSessionNextCompactionStarted)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextCompactionStarted = value
+	case "session.next.compaction.delta":
+		value := new(EventSessionNextCompactionDelta)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextCompactionDelta = value
+	case "session.next.compaction.ended":
+		value := new(EventSessionNextCompactionEnded)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextCompactionEnded = value
+	case "server.connected":
+		value := new(EventServerConnected)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.ServerConnected = value
+	case "global.disposed":
+		value := new(EventGlobalDisposed)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.GlobalDisposed = value
+	case "catalog.model.updated":
+		value := new(EventCatalogModelUpdated)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.CatalogModelUpdated = value
+	}
+	return nil
 }
 
 func (g GlobalEventPayload) MarshalJSON() ([]byte, error) {
-	if g.typ == "EventServerInstanceDisposed" || g.EventServerInstanceDisposed != nil {
-		return json.Marshal(g.EventServerInstanceDisposed)
+	if err := g.validate(); err != nil {
+		return nil, err
 	}
-	if g.typ == "EventFileEdited" || g.EventFileEdited != nil {
-		return json.Marshal(g.EventFileEdited)
+	if g.ServerInstanceDisposed != nil {
+		return internal.MarshalJSONWithExtraProperty(g.ServerInstanceDisposed, "type", "server.instance.disposed")
 	}
-	if g.typ == "EventFileWatcherUpdated" || g.EventFileWatcherUpdated != nil {
-		return json.Marshal(g.EventFileWatcherUpdated)
+	if g.FileEdited != nil {
+		return internal.MarshalJSONWithExtraProperty(g.FileEdited, "type", "file.edited")
 	}
-	if g.typ == "EventLspClientDiagnostics" || g.EventLspClientDiagnostics != nil {
-		return json.Marshal(g.EventLspClientDiagnostics)
+	if g.FileWatcherUpdated != nil {
+		return internal.MarshalJSONWithExtraProperty(g.FileWatcherUpdated, "type", "file.watcher.updated")
 	}
-	if g.typ == "EventLspUpdated" || g.EventLspUpdated != nil {
-		return json.Marshal(g.EventLspUpdated)
+	if g.LspClientDiagnostics != nil {
+		return internal.MarshalJSONWithExtraProperty(g.LspClientDiagnostics, "type", "lsp.client.diagnostics")
 	}
-	if g.typ == "EventMessagePartDelta" || g.EventMessagePartDelta != nil {
-		return json.Marshal(g.EventMessagePartDelta)
+	if g.LspUpdated != nil {
+		return internal.MarshalJSONWithExtraProperty(g.LspUpdated, "type", "lsp.updated")
 	}
-	if g.typ == "EventPermissionAsked" || g.EventPermissionAsked != nil {
-		return json.Marshal(g.EventPermissionAsked)
+	if g.MessagePartDelta != nil {
+		return internal.MarshalJSONWithExtraProperty(g.MessagePartDelta, "type", "message.part.delta")
 	}
-	if g.typ == "EventPermissionReplied" || g.EventPermissionReplied != nil {
-		return json.Marshal(g.EventPermissionReplied)
+	if g.PermissionAsked != nil {
+		return internal.MarshalJSONWithExtraProperty(g.PermissionAsked, "type", "permission.asked")
 	}
-	if g.typ == "EventSessionDiff" || g.EventSessionDiff != nil {
-		return json.Marshal(g.EventSessionDiff)
+	if g.PermissionReplied != nil {
+		return internal.MarshalJSONWithExtraProperty(g.PermissionReplied, "type", "permission.replied")
 	}
-	if g.typ == "EventSessionError" || g.EventSessionError != nil {
-		return json.Marshal(g.EventSessionError)
+	if g.SessionDiff != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionDiff, "type", "session.diff")
 	}
-	if g.typ == "EventQuestionAsked" || g.EventQuestionAsked != nil {
-		return json.Marshal(g.EventQuestionAsked)
+	if g.SessionError != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionError, "type", "session.error")
 	}
-	if g.typ == "EventQuestionReplied" || g.EventQuestionReplied != nil {
-		return json.Marshal(g.EventQuestionReplied)
+	if g.QuestionAsked != nil {
+		return internal.MarshalJSONWithExtraProperty(g.QuestionAsked, "type", "question.asked")
 	}
-	if g.typ == "EventQuestionRejected" || g.EventQuestionRejected != nil {
-		return json.Marshal(g.EventQuestionRejected)
+	if g.QuestionReplied != nil {
+		return internal.MarshalJSONWithExtraProperty(g.QuestionReplied, "type", "question.replied")
 	}
-	if g.typ == "EventTodoUpdated" || g.EventTodoUpdated != nil {
-		return json.Marshal(g.EventTodoUpdated)
+	if g.QuestionRejected != nil {
+		return internal.MarshalJSONWithExtraProperty(g.QuestionRejected, "type", "question.rejected")
 	}
-	if g.typ == "EventSessionStatus" || g.EventSessionStatus != nil {
-		return json.Marshal(g.EventSessionStatus)
+	if g.TodoUpdated != nil {
+		return internal.MarshalJSONWithExtraProperty(g.TodoUpdated, "type", "todo.updated")
 	}
-	if g.typ == "EventSessionIdle" || g.EventSessionIdle != nil {
-		return json.Marshal(g.EventSessionIdle)
+	if g.SessionStatus != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionStatus, "type", "session.status")
 	}
-	if g.typ == "EventTuiPromptAppend" || g.EventTuiPromptAppend != nil {
-		return json.Marshal(g.EventTuiPromptAppend)
+	if g.SessionIdle != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionIdle, "type", "session.idle")
 	}
-	if g.typ == "EventTuiCommandExecute" || g.EventTuiCommandExecute != nil {
-		return json.Marshal(g.EventTuiCommandExecute)
+	if g.TuiPromptAppend != nil {
+		return internal.MarshalJSONWithExtraProperty(g.TuiPromptAppend, "type", "tui.prompt.append")
 	}
-	if g.typ == "EventTuiToastShow" || g.EventTuiToastShow != nil {
-		return json.Marshal(g.EventTuiToastShow)
+	if g.TuiCommandExecute != nil {
+		return internal.MarshalJSONWithExtraProperty(g.TuiCommandExecute, "type", "tui.command.execute")
 	}
-	if g.typ == "EventTuiSessionSelect" || g.EventTuiSessionSelect != nil {
-		return json.Marshal(g.EventTuiSessionSelect)
+	if g.TuiToastShow != nil {
+		return internal.MarshalJSONWithExtraProperty(g.TuiToastShow, "type", "tui.toast.show")
 	}
-	if g.typ == "EventMcpToolsChanged" || g.EventMcpToolsChanged != nil {
-		return json.Marshal(g.EventMcpToolsChanged)
+	if g.TuiSessionSelect != nil {
+		return internal.MarshalJSONWithExtraProperty(g.TuiSessionSelect, "type", "tui.session.select")
 	}
-	if g.typ == "EventMcpBrowserOpenFailed" || g.EventMcpBrowserOpenFailed != nil {
-		return json.Marshal(g.EventMcpBrowserOpenFailed)
+	if g.McpToolsChanged != nil {
+		return internal.MarshalJSONWithExtraProperty(g.McpToolsChanged, "type", "mcp.tools.changed")
 	}
-	if g.typ == "EventCommandExecuted" || g.EventCommandExecuted != nil {
-		return json.Marshal(g.EventCommandExecuted)
+	if g.McpBrowserOpenFailed != nil {
+		return internal.MarshalJSONWithExtraProperty(g.McpBrowserOpenFailed, "type", "mcp.browser.open.failed")
 	}
-	if g.typ == "EventProjectUpdated" || g.EventProjectUpdated != nil {
-		return json.Marshal(g.EventProjectUpdated)
+	if g.CommandExecuted != nil {
+		return internal.MarshalJSONWithExtraProperty(g.CommandExecuted, "type", "command.executed")
 	}
-	if g.typ == "EventSessionCompacted" || g.EventSessionCompacted != nil {
-		return json.Marshal(g.EventSessionCompacted)
+	if g.ProjectUpdated != nil {
+		return internal.MarshalJSONWithExtraProperty(g.ProjectUpdated, "type", "project.updated")
 	}
-	if g.typ == "EventVcsBranchUpdated" || g.EventVcsBranchUpdated != nil {
-		return json.Marshal(g.EventVcsBranchUpdated)
+	if g.SessionCompacted != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionCompacted, "type", "session.compacted")
 	}
-	if g.typ == "EventWorkspaceReady" || g.EventWorkspaceReady != nil {
-		return json.Marshal(g.EventWorkspaceReady)
+	if g.VcsBranchUpdated != nil {
+		return internal.MarshalJSONWithExtraProperty(g.VcsBranchUpdated, "type", "vcs.branch.updated")
 	}
-	if g.typ == "EventWorkspaceFailed" || g.EventWorkspaceFailed != nil {
-		return json.Marshal(g.EventWorkspaceFailed)
+	if g.WorkspaceReady != nil {
+		return internal.MarshalJSONWithExtraProperty(g.WorkspaceReady, "type", "workspace.ready")
 	}
-	if g.typ == "EventWorkspaceStatus" || g.EventWorkspaceStatus != nil {
-		return json.Marshal(g.EventWorkspaceStatus)
+	if g.WorkspaceFailed != nil {
+		return internal.MarshalJSONWithExtraProperty(g.WorkspaceFailed, "type", "workspace.failed")
 	}
-	if g.typ == "EventWorktreeReady" || g.EventWorktreeReady != nil {
-		return json.Marshal(g.EventWorktreeReady)
+	if g.WorkspaceStatus != nil {
+		return internal.MarshalJSONWithExtraProperty(g.WorkspaceStatus, "type", "workspace.status")
 	}
-	if g.typ == "EventWorktreeFailed" || g.EventWorktreeFailed != nil {
-		return json.Marshal(g.EventWorktreeFailed)
+	if g.WorktreeReady != nil {
+		return internal.MarshalJSONWithExtraProperty(g.WorktreeReady, "type", "worktree.ready")
 	}
-	if g.typ == "EventPtyCreated" || g.EventPtyCreated != nil {
-		return json.Marshal(g.EventPtyCreated)
+	if g.WorktreeFailed != nil {
+		return internal.MarshalJSONWithExtraProperty(g.WorktreeFailed, "type", "worktree.failed")
 	}
-	if g.typ == "EventPtyUpdated" || g.EventPtyUpdated != nil {
-		return json.Marshal(g.EventPtyUpdated)
+	if g.PtyCreated != nil {
+		return internal.MarshalJSONWithExtraProperty(g.PtyCreated, "type", "pty.created")
 	}
-	if g.typ == "EventPtyExited" || g.EventPtyExited != nil {
-		return json.Marshal(g.EventPtyExited)
+	if g.PtyUpdated != nil {
+		return internal.MarshalJSONWithExtraProperty(g.PtyUpdated, "type", "pty.updated")
 	}
-	if g.typ == "EventPtyDeleted" || g.EventPtyDeleted != nil {
-		return json.Marshal(g.EventPtyDeleted)
+	if g.PtyExited != nil {
+		return internal.MarshalJSONWithExtraProperty(g.PtyExited, "type", "pty.exited")
 	}
-	if g.typ == "EventInstallationUpdated" || g.EventInstallationUpdated != nil {
-		return json.Marshal(g.EventInstallationUpdated)
+	if g.PtyDeleted != nil {
+		return internal.MarshalJSONWithExtraProperty(g.PtyDeleted, "type", "pty.deleted")
 	}
-	if g.typ == "EventInstallationUpdateAvailable" || g.EventInstallationUpdateAvailable != nil {
-		return json.Marshal(g.EventInstallationUpdateAvailable)
+	if g.InstallationUpdated != nil {
+		return internal.MarshalJSONWithExtraProperty(g.InstallationUpdated, "type", "installation.updated")
 	}
-	if g.typ == "EventMessageUpdated" || g.EventMessageUpdated != nil {
-		return json.Marshal(g.EventMessageUpdated)
+	if g.InstallationUpdateAvailable != nil {
+		return internal.MarshalJSONWithExtraProperty(g.InstallationUpdateAvailable, "type", "installation.update-available")
 	}
-	if g.typ == "EventMessageRemoved" || g.EventMessageRemoved != nil {
-		return json.Marshal(g.EventMessageRemoved)
+	if g.MessageUpdated != nil {
+		return internal.MarshalJSONWithExtraProperty(g.MessageUpdated, "type", "message.updated")
 	}
-	if g.typ == "EventMessagePartUpdated" || g.EventMessagePartUpdated != nil {
-		return json.Marshal(g.EventMessagePartUpdated)
+	if g.MessageRemoved != nil {
+		return internal.MarshalJSONWithExtraProperty(g.MessageRemoved, "type", "message.removed")
 	}
-	if g.typ == "EventMessagePartRemoved" || g.EventMessagePartRemoved != nil {
-		return json.Marshal(g.EventMessagePartRemoved)
+	if g.MessagePartUpdated != nil {
+		return internal.MarshalJSONWithExtraProperty(g.MessagePartUpdated, "type", "message.part.updated")
 	}
-	if g.typ == "EventSessionCreated" || g.EventSessionCreated != nil {
-		return json.Marshal(g.EventSessionCreated)
+	if g.MessagePartRemoved != nil {
+		return internal.MarshalJSONWithExtraProperty(g.MessagePartRemoved, "type", "message.part.removed")
 	}
-	if g.typ == "EventSessionUpdated" || g.EventSessionUpdated != nil {
-		return json.Marshal(g.EventSessionUpdated)
+	if g.SessionCreated != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionCreated, "type", "session.created")
 	}
-	if g.typ == "EventSessionDeleted" || g.EventSessionDeleted != nil {
-		return json.Marshal(g.EventSessionDeleted)
+	if g.SessionUpdated != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionUpdated, "type", "session.updated")
 	}
-	if g.typ == "EventServerConnected" || g.EventServerConnected != nil {
-		return json.Marshal(g.EventServerConnected)
+	if g.SessionDeleted != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionDeleted, "type", "session.deleted")
 	}
-	if g.typ == "EventGlobalDisposed" || g.EventGlobalDisposed != nil {
-		return json.Marshal(g.EventGlobalDisposed)
+	if g.SessionNextAgentSwitched != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextAgentSwitched, "type", "session.next.agent.switched")
 	}
-	if g.typ == "EventCatalogModelUpdated" || g.EventCatalogModelUpdated != nil {
-		return json.Marshal(g.EventCatalogModelUpdated)
+	if g.SessionNextModelSwitched != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextModelSwitched, "type", "session.next.model.switched")
 	}
-	if g.typ == "EventSessionNextAgentSwitched" || g.EventSessionNextAgentSwitched != nil {
-		return json.Marshal(g.EventSessionNextAgentSwitched)
+	if g.SessionNextPrompted != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextPrompted, "type", "session.next.prompted")
 	}
-	if g.typ == "EventSessionNextModelSwitched" || g.EventSessionNextModelSwitched != nil {
-		return json.Marshal(g.EventSessionNextModelSwitched)
+	if g.SessionNextSynthetic != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextSynthetic, "type", "session.next.synthetic")
 	}
-	if g.typ == "EventSessionNextPrompted" || g.EventSessionNextPrompted != nil {
-		return json.Marshal(g.EventSessionNextPrompted)
+	if g.SessionNextShellStarted != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextShellStarted, "type", "session.next.shell.started")
 	}
-	if g.typ == "EventSessionNextSynthetic" || g.EventSessionNextSynthetic != nil {
-		return json.Marshal(g.EventSessionNextSynthetic)
+	if g.SessionNextShellEnded != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextShellEnded, "type", "session.next.shell.ended")
 	}
-	if g.typ == "EventSessionNextShellStarted" || g.EventSessionNextShellStarted != nil {
-		return json.Marshal(g.EventSessionNextShellStarted)
+	if g.SessionNextStepStarted != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextStepStarted, "type", "session.next.step.started")
 	}
-	if g.typ == "EventSessionNextShellEnded" || g.EventSessionNextShellEnded != nil {
-		return json.Marshal(g.EventSessionNextShellEnded)
+	if g.SessionNextStepEnded != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextStepEnded, "type", "session.next.step.ended")
 	}
-	if g.typ == "EventSessionNextStepStarted" || g.EventSessionNextStepStarted != nil {
-		return json.Marshal(g.EventSessionNextStepStarted)
+	if g.SessionNextStepFailed != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextStepFailed, "type", "session.next.step.failed")
 	}
-	if g.typ == "EventSessionNextStepEnded" || g.EventSessionNextStepEnded != nil {
-		return json.Marshal(g.EventSessionNextStepEnded)
+	if g.SessionNextTextStarted != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextTextStarted, "type", "session.next.text.started")
 	}
-	if g.typ == "EventSessionNextStepFailed" || g.EventSessionNextStepFailed != nil {
-		return json.Marshal(g.EventSessionNextStepFailed)
+	if g.SessionNextTextDelta != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextTextDelta, "type", "session.next.text.delta")
 	}
-	if g.typ == "EventSessionNextTextStarted" || g.EventSessionNextTextStarted != nil {
-		return json.Marshal(g.EventSessionNextTextStarted)
+	if g.SessionNextTextEnded != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextTextEnded, "type", "session.next.text.ended")
 	}
-	if g.typ == "EventSessionNextTextDelta" || g.EventSessionNextTextDelta != nil {
-		return json.Marshal(g.EventSessionNextTextDelta)
+	if g.SessionNextReasoningStarted != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextReasoningStarted, "type", "session.next.reasoning.started")
 	}
-	if g.typ == "EventSessionNextTextEnded" || g.EventSessionNextTextEnded != nil {
-		return json.Marshal(g.EventSessionNextTextEnded)
+	if g.SessionNextReasoningDelta != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextReasoningDelta, "type", "session.next.reasoning.delta")
 	}
-	if g.typ == "EventSessionNextReasoningStarted" || g.EventSessionNextReasoningStarted != nil {
-		return json.Marshal(g.EventSessionNextReasoningStarted)
+	if g.SessionNextReasoningEnded != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextReasoningEnded, "type", "session.next.reasoning.ended")
 	}
-	if g.typ == "EventSessionNextReasoningDelta" || g.EventSessionNextReasoningDelta != nil {
-		return json.Marshal(g.EventSessionNextReasoningDelta)
+	if g.SessionNextToolInputStarted != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextToolInputStarted, "type", "session.next.tool.input.started")
 	}
-	if g.typ == "EventSessionNextReasoningEnded" || g.EventSessionNextReasoningEnded != nil {
-		return json.Marshal(g.EventSessionNextReasoningEnded)
+	if g.SessionNextToolInputDelta != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextToolInputDelta, "type", "session.next.tool.input.delta")
 	}
-	if g.typ == "EventSessionNextToolInputStarted" || g.EventSessionNextToolInputStarted != nil {
-		return json.Marshal(g.EventSessionNextToolInputStarted)
+	if g.SessionNextToolInputEnded != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextToolInputEnded, "type", "session.next.tool.input.ended")
 	}
-	if g.typ == "EventSessionNextToolInputDelta" || g.EventSessionNextToolInputDelta != nil {
-		return json.Marshal(g.EventSessionNextToolInputDelta)
+	if g.SessionNextToolCalled != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextToolCalled, "type", "session.next.tool.called")
 	}
-	if g.typ == "EventSessionNextToolInputEnded" || g.EventSessionNextToolInputEnded != nil {
-		return json.Marshal(g.EventSessionNextToolInputEnded)
+	if g.SessionNextToolProgress != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextToolProgress, "type", "session.next.tool.progress")
 	}
-	if g.typ == "EventSessionNextToolCalled" || g.EventSessionNextToolCalled != nil {
-		return json.Marshal(g.EventSessionNextToolCalled)
+	if g.SessionNextToolSuccess != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextToolSuccess, "type", "session.next.tool.success")
 	}
-	if g.typ == "EventSessionNextToolProgress" || g.EventSessionNextToolProgress != nil {
-		return json.Marshal(g.EventSessionNextToolProgress)
+	if g.SessionNextToolFailed != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextToolFailed, "type", "session.next.tool.failed")
 	}
-	if g.typ == "EventSessionNextToolSuccess" || g.EventSessionNextToolSuccess != nil {
-		return json.Marshal(g.EventSessionNextToolSuccess)
+	if g.SessionNextRetried != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextRetried, "type", "session.next.retried")
 	}
-	if g.typ == "EventSessionNextToolFailed" || g.EventSessionNextToolFailed != nil {
-		return json.Marshal(g.EventSessionNextToolFailed)
+	if g.SessionNextCompactionStarted != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextCompactionStarted, "type", "session.next.compaction.started")
 	}
-	if g.typ == "EventSessionNextRetried" || g.EventSessionNextRetried != nil {
-		return json.Marshal(g.EventSessionNextRetried)
+	if g.SessionNextCompactionDelta != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextCompactionDelta, "type", "session.next.compaction.delta")
 	}
-	if g.typ == "EventSessionNextCompactionStarted" || g.EventSessionNextCompactionStarted != nil {
-		return json.Marshal(g.EventSessionNextCompactionStarted)
+	if g.SessionNextCompactionEnded != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextCompactionEnded, "type", "session.next.compaction.ended")
 	}
-	if g.typ == "EventSessionNextCompactionDelta" || g.EventSessionNextCompactionDelta != nil {
-		return json.Marshal(g.EventSessionNextCompactionDelta)
+	if g.ServerConnected != nil {
+		return internal.MarshalJSONWithExtraProperty(g.ServerConnected, "type", "server.connected")
 	}
-	if g.typ == "EventSessionNextCompactionEnded" || g.EventSessionNextCompactionEnded != nil {
-		return json.Marshal(g.EventSessionNextCompactionEnded)
+	if g.GlobalDisposed != nil {
+		return internal.MarshalJSONWithExtraProperty(g.GlobalDisposed, "type", "global.disposed")
 	}
-	if g.typ == "SyncEventMessageUpdated" || g.SyncEventMessageUpdated != nil {
-		return json.Marshal(g.SyncEventMessageUpdated)
+	if g.CatalogModelUpdated != nil {
+		return internal.MarshalJSONWithExtraProperty(g.CatalogModelUpdated, "type", "catalog.model.updated")
 	}
-	if g.typ == "SyncEventMessageRemoved" || g.SyncEventMessageRemoved != nil {
-		return json.Marshal(g.SyncEventMessageRemoved)
-	}
-	if g.typ == "SyncEventMessagePartUpdated" || g.SyncEventMessagePartUpdated != nil {
-		return json.Marshal(g.SyncEventMessagePartUpdated)
-	}
-	if g.typ == "SyncEventMessagePartRemoved" || g.SyncEventMessagePartRemoved != nil {
-		return json.Marshal(g.SyncEventMessagePartRemoved)
-	}
-	if g.typ == "SyncEventSessionCreated" || g.SyncEventSessionCreated != nil {
-		return json.Marshal(g.SyncEventSessionCreated)
-	}
-	if g.typ == "SyncEventSessionUpdated" || g.SyncEventSessionUpdated != nil {
-		return json.Marshal(g.SyncEventSessionUpdated)
-	}
-	if g.typ == "SyncEventSessionDeleted" || g.SyncEventSessionDeleted != nil {
-		return json.Marshal(g.SyncEventSessionDeleted)
-	}
-	if g.typ == "SyncEventSessionNextAgentSwitched" || g.SyncEventSessionNextAgentSwitched != nil {
-		return json.Marshal(g.SyncEventSessionNextAgentSwitched)
-	}
-	if g.typ == "SyncEventSessionNextModelSwitched" || g.SyncEventSessionNextModelSwitched != nil {
-		return json.Marshal(g.SyncEventSessionNextModelSwitched)
-	}
-	if g.typ == "SyncEventSessionNextPrompted" || g.SyncEventSessionNextPrompted != nil {
-		return json.Marshal(g.SyncEventSessionNextPrompted)
-	}
-	if g.typ == "SyncEventSessionNextSynthetic" || g.SyncEventSessionNextSynthetic != nil {
-		return json.Marshal(g.SyncEventSessionNextSynthetic)
-	}
-	if g.typ == "SyncEventSessionNextShellStarted" || g.SyncEventSessionNextShellStarted != nil {
-		return json.Marshal(g.SyncEventSessionNextShellStarted)
-	}
-	if g.typ == "SyncEventSessionNextShellEnded" || g.SyncEventSessionNextShellEnded != nil {
-		return json.Marshal(g.SyncEventSessionNextShellEnded)
-	}
-	if g.typ == "SyncEventSessionNextStepStarted" || g.SyncEventSessionNextStepStarted != nil {
-		return json.Marshal(g.SyncEventSessionNextStepStarted)
-	}
-	if g.typ == "SyncEventSessionNextStepEnded" || g.SyncEventSessionNextStepEnded != nil {
-		return json.Marshal(g.SyncEventSessionNextStepEnded)
-	}
-	if g.typ == "SyncEventSessionNextStepFailed" || g.SyncEventSessionNextStepFailed != nil {
-		return json.Marshal(g.SyncEventSessionNextStepFailed)
-	}
-	if g.typ == "SyncEventSessionNextTextStarted" || g.SyncEventSessionNextTextStarted != nil {
-		return json.Marshal(g.SyncEventSessionNextTextStarted)
-	}
-	if g.typ == "SyncEventSessionNextTextDelta" || g.SyncEventSessionNextTextDelta != nil {
-		return json.Marshal(g.SyncEventSessionNextTextDelta)
-	}
-	if g.typ == "SyncEventSessionNextTextEnded" || g.SyncEventSessionNextTextEnded != nil {
-		return json.Marshal(g.SyncEventSessionNextTextEnded)
-	}
-	if g.typ == "SyncEventSessionNextReasoningStarted" || g.SyncEventSessionNextReasoningStarted != nil {
-		return json.Marshal(g.SyncEventSessionNextReasoningStarted)
-	}
-	if g.typ == "SyncEventSessionNextReasoningDelta" || g.SyncEventSessionNextReasoningDelta != nil {
-		return json.Marshal(g.SyncEventSessionNextReasoningDelta)
-	}
-	if g.typ == "SyncEventSessionNextReasoningEnded" || g.SyncEventSessionNextReasoningEnded != nil {
-		return json.Marshal(g.SyncEventSessionNextReasoningEnded)
-	}
-	if g.typ == "SyncEventSessionNextToolInputStarted" || g.SyncEventSessionNextToolInputStarted != nil {
-		return json.Marshal(g.SyncEventSessionNextToolInputStarted)
-	}
-	if g.typ == "SyncEventSessionNextToolInputDelta" || g.SyncEventSessionNextToolInputDelta != nil {
-		return json.Marshal(g.SyncEventSessionNextToolInputDelta)
-	}
-	if g.typ == "SyncEventSessionNextToolInputEnded" || g.SyncEventSessionNextToolInputEnded != nil {
-		return json.Marshal(g.SyncEventSessionNextToolInputEnded)
-	}
-	if g.typ == "SyncEventSessionNextToolCalled" || g.SyncEventSessionNextToolCalled != nil {
-		return json.Marshal(g.SyncEventSessionNextToolCalled)
-	}
-	if g.typ == "SyncEventSessionNextToolProgress" || g.SyncEventSessionNextToolProgress != nil {
-		return json.Marshal(g.SyncEventSessionNextToolProgress)
-	}
-	if g.typ == "SyncEventSessionNextToolSuccess" || g.SyncEventSessionNextToolSuccess != nil {
-		return json.Marshal(g.SyncEventSessionNextToolSuccess)
-	}
-	if g.typ == "SyncEventSessionNextToolFailed" || g.SyncEventSessionNextToolFailed != nil {
-		return json.Marshal(g.SyncEventSessionNextToolFailed)
-	}
-	if g.typ == "SyncEventSessionNextRetried" || g.SyncEventSessionNextRetried != nil {
-		return json.Marshal(g.SyncEventSessionNextRetried)
-	}
-	if g.typ == "SyncEventSessionNextCompactionStarted" || g.SyncEventSessionNextCompactionStarted != nil {
-		return json.Marshal(g.SyncEventSessionNextCompactionStarted)
-	}
-	if g.typ == "SyncEventSessionNextCompactionDelta" || g.SyncEventSessionNextCompactionDelta != nil {
-		return json.Marshal(g.SyncEventSessionNextCompactionDelta)
-	}
-	if g.typ == "SyncEventSessionNextCompactionEnded" || g.SyncEventSessionNextCompactionEnded != nil {
-		return json.Marshal(g.SyncEventSessionNextCompactionEnded)
-	}
-	return nil, fmt.Errorf("type %T does not include a non-empty union type", g)
+	return nil, fmt.Errorf("type %T does not define a non-empty union type", g)
 }
 
 type GlobalEventPayloadVisitor interface {
-	VisitEventServerInstanceDisposed(*EventServerInstanceDisposed) error
-	VisitEventFileEdited(*EventFileEdited) error
-	VisitEventFileWatcherUpdated(*EventFileWatcherUpdated) error
-	VisitEventLspClientDiagnostics(*EventLspClientDiagnostics) error
-	VisitEventLspUpdated(*EventLspUpdated) error
-	VisitEventMessagePartDelta(*EventMessagePartDelta) error
-	VisitEventPermissionAsked(*EventPermissionAsked) error
-	VisitEventPermissionReplied(*EventPermissionReplied) error
-	VisitEventSessionDiff(*EventSessionDiff) error
-	VisitEventSessionError(*EventSessionError) error
-	VisitEventQuestionAsked(*EventQuestionAsked) error
-	VisitEventQuestionReplied(*EventQuestionReplied) error
-	VisitEventQuestionRejected(*EventQuestionRejected) error
-	VisitEventTodoUpdated(*EventTodoUpdated) error
-	VisitEventSessionStatus(*EventSessionStatus) error
-	VisitEventSessionIdle(*EventSessionIdle) error
-	VisitEventTuiPromptAppend(*EventTuiPromptAppend) error
-	VisitEventTuiCommandExecute(*EventTuiCommandExecute) error
-	VisitEventTuiToastShow(*EventTuiToastShow) error
-	VisitEventTuiSessionSelect(*EventTuiSessionSelect) error
-	VisitEventMcpToolsChanged(*EventMcpToolsChanged) error
-	VisitEventMcpBrowserOpenFailed(*EventMcpBrowserOpenFailed) error
-	VisitEventCommandExecuted(*EventCommandExecuted) error
-	VisitEventProjectUpdated(*EventProjectUpdated) error
-	VisitEventSessionCompacted(*EventSessionCompacted) error
-	VisitEventVcsBranchUpdated(*EventVcsBranchUpdated) error
-	VisitEventWorkspaceReady(*EventWorkspaceReady) error
-	VisitEventWorkspaceFailed(*EventWorkspaceFailed) error
-	VisitEventWorkspaceStatus(*EventWorkspaceStatus) error
-	VisitEventWorktreeReady(*EventWorktreeReady) error
-	VisitEventWorktreeFailed(*EventWorktreeFailed) error
-	VisitEventPtyCreated(*EventPtyCreated) error
-	VisitEventPtyUpdated(*EventPtyUpdated) error
-	VisitEventPtyExited(*EventPtyExited) error
-	VisitEventPtyDeleted(*EventPtyDeleted) error
-	VisitEventInstallationUpdated(*EventInstallationUpdated) error
-	VisitEventInstallationUpdateAvailable(*EventInstallationUpdateAvailable) error
-	VisitEventMessageUpdated(*EventMessageUpdated) error
-	VisitEventMessageRemoved(*EventMessageRemoved) error
-	VisitEventMessagePartUpdated(*EventMessagePartUpdated) error
-	VisitEventMessagePartRemoved(*EventMessagePartRemoved) error
-	VisitEventSessionCreated(*EventSessionCreated) error
-	VisitEventSessionUpdated(*EventSessionUpdated) error
-	VisitEventSessionDeleted(*EventSessionDeleted) error
-	VisitEventServerConnected(*EventServerConnected) error
-	VisitEventGlobalDisposed(*EventGlobalDisposed) error
-	VisitEventCatalogModelUpdated(*EventCatalogModelUpdated) error
-	VisitEventSessionNextAgentSwitched(*EventSessionNextAgentSwitched) error
-	VisitEventSessionNextModelSwitched(*EventSessionNextModelSwitched) error
-	VisitEventSessionNextPrompted(*EventSessionNextPrompted) error
-	VisitEventSessionNextSynthetic(*EventSessionNextSynthetic) error
-	VisitEventSessionNextShellStarted(*EventSessionNextShellStarted) error
-	VisitEventSessionNextShellEnded(*EventSessionNextShellEnded) error
-	VisitEventSessionNextStepStarted(*EventSessionNextStepStarted) error
-	VisitEventSessionNextStepEnded(*EventSessionNextStepEnded) error
-	VisitEventSessionNextStepFailed(*EventSessionNextStepFailed) error
-	VisitEventSessionNextTextStarted(*EventSessionNextTextStarted) error
-	VisitEventSessionNextTextDelta(*EventSessionNextTextDelta) error
-	VisitEventSessionNextTextEnded(*EventSessionNextTextEnded) error
-	VisitEventSessionNextReasoningStarted(*EventSessionNextReasoningStarted) error
-	VisitEventSessionNextReasoningDelta(*EventSessionNextReasoningDelta) error
-	VisitEventSessionNextReasoningEnded(*EventSessionNextReasoningEnded) error
-	VisitEventSessionNextToolInputStarted(*EventSessionNextToolInputStarted) error
-	VisitEventSessionNextToolInputDelta(*EventSessionNextToolInputDelta) error
-	VisitEventSessionNextToolInputEnded(*EventSessionNextToolInputEnded) error
-	VisitEventSessionNextToolCalled(*EventSessionNextToolCalled) error
-	VisitEventSessionNextToolProgress(*EventSessionNextToolProgress) error
-	VisitEventSessionNextToolSuccess(*EventSessionNextToolSuccess) error
-	VisitEventSessionNextToolFailed(*EventSessionNextToolFailed) error
-	VisitEventSessionNextRetried(*EventSessionNextRetried) error
-	VisitEventSessionNextCompactionStarted(*EventSessionNextCompactionStarted) error
-	VisitEventSessionNextCompactionDelta(*EventSessionNextCompactionDelta) error
-	VisitEventSessionNextCompactionEnded(*EventSessionNextCompactionEnded) error
-	VisitSyncEventMessageUpdated(*SyncEventMessageUpdated) error
-	VisitSyncEventMessageRemoved(*SyncEventMessageRemoved) error
-	VisitSyncEventMessagePartUpdated(*SyncEventMessagePartUpdated) error
-	VisitSyncEventMessagePartRemoved(*SyncEventMessagePartRemoved) error
-	VisitSyncEventSessionCreated(*SyncEventSessionCreated) error
-	VisitSyncEventSessionUpdated(*SyncEventSessionUpdated) error
-	VisitSyncEventSessionDeleted(*SyncEventSessionDeleted) error
-	VisitSyncEventSessionNextAgentSwitched(*SyncEventSessionNextAgentSwitched) error
-	VisitSyncEventSessionNextModelSwitched(*SyncEventSessionNextModelSwitched) error
-	VisitSyncEventSessionNextPrompted(*SyncEventSessionNextPrompted) error
-	VisitSyncEventSessionNextSynthetic(*SyncEventSessionNextSynthetic) error
-	VisitSyncEventSessionNextShellStarted(*SyncEventSessionNextShellStarted) error
-	VisitSyncEventSessionNextShellEnded(*SyncEventSessionNextShellEnded) error
-	VisitSyncEventSessionNextStepStarted(*SyncEventSessionNextStepStarted) error
-	VisitSyncEventSessionNextStepEnded(*SyncEventSessionNextStepEnded) error
-	VisitSyncEventSessionNextStepFailed(*SyncEventSessionNextStepFailed) error
-	VisitSyncEventSessionNextTextStarted(*SyncEventSessionNextTextStarted) error
-	VisitSyncEventSessionNextTextDelta(*SyncEventSessionNextTextDelta) error
-	VisitSyncEventSessionNextTextEnded(*SyncEventSessionNextTextEnded) error
-	VisitSyncEventSessionNextReasoningStarted(*SyncEventSessionNextReasoningStarted) error
-	VisitSyncEventSessionNextReasoningDelta(*SyncEventSessionNextReasoningDelta) error
-	VisitSyncEventSessionNextReasoningEnded(*SyncEventSessionNextReasoningEnded) error
-	VisitSyncEventSessionNextToolInputStarted(*SyncEventSessionNextToolInputStarted) error
-	VisitSyncEventSessionNextToolInputDelta(*SyncEventSessionNextToolInputDelta) error
-	VisitSyncEventSessionNextToolInputEnded(*SyncEventSessionNextToolInputEnded) error
-	VisitSyncEventSessionNextToolCalled(*SyncEventSessionNextToolCalled) error
-	VisitSyncEventSessionNextToolProgress(*SyncEventSessionNextToolProgress) error
-	VisitSyncEventSessionNextToolSuccess(*SyncEventSessionNextToolSuccess) error
-	VisitSyncEventSessionNextToolFailed(*SyncEventSessionNextToolFailed) error
-	VisitSyncEventSessionNextRetried(*SyncEventSessionNextRetried) error
-	VisitSyncEventSessionNextCompactionStarted(*SyncEventSessionNextCompactionStarted) error
-	VisitSyncEventSessionNextCompactionDelta(*SyncEventSessionNextCompactionDelta) error
-	VisitSyncEventSessionNextCompactionEnded(*SyncEventSessionNextCompactionEnded) error
+	VisitServerInstanceDisposed(*EventServerInstanceDisposed) error
+	VisitFileEdited(*EventFileEdited) error
+	VisitFileWatcherUpdated(*EventFileWatcherUpdated) error
+	VisitLspClientDiagnostics(*EventLspClientDiagnostics) error
+	VisitLspUpdated(*EventLspUpdated) error
+	VisitMessagePartDelta(*EventMessagePartDelta) error
+	VisitPermissionAsked(*EventPermissionAsked) error
+	VisitPermissionReplied(*EventPermissionReplied) error
+	VisitSessionDiff(*EventSessionDiff) error
+	VisitSessionError(*EventSessionError) error
+	VisitQuestionAsked(*EventQuestionAsked) error
+	VisitQuestionReplied(*EventQuestionReplied) error
+	VisitQuestionRejected(*EventQuestionRejected) error
+	VisitTodoUpdated(*EventTodoUpdated) error
+	VisitSessionStatus(*EventSessionStatus) error
+	VisitSessionIdle(*EventSessionIdle) error
+	VisitTuiPromptAppend(*EventTuiPromptAppend) error
+	VisitTuiCommandExecute(*EventTuiCommandExecute) error
+	VisitTuiToastShow(*EventTuiToastShow) error
+	VisitTuiSessionSelect(*EventTuiSessionSelect) error
+	VisitMcpToolsChanged(*EventMcpToolsChanged) error
+	VisitMcpBrowserOpenFailed(*EventMcpBrowserOpenFailed) error
+	VisitCommandExecuted(*EventCommandExecuted) error
+	VisitProjectUpdated(*EventProjectUpdated) error
+	VisitSessionCompacted(*EventSessionCompacted) error
+	VisitVcsBranchUpdated(*EventVcsBranchUpdated) error
+	VisitWorkspaceReady(*EventWorkspaceReady) error
+	VisitWorkspaceFailed(*EventWorkspaceFailed) error
+	VisitWorkspaceStatus(*EventWorkspaceStatus) error
+	VisitWorktreeReady(*EventWorktreeReady) error
+	VisitWorktreeFailed(*EventWorktreeFailed) error
+	VisitPtyCreated(*EventPtyCreated) error
+	VisitPtyUpdated(*EventPtyUpdated) error
+	VisitPtyExited(*EventPtyExited) error
+	VisitPtyDeleted(*EventPtyDeleted) error
+	VisitInstallationUpdated(*EventInstallationUpdated) error
+	VisitInstallationUpdateAvailable(*EventInstallationUpdateAvailable) error
+	VisitMessageUpdated(*EventMessageUpdated) error
+	VisitMessageRemoved(*EventMessageRemoved) error
+	VisitMessagePartUpdated(*EventMessagePartUpdated) error
+	VisitMessagePartRemoved(*EventMessagePartRemoved) error
+	VisitSessionCreated(*EventSessionCreated) error
+	VisitSessionUpdated(*EventSessionUpdated) error
+	VisitSessionDeleted(*EventSessionDeleted) error
+	VisitSessionNextAgentSwitched(*EventSessionNextAgentSwitched) error
+	VisitSessionNextModelSwitched(*EventSessionNextModelSwitched) error
+	VisitSessionNextPrompted(*EventSessionNextPrompted) error
+	VisitSessionNextSynthetic(*EventSessionNextSynthetic) error
+	VisitSessionNextShellStarted(*EventSessionNextShellStarted) error
+	VisitSessionNextShellEnded(*EventSessionNextShellEnded) error
+	VisitSessionNextStepStarted(*EventSessionNextStepStarted) error
+	VisitSessionNextStepEnded(*EventSessionNextStepEnded) error
+	VisitSessionNextStepFailed(*EventSessionNextStepFailed) error
+	VisitSessionNextTextStarted(*EventSessionNextTextStarted) error
+	VisitSessionNextTextDelta(*EventSessionNextTextDelta) error
+	VisitSessionNextTextEnded(*EventSessionNextTextEnded) error
+	VisitSessionNextReasoningStarted(*EventSessionNextReasoningStarted) error
+	VisitSessionNextReasoningDelta(*EventSessionNextReasoningDelta) error
+	VisitSessionNextReasoningEnded(*EventSessionNextReasoningEnded) error
+	VisitSessionNextToolInputStarted(*EventSessionNextToolInputStarted) error
+	VisitSessionNextToolInputDelta(*EventSessionNextToolInputDelta) error
+	VisitSessionNextToolInputEnded(*EventSessionNextToolInputEnded) error
+	VisitSessionNextToolCalled(*EventSessionNextToolCalled) error
+	VisitSessionNextToolProgress(*EventSessionNextToolProgress) error
+	VisitSessionNextToolSuccess(*EventSessionNextToolSuccess) error
+	VisitSessionNextToolFailed(*EventSessionNextToolFailed) error
+	VisitSessionNextRetried(*EventSessionNextRetried) error
+	VisitSessionNextCompactionStarted(*EventSessionNextCompactionStarted) error
+	VisitSessionNextCompactionDelta(*EventSessionNextCompactionDelta) error
+	VisitSessionNextCompactionEnded(*EventSessionNextCompactionEnded) error
+	VisitServerConnected(*EventServerConnected) error
+	VisitGlobalDisposed(*EventGlobalDisposed) error
+	VisitCatalogModelUpdated(*EventCatalogModelUpdated) error
 }
 
 func (g *GlobalEventPayload) Accept(visitor GlobalEventPayloadVisitor) error {
-	if g.typ == "EventServerInstanceDisposed" || g.EventServerInstanceDisposed != nil {
-		return visitor.VisitEventServerInstanceDisposed(g.EventServerInstanceDisposed)
+	if g.ServerInstanceDisposed != nil {
+		return visitor.VisitServerInstanceDisposed(g.ServerInstanceDisposed)
 	}
-	if g.typ == "EventFileEdited" || g.EventFileEdited != nil {
-		return visitor.VisitEventFileEdited(g.EventFileEdited)
+	if g.FileEdited != nil {
+		return visitor.VisitFileEdited(g.FileEdited)
 	}
-	if g.typ == "EventFileWatcherUpdated" || g.EventFileWatcherUpdated != nil {
-		return visitor.VisitEventFileWatcherUpdated(g.EventFileWatcherUpdated)
+	if g.FileWatcherUpdated != nil {
+		return visitor.VisitFileWatcherUpdated(g.FileWatcherUpdated)
 	}
-	if g.typ == "EventLspClientDiagnostics" || g.EventLspClientDiagnostics != nil {
-		return visitor.VisitEventLspClientDiagnostics(g.EventLspClientDiagnostics)
+	if g.LspClientDiagnostics != nil {
+		return visitor.VisitLspClientDiagnostics(g.LspClientDiagnostics)
 	}
-	if g.typ == "EventLspUpdated" || g.EventLspUpdated != nil {
-		return visitor.VisitEventLspUpdated(g.EventLspUpdated)
+	if g.LspUpdated != nil {
+		return visitor.VisitLspUpdated(g.LspUpdated)
 	}
-	if g.typ == "EventMessagePartDelta" || g.EventMessagePartDelta != nil {
-		return visitor.VisitEventMessagePartDelta(g.EventMessagePartDelta)
+	if g.MessagePartDelta != nil {
+		return visitor.VisitMessagePartDelta(g.MessagePartDelta)
 	}
-	if g.typ == "EventPermissionAsked" || g.EventPermissionAsked != nil {
-		return visitor.VisitEventPermissionAsked(g.EventPermissionAsked)
+	if g.PermissionAsked != nil {
+		return visitor.VisitPermissionAsked(g.PermissionAsked)
 	}
-	if g.typ == "EventPermissionReplied" || g.EventPermissionReplied != nil {
-		return visitor.VisitEventPermissionReplied(g.EventPermissionReplied)
+	if g.PermissionReplied != nil {
+		return visitor.VisitPermissionReplied(g.PermissionReplied)
 	}
-	if g.typ == "EventSessionDiff" || g.EventSessionDiff != nil {
-		return visitor.VisitEventSessionDiff(g.EventSessionDiff)
+	if g.SessionDiff != nil {
+		return visitor.VisitSessionDiff(g.SessionDiff)
 	}
-	if g.typ == "EventSessionError" || g.EventSessionError != nil {
-		return visitor.VisitEventSessionError(g.EventSessionError)
+	if g.SessionError != nil {
+		return visitor.VisitSessionError(g.SessionError)
 	}
-	if g.typ == "EventQuestionAsked" || g.EventQuestionAsked != nil {
-		return visitor.VisitEventQuestionAsked(g.EventQuestionAsked)
+	if g.QuestionAsked != nil {
+		return visitor.VisitQuestionAsked(g.QuestionAsked)
 	}
-	if g.typ == "EventQuestionReplied" || g.EventQuestionReplied != nil {
-		return visitor.VisitEventQuestionReplied(g.EventQuestionReplied)
+	if g.QuestionReplied != nil {
+		return visitor.VisitQuestionReplied(g.QuestionReplied)
 	}
-	if g.typ == "EventQuestionRejected" || g.EventQuestionRejected != nil {
-		return visitor.VisitEventQuestionRejected(g.EventQuestionRejected)
+	if g.QuestionRejected != nil {
+		return visitor.VisitQuestionRejected(g.QuestionRejected)
 	}
-	if g.typ == "EventTodoUpdated" || g.EventTodoUpdated != nil {
-		return visitor.VisitEventTodoUpdated(g.EventTodoUpdated)
+	if g.TodoUpdated != nil {
+		return visitor.VisitTodoUpdated(g.TodoUpdated)
 	}
-	if g.typ == "EventSessionStatus" || g.EventSessionStatus != nil {
-		return visitor.VisitEventSessionStatus(g.EventSessionStatus)
+	if g.SessionStatus != nil {
+		return visitor.VisitSessionStatus(g.SessionStatus)
 	}
-	if g.typ == "EventSessionIdle" || g.EventSessionIdle != nil {
-		return visitor.VisitEventSessionIdle(g.EventSessionIdle)
+	if g.SessionIdle != nil {
+		return visitor.VisitSessionIdle(g.SessionIdle)
 	}
-	if g.typ == "EventTuiPromptAppend" || g.EventTuiPromptAppend != nil {
-		return visitor.VisitEventTuiPromptAppend(g.EventTuiPromptAppend)
+	if g.TuiPromptAppend != nil {
+		return visitor.VisitTuiPromptAppend(g.TuiPromptAppend)
 	}
-	if g.typ == "EventTuiCommandExecute" || g.EventTuiCommandExecute != nil {
-		return visitor.VisitEventTuiCommandExecute(g.EventTuiCommandExecute)
+	if g.TuiCommandExecute != nil {
+		return visitor.VisitTuiCommandExecute(g.TuiCommandExecute)
 	}
-	if g.typ == "EventTuiToastShow" || g.EventTuiToastShow != nil {
-		return visitor.VisitEventTuiToastShow(g.EventTuiToastShow)
+	if g.TuiToastShow != nil {
+		return visitor.VisitTuiToastShow(g.TuiToastShow)
 	}
-	if g.typ == "EventTuiSessionSelect" || g.EventTuiSessionSelect != nil {
-		return visitor.VisitEventTuiSessionSelect(g.EventTuiSessionSelect)
+	if g.TuiSessionSelect != nil {
+		return visitor.VisitTuiSessionSelect(g.TuiSessionSelect)
 	}
-	if g.typ == "EventMcpToolsChanged" || g.EventMcpToolsChanged != nil {
-		return visitor.VisitEventMcpToolsChanged(g.EventMcpToolsChanged)
+	if g.McpToolsChanged != nil {
+		return visitor.VisitMcpToolsChanged(g.McpToolsChanged)
 	}
-	if g.typ == "EventMcpBrowserOpenFailed" || g.EventMcpBrowserOpenFailed != nil {
-		return visitor.VisitEventMcpBrowserOpenFailed(g.EventMcpBrowserOpenFailed)
+	if g.McpBrowserOpenFailed != nil {
+		return visitor.VisitMcpBrowserOpenFailed(g.McpBrowserOpenFailed)
 	}
-	if g.typ == "EventCommandExecuted" || g.EventCommandExecuted != nil {
-		return visitor.VisitEventCommandExecuted(g.EventCommandExecuted)
+	if g.CommandExecuted != nil {
+		return visitor.VisitCommandExecuted(g.CommandExecuted)
 	}
-	if g.typ == "EventProjectUpdated" || g.EventProjectUpdated != nil {
-		return visitor.VisitEventProjectUpdated(g.EventProjectUpdated)
+	if g.ProjectUpdated != nil {
+		return visitor.VisitProjectUpdated(g.ProjectUpdated)
 	}
-	if g.typ == "EventSessionCompacted" || g.EventSessionCompacted != nil {
-		return visitor.VisitEventSessionCompacted(g.EventSessionCompacted)
+	if g.SessionCompacted != nil {
+		return visitor.VisitSessionCompacted(g.SessionCompacted)
 	}
-	if g.typ == "EventVcsBranchUpdated" || g.EventVcsBranchUpdated != nil {
-		return visitor.VisitEventVcsBranchUpdated(g.EventVcsBranchUpdated)
+	if g.VcsBranchUpdated != nil {
+		return visitor.VisitVcsBranchUpdated(g.VcsBranchUpdated)
 	}
-	if g.typ == "EventWorkspaceReady" || g.EventWorkspaceReady != nil {
-		return visitor.VisitEventWorkspaceReady(g.EventWorkspaceReady)
+	if g.WorkspaceReady != nil {
+		return visitor.VisitWorkspaceReady(g.WorkspaceReady)
 	}
-	if g.typ == "EventWorkspaceFailed" || g.EventWorkspaceFailed != nil {
-		return visitor.VisitEventWorkspaceFailed(g.EventWorkspaceFailed)
+	if g.WorkspaceFailed != nil {
+		return visitor.VisitWorkspaceFailed(g.WorkspaceFailed)
 	}
-	if g.typ == "EventWorkspaceStatus" || g.EventWorkspaceStatus != nil {
-		return visitor.VisitEventWorkspaceStatus(g.EventWorkspaceStatus)
+	if g.WorkspaceStatus != nil {
+		return visitor.VisitWorkspaceStatus(g.WorkspaceStatus)
 	}
-	if g.typ == "EventWorktreeReady" || g.EventWorktreeReady != nil {
-		return visitor.VisitEventWorktreeReady(g.EventWorktreeReady)
+	if g.WorktreeReady != nil {
+		return visitor.VisitWorktreeReady(g.WorktreeReady)
 	}
-	if g.typ == "EventWorktreeFailed" || g.EventWorktreeFailed != nil {
-		return visitor.VisitEventWorktreeFailed(g.EventWorktreeFailed)
+	if g.WorktreeFailed != nil {
+		return visitor.VisitWorktreeFailed(g.WorktreeFailed)
 	}
-	if g.typ == "EventPtyCreated" || g.EventPtyCreated != nil {
-		return visitor.VisitEventPtyCreated(g.EventPtyCreated)
+	if g.PtyCreated != nil {
+		return visitor.VisitPtyCreated(g.PtyCreated)
 	}
-	if g.typ == "EventPtyUpdated" || g.EventPtyUpdated != nil {
-		return visitor.VisitEventPtyUpdated(g.EventPtyUpdated)
+	if g.PtyUpdated != nil {
+		return visitor.VisitPtyUpdated(g.PtyUpdated)
 	}
-	if g.typ == "EventPtyExited" || g.EventPtyExited != nil {
-		return visitor.VisitEventPtyExited(g.EventPtyExited)
+	if g.PtyExited != nil {
+		return visitor.VisitPtyExited(g.PtyExited)
 	}
-	if g.typ == "EventPtyDeleted" || g.EventPtyDeleted != nil {
-		return visitor.VisitEventPtyDeleted(g.EventPtyDeleted)
+	if g.PtyDeleted != nil {
+		return visitor.VisitPtyDeleted(g.PtyDeleted)
 	}
-	if g.typ == "EventInstallationUpdated" || g.EventInstallationUpdated != nil {
-		return visitor.VisitEventInstallationUpdated(g.EventInstallationUpdated)
+	if g.InstallationUpdated != nil {
+		return visitor.VisitInstallationUpdated(g.InstallationUpdated)
 	}
-	if g.typ == "EventInstallationUpdateAvailable" || g.EventInstallationUpdateAvailable != nil {
-		return visitor.VisitEventInstallationUpdateAvailable(g.EventInstallationUpdateAvailable)
+	if g.InstallationUpdateAvailable != nil {
+		return visitor.VisitInstallationUpdateAvailable(g.InstallationUpdateAvailable)
 	}
-	if g.typ == "EventMessageUpdated" || g.EventMessageUpdated != nil {
-		return visitor.VisitEventMessageUpdated(g.EventMessageUpdated)
+	if g.MessageUpdated != nil {
+		return visitor.VisitMessageUpdated(g.MessageUpdated)
 	}
-	if g.typ == "EventMessageRemoved" || g.EventMessageRemoved != nil {
-		return visitor.VisitEventMessageRemoved(g.EventMessageRemoved)
+	if g.MessageRemoved != nil {
+		return visitor.VisitMessageRemoved(g.MessageRemoved)
 	}
-	if g.typ == "EventMessagePartUpdated" || g.EventMessagePartUpdated != nil {
-		return visitor.VisitEventMessagePartUpdated(g.EventMessagePartUpdated)
+	if g.MessagePartUpdated != nil {
+		return visitor.VisitMessagePartUpdated(g.MessagePartUpdated)
 	}
-	if g.typ == "EventMessagePartRemoved" || g.EventMessagePartRemoved != nil {
-		return visitor.VisitEventMessagePartRemoved(g.EventMessagePartRemoved)
+	if g.MessagePartRemoved != nil {
+		return visitor.VisitMessagePartRemoved(g.MessagePartRemoved)
 	}
-	if g.typ == "EventSessionCreated" || g.EventSessionCreated != nil {
-		return visitor.VisitEventSessionCreated(g.EventSessionCreated)
+	if g.SessionCreated != nil {
+		return visitor.VisitSessionCreated(g.SessionCreated)
 	}
-	if g.typ == "EventSessionUpdated" || g.EventSessionUpdated != nil {
-		return visitor.VisitEventSessionUpdated(g.EventSessionUpdated)
+	if g.SessionUpdated != nil {
+		return visitor.VisitSessionUpdated(g.SessionUpdated)
 	}
-	if g.typ == "EventSessionDeleted" || g.EventSessionDeleted != nil {
-		return visitor.VisitEventSessionDeleted(g.EventSessionDeleted)
+	if g.SessionDeleted != nil {
+		return visitor.VisitSessionDeleted(g.SessionDeleted)
 	}
-	if g.typ == "EventServerConnected" || g.EventServerConnected != nil {
-		return visitor.VisitEventServerConnected(g.EventServerConnected)
+	if g.SessionNextAgentSwitched != nil {
+		return visitor.VisitSessionNextAgentSwitched(g.SessionNextAgentSwitched)
 	}
-	if g.typ == "EventGlobalDisposed" || g.EventGlobalDisposed != nil {
-		return visitor.VisitEventGlobalDisposed(g.EventGlobalDisposed)
+	if g.SessionNextModelSwitched != nil {
+		return visitor.VisitSessionNextModelSwitched(g.SessionNextModelSwitched)
 	}
-	if g.typ == "EventCatalogModelUpdated" || g.EventCatalogModelUpdated != nil {
-		return visitor.VisitEventCatalogModelUpdated(g.EventCatalogModelUpdated)
+	if g.SessionNextPrompted != nil {
+		return visitor.VisitSessionNextPrompted(g.SessionNextPrompted)
 	}
-	if g.typ == "EventSessionNextAgentSwitched" || g.EventSessionNextAgentSwitched != nil {
-		return visitor.VisitEventSessionNextAgentSwitched(g.EventSessionNextAgentSwitched)
+	if g.SessionNextSynthetic != nil {
+		return visitor.VisitSessionNextSynthetic(g.SessionNextSynthetic)
 	}
-	if g.typ == "EventSessionNextModelSwitched" || g.EventSessionNextModelSwitched != nil {
-		return visitor.VisitEventSessionNextModelSwitched(g.EventSessionNextModelSwitched)
+	if g.SessionNextShellStarted != nil {
+		return visitor.VisitSessionNextShellStarted(g.SessionNextShellStarted)
 	}
-	if g.typ == "EventSessionNextPrompted" || g.EventSessionNextPrompted != nil {
-		return visitor.VisitEventSessionNextPrompted(g.EventSessionNextPrompted)
+	if g.SessionNextShellEnded != nil {
+		return visitor.VisitSessionNextShellEnded(g.SessionNextShellEnded)
 	}
-	if g.typ == "EventSessionNextSynthetic" || g.EventSessionNextSynthetic != nil {
-		return visitor.VisitEventSessionNextSynthetic(g.EventSessionNextSynthetic)
+	if g.SessionNextStepStarted != nil {
+		return visitor.VisitSessionNextStepStarted(g.SessionNextStepStarted)
 	}
-	if g.typ == "EventSessionNextShellStarted" || g.EventSessionNextShellStarted != nil {
-		return visitor.VisitEventSessionNextShellStarted(g.EventSessionNextShellStarted)
+	if g.SessionNextStepEnded != nil {
+		return visitor.VisitSessionNextStepEnded(g.SessionNextStepEnded)
 	}
-	if g.typ == "EventSessionNextShellEnded" || g.EventSessionNextShellEnded != nil {
-		return visitor.VisitEventSessionNextShellEnded(g.EventSessionNextShellEnded)
+	if g.SessionNextStepFailed != nil {
+		return visitor.VisitSessionNextStepFailed(g.SessionNextStepFailed)
 	}
-	if g.typ == "EventSessionNextStepStarted" || g.EventSessionNextStepStarted != nil {
-		return visitor.VisitEventSessionNextStepStarted(g.EventSessionNextStepStarted)
+	if g.SessionNextTextStarted != nil {
+		return visitor.VisitSessionNextTextStarted(g.SessionNextTextStarted)
 	}
-	if g.typ == "EventSessionNextStepEnded" || g.EventSessionNextStepEnded != nil {
-		return visitor.VisitEventSessionNextStepEnded(g.EventSessionNextStepEnded)
+	if g.SessionNextTextDelta != nil {
+		return visitor.VisitSessionNextTextDelta(g.SessionNextTextDelta)
 	}
-	if g.typ == "EventSessionNextStepFailed" || g.EventSessionNextStepFailed != nil {
-		return visitor.VisitEventSessionNextStepFailed(g.EventSessionNextStepFailed)
+	if g.SessionNextTextEnded != nil {
+		return visitor.VisitSessionNextTextEnded(g.SessionNextTextEnded)
 	}
-	if g.typ == "EventSessionNextTextStarted" || g.EventSessionNextTextStarted != nil {
-		return visitor.VisitEventSessionNextTextStarted(g.EventSessionNextTextStarted)
+	if g.SessionNextReasoningStarted != nil {
+		return visitor.VisitSessionNextReasoningStarted(g.SessionNextReasoningStarted)
 	}
-	if g.typ == "EventSessionNextTextDelta" || g.EventSessionNextTextDelta != nil {
-		return visitor.VisitEventSessionNextTextDelta(g.EventSessionNextTextDelta)
+	if g.SessionNextReasoningDelta != nil {
+		return visitor.VisitSessionNextReasoningDelta(g.SessionNextReasoningDelta)
 	}
-	if g.typ == "EventSessionNextTextEnded" || g.EventSessionNextTextEnded != nil {
-		return visitor.VisitEventSessionNextTextEnded(g.EventSessionNextTextEnded)
+	if g.SessionNextReasoningEnded != nil {
+		return visitor.VisitSessionNextReasoningEnded(g.SessionNextReasoningEnded)
 	}
-	if g.typ == "EventSessionNextReasoningStarted" || g.EventSessionNextReasoningStarted != nil {
-		return visitor.VisitEventSessionNextReasoningStarted(g.EventSessionNextReasoningStarted)
+	if g.SessionNextToolInputStarted != nil {
+		return visitor.VisitSessionNextToolInputStarted(g.SessionNextToolInputStarted)
 	}
-	if g.typ == "EventSessionNextReasoningDelta" || g.EventSessionNextReasoningDelta != nil {
-		return visitor.VisitEventSessionNextReasoningDelta(g.EventSessionNextReasoningDelta)
+	if g.SessionNextToolInputDelta != nil {
+		return visitor.VisitSessionNextToolInputDelta(g.SessionNextToolInputDelta)
 	}
-	if g.typ == "EventSessionNextReasoningEnded" || g.EventSessionNextReasoningEnded != nil {
-		return visitor.VisitEventSessionNextReasoningEnded(g.EventSessionNextReasoningEnded)
+	if g.SessionNextToolInputEnded != nil {
+		return visitor.VisitSessionNextToolInputEnded(g.SessionNextToolInputEnded)
 	}
-	if g.typ == "EventSessionNextToolInputStarted" || g.EventSessionNextToolInputStarted != nil {
-		return visitor.VisitEventSessionNextToolInputStarted(g.EventSessionNextToolInputStarted)
+	if g.SessionNextToolCalled != nil {
+		return visitor.VisitSessionNextToolCalled(g.SessionNextToolCalled)
 	}
-	if g.typ == "EventSessionNextToolInputDelta" || g.EventSessionNextToolInputDelta != nil {
-		return visitor.VisitEventSessionNextToolInputDelta(g.EventSessionNextToolInputDelta)
+	if g.SessionNextToolProgress != nil {
+		return visitor.VisitSessionNextToolProgress(g.SessionNextToolProgress)
 	}
-	if g.typ == "EventSessionNextToolInputEnded" || g.EventSessionNextToolInputEnded != nil {
-		return visitor.VisitEventSessionNextToolInputEnded(g.EventSessionNextToolInputEnded)
+	if g.SessionNextToolSuccess != nil {
+		return visitor.VisitSessionNextToolSuccess(g.SessionNextToolSuccess)
 	}
-	if g.typ == "EventSessionNextToolCalled" || g.EventSessionNextToolCalled != nil {
-		return visitor.VisitEventSessionNextToolCalled(g.EventSessionNextToolCalled)
+	if g.SessionNextToolFailed != nil {
+		return visitor.VisitSessionNextToolFailed(g.SessionNextToolFailed)
 	}
-	if g.typ == "EventSessionNextToolProgress" || g.EventSessionNextToolProgress != nil {
-		return visitor.VisitEventSessionNextToolProgress(g.EventSessionNextToolProgress)
+	if g.SessionNextRetried != nil {
+		return visitor.VisitSessionNextRetried(g.SessionNextRetried)
 	}
-	if g.typ == "EventSessionNextToolSuccess" || g.EventSessionNextToolSuccess != nil {
-		return visitor.VisitEventSessionNextToolSuccess(g.EventSessionNextToolSuccess)
+	if g.SessionNextCompactionStarted != nil {
+		return visitor.VisitSessionNextCompactionStarted(g.SessionNextCompactionStarted)
 	}
-	if g.typ == "EventSessionNextToolFailed" || g.EventSessionNextToolFailed != nil {
-		return visitor.VisitEventSessionNextToolFailed(g.EventSessionNextToolFailed)
+	if g.SessionNextCompactionDelta != nil {
+		return visitor.VisitSessionNextCompactionDelta(g.SessionNextCompactionDelta)
 	}
-	if g.typ == "EventSessionNextRetried" || g.EventSessionNextRetried != nil {
-		return visitor.VisitEventSessionNextRetried(g.EventSessionNextRetried)
+	if g.SessionNextCompactionEnded != nil {
+		return visitor.VisitSessionNextCompactionEnded(g.SessionNextCompactionEnded)
 	}
-	if g.typ == "EventSessionNextCompactionStarted" || g.EventSessionNextCompactionStarted != nil {
-		return visitor.VisitEventSessionNextCompactionStarted(g.EventSessionNextCompactionStarted)
+	if g.ServerConnected != nil {
+		return visitor.VisitServerConnected(g.ServerConnected)
 	}
-	if g.typ == "EventSessionNextCompactionDelta" || g.EventSessionNextCompactionDelta != nil {
-		return visitor.VisitEventSessionNextCompactionDelta(g.EventSessionNextCompactionDelta)
+	if g.GlobalDisposed != nil {
+		return visitor.VisitGlobalDisposed(g.GlobalDisposed)
 	}
-	if g.typ == "EventSessionNextCompactionEnded" || g.EventSessionNextCompactionEnded != nil {
-		return visitor.VisitEventSessionNextCompactionEnded(g.EventSessionNextCompactionEnded)
+	if g.CatalogModelUpdated != nil {
+		return visitor.VisitCatalogModelUpdated(g.CatalogModelUpdated)
 	}
-	if g.typ == "SyncEventMessageUpdated" || g.SyncEventMessageUpdated != nil {
-		return visitor.VisitSyncEventMessageUpdated(g.SyncEventMessageUpdated)
+	return fmt.Errorf("type %T does not define a non-empty union type", g)
+}
+
+func (g *GlobalEventPayload) validate() error {
+	if g == nil {
+		return fmt.Errorf("type %T is nil", g)
 	}
-	if g.typ == "SyncEventMessageRemoved" || g.SyncEventMessageRemoved != nil {
-		return visitor.VisitSyncEventMessageRemoved(g.SyncEventMessageRemoved)
+	var fields []string
+	if g.ServerInstanceDisposed != nil {
+		fields = append(fields, "server.instance.disposed")
 	}
-	if g.typ == "SyncEventMessagePartUpdated" || g.SyncEventMessagePartUpdated != nil {
-		return visitor.VisitSyncEventMessagePartUpdated(g.SyncEventMessagePartUpdated)
+	if g.FileEdited != nil {
+		fields = append(fields, "file.edited")
 	}
-	if g.typ == "SyncEventMessagePartRemoved" || g.SyncEventMessagePartRemoved != nil {
-		return visitor.VisitSyncEventMessagePartRemoved(g.SyncEventMessagePartRemoved)
+	if g.FileWatcherUpdated != nil {
+		fields = append(fields, "file.watcher.updated")
 	}
-	if g.typ == "SyncEventSessionCreated" || g.SyncEventSessionCreated != nil {
-		return visitor.VisitSyncEventSessionCreated(g.SyncEventSessionCreated)
+	if g.LspClientDiagnostics != nil {
+		fields = append(fields, "lsp.client.diagnostics")
 	}
-	if g.typ == "SyncEventSessionUpdated" || g.SyncEventSessionUpdated != nil {
-		return visitor.VisitSyncEventSessionUpdated(g.SyncEventSessionUpdated)
+	if g.LspUpdated != nil {
+		fields = append(fields, "lsp.updated")
 	}
-	if g.typ == "SyncEventSessionDeleted" || g.SyncEventSessionDeleted != nil {
-		return visitor.VisitSyncEventSessionDeleted(g.SyncEventSessionDeleted)
+	if g.MessagePartDelta != nil {
+		fields = append(fields, "message.part.delta")
 	}
-	if g.typ == "SyncEventSessionNextAgentSwitched" || g.SyncEventSessionNextAgentSwitched != nil {
-		return visitor.VisitSyncEventSessionNextAgentSwitched(g.SyncEventSessionNextAgentSwitched)
+	if g.PermissionAsked != nil {
+		fields = append(fields, "permission.asked")
 	}
-	if g.typ == "SyncEventSessionNextModelSwitched" || g.SyncEventSessionNextModelSwitched != nil {
-		return visitor.VisitSyncEventSessionNextModelSwitched(g.SyncEventSessionNextModelSwitched)
+	if g.PermissionReplied != nil {
+		fields = append(fields, "permission.replied")
 	}
-	if g.typ == "SyncEventSessionNextPrompted" || g.SyncEventSessionNextPrompted != nil {
-		return visitor.VisitSyncEventSessionNextPrompted(g.SyncEventSessionNextPrompted)
+	if g.SessionDiff != nil {
+		fields = append(fields, "session.diff")
 	}
-	if g.typ == "SyncEventSessionNextSynthetic" || g.SyncEventSessionNextSynthetic != nil {
-		return visitor.VisitSyncEventSessionNextSynthetic(g.SyncEventSessionNextSynthetic)
+	if g.SessionError != nil {
+		fields = append(fields, "session.error")
 	}
-	if g.typ == "SyncEventSessionNextShellStarted" || g.SyncEventSessionNextShellStarted != nil {
-		return visitor.VisitSyncEventSessionNextShellStarted(g.SyncEventSessionNextShellStarted)
+	if g.QuestionAsked != nil {
+		fields = append(fields, "question.asked")
 	}
-	if g.typ == "SyncEventSessionNextShellEnded" || g.SyncEventSessionNextShellEnded != nil {
-		return visitor.VisitSyncEventSessionNextShellEnded(g.SyncEventSessionNextShellEnded)
+	if g.QuestionReplied != nil {
+		fields = append(fields, "question.replied")
 	}
-	if g.typ == "SyncEventSessionNextStepStarted" || g.SyncEventSessionNextStepStarted != nil {
-		return visitor.VisitSyncEventSessionNextStepStarted(g.SyncEventSessionNextStepStarted)
+	if g.QuestionRejected != nil {
+		fields = append(fields, "question.rejected")
 	}
-	if g.typ == "SyncEventSessionNextStepEnded" || g.SyncEventSessionNextStepEnded != nil {
-		return visitor.VisitSyncEventSessionNextStepEnded(g.SyncEventSessionNextStepEnded)
+	if g.TodoUpdated != nil {
+		fields = append(fields, "todo.updated")
 	}
-	if g.typ == "SyncEventSessionNextStepFailed" || g.SyncEventSessionNextStepFailed != nil {
-		return visitor.VisitSyncEventSessionNextStepFailed(g.SyncEventSessionNextStepFailed)
+	if g.SessionStatus != nil {
+		fields = append(fields, "session.status")
 	}
-	if g.typ == "SyncEventSessionNextTextStarted" || g.SyncEventSessionNextTextStarted != nil {
-		return visitor.VisitSyncEventSessionNextTextStarted(g.SyncEventSessionNextTextStarted)
+	if g.SessionIdle != nil {
+		fields = append(fields, "session.idle")
 	}
-	if g.typ == "SyncEventSessionNextTextDelta" || g.SyncEventSessionNextTextDelta != nil {
-		return visitor.VisitSyncEventSessionNextTextDelta(g.SyncEventSessionNextTextDelta)
+	if g.TuiPromptAppend != nil {
+		fields = append(fields, "tui.prompt.append")
 	}
-	if g.typ == "SyncEventSessionNextTextEnded" || g.SyncEventSessionNextTextEnded != nil {
-		return visitor.VisitSyncEventSessionNextTextEnded(g.SyncEventSessionNextTextEnded)
+	if g.TuiCommandExecute != nil {
+		fields = append(fields, "tui.command.execute")
 	}
-	if g.typ == "SyncEventSessionNextReasoningStarted" || g.SyncEventSessionNextReasoningStarted != nil {
-		return visitor.VisitSyncEventSessionNextReasoningStarted(g.SyncEventSessionNextReasoningStarted)
+	if g.TuiToastShow != nil {
+		fields = append(fields, "tui.toast.show")
 	}
-	if g.typ == "SyncEventSessionNextReasoningDelta" || g.SyncEventSessionNextReasoningDelta != nil {
-		return visitor.VisitSyncEventSessionNextReasoningDelta(g.SyncEventSessionNextReasoningDelta)
+	if g.TuiSessionSelect != nil {
+		fields = append(fields, "tui.session.select")
 	}
-	if g.typ == "SyncEventSessionNextReasoningEnded" || g.SyncEventSessionNextReasoningEnded != nil {
-		return visitor.VisitSyncEventSessionNextReasoningEnded(g.SyncEventSessionNextReasoningEnded)
+	if g.McpToolsChanged != nil {
+		fields = append(fields, "mcp.tools.changed")
 	}
-	if g.typ == "SyncEventSessionNextToolInputStarted" || g.SyncEventSessionNextToolInputStarted != nil {
-		return visitor.VisitSyncEventSessionNextToolInputStarted(g.SyncEventSessionNextToolInputStarted)
+	if g.McpBrowserOpenFailed != nil {
+		fields = append(fields, "mcp.browser.open.failed")
 	}
-	if g.typ == "SyncEventSessionNextToolInputDelta" || g.SyncEventSessionNextToolInputDelta != nil {
-		return visitor.VisitSyncEventSessionNextToolInputDelta(g.SyncEventSessionNextToolInputDelta)
+	if g.CommandExecuted != nil {
+		fields = append(fields, "command.executed")
 	}
-	if g.typ == "SyncEventSessionNextToolInputEnded" || g.SyncEventSessionNextToolInputEnded != nil {
-		return visitor.VisitSyncEventSessionNextToolInputEnded(g.SyncEventSessionNextToolInputEnded)
+	if g.ProjectUpdated != nil {
+		fields = append(fields, "project.updated")
 	}
-	if g.typ == "SyncEventSessionNextToolCalled" || g.SyncEventSessionNextToolCalled != nil {
-		return visitor.VisitSyncEventSessionNextToolCalled(g.SyncEventSessionNextToolCalled)
+	if g.SessionCompacted != nil {
+		fields = append(fields, "session.compacted")
 	}
-	if g.typ == "SyncEventSessionNextToolProgress" || g.SyncEventSessionNextToolProgress != nil {
-		return visitor.VisitSyncEventSessionNextToolProgress(g.SyncEventSessionNextToolProgress)
+	if g.VcsBranchUpdated != nil {
+		fields = append(fields, "vcs.branch.updated")
 	}
-	if g.typ == "SyncEventSessionNextToolSuccess" || g.SyncEventSessionNextToolSuccess != nil {
-		return visitor.VisitSyncEventSessionNextToolSuccess(g.SyncEventSessionNextToolSuccess)
+	if g.WorkspaceReady != nil {
+		fields = append(fields, "workspace.ready")
 	}
-	if g.typ == "SyncEventSessionNextToolFailed" || g.SyncEventSessionNextToolFailed != nil {
-		return visitor.VisitSyncEventSessionNextToolFailed(g.SyncEventSessionNextToolFailed)
+	if g.WorkspaceFailed != nil {
+		fields = append(fields, "workspace.failed")
 	}
-	if g.typ == "SyncEventSessionNextRetried" || g.SyncEventSessionNextRetried != nil {
-		return visitor.VisitSyncEventSessionNextRetried(g.SyncEventSessionNextRetried)
+	if g.WorkspaceStatus != nil {
+		fields = append(fields, "workspace.status")
 	}
-	if g.typ == "SyncEventSessionNextCompactionStarted" || g.SyncEventSessionNextCompactionStarted != nil {
-		return visitor.VisitSyncEventSessionNextCompactionStarted(g.SyncEventSessionNextCompactionStarted)
+	if g.WorktreeReady != nil {
+		fields = append(fields, "worktree.ready")
 	}
-	if g.typ == "SyncEventSessionNextCompactionDelta" || g.SyncEventSessionNextCompactionDelta != nil {
-		return visitor.VisitSyncEventSessionNextCompactionDelta(g.SyncEventSessionNextCompactionDelta)
+	if g.WorktreeFailed != nil {
+		fields = append(fields, "worktree.failed")
 	}
-	if g.typ == "SyncEventSessionNextCompactionEnded" || g.SyncEventSessionNextCompactionEnded != nil {
-		return visitor.VisitSyncEventSessionNextCompactionEnded(g.SyncEventSessionNextCompactionEnded)
+	if g.PtyCreated != nil {
+		fields = append(fields, "pty.created")
 	}
-	return fmt.Errorf("type %T does not include a non-empty union type", g)
+	if g.PtyUpdated != nil {
+		fields = append(fields, "pty.updated")
+	}
+	if g.PtyExited != nil {
+		fields = append(fields, "pty.exited")
+	}
+	if g.PtyDeleted != nil {
+		fields = append(fields, "pty.deleted")
+	}
+	if g.InstallationUpdated != nil {
+		fields = append(fields, "installation.updated")
+	}
+	if g.InstallationUpdateAvailable != nil {
+		fields = append(fields, "installation.update-available")
+	}
+	if g.MessageUpdated != nil {
+		fields = append(fields, "message.updated")
+	}
+	if g.MessageRemoved != nil {
+		fields = append(fields, "message.removed")
+	}
+	if g.MessagePartUpdated != nil {
+		fields = append(fields, "message.part.updated")
+	}
+	if g.MessagePartRemoved != nil {
+		fields = append(fields, "message.part.removed")
+	}
+	if g.SessionCreated != nil {
+		fields = append(fields, "session.created")
+	}
+	if g.SessionUpdated != nil {
+		fields = append(fields, "session.updated")
+	}
+	if g.SessionDeleted != nil {
+		fields = append(fields, "session.deleted")
+	}
+	if g.SessionNextAgentSwitched != nil {
+		fields = append(fields, "session.next.agent.switched")
+	}
+	if g.SessionNextModelSwitched != nil {
+		fields = append(fields, "session.next.model.switched")
+	}
+	if g.SessionNextPrompted != nil {
+		fields = append(fields, "session.next.prompted")
+	}
+	if g.SessionNextSynthetic != nil {
+		fields = append(fields, "session.next.synthetic")
+	}
+	if g.SessionNextShellStarted != nil {
+		fields = append(fields, "session.next.shell.started")
+	}
+	if g.SessionNextShellEnded != nil {
+		fields = append(fields, "session.next.shell.ended")
+	}
+	if g.SessionNextStepStarted != nil {
+		fields = append(fields, "session.next.step.started")
+	}
+	if g.SessionNextStepEnded != nil {
+		fields = append(fields, "session.next.step.ended")
+	}
+	if g.SessionNextStepFailed != nil {
+		fields = append(fields, "session.next.step.failed")
+	}
+	if g.SessionNextTextStarted != nil {
+		fields = append(fields, "session.next.text.started")
+	}
+	if g.SessionNextTextDelta != nil {
+		fields = append(fields, "session.next.text.delta")
+	}
+	if g.SessionNextTextEnded != nil {
+		fields = append(fields, "session.next.text.ended")
+	}
+	if g.SessionNextReasoningStarted != nil {
+		fields = append(fields, "session.next.reasoning.started")
+	}
+	if g.SessionNextReasoningDelta != nil {
+		fields = append(fields, "session.next.reasoning.delta")
+	}
+	if g.SessionNextReasoningEnded != nil {
+		fields = append(fields, "session.next.reasoning.ended")
+	}
+	if g.SessionNextToolInputStarted != nil {
+		fields = append(fields, "session.next.tool.input.started")
+	}
+	if g.SessionNextToolInputDelta != nil {
+		fields = append(fields, "session.next.tool.input.delta")
+	}
+	if g.SessionNextToolInputEnded != nil {
+		fields = append(fields, "session.next.tool.input.ended")
+	}
+	if g.SessionNextToolCalled != nil {
+		fields = append(fields, "session.next.tool.called")
+	}
+	if g.SessionNextToolProgress != nil {
+		fields = append(fields, "session.next.tool.progress")
+	}
+	if g.SessionNextToolSuccess != nil {
+		fields = append(fields, "session.next.tool.success")
+	}
+	if g.SessionNextToolFailed != nil {
+		fields = append(fields, "session.next.tool.failed")
+	}
+	if g.SessionNextRetried != nil {
+		fields = append(fields, "session.next.retried")
+	}
+	if g.SessionNextCompactionStarted != nil {
+		fields = append(fields, "session.next.compaction.started")
+	}
+	if g.SessionNextCompactionDelta != nil {
+		fields = append(fields, "session.next.compaction.delta")
+	}
+	if g.SessionNextCompactionEnded != nil {
+		fields = append(fields, "session.next.compaction.ended")
+	}
+	if g.ServerConnected != nil {
+		fields = append(fields, "server.connected")
+	}
+	if g.GlobalDisposed != nil {
+		fields = append(fields, "global.disposed")
+	}
+	if g.CatalogModelUpdated != nil {
+		fields = append(fields, "catalog.model.updated")
+	}
+	if len(fields) == 0 {
+		if g.Type != "" {
+			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", g, g.Type)
+		}
+		return fmt.Errorf("type %T is empty", g)
+	}
+	if len(fields) > 1 {
+		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", g, fields)
+	}
+	if g.Type != "" {
+		field := fields[0]
+		if g.Type != field {
+			return fmt.Errorf(
+				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
+				g,
+				g.Type,
+				g,
+			)
+		}
+	}
+	return nil
 }
 
 var (
@@ -25055,13619 +22075,6 @@ func (s *SessionNextRetryError) String() string {
 		return value
 	}
 	return fmt.Sprintf("%#v", s)
-}
-
-var (
-	syncEventMessagePartRemovedFieldType        = big.NewInt(1 << 0)
-	syncEventMessagePartRemovedFieldName        = big.NewInt(1 << 1)
-	syncEventMessagePartRemovedFieldID          = big.NewInt(1 << 2)
-	syncEventMessagePartRemovedFieldSeq         = big.NewInt(1 << 3)
-	syncEventMessagePartRemovedFieldAggregateID = big.NewInt(1 << 4)
-	syncEventMessagePartRemovedFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventMessagePartRemoved struct {
-	Type        SyncEventMessagePartRemovedType        `json:"type" url:"type"`
-	Name        SyncEventMessagePartRemovedName        `json:"name" url:"name"`
-	ID          string                                 `json:"id" url:"id"`
-	Seq         float64                                `json:"seq" url:"seq"`
-	AggregateID SyncEventMessagePartRemovedAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventMessagePartRemovedData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventMessagePartRemoved) GetType() SyncEventMessagePartRemovedType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventMessagePartRemoved) GetName() SyncEventMessagePartRemovedName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventMessagePartRemoved) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventMessagePartRemoved) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventMessagePartRemoved) GetAggregateID() SyncEventMessagePartRemovedAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventMessagePartRemoved) GetData() *SyncEventMessagePartRemovedData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventMessagePartRemoved) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventMessagePartRemoved) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessagePartRemoved) SetType(type_ SyncEventMessagePartRemovedType) {
-	s.Type = type_
-	s.require(syncEventMessagePartRemovedFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessagePartRemoved) SetName(name SyncEventMessagePartRemovedName) {
-	s.Name = name
-	s.require(syncEventMessagePartRemovedFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessagePartRemoved) SetID(id string) {
-	s.ID = id
-	s.require(syncEventMessagePartRemovedFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessagePartRemoved) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventMessagePartRemovedFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessagePartRemoved) SetAggregateID(aggregateID SyncEventMessagePartRemovedAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventMessagePartRemovedFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessagePartRemoved) SetData(data *SyncEventMessagePartRemovedData) {
-	s.Data = data
-	s.require(syncEventMessagePartRemovedFieldData)
-}
-
-func (s *SyncEventMessagePartRemoved) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventMessagePartRemoved
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventMessagePartRemoved(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventMessagePartRemoved) MarshalJSON() ([]byte, error) {
-	type embed SyncEventMessagePartRemoved
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventMessagePartRemoved) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventMessagePartRemovedAggregateID string
-
-const (
-	SyncEventMessagePartRemovedAggregateIDSessionID SyncEventMessagePartRemovedAggregateID = "sessionID"
-)
-
-func NewSyncEventMessagePartRemovedAggregateIDFromString(s string) (SyncEventMessagePartRemovedAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventMessagePartRemovedAggregateIDSessionID, nil
-	}
-	var t SyncEventMessagePartRemovedAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventMessagePartRemovedAggregateID) Ptr() *SyncEventMessagePartRemovedAggregateID {
-	return &s
-}
-
-var (
-	syncEventMessagePartRemovedDataFieldSessionID = big.NewInt(1 << 0)
-	syncEventMessagePartRemovedDataFieldMessageID = big.NewInt(1 << 1)
-	syncEventMessagePartRemovedDataFieldPartID    = big.NewInt(1 << 2)
-)
-
-type SyncEventMessagePartRemovedData struct {
-	SessionID string `json:"sessionID" url:"sessionID"`
-	MessageID string `json:"messageID" url:"messageID"`
-	PartID    string `json:"partID" url:"partID"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventMessagePartRemovedData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventMessagePartRemovedData) GetMessageID() string {
-	if s == nil {
-		return ""
-	}
-	return s.MessageID
-}
-
-func (s *SyncEventMessagePartRemovedData) GetPartID() string {
-	if s == nil {
-		return ""
-	}
-	return s.PartID
-}
-
-func (s *SyncEventMessagePartRemovedData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventMessagePartRemovedData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessagePartRemovedData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventMessagePartRemovedDataFieldSessionID)
-}
-
-// SetMessageID sets the MessageID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessagePartRemovedData) SetMessageID(messageID string) {
-	s.MessageID = messageID
-	s.require(syncEventMessagePartRemovedDataFieldMessageID)
-}
-
-// SetPartID sets the PartID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessagePartRemovedData) SetPartID(partID string) {
-	s.PartID = partID
-	s.require(syncEventMessagePartRemovedDataFieldPartID)
-}
-
-func (s *SyncEventMessagePartRemovedData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventMessagePartRemovedData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventMessagePartRemovedData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventMessagePartRemovedData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventMessagePartRemovedData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventMessagePartRemovedData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventMessagePartRemovedName string
-
-const (
-	SyncEventMessagePartRemovedNameMessagePartRemoved1 SyncEventMessagePartRemovedName = "message.part.removed.1"
-)
-
-func NewSyncEventMessagePartRemovedNameFromString(s string) (SyncEventMessagePartRemovedName, error) {
-	switch s {
-	case "message.part.removed.1":
-		return SyncEventMessagePartRemovedNameMessagePartRemoved1, nil
-	}
-	var t SyncEventMessagePartRemovedName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventMessagePartRemovedName) Ptr() *SyncEventMessagePartRemovedName {
-	return &s
-}
-
-type SyncEventMessagePartRemovedType string
-
-const (
-	SyncEventMessagePartRemovedTypeSync SyncEventMessagePartRemovedType = "sync"
-)
-
-func NewSyncEventMessagePartRemovedTypeFromString(s string) (SyncEventMessagePartRemovedType, error) {
-	switch s {
-	case "sync":
-		return SyncEventMessagePartRemovedTypeSync, nil
-	}
-	var t SyncEventMessagePartRemovedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventMessagePartRemovedType) Ptr() *SyncEventMessagePartRemovedType {
-	return &s
-}
-
-var (
-	syncEventMessagePartUpdatedFieldType        = big.NewInt(1 << 0)
-	syncEventMessagePartUpdatedFieldName        = big.NewInt(1 << 1)
-	syncEventMessagePartUpdatedFieldID          = big.NewInt(1 << 2)
-	syncEventMessagePartUpdatedFieldSeq         = big.NewInt(1 << 3)
-	syncEventMessagePartUpdatedFieldAggregateID = big.NewInt(1 << 4)
-	syncEventMessagePartUpdatedFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventMessagePartUpdated struct {
-	Type        SyncEventMessagePartUpdatedType        `json:"type" url:"type"`
-	Name        SyncEventMessagePartUpdatedName        `json:"name" url:"name"`
-	ID          string                                 `json:"id" url:"id"`
-	Seq         float64                                `json:"seq" url:"seq"`
-	AggregateID SyncEventMessagePartUpdatedAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventMessagePartUpdatedData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventMessagePartUpdated) GetType() SyncEventMessagePartUpdatedType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventMessagePartUpdated) GetName() SyncEventMessagePartUpdatedName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventMessagePartUpdated) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventMessagePartUpdated) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventMessagePartUpdated) GetAggregateID() SyncEventMessagePartUpdatedAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventMessagePartUpdated) GetData() *SyncEventMessagePartUpdatedData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventMessagePartUpdated) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventMessagePartUpdated) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessagePartUpdated) SetType(type_ SyncEventMessagePartUpdatedType) {
-	s.Type = type_
-	s.require(syncEventMessagePartUpdatedFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessagePartUpdated) SetName(name SyncEventMessagePartUpdatedName) {
-	s.Name = name
-	s.require(syncEventMessagePartUpdatedFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessagePartUpdated) SetID(id string) {
-	s.ID = id
-	s.require(syncEventMessagePartUpdatedFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessagePartUpdated) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventMessagePartUpdatedFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessagePartUpdated) SetAggregateID(aggregateID SyncEventMessagePartUpdatedAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventMessagePartUpdatedFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessagePartUpdated) SetData(data *SyncEventMessagePartUpdatedData) {
-	s.Data = data
-	s.require(syncEventMessagePartUpdatedFieldData)
-}
-
-func (s *SyncEventMessagePartUpdated) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventMessagePartUpdated
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventMessagePartUpdated(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventMessagePartUpdated) MarshalJSON() ([]byte, error) {
-	type embed SyncEventMessagePartUpdated
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventMessagePartUpdated) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventMessagePartUpdatedAggregateID string
-
-const (
-	SyncEventMessagePartUpdatedAggregateIDSessionID SyncEventMessagePartUpdatedAggregateID = "sessionID"
-)
-
-func NewSyncEventMessagePartUpdatedAggregateIDFromString(s string) (SyncEventMessagePartUpdatedAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventMessagePartUpdatedAggregateIDSessionID, nil
-	}
-	var t SyncEventMessagePartUpdatedAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventMessagePartUpdatedAggregateID) Ptr() *SyncEventMessagePartUpdatedAggregateID {
-	return &s
-}
-
-var (
-	syncEventMessagePartUpdatedDataFieldSessionID = big.NewInt(1 << 0)
-	syncEventMessagePartUpdatedDataFieldPart      = big.NewInt(1 << 1)
-	syncEventMessagePartUpdatedDataFieldTime      = big.NewInt(1 << 2)
-)
-
-type SyncEventMessagePartUpdatedData struct {
-	SessionID string `json:"sessionID" url:"sessionID"`
-	Part      *Part  `json:"part" url:"part"`
-	Time      int    `json:"time" url:"time"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventMessagePartUpdatedData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventMessagePartUpdatedData) GetPart() *Part {
-	if s == nil {
-		return nil
-	}
-	return s.Part
-}
-
-func (s *SyncEventMessagePartUpdatedData) GetTime() int {
-	if s == nil {
-		return 0
-	}
-	return s.Time
-}
-
-func (s *SyncEventMessagePartUpdatedData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventMessagePartUpdatedData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessagePartUpdatedData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventMessagePartUpdatedDataFieldSessionID)
-}
-
-// SetPart sets the Part field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessagePartUpdatedData) SetPart(part *Part) {
-	s.Part = part
-	s.require(syncEventMessagePartUpdatedDataFieldPart)
-}
-
-// SetTime sets the Time field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessagePartUpdatedData) SetTime(time int) {
-	s.Time = time
-	s.require(syncEventMessagePartUpdatedDataFieldTime)
-}
-
-func (s *SyncEventMessagePartUpdatedData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventMessagePartUpdatedData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventMessagePartUpdatedData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventMessagePartUpdatedData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventMessagePartUpdatedData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventMessagePartUpdatedData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventMessagePartUpdatedName string
-
-const (
-	SyncEventMessagePartUpdatedNameMessagePartUpdated1 SyncEventMessagePartUpdatedName = "message.part.updated.1"
-)
-
-func NewSyncEventMessagePartUpdatedNameFromString(s string) (SyncEventMessagePartUpdatedName, error) {
-	switch s {
-	case "message.part.updated.1":
-		return SyncEventMessagePartUpdatedNameMessagePartUpdated1, nil
-	}
-	var t SyncEventMessagePartUpdatedName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventMessagePartUpdatedName) Ptr() *SyncEventMessagePartUpdatedName {
-	return &s
-}
-
-type SyncEventMessagePartUpdatedType string
-
-const (
-	SyncEventMessagePartUpdatedTypeSync SyncEventMessagePartUpdatedType = "sync"
-)
-
-func NewSyncEventMessagePartUpdatedTypeFromString(s string) (SyncEventMessagePartUpdatedType, error) {
-	switch s {
-	case "sync":
-		return SyncEventMessagePartUpdatedTypeSync, nil
-	}
-	var t SyncEventMessagePartUpdatedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventMessagePartUpdatedType) Ptr() *SyncEventMessagePartUpdatedType {
-	return &s
-}
-
-var (
-	syncEventMessageRemovedFieldType        = big.NewInt(1 << 0)
-	syncEventMessageRemovedFieldName        = big.NewInt(1 << 1)
-	syncEventMessageRemovedFieldID          = big.NewInt(1 << 2)
-	syncEventMessageRemovedFieldSeq         = big.NewInt(1 << 3)
-	syncEventMessageRemovedFieldAggregateID = big.NewInt(1 << 4)
-	syncEventMessageRemovedFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventMessageRemoved struct {
-	Type        SyncEventMessageRemovedType        `json:"type" url:"type"`
-	Name        SyncEventMessageRemovedName        `json:"name" url:"name"`
-	ID          string                             `json:"id" url:"id"`
-	Seq         float64                            `json:"seq" url:"seq"`
-	AggregateID SyncEventMessageRemovedAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventMessageRemovedData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventMessageRemoved) GetType() SyncEventMessageRemovedType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventMessageRemoved) GetName() SyncEventMessageRemovedName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventMessageRemoved) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventMessageRemoved) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventMessageRemoved) GetAggregateID() SyncEventMessageRemovedAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventMessageRemoved) GetData() *SyncEventMessageRemovedData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventMessageRemoved) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventMessageRemoved) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessageRemoved) SetType(type_ SyncEventMessageRemovedType) {
-	s.Type = type_
-	s.require(syncEventMessageRemovedFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessageRemoved) SetName(name SyncEventMessageRemovedName) {
-	s.Name = name
-	s.require(syncEventMessageRemovedFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessageRemoved) SetID(id string) {
-	s.ID = id
-	s.require(syncEventMessageRemovedFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessageRemoved) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventMessageRemovedFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessageRemoved) SetAggregateID(aggregateID SyncEventMessageRemovedAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventMessageRemovedFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessageRemoved) SetData(data *SyncEventMessageRemovedData) {
-	s.Data = data
-	s.require(syncEventMessageRemovedFieldData)
-}
-
-func (s *SyncEventMessageRemoved) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventMessageRemoved
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventMessageRemoved(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventMessageRemoved) MarshalJSON() ([]byte, error) {
-	type embed SyncEventMessageRemoved
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventMessageRemoved) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventMessageRemovedAggregateID string
-
-const (
-	SyncEventMessageRemovedAggregateIDSessionID SyncEventMessageRemovedAggregateID = "sessionID"
-)
-
-func NewSyncEventMessageRemovedAggregateIDFromString(s string) (SyncEventMessageRemovedAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventMessageRemovedAggregateIDSessionID, nil
-	}
-	var t SyncEventMessageRemovedAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventMessageRemovedAggregateID) Ptr() *SyncEventMessageRemovedAggregateID {
-	return &s
-}
-
-var (
-	syncEventMessageRemovedDataFieldSessionID = big.NewInt(1 << 0)
-	syncEventMessageRemovedDataFieldMessageID = big.NewInt(1 << 1)
-)
-
-type SyncEventMessageRemovedData struct {
-	SessionID string `json:"sessionID" url:"sessionID"`
-	MessageID string `json:"messageID" url:"messageID"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventMessageRemovedData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventMessageRemovedData) GetMessageID() string {
-	if s == nil {
-		return ""
-	}
-	return s.MessageID
-}
-
-func (s *SyncEventMessageRemovedData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventMessageRemovedData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessageRemovedData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventMessageRemovedDataFieldSessionID)
-}
-
-// SetMessageID sets the MessageID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessageRemovedData) SetMessageID(messageID string) {
-	s.MessageID = messageID
-	s.require(syncEventMessageRemovedDataFieldMessageID)
-}
-
-func (s *SyncEventMessageRemovedData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventMessageRemovedData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventMessageRemovedData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventMessageRemovedData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventMessageRemovedData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventMessageRemovedData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventMessageRemovedName string
-
-const (
-	SyncEventMessageRemovedNameMessageRemoved1 SyncEventMessageRemovedName = "message.removed.1"
-)
-
-func NewSyncEventMessageRemovedNameFromString(s string) (SyncEventMessageRemovedName, error) {
-	switch s {
-	case "message.removed.1":
-		return SyncEventMessageRemovedNameMessageRemoved1, nil
-	}
-	var t SyncEventMessageRemovedName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventMessageRemovedName) Ptr() *SyncEventMessageRemovedName {
-	return &s
-}
-
-type SyncEventMessageRemovedType string
-
-const (
-	SyncEventMessageRemovedTypeSync SyncEventMessageRemovedType = "sync"
-)
-
-func NewSyncEventMessageRemovedTypeFromString(s string) (SyncEventMessageRemovedType, error) {
-	switch s {
-	case "sync":
-		return SyncEventMessageRemovedTypeSync, nil
-	}
-	var t SyncEventMessageRemovedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventMessageRemovedType) Ptr() *SyncEventMessageRemovedType {
-	return &s
-}
-
-var (
-	syncEventMessageUpdatedFieldType        = big.NewInt(1 << 0)
-	syncEventMessageUpdatedFieldName        = big.NewInt(1 << 1)
-	syncEventMessageUpdatedFieldID          = big.NewInt(1 << 2)
-	syncEventMessageUpdatedFieldSeq         = big.NewInt(1 << 3)
-	syncEventMessageUpdatedFieldAggregateID = big.NewInt(1 << 4)
-	syncEventMessageUpdatedFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventMessageUpdated struct {
-	Type        SyncEventMessageUpdatedType        `json:"type" url:"type"`
-	Name        SyncEventMessageUpdatedName        `json:"name" url:"name"`
-	ID          string                             `json:"id" url:"id"`
-	Seq         float64                            `json:"seq" url:"seq"`
-	AggregateID SyncEventMessageUpdatedAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventMessageUpdatedData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventMessageUpdated) GetType() SyncEventMessageUpdatedType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventMessageUpdated) GetName() SyncEventMessageUpdatedName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventMessageUpdated) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventMessageUpdated) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventMessageUpdated) GetAggregateID() SyncEventMessageUpdatedAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventMessageUpdated) GetData() *SyncEventMessageUpdatedData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventMessageUpdated) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventMessageUpdated) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessageUpdated) SetType(type_ SyncEventMessageUpdatedType) {
-	s.Type = type_
-	s.require(syncEventMessageUpdatedFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessageUpdated) SetName(name SyncEventMessageUpdatedName) {
-	s.Name = name
-	s.require(syncEventMessageUpdatedFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessageUpdated) SetID(id string) {
-	s.ID = id
-	s.require(syncEventMessageUpdatedFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessageUpdated) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventMessageUpdatedFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessageUpdated) SetAggregateID(aggregateID SyncEventMessageUpdatedAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventMessageUpdatedFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessageUpdated) SetData(data *SyncEventMessageUpdatedData) {
-	s.Data = data
-	s.require(syncEventMessageUpdatedFieldData)
-}
-
-func (s *SyncEventMessageUpdated) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventMessageUpdated
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventMessageUpdated(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventMessageUpdated) MarshalJSON() ([]byte, error) {
-	type embed SyncEventMessageUpdated
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventMessageUpdated) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventMessageUpdatedAggregateID string
-
-const (
-	SyncEventMessageUpdatedAggregateIDSessionID SyncEventMessageUpdatedAggregateID = "sessionID"
-)
-
-func NewSyncEventMessageUpdatedAggregateIDFromString(s string) (SyncEventMessageUpdatedAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventMessageUpdatedAggregateIDSessionID, nil
-	}
-	var t SyncEventMessageUpdatedAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventMessageUpdatedAggregateID) Ptr() *SyncEventMessageUpdatedAggregateID {
-	return &s
-}
-
-var (
-	syncEventMessageUpdatedDataFieldSessionID = big.NewInt(1 << 0)
-	syncEventMessageUpdatedDataFieldInfo      = big.NewInt(1 << 1)
-)
-
-type SyncEventMessageUpdatedData struct {
-	SessionID string   `json:"sessionID" url:"sessionID"`
-	Info      *Message `json:"info" url:"info"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventMessageUpdatedData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventMessageUpdatedData) GetInfo() *Message {
-	if s == nil {
-		return nil
-	}
-	return s.Info
-}
-
-func (s *SyncEventMessageUpdatedData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventMessageUpdatedData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessageUpdatedData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventMessageUpdatedDataFieldSessionID)
-}
-
-// SetInfo sets the Info field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventMessageUpdatedData) SetInfo(info *Message) {
-	s.Info = info
-	s.require(syncEventMessageUpdatedDataFieldInfo)
-}
-
-func (s *SyncEventMessageUpdatedData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventMessageUpdatedData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventMessageUpdatedData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventMessageUpdatedData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventMessageUpdatedData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventMessageUpdatedData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventMessageUpdatedName string
-
-const (
-	SyncEventMessageUpdatedNameMessageUpdated1 SyncEventMessageUpdatedName = "message.updated.1"
-)
-
-func NewSyncEventMessageUpdatedNameFromString(s string) (SyncEventMessageUpdatedName, error) {
-	switch s {
-	case "message.updated.1":
-		return SyncEventMessageUpdatedNameMessageUpdated1, nil
-	}
-	var t SyncEventMessageUpdatedName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventMessageUpdatedName) Ptr() *SyncEventMessageUpdatedName {
-	return &s
-}
-
-type SyncEventMessageUpdatedType string
-
-const (
-	SyncEventMessageUpdatedTypeSync SyncEventMessageUpdatedType = "sync"
-)
-
-func NewSyncEventMessageUpdatedTypeFromString(s string) (SyncEventMessageUpdatedType, error) {
-	switch s {
-	case "sync":
-		return SyncEventMessageUpdatedTypeSync, nil
-	}
-	var t SyncEventMessageUpdatedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventMessageUpdatedType) Ptr() *SyncEventMessageUpdatedType {
-	return &s
-}
-
-var (
-	syncEventSessionCreatedFieldType        = big.NewInt(1 << 0)
-	syncEventSessionCreatedFieldName        = big.NewInt(1 << 1)
-	syncEventSessionCreatedFieldID          = big.NewInt(1 << 2)
-	syncEventSessionCreatedFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionCreatedFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionCreatedFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionCreated struct {
-	Type        SyncEventSessionCreatedType        `json:"type" url:"type"`
-	Name        SyncEventSessionCreatedName        `json:"name" url:"name"`
-	ID          string                             `json:"id" url:"id"`
-	Seq         float64                            `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionCreatedAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionCreatedData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionCreated) GetType() SyncEventSessionCreatedType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionCreated) GetName() SyncEventSessionCreatedName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionCreated) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionCreated) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionCreated) GetAggregateID() SyncEventSessionCreatedAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionCreated) GetData() *SyncEventSessionCreatedData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionCreated) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionCreated) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionCreated) SetType(type_ SyncEventSessionCreatedType) {
-	s.Type = type_
-	s.require(syncEventSessionCreatedFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionCreated) SetName(name SyncEventSessionCreatedName) {
-	s.Name = name
-	s.require(syncEventSessionCreatedFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionCreated) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionCreatedFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionCreated) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionCreatedFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionCreated) SetAggregateID(aggregateID SyncEventSessionCreatedAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionCreatedFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionCreated) SetData(data *SyncEventSessionCreatedData) {
-	s.Data = data
-	s.require(syncEventSessionCreatedFieldData)
-}
-
-func (s *SyncEventSessionCreated) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionCreated
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionCreated(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionCreated) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionCreated
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionCreated) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionCreatedAggregateID string
-
-const (
-	SyncEventSessionCreatedAggregateIDSessionID SyncEventSessionCreatedAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionCreatedAggregateIDFromString(s string) (SyncEventSessionCreatedAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionCreatedAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionCreatedAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionCreatedAggregateID) Ptr() *SyncEventSessionCreatedAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionCreatedDataFieldSessionID = big.NewInt(1 << 0)
-	syncEventSessionCreatedDataFieldInfo      = big.NewInt(1 << 1)
-)
-
-type SyncEventSessionCreatedData struct {
-	SessionID string   `json:"sessionID" url:"sessionID"`
-	Info      *Session `json:"info" url:"info"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionCreatedData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionCreatedData) GetInfo() *Session {
-	if s == nil {
-		return nil
-	}
-	return s.Info
-}
-
-func (s *SyncEventSessionCreatedData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionCreatedData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionCreatedData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionCreatedDataFieldSessionID)
-}
-
-// SetInfo sets the Info field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionCreatedData) SetInfo(info *Session) {
-	s.Info = info
-	s.require(syncEventSessionCreatedDataFieldInfo)
-}
-
-func (s *SyncEventSessionCreatedData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionCreatedData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionCreatedData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionCreatedData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionCreatedData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionCreatedData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionCreatedName string
-
-const (
-	SyncEventSessionCreatedNameSessionCreated1 SyncEventSessionCreatedName = "session.created.1"
-)
-
-func NewSyncEventSessionCreatedNameFromString(s string) (SyncEventSessionCreatedName, error) {
-	switch s {
-	case "session.created.1":
-		return SyncEventSessionCreatedNameSessionCreated1, nil
-	}
-	var t SyncEventSessionCreatedName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionCreatedName) Ptr() *SyncEventSessionCreatedName {
-	return &s
-}
-
-type SyncEventSessionCreatedType string
-
-const (
-	SyncEventSessionCreatedTypeSync SyncEventSessionCreatedType = "sync"
-)
-
-func NewSyncEventSessionCreatedTypeFromString(s string) (SyncEventSessionCreatedType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionCreatedTypeSync, nil
-	}
-	var t SyncEventSessionCreatedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionCreatedType) Ptr() *SyncEventSessionCreatedType {
-	return &s
-}
-
-var (
-	syncEventSessionDeletedFieldType        = big.NewInt(1 << 0)
-	syncEventSessionDeletedFieldName        = big.NewInt(1 << 1)
-	syncEventSessionDeletedFieldID          = big.NewInt(1 << 2)
-	syncEventSessionDeletedFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionDeletedFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionDeletedFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionDeleted struct {
-	Type        SyncEventSessionDeletedType        `json:"type" url:"type"`
-	Name        SyncEventSessionDeletedName        `json:"name" url:"name"`
-	ID          string                             `json:"id" url:"id"`
-	Seq         float64                            `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionDeletedAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionDeletedData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionDeleted) GetType() SyncEventSessionDeletedType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionDeleted) GetName() SyncEventSessionDeletedName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionDeleted) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionDeleted) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionDeleted) GetAggregateID() SyncEventSessionDeletedAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionDeleted) GetData() *SyncEventSessionDeletedData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionDeleted) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionDeleted) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionDeleted) SetType(type_ SyncEventSessionDeletedType) {
-	s.Type = type_
-	s.require(syncEventSessionDeletedFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionDeleted) SetName(name SyncEventSessionDeletedName) {
-	s.Name = name
-	s.require(syncEventSessionDeletedFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionDeleted) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionDeletedFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionDeleted) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionDeletedFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionDeleted) SetAggregateID(aggregateID SyncEventSessionDeletedAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionDeletedFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionDeleted) SetData(data *SyncEventSessionDeletedData) {
-	s.Data = data
-	s.require(syncEventSessionDeletedFieldData)
-}
-
-func (s *SyncEventSessionDeleted) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionDeleted
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionDeleted(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionDeleted) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionDeleted
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionDeleted) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionDeletedAggregateID string
-
-const (
-	SyncEventSessionDeletedAggregateIDSessionID SyncEventSessionDeletedAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionDeletedAggregateIDFromString(s string) (SyncEventSessionDeletedAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionDeletedAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionDeletedAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionDeletedAggregateID) Ptr() *SyncEventSessionDeletedAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionDeletedDataFieldSessionID = big.NewInt(1 << 0)
-	syncEventSessionDeletedDataFieldInfo      = big.NewInt(1 << 1)
-)
-
-type SyncEventSessionDeletedData struct {
-	SessionID string   `json:"sessionID" url:"sessionID"`
-	Info      *Session `json:"info" url:"info"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionDeletedData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionDeletedData) GetInfo() *Session {
-	if s == nil {
-		return nil
-	}
-	return s.Info
-}
-
-func (s *SyncEventSessionDeletedData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionDeletedData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionDeletedData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionDeletedDataFieldSessionID)
-}
-
-// SetInfo sets the Info field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionDeletedData) SetInfo(info *Session) {
-	s.Info = info
-	s.require(syncEventSessionDeletedDataFieldInfo)
-}
-
-func (s *SyncEventSessionDeletedData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionDeletedData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionDeletedData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionDeletedData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionDeletedData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionDeletedData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionDeletedName string
-
-const (
-	SyncEventSessionDeletedNameSessionDeleted1 SyncEventSessionDeletedName = "session.deleted.1"
-)
-
-func NewSyncEventSessionDeletedNameFromString(s string) (SyncEventSessionDeletedName, error) {
-	switch s {
-	case "session.deleted.1":
-		return SyncEventSessionDeletedNameSessionDeleted1, nil
-	}
-	var t SyncEventSessionDeletedName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionDeletedName) Ptr() *SyncEventSessionDeletedName {
-	return &s
-}
-
-type SyncEventSessionDeletedType string
-
-const (
-	SyncEventSessionDeletedTypeSync SyncEventSessionDeletedType = "sync"
-)
-
-func NewSyncEventSessionDeletedTypeFromString(s string) (SyncEventSessionDeletedType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionDeletedTypeSync, nil
-	}
-	var t SyncEventSessionDeletedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionDeletedType) Ptr() *SyncEventSessionDeletedType {
-	return &s
-}
-
-var (
-	syncEventSessionNextAgentSwitchedFieldType        = big.NewInt(1 << 0)
-	syncEventSessionNextAgentSwitchedFieldName        = big.NewInt(1 << 1)
-	syncEventSessionNextAgentSwitchedFieldID          = big.NewInt(1 << 2)
-	syncEventSessionNextAgentSwitchedFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionNextAgentSwitchedFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionNextAgentSwitchedFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextAgentSwitched struct {
-	Type        SyncEventSessionNextAgentSwitchedType        `json:"type" url:"type"`
-	Name        SyncEventSessionNextAgentSwitchedName        `json:"name" url:"name"`
-	ID          string                                       `json:"id" url:"id"`
-	Seq         float64                                      `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionNextAgentSwitchedAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionNextAgentSwitchedData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextAgentSwitched) GetType() SyncEventSessionNextAgentSwitchedType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextAgentSwitched) GetName() SyncEventSessionNextAgentSwitchedName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextAgentSwitched) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextAgentSwitched) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionNextAgentSwitched) GetAggregateID() SyncEventSessionNextAgentSwitchedAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionNextAgentSwitched) GetData() *SyncEventSessionNextAgentSwitchedData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionNextAgentSwitched) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextAgentSwitched) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextAgentSwitched) SetType(type_ SyncEventSessionNextAgentSwitchedType) {
-	s.Type = type_
-	s.require(syncEventSessionNextAgentSwitchedFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextAgentSwitched) SetName(name SyncEventSessionNextAgentSwitchedName) {
-	s.Name = name
-	s.require(syncEventSessionNextAgentSwitchedFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextAgentSwitched) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextAgentSwitchedFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextAgentSwitched) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionNextAgentSwitchedFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextAgentSwitched) SetAggregateID(aggregateID SyncEventSessionNextAgentSwitchedAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionNextAgentSwitchedFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextAgentSwitched) SetData(data *SyncEventSessionNextAgentSwitchedData) {
-	s.Data = data
-	s.require(syncEventSessionNextAgentSwitchedFieldData)
-}
-
-func (s *SyncEventSessionNextAgentSwitched) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextAgentSwitched
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextAgentSwitched(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextAgentSwitched) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextAgentSwitched
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextAgentSwitched) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextAgentSwitchedAggregateID string
-
-const (
-	SyncEventSessionNextAgentSwitchedAggregateIDSessionID SyncEventSessionNextAgentSwitchedAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionNextAgentSwitchedAggregateIDFromString(s string) (SyncEventSessionNextAgentSwitchedAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionNextAgentSwitchedAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionNextAgentSwitchedAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextAgentSwitchedAggregateID) Ptr() *SyncEventSessionNextAgentSwitchedAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionNextAgentSwitchedDataFieldTimestamp = big.NewInt(1 << 0)
-	syncEventSessionNextAgentSwitchedDataFieldSessionID = big.NewInt(1 << 1)
-	syncEventSessionNextAgentSwitchedDataFieldAgent     = big.NewInt(1 << 2)
-)
-
-type SyncEventSessionNextAgentSwitchedData struct {
-	Timestamp float64 `json:"timestamp" url:"timestamp"`
-	SessionID string  `json:"sessionID" url:"sessionID"`
-	Agent     string  `json:"agent" url:"agent"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextAgentSwitchedData) GetTimestamp() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Timestamp
-}
-
-func (s *SyncEventSessionNextAgentSwitchedData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionNextAgentSwitchedData) GetAgent() string {
-	if s == nil {
-		return ""
-	}
-	return s.Agent
-}
-
-func (s *SyncEventSessionNextAgentSwitchedData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextAgentSwitchedData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextAgentSwitchedData) SetTimestamp(timestamp float64) {
-	s.Timestamp = timestamp
-	s.require(syncEventSessionNextAgentSwitchedDataFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextAgentSwitchedData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionNextAgentSwitchedDataFieldSessionID)
-}
-
-// SetAgent sets the Agent field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextAgentSwitchedData) SetAgent(agent string) {
-	s.Agent = agent
-	s.require(syncEventSessionNextAgentSwitchedDataFieldAgent)
-}
-
-func (s *SyncEventSessionNextAgentSwitchedData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextAgentSwitchedData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextAgentSwitchedData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextAgentSwitchedData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextAgentSwitchedData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextAgentSwitchedData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextAgentSwitchedName string
-
-const (
-	SyncEventSessionNextAgentSwitchedNameSessionNextAgentSwitched1 SyncEventSessionNextAgentSwitchedName = "session.next.agent.switched.1"
-)
-
-func NewSyncEventSessionNextAgentSwitchedNameFromString(s string) (SyncEventSessionNextAgentSwitchedName, error) {
-	switch s {
-	case "session.next.agent.switched.1":
-		return SyncEventSessionNextAgentSwitchedNameSessionNextAgentSwitched1, nil
-	}
-	var t SyncEventSessionNextAgentSwitchedName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextAgentSwitchedName) Ptr() *SyncEventSessionNextAgentSwitchedName {
-	return &s
-}
-
-type SyncEventSessionNextAgentSwitchedType string
-
-const (
-	SyncEventSessionNextAgentSwitchedTypeSync SyncEventSessionNextAgentSwitchedType = "sync"
-)
-
-func NewSyncEventSessionNextAgentSwitchedTypeFromString(s string) (SyncEventSessionNextAgentSwitchedType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionNextAgentSwitchedTypeSync, nil
-	}
-	var t SyncEventSessionNextAgentSwitchedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextAgentSwitchedType) Ptr() *SyncEventSessionNextAgentSwitchedType {
-	return &s
-}
-
-var (
-	syncEventSessionNextCompactionDeltaFieldType        = big.NewInt(1 << 0)
-	syncEventSessionNextCompactionDeltaFieldName        = big.NewInt(1 << 1)
-	syncEventSessionNextCompactionDeltaFieldID          = big.NewInt(1 << 2)
-	syncEventSessionNextCompactionDeltaFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionNextCompactionDeltaFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionNextCompactionDeltaFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextCompactionDelta struct {
-	Type        SyncEventSessionNextCompactionDeltaType        `json:"type" url:"type"`
-	Name        SyncEventSessionNextCompactionDeltaName        `json:"name" url:"name"`
-	ID          string                                         `json:"id" url:"id"`
-	Seq         float64                                        `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionNextCompactionDeltaAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionNextCompactionDeltaData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextCompactionDelta) GetType() SyncEventSessionNextCompactionDeltaType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextCompactionDelta) GetName() SyncEventSessionNextCompactionDeltaName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextCompactionDelta) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextCompactionDelta) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionNextCompactionDelta) GetAggregateID() SyncEventSessionNextCompactionDeltaAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionNextCompactionDelta) GetData() *SyncEventSessionNextCompactionDeltaData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionNextCompactionDelta) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextCompactionDelta) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionDelta) SetType(type_ SyncEventSessionNextCompactionDeltaType) {
-	s.Type = type_
-	s.require(syncEventSessionNextCompactionDeltaFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionDelta) SetName(name SyncEventSessionNextCompactionDeltaName) {
-	s.Name = name
-	s.require(syncEventSessionNextCompactionDeltaFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionDelta) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextCompactionDeltaFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionDelta) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionNextCompactionDeltaFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionDelta) SetAggregateID(aggregateID SyncEventSessionNextCompactionDeltaAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionNextCompactionDeltaFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionDelta) SetData(data *SyncEventSessionNextCompactionDeltaData) {
-	s.Data = data
-	s.require(syncEventSessionNextCompactionDeltaFieldData)
-}
-
-func (s *SyncEventSessionNextCompactionDelta) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextCompactionDelta
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextCompactionDelta(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextCompactionDelta) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextCompactionDelta
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextCompactionDelta) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextCompactionDeltaAggregateID string
-
-const (
-	SyncEventSessionNextCompactionDeltaAggregateIDSessionID SyncEventSessionNextCompactionDeltaAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionNextCompactionDeltaAggregateIDFromString(s string) (SyncEventSessionNextCompactionDeltaAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionNextCompactionDeltaAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionNextCompactionDeltaAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextCompactionDeltaAggregateID) Ptr() *SyncEventSessionNextCompactionDeltaAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionNextCompactionDeltaDataFieldTimestamp = big.NewInt(1 << 0)
-	syncEventSessionNextCompactionDeltaDataFieldSessionID = big.NewInt(1 << 1)
-	syncEventSessionNextCompactionDeltaDataFieldText      = big.NewInt(1 << 2)
-)
-
-type SyncEventSessionNextCompactionDeltaData struct {
-	Timestamp float64 `json:"timestamp" url:"timestamp"`
-	SessionID string  `json:"sessionID" url:"sessionID"`
-	Text      string  `json:"text" url:"text"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextCompactionDeltaData) GetTimestamp() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Timestamp
-}
-
-func (s *SyncEventSessionNextCompactionDeltaData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionNextCompactionDeltaData) GetText() string {
-	if s == nil {
-		return ""
-	}
-	return s.Text
-}
-
-func (s *SyncEventSessionNextCompactionDeltaData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextCompactionDeltaData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionDeltaData) SetTimestamp(timestamp float64) {
-	s.Timestamp = timestamp
-	s.require(syncEventSessionNextCompactionDeltaDataFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionDeltaData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionNextCompactionDeltaDataFieldSessionID)
-}
-
-// SetText sets the Text field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionDeltaData) SetText(text string) {
-	s.Text = text
-	s.require(syncEventSessionNextCompactionDeltaDataFieldText)
-}
-
-func (s *SyncEventSessionNextCompactionDeltaData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextCompactionDeltaData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextCompactionDeltaData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextCompactionDeltaData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextCompactionDeltaData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextCompactionDeltaData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextCompactionDeltaName string
-
-const (
-	SyncEventSessionNextCompactionDeltaNameSessionNextCompactionDelta1 SyncEventSessionNextCompactionDeltaName = "session.next.compaction.delta.1"
-)
-
-func NewSyncEventSessionNextCompactionDeltaNameFromString(s string) (SyncEventSessionNextCompactionDeltaName, error) {
-	switch s {
-	case "session.next.compaction.delta.1":
-		return SyncEventSessionNextCompactionDeltaNameSessionNextCompactionDelta1, nil
-	}
-	var t SyncEventSessionNextCompactionDeltaName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextCompactionDeltaName) Ptr() *SyncEventSessionNextCompactionDeltaName {
-	return &s
-}
-
-type SyncEventSessionNextCompactionDeltaType string
-
-const (
-	SyncEventSessionNextCompactionDeltaTypeSync SyncEventSessionNextCompactionDeltaType = "sync"
-)
-
-func NewSyncEventSessionNextCompactionDeltaTypeFromString(s string) (SyncEventSessionNextCompactionDeltaType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionNextCompactionDeltaTypeSync, nil
-	}
-	var t SyncEventSessionNextCompactionDeltaType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextCompactionDeltaType) Ptr() *SyncEventSessionNextCompactionDeltaType {
-	return &s
-}
-
-var (
-	syncEventSessionNextCompactionEndedFieldType        = big.NewInt(1 << 0)
-	syncEventSessionNextCompactionEndedFieldName        = big.NewInt(1 << 1)
-	syncEventSessionNextCompactionEndedFieldID          = big.NewInt(1 << 2)
-	syncEventSessionNextCompactionEndedFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionNextCompactionEndedFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionNextCompactionEndedFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextCompactionEnded struct {
-	Type        SyncEventSessionNextCompactionEndedType        `json:"type" url:"type"`
-	Name        SyncEventSessionNextCompactionEndedName        `json:"name" url:"name"`
-	ID          string                                         `json:"id" url:"id"`
-	Seq         float64                                        `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionNextCompactionEndedAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionNextCompactionEndedData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextCompactionEnded) GetType() SyncEventSessionNextCompactionEndedType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextCompactionEnded) GetName() SyncEventSessionNextCompactionEndedName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextCompactionEnded) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextCompactionEnded) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionNextCompactionEnded) GetAggregateID() SyncEventSessionNextCompactionEndedAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionNextCompactionEnded) GetData() *SyncEventSessionNextCompactionEndedData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionNextCompactionEnded) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextCompactionEnded) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionEnded) SetType(type_ SyncEventSessionNextCompactionEndedType) {
-	s.Type = type_
-	s.require(syncEventSessionNextCompactionEndedFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionEnded) SetName(name SyncEventSessionNextCompactionEndedName) {
-	s.Name = name
-	s.require(syncEventSessionNextCompactionEndedFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionEnded) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextCompactionEndedFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionEnded) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionNextCompactionEndedFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionEnded) SetAggregateID(aggregateID SyncEventSessionNextCompactionEndedAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionNextCompactionEndedFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionEnded) SetData(data *SyncEventSessionNextCompactionEndedData) {
-	s.Data = data
-	s.require(syncEventSessionNextCompactionEndedFieldData)
-}
-
-func (s *SyncEventSessionNextCompactionEnded) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextCompactionEnded
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextCompactionEnded(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextCompactionEnded) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextCompactionEnded
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextCompactionEnded) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextCompactionEndedAggregateID string
-
-const (
-	SyncEventSessionNextCompactionEndedAggregateIDSessionID SyncEventSessionNextCompactionEndedAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionNextCompactionEndedAggregateIDFromString(s string) (SyncEventSessionNextCompactionEndedAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionNextCompactionEndedAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionNextCompactionEndedAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextCompactionEndedAggregateID) Ptr() *SyncEventSessionNextCompactionEndedAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionNextCompactionEndedDataFieldTimestamp = big.NewInt(1 << 0)
-	syncEventSessionNextCompactionEndedDataFieldSessionID = big.NewInt(1 << 1)
-	syncEventSessionNextCompactionEndedDataFieldText      = big.NewInt(1 << 2)
-	syncEventSessionNextCompactionEndedDataFieldInclude   = big.NewInt(1 << 3)
-)
-
-type SyncEventSessionNextCompactionEndedData struct {
-	Timestamp float64 `json:"timestamp" url:"timestamp"`
-	SessionID string  `json:"sessionID" url:"sessionID"`
-	Text      string  `json:"text" url:"text"`
-	Include   *string `json:"include,omitempty" url:"include,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextCompactionEndedData) GetTimestamp() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Timestamp
-}
-
-func (s *SyncEventSessionNextCompactionEndedData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionNextCompactionEndedData) GetText() string {
-	if s == nil {
-		return ""
-	}
-	return s.Text
-}
-
-func (s *SyncEventSessionNextCompactionEndedData) GetInclude() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Include
-}
-
-func (s *SyncEventSessionNextCompactionEndedData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextCompactionEndedData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionEndedData) SetTimestamp(timestamp float64) {
-	s.Timestamp = timestamp
-	s.require(syncEventSessionNextCompactionEndedDataFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionEndedData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionNextCompactionEndedDataFieldSessionID)
-}
-
-// SetText sets the Text field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionEndedData) SetText(text string) {
-	s.Text = text
-	s.require(syncEventSessionNextCompactionEndedDataFieldText)
-}
-
-// SetInclude sets the Include field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionEndedData) SetInclude(include *string) {
-	s.Include = include
-	s.require(syncEventSessionNextCompactionEndedDataFieldInclude)
-}
-
-func (s *SyncEventSessionNextCompactionEndedData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextCompactionEndedData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextCompactionEndedData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextCompactionEndedData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextCompactionEndedData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextCompactionEndedData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextCompactionEndedName string
-
-const (
-	SyncEventSessionNextCompactionEndedNameSessionNextCompactionEnded1 SyncEventSessionNextCompactionEndedName = "session.next.compaction.ended.1"
-)
-
-func NewSyncEventSessionNextCompactionEndedNameFromString(s string) (SyncEventSessionNextCompactionEndedName, error) {
-	switch s {
-	case "session.next.compaction.ended.1":
-		return SyncEventSessionNextCompactionEndedNameSessionNextCompactionEnded1, nil
-	}
-	var t SyncEventSessionNextCompactionEndedName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextCompactionEndedName) Ptr() *SyncEventSessionNextCompactionEndedName {
-	return &s
-}
-
-type SyncEventSessionNextCompactionEndedType string
-
-const (
-	SyncEventSessionNextCompactionEndedTypeSync SyncEventSessionNextCompactionEndedType = "sync"
-)
-
-func NewSyncEventSessionNextCompactionEndedTypeFromString(s string) (SyncEventSessionNextCompactionEndedType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionNextCompactionEndedTypeSync, nil
-	}
-	var t SyncEventSessionNextCompactionEndedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextCompactionEndedType) Ptr() *SyncEventSessionNextCompactionEndedType {
-	return &s
-}
-
-var (
-	syncEventSessionNextCompactionStartedFieldType        = big.NewInt(1 << 0)
-	syncEventSessionNextCompactionStartedFieldName        = big.NewInt(1 << 1)
-	syncEventSessionNextCompactionStartedFieldID          = big.NewInt(1 << 2)
-	syncEventSessionNextCompactionStartedFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionNextCompactionStartedFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionNextCompactionStartedFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextCompactionStarted struct {
-	Type        SyncEventSessionNextCompactionStartedType        `json:"type" url:"type"`
-	Name        SyncEventSessionNextCompactionStartedName        `json:"name" url:"name"`
-	ID          string                                           `json:"id" url:"id"`
-	Seq         float64                                          `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionNextCompactionStartedAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionNextCompactionStartedData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextCompactionStarted) GetType() SyncEventSessionNextCompactionStartedType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextCompactionStarted) GetName() SyncEventSessionNextCompactionStartedName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextCompactionStarted) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextCompactionStarted) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionNextCompactionStarted) GetAggregateID() SyncEventSessionNextCompactionStartedAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionNextCompactionStarted) GetData() *SyncEventSessionNextCompactionStartedData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionNextCompactionStarted) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextCompactionStarted) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionStarted) SetType(type_ SyncEventSessionNextCompactionStartedType) {
-	s.Type = type_
-	s.require(syncEventSessionNextCompactionStartedFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionStarted) SetName(name SyncEventSessionNextCompactionStartedName) {
-	s.Name = name
-	s.require(syncEventSessionNextCompactionStartedFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionStarted) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextCompactionStartedFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionStarted) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionNextCompactionStartedFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionStarted) SetAggregateID(aggregateID SyncEventSessionNextCompactionStartedAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionNextCompactionStartedFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionStarted) SetData(data *SyncEventSessionNextCompactionStartedData) {
-	s.Data = data
-	s.require(syncEventSessionNextCompactionStartedFieldData)
-}
-
-func (s *SyncEventSessionNextCompactionStarted) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextCompactionStarted
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextCompactionStarted(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextCompactionStarted) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextCompactionStarted
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextCompactionStarted) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextCompactionStartedAggregateID string
-
-const (
-	SyncEventSessionNextCompactionStartedAggregateIDSessionID SyncEventSessionNextCompactionStartedAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionNextCompactionStartedAggregateIDFromString(s string) (SyncEventSessionNextCompactionStartedAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionNextCompactionStartedAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionNextCompactionStartedAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextCompactionStartedAggregateID) Ptr() *SyncEventSessionNextCompactionStartedAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionNextCompactionStartedDataFieldTimestamp = big.NewInt(1 << 0)
-	syncEventSessionNextCompactionStartedDataFieldSessionID = big.NewInt(1 << 1)
-	syncEventSessionNextCompactionStartedDataFieldReason    = big.NewInt(1 << 2)
-)
-
-type SyncEventSessionNextCompactionStartedData struct {
-	Timestamp float64                                         `json:"timestamp" url:"timestamp"`
-	SessionID string                                          `json:"sessionID" url:"sessionID"`
-	Reason    SyncEventSessionNextCompactionStartedDataReason `json:"reason" url:"reason"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextCompactionStartedData) GetTimestamp() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Timestamp
-}
-
-func (s *SyncEventSessionNextCompactionStartedData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionNextCompactionStartedData) GetReason() SyncEventSessionNextCompactionStartedDataReason {
-	if s == nil {
-		return ""
-	}
-	return s.Reason
-}
-
-func (s *SyncEventSessionNextCompactionStartedData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextCompactionStartedData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionStartedData) SetTimestamp(timestamp float64) {
-	s.Timestamp = timestamp
-	s.require(syncEventSessionNextCompactionStartedDataFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionStartedData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionNextCompactionStartedDataFieldSessionID)
-}
-
-// SetReason sets the Reason field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextCompactionStartedData) SetReason(reason SyncEventSessionNextCompactionStartedDataReason) {
-	s.Reason = reason
-	s.require(syncEventSessionNextCompactionStartedDataFieldReason)
-}
-
-func (s *SyncEventSessionNextCompactionStartedData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextCompactionStartedData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextCompactionStartedData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextCompactionStartedData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextCompactionStartedData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextCompactionStartedData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextCompactionStartedDataReason string
-
-const (
-	SyncEventSessionNextCompactionStartedDataReasonAuto   SyncEventSessionNextCompactionStartedDataReason = "auto"
-	SyncEventSessionNextCompactionStartedDataReasonManual SyncEventSessionNextCompactionStartedDataReason = "manual"
-)
-
-func NewSyncEventSessionNextCompactionStartedDataReasonFromString(s string) (SyncEventSessionNextCompactionStartedDataReason, error) {
-	switch s {
-	case "auto":
-		return SyncEventSessionNextCompactionStartedDataReasonAuto, nil
-	case "manual":
-		return SyncEventSessionNextCompactionStartedDataReasonManual, nil
-	}
-	var t SyncEventSessionNextCompactionStartedDataReason
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextCompactionStartedDataReason) Ptr() *SyncEventSessionNextCompactionStartedDataReason {
-	return &s
-}
-
-type SyncEventSessionNextCompactionStartedName string
-
-const (
-	SyncEventSessionNextCompactionStartedNameSessionNextCompactionStarted1 SyncEventSessionNextCompactionStartedName = "session.next.compaction.started.1"
-)
-
-func NewSyncEventSessionNextCompactionStartedNameFromString(s string) (SyncEventSessionNextCompactionStartedName, error) {
-	switch s {
-	case "session.next.compaction.started.1":
-		return SyncEventSessionNextCompactionStartedNameSessionNextCompactionStarted1, nil
-	}
-	var t SyncEventSessionNextCompactionStartedName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextCompactionStartedName) Ptr() *SyncEventSessionNextCompactionStartedName {
-	return &s
-}
-
-type SyncEventSessionNextCompactionStartedType string
-
-const (
-	SyncEventSessionNextCompactionStartedTypeSync SyncEventSessionNextCompactionStartedType = "sync"
-)
-
-func NewSyncEventSessionNextCompactionStartedTypeFromString(s string) (SyncEventSessionNextCompactionStartedType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionNextCompactionStartedTypeSync, nil
-	}
-	var t SyncEventSessionNextCompactionStartedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextCompactionStartedType) Ptr() *SyncEventSessionNextCompactionStartedType {
-	return &s
-}
-
-var (
-	syncEventSessionNextModelSwitchedFieldType        = big.NewInt(1 << 0)
-	syncEventSessionNextModelSwitchedFieldName        = big.NewInt(1 << 1)
-	syncEventSessionNextModelSwitchedFieldID          = big.NewInt(1 << 2)
-	syncEventSessionNextModelSwitchedFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionNextModelSwitchedFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionNextModelSwitchedFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextModelSwitched struct {
-	Type        SyncEventSessionNextModelSwitchedType        `json:"type" url:"type"`
-	Name        SyncEventSessionNextModelSwitchedName        `json:"name" url:"name"`
-	ID          string                                       `json:"id" url:"id"`
-	Seq         float64                                      `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionNextModelSwitchedAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionNextModelSwitchedData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextModelSwitched) GetType() SyncEventSessionNextModelSwitchedType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextModelSwitched) GetName() SyncEventSessionNextModelSwitchedName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextModelSwitched) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextModelSwitched) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionNextModelSwitched) GetAggregateID() SyncEventSessionNextModelSwitchedAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionNextModelSwitched) GetData() *SyncEventSessionNextModelSwitchedData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionNextModelSwitched) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextModelSwitched) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextModelSwitched) SetType(type_ SyncEventSessionNextModelSwitchedType) {
-	s.Type = type_
-	s.require(syncEventSessionNextModelSwitchedFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextModelSwitched) SetName(name SyncEventSessionNextModelSwitchedName) {
-	s.Name = name
-	s.require(syncEventSessionNextModelSwitchedFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextModelSwitched) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextModelSwitchedFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextModelSwitched) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionNextModelSwitchedFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextModelSwitched) SetAggregateID(aggregateID SyncEventSessionNextModelSwitchedAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionNextModelSwitchedFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextModelSwitched) SetData(data *SyncEventSessionNextModelSwitchedData) {
-	s.Data = data
-	s.require(syncEventSessionNextModelSwitchedFieldData)
-}
-
-func (s *SyncEventSessionNextModelSwitched) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextModelSwitched
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextModelSwitched(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextModelSwitched) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextModelSwitched
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextModelSwitched) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextModelSwitchedAggregateID string
-
-const (
-	SyncEventSessionNextModelSwitchedAggregateIDSessionID SyncEventSessionNextModelSwitchedAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionNextModelSwitchedAggregateIDFromString(s string) (SyncEventSessionNextModelSwitchedAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionNextModelSwitchedAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionNextModelSwitchedAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextModelSwitchedAggregateID) Ptr() *SyncEventSessionNextModelSwitchedAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionNextModelSwitchedDataFieldTimestamp = big.NewInt(1 << 0)
-	syncEventSessionNextModelSwitchedDataFieldSessionID = big.NewInt(1 << 1)
-	syncEventSessionNextModelSwitchedDataFieldModel     = big.NewInt(1 << 2)
-)
-
-type SyncEventSessionNextModelSwitchedData struct {
-	Timestamp float64                                     `json:"timestamp" url:"timestamp"`
-	SessionID string                                      `json:"sessionID" url:"sessionID"`
-	Model     *SyncEventSessionNextModelSwitchedDataModel `json:"model" url:"model"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextModelSwitchedData) GetTimestamp() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Timestamp
-}
-
-func (s *SyncEventSessionNextModelSwitchedData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionNextModelSwitchedData) GetModel() *SyncEventSessionNextModelSwitchedDataModel {
-	if s == nil {
-		return nil
-	}
-	return s.Model
-}
-
-func (s *SyncEventSessionNextModelSwitchedData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextModelSwitchedData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextModelSwitchedData) SetTimestamp(timestamp float64) {
-	s.Timestamp = timestamp
-	s.require(syncEventSessionNextModelSwitchedDataFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextModelSwitchedData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionNextModelSwitchedDataFieldSessionID)
-}
-
-// SetModel sets the Model field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextModelSwitchedData) SetModel(model *SyncEventSessionNextModelSwitchedDataModel) {
-	s.Model = model
-	s.require(syncEventSessionNextModelSwitchedDataFieldModel)
-}
-
-func (s *SyncEventSessionNextModelSwitchedData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextModelSwitchedData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextModelSwitchedData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextModelSwitchedData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextModelSwitchedData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextModelSwitchedData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-var (
-	syncEventSessionNextModelSwitchedDataModelFieldID         = big.NewInt(1 << 0)
-	syncEventSessionNextModelSwitchedDataModelFieldProviderID = big.NewInt(1 << 1)
-	syncEventSessionNextModelSwitchedDataModelFieldVariant    = big.NewInt(1 << 2)
-)
-
-type SyncEventSessionNextModelSwitchedDataModel struct {
-	ID         string `json:"id" url:"id"`
-	ProviderID string `json:"providerID" url:"providerID"`
-	Variant    string `json:"variant" url:"variant"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextModelSwitchedDataModel) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextModelSwitchedDataModel) GetProviderID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ProviderID
-}
-
-func (s *SyncEventSessionNextModelSwitchedDataModel) GetVariant() string {
-	if s == nil {
-		return ""
-	}
-	return s.Variant
-}
-
-func (s *SyncEventSessionNextModelSwitchedDataModel) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextModelSwitchedDataModel) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextModelSwitchedDataModel) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextModelSwitchedDataModelFieldID)
-}
-
-// SetProviderID sets the ProviderID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextModelSwitchedDataModel) SetProviderID(providerID string) {
-	s.ProviderID = providerID
-	s.require(syncEventSessionNextModelSwitchedDataModelFieldProviderID)
-}
-
-// SetVariant sets the Variant field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextModelSwitchedDataModel) SetVariant(variant string) {
-	s.Variant = variant
-	s.require(syncEventSessionNextModelSwitchedDataModelFieldVariant)
-}
-
-func (s *SyncEventSessionNextModelSwitchedDataModel) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextModelSwitchedDataModel
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextModelSwitchedDataModel(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextModelSwitchedDataModel) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextModelSwitchedDataModel
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextModelSwitchedDataModel) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextModelSwitchedName string
-
-const (
-	SyncEventSessionNextModelSwitchedNameSessionNextModelSwitched1 SyncEventSessionNextModelSwitchedName = "session.next.model.switched.1"
-)
-
-func NewSyncEventSessionNextModelSwitchedNameFromString(s string) (SyncEventSessionNextModelSwitchedName, error) {
-	switch s {
-	case "session.next.model.switched.1":
-		return SyncEventSessionNextModelSwitchedNameSessionNextModelSwitched1, nil
-	}
-	var t SyncEventSessionNextModelSwitchedName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextModelSwitchedName) Ptr() *SyncEventSessionNextModelSwitchedName {
-	return &s
-}
-
-type SyncEventSessionNextModelSwitchedType string
-
-const (
-	SyncEventSessionNextModelSwitchedTypeSync SyncEventSessionNextModelSwitchedType = "sync"
-)
-
-func NewSyncEventSessionNextModelSwitchedTypeFromString(s string) (SyncEventSessionNextModelSwitchedType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionNextModelSwitchedTypeSync, nil
-	}
-	var t SyncEventSessionNextModelSwitchedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextModelSwitchedType) Ptr() *SyncEventSessionNextModelSwitchedType {
-	return &s
-}
-
-var (
-	syncEventSessionNextPromptedFieldType        = big.NewInt(1 << 0)
-	syncEventSessionNextPromptedFieldName        = big.NewInt(1 << 1)
-	syncEventSessionNextPromptedFieldID          = big.NewInt(1 << 2)
-	syncEventSessionNextPromptedFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionNextPromptedFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionNextPromptedFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextPrompted struct {
-	Type        SyncEventSessionNextPromptedType        `json:"type" url:"type"`
-	Name        SyncEventSessionNextPromptedName        `json:"name" url:"name"`
-	ID          string                                  `json:"id" url:"id"`
-	Seq         float64                                 `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionNextPromptedAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionNextPromptedData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextPrompted) GetType() SyncEventSessionNextPromptedType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextPrompted) GetName() SyncEventSessionNextPromptedName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextPrompted) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextPrompted) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionNextPrompted) GetAggregateID() SyncEventSessionNextPromptedAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionNextPrompted) GetData() *SyncEventSessionNextPromptedData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionNextPrompted) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextPrompted) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextPrompted) SetType(type_ SyncEventSessionNextPromptedType) {
-	s.Type = type_
-	s.require(syncEventSessionNextPromptedFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextPrompted) SetName(name SyncEventSessionNextPromptedName) {
-	s.Name = name
-	s.require(syncEventSessionNextPromptedFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextPrompted) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextPromptedFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextPrompted) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionNextPromptedFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextPrompted) SetAggregateID(aggregateID SyncEventSessionNextPromptedAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionNextPromptedFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextPrompted) SetData(data *SyncEventSessionNextPromptedData) {
-	s.Data = data
-	s.require(syncEventSessionNextPromptedFieldData)
-}
-
-func (s *SyncEventSessionNextPrompted) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextPrompted
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextPrompted(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextPrompted) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextPrompted
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextPrompted) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextPromptedAggregateID string
-
-const (
-	SyncEventSessionNextPromptedAggregateIDSessionID SyncEventSessionNextPromptedAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionNextPromptedAggregateIDFromString(s string) (SyncEventSessionNextPromptedAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionNextPromptedAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionNextPromptedAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextPromptedAggregateID) Ptr() *SyncEventSessionNextPromptedAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionNextPromptedDataFieldTimestamp = big.NewInt(1 << 0)
-	syncEventSessionNextPromptedDataFieldSessionID = big.NewInt(1 << 1)
-	syncEventSessionNextPromptedDataFieldPrompt    = big.NewInt(1 << 2)
-)
-
-type SyncEventSessionNextPromptedData struct {
-	Timestamp float64 `json:"timestamp" url:"timestamp"`
-	SessionID string  `json:"sessionID" url:"sessionID"`
-	Prompt    *Prompt `json:"prompt" url:"prompt"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextPromptedData) GetTimestamp() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Timestamp
-}
-
-func (s *SyncEventSessionNextPromptedData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionNextPromptedData) GetPrompt() *Prompt {
-	if s == nil {
-		return nil
-	}
-	return s.Prompt
-}
-
-func (s *SyncEventSessionNextPromptedData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextPromptedData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextPromptedData) SetTimestamp(timestamp float64) {
-	s.Timestamp = timestamp
-	s.require(syncEventSessionNextPromptedDataFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextPromptedData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionNextPromptedDataFieldSessionID)
-}
-
-// SetPrompt sets the Prompt field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextPromptedData) SetPrompt(prompt *Prompt) {
-	s.Prompt = prompt
-	s.require(syncEventSessionNextPromptedDataFieldPrompt)
-}
-
-func (s *SyncEventSessionNextPromptedData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextPromptedData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextPromptedData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextPromptedData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextPromptedData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextPromptedData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextPromptedName string
-
-const (
-	SyncEventSessionNextPromptedNameSessionNextPrompted1 SyncEventSessionNextPromptedName = "session.next.prompted.1"
-)
-
-func NewSyncEventSessionNextPromptedNameFromString(s string) (SyncEventSessionNextPromptedName, error) {
-	switch s {
-	case "session.next.prompted.1":
-		return SyncEventSessionNextPromptedNameSessionNextPrompted1, nil
-	}
-	var t SyncEventSessionNextPromptedName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextPromptedName) Ptr() *SyncEventSessionNextPromptedName {
-	return &s
-}
-
-type SyncEventSessionNextPromptedType string
-
-const (
-	SyncEventSessionNextPromptedTypeSync SyncEventSessionNextPromptedType = "sync"
-)
-
-func NewSyncEventSessionNextPromptedTypeFromString(s string) (SyncEventSessionNextPromptedType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionNextPromptedTypeSync, nil
-	}
-	var t SyncEventSessionNextPromptedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextPromptedType) Ptr() *SyncEventSessionNextPromptedType {
-	return &s
-}
-
-var (
-	syncEventSessionNextReasoningDeltaFieldType        = big.NewInt(1 << 0)
-	syncEventSessionNextReasoningDeltaFieldName        = big.NewInt(1 << 1)
-	syncEventSessionNextReasoningDeltaFieldID          = big.NewInt(1 << 2)
-	syncEventSessionNextReasoningDeltaFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionNextReasoningDeltaFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionNextReasoningDeltaFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextReasoningDelta struct {
-	Type        SyncEventSessionNextReasoningDeltaType        `json:"type" url:"type"`
-	Name        SyncEventSessionNextReasoningDeltaName        `json:"name" url:"name"`
-	ID          string                                        `json:"id" url:"id"`
-	Seq         float64                                       `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionNextReasoningDeltaAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionNextReasoningDeltaData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextReasoningDelta) GetType() SyncEventSessionNextReasoningDeltaType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextReasoningDelta) GetName() SyncEventSessionNextReasoningDeltaName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextReasoningDelta) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextReasoningDelta) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionNextReasoningDelta) GetAggregateID() SyncEventSessionNextReasoningDeltaAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionNextReasoningDelta) GetData() *SyncEventSessionNextReasoningDeltaData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionNextReasoningDelta) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextReasoningDelta) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningDelta) SetType(type_ SyncEventSessionNextReasoningDeltaType) {
-	s.Type = type_
-	s.require(syncEventSessionNextReasoningDeltaFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningDelta) SetName(name SyncEventSessionNextReasoningDeltaName) {
-	s.Name = name
-	s.require(syncEventSessionNextReasoningDeltaFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningDelta) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextReasoningDeltaFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningDelta) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionNextReasoningDeltaFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningDelta) SetAggregateID(aggregateID SyncEventSessionNextReasoningDeltaAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionNextReasoningDeltaFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningDelta) SetData(data *SyncEventSessionNextReasoningDeltaData) {
-	s.Data = data
-	s.require(syncEventSessionNextReasoningDeltaFieldData)
-}
-
-func (s *SyncEventSessionNextReasoningDelta) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextReasoningDelta
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextReasoningDelta(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextReasoningDelta) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextReasoningDelta
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextReasoningDelta) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextReasoningDeltaAggregateID string
-
-const (
-	SyncEventSessionNextReasoningDeltaAggregateIDSessionID SyncEventSessionNextReasoningDeltaAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionNextReasoningDeltaAggregateIDFromString(s string) (SyncEventSessionNextReasoningDeltaAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionNextReasoningDeltaAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionNextReasoningDeltaAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextReasoningDeltaAggregateID) Ptr() *SyncEventSessionNextReasoningDeltaAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionNextReasoningDeltaDataFieldTimestamp   = big.NewInt(1 << 0)
-	syncEventSessionNextReasoningDeltaDataFieldSessionID   = big.NewInt(1 << 1)
-	syncEventSessionNextReasoningDeltaDataFieldReasoningID = big.NewInt(1 << 2)
-	syncEventSessionNextReasoningDeltaDataFieldDelta       = big.NewInt(1 << 3)
-)
-
-type SyncEventSessionNextReasoningDeltaData struct {
-	Timestamp   float64 `json:"timestamp" url:"timestamp"`
-	SessionID   string  `json:"sessionID" url:"sessionID"`
-	ReasoningID string  `json:"reasoningID" url:"reasoningID"`
-	Delta       string  `json:"delta" url:"delta"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextReasoningDeltaData) GetTimestamp() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Timestamp
-}
-
-func (s *SyncEventSessionNextReasoningDeltaData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionNextReasoningDeltaData) GetReasoningID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ReasoningID
-}
-
-func (s *SyncEventSessionNextReasoningDeltaData) GetDelta() string {
-	if s == nil {
-		return ""
-	}
-	return s.Delta
-}
-
-func (s *SyncEventSessionNextReasoningDeltaData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextReasoningDeltaData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningDeltaData) SetTimestamp(timestamp float64) {
-	s.Timestamp = timestamp
-	s.require(syncEventSessionNextReasoningDeltaDataFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningDeltaData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionNextReasoningDeltaDataFieldSessionID)
-}
-
-// SetReasoningID sets the ReasoningID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningDeltaData) SetReasoningID(reasoningID string) {
-	s.ReasoningID = reasoningID
-	s.require(syncEventSessionNextReasoningDeltaDataFieldReasoningID)
-}
-
-// SetDelta sets the Delta field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningDeltaData) SetDelta(delta string) {
-	s.Delta = delta
-	s.require(syncEventSessionNextReasoningDeltaDataFieldDelta)
-}
-
-func (s *SyncEventSessionNextReasoningDeltaData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextReasoningDeltaData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextReasoningDeltaData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextReasoningDeltaData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextReasoningDeltaData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextReasoningDeltaData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextReasoningDeltaName string
-
-const (
-	SyncEventSessionNextReasoningDeltaNameSessionNextReasoningDelta1 SyncEventSessionNextReasoningDeltaName = "session.next.reasoning.delta.1"
-)
-
-func NewSyncEventSessionNextReasoningDeltaNameFromString(s string) (SyncEventSessionNextReasoningDeltaName, error) {
-	switch s {
-	case "session.next.reasoning.delta.1":
-		return SyncEventSessionNextReasoningDeltaNameSessionNextReasoningDelta1, nil
-	}
-	var t SyncEventSessionNextReasoningDeltaName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextReasoningDeltaName) Ptr() *SyncEventSessionNextReasoningDeltaName {
-	return &s
-}
-
-type SyncEventSessionNextReasoningDeltaType string
-
-const (
-	SyncEventSessionNextReasoningDeltaTypeSync SyncEventSessionNextReasoningDeltaType = "sync"
-)
-
-func NewSyncEventSessionNextReasoningDeltaTypeFromString(s string) (SyncEventSessionNextReasoningDeltaType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionNextReasoningDeltaTypeSync, nil
-	}
-	var t SyncEventSessionNextReasoningDeltaType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextReasoningDeltaType) Ptr() *SyncEventSessionNextReasoningDeltaType {
-	return &s
-}
-
-var (
-	syncEventSessionNextReasoningEndedFieldType        = big.NewInt(1 << 0)
-	syncEventSessionNextReasoningEndedFieldName        = big.NewInt(1 << 1)
-	syncEventSessionNextReasoningEndedFieldID          = big.NewInt(1 << 2)
-	syncEventSessionNextReasoningEndedFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionNextReasoningEndedFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionNextReasoningEndedFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextReasoningEnded struct {
-	Type        SyncEventSessionNextReasoningEndedType        `json:"type" url:"type"`
-	Name        SyncEventSessionNextReasoningEndedName        `json:"name" url:"name"`
-	ID          string                                        `json:"id" url:"id"`
-	Seq         float64                                       `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionNextReasoningEndedAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionNextReasoningEndedData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextReasoningEnded) GetType() SyncEventSessionNextReasoningEndedType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextReasoningEnded) GetName() SyncEventSessionNextReasoningEndedName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextReasoningEnded) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextReasoningEnded) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionNextReasoningEnded) GetAggregateID() SyncEventSessionNextReasoningEndedAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionNextReasoningEnded) GetData() *SyncEventSessionNextReasoningEndedData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionNextReasoningEnded) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextReasoningEnded) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningEnded) SetType(type_ SyncEventSessionNextReasoningEndedType) {
-	s.Type = type_
-	s.require(syncEventSessionNextReasoningEndedFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningEnded) SetName(name SyncEventSessionNextReasoningEndedName) {
-	s.Name = name
-	s.require(syncEventSessionNextReasoningEndedFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningEnded) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextReasoningEndedFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningEnded) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionNextReasoningEndedFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningEnded) SetAggregateID(aggregateID SyncEventSessionNextReasoningEndedAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionNextReasoningEndedFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningEnded) SetData(data *SyncEventSessionNextReasoningEndedData) {
-	s.Data = data
-	s.require(syncEventSessionNextReasoningEndedFieldData)
-}
-
-func (s *SyncEventSessionNextReasoningEnded) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextReasoningEnded
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextReasoningEnded(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextReasoningEnded) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextReasoningEnded
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextReasoningEnded) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextReasoningEndedAggregateID string
-
-const (
-	SyncEventSessionNextReasoningEndedAggregateIDSessionID SyncEventSessionNextReasoningEndedAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionNextReasoningEndedAggregateIDFromString(s string) (SyncEventSessionNextReasoningEndedAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionNextReasoningEndedAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionNextReasoningEndedAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextReasoningEndedAggregateID) Ptr() *SyncEventSessionNextReasoningEndedAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionNextReasoningEndedDataFieldTimestamp   = big.NewInt(1 << 0)
-	syncEventSessionNextReasoningEndedDataFieldSessionID   = big.NewInt(1 << 1)
-	syncEventSessionNextReasoningEndedDataFieldReasoningID = big.NewInt(1 << 2)
-	syncEventSessionNextReasoningEndedDataFieldText        = big.NewInt(1 << 3)
-)
-
-type SyncEventSessionNextReasoningEndedData struct {
-	Timestamp   float64 `json:"timestamp" url:"timestamp"`
-	SessionID   string  `json:"sessionID" url:"sessionID"`
-	ReasoningID string  `json:"reasoningID" url:"reasoningID"`
-	Text        string  `json:"text" url:"text"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextReasoningEndedData) GetTimestamp() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Timestamp
-}
-
-func (s *SyncEventSessionNextReasoningEndedData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionNextReasoningEndedData) GetReasoningID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ReasoningID
-}
-
-func (s *SyncEventSessionNextReasoningEndedData) GetText() string {
-	if s == nil {
-		return ""
-	}
-	return s.Text
-}
-
-func (s *SyncEventSessionNextReasoningEndedData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextReasoningEndedData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningEndedData) SetTimestamp(timestamp float64) {
-	s.Timestamp = timestamp
-	s.require(syncEventSessionNextReasoningEndedDataFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningEndedData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionNextReasoningEndedDataFieldSessionID)
-}
-
-// SetReasoningID sets the ReasoningID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningEndedData) SetReasoningID(reasoningID string) {
-	s.ReasoningID = reasoningID
-	s.require(syncEventSessionNextReasoningEndedDataFieldReasoningID)
-}
-
-// SetText sets the Text field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningEndedData) SetText(text string) {
-	s.Text = text
-	s.require(syncEventSessionNextReasoningEndedDataFieldText)
-}
-
-func (s *SyncEventSessionNextReasoningEndedData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextReasoningEndedData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextReasoningEndedData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextReasoningEndedData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextReasoningEndedData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextReasoningEndedData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextReasoningEndedName string
-
-const (
-	SyncEventSessionNextReasoningEndedNameSessionNextReasoningEnded1 SyncEventSessionNextReasoningEndedName = "session.next.reasoning.ended.1"
-)
-
-func NewSyncEventSessionNextReasoningEndedNameFromString(s string) (SyncEventSessionNextReasoningEndedName, error) {
-	switch s {
-	case "session.next.reasoning.ended.1":
-		return SyncEventSessionNextReasoningEndedNameSessionNextReasoningEnded1, nil
-	}
-	var t SyncEventSessionNextReasoningEndedName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextReasoningEndedName) Ptr() *SyncEventSessionNextReasoningEndedName {
-	return &s
-}
-
-type SyncEventSessionNextReasoningEndedType string
-
-const (
-	SyncEventSessionNextReasoningEndedTypeSync SyncEventSessionNextReasoningEndedType = "sync"
-)
-
-func NewSyncEventSessionNextReasoningEndedTypeFromString(s string) (SyncEventSessionNextReasoningEndedType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionNextReasoningEndedTypeSync, nil
-	}
-	var t SyncEventSessionNextReasoningEndedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextReasoningEndedType) Ptr() *SyncEventSessionNextReasoningEndedType {
-	return &s
-}
-
-var (
-	syncEventSessionNextReasoningStartedFieldType        = big.NewInt(1 << 0)
-	syncEventSessionNextReasoningStartedFieldName        = big.NewInt(1 << 1)
-	syncEventSessionNextReasoningStartedFieldID          = big.NewInt(1 << 2)
-	syncEventSessionNextReasoningStartedFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionNextReasoningStartedFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionNextReasoningStartedFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextReasoningStarted struct {
-	Type        SyncEventSessionNextReasoningStartedType        `json:"type" url:"type"`
-	Name        SyncEventSessionNextReasoningStartedName        `json:"name" url:"name"`
-	ID          string                                          `json:"id" url:"id"`
-	Seq         float64                                         `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionNextReasoningStartedAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionNextReasoningStartedData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextReasoningStarted) GetType() SyncEventSessionNextReasoningStartedType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextReasoningStarted) GetName() SyncEventSessionNextReasoningStartedName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextReasoningStarted) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextReasoningStarted) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionNextReasoningStarted) GetAggregateID() SyncEventSessionNextReasoningStartedAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionNextReasoningStarted) GetData() *SyncEventSessionNextReasoningStartedData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionNextReasoningStarted) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextReasoningStarted) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningStarted) SetType(type_ SyncEventSessionNextReasoningStartedType) {
-	s.Type = type_
-	s.require(syncEventSessionNextReasoningStartedFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningStarted) SetName(name SyncEventSessionNextReasoningStartedName) {
-	s.Name = name
-	s.require(syncEventSessionNextReasoningStartedFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningStarted) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextReasoningStartedFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningStarted) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionNextReasoningStartedFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningStarted) SetAggregateID(aggregateID SyncEventSessionNextReasoningStartedAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionNextReasoningStartedFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningStarted) SetData(data *SyncEventSessionNextReasoningStartedData) {
-	s.Data = data
-	s.require(syncEventSessionNextReasoningStartedFieldData)
-}
-
-func (s *SyncEventSessionNextReasoningStarted) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextReasoningStarted
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextReasoningStarted(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextReasoningStarted) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextReasoningStarted
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextReasoningStarted) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextReasoningStartedAggregateID string
-
-const (
-	SyncEventSessionNextReasoningStartedAggregateIDSessionID SyncEventSessionNextReasoningStartedAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionNextReasoningStartedAggregateIDFromString(s string) (SyncEventSessionNextReasoningStartedAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionNextReasoningStartedAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionNextReasoningStartedAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextReasoningStartedAggregateID) Ptr() *SyncEventSessionNextReasoningStartedAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionNextReasoningStartedDataFieldTimestamp   = big.NewInt(1 << 0)
-	syncEventSessionNextReasoningStartedDataFieldSessionID   = big.NewInt(1 << 1)
-	syncEventSessionNextReasoningStartedDataFieldReasoningID = big.NewInt(1 << 2)
-)
-
-type SyncEventSessionNextReasoningStartedData struct {
-	Timestamp   float64 `json:"timestamp" url:"timestamp"`
-	SessionID   string  `json:"sessionID" url:"sessionID"`
-	ReasoningID string  `json:"reasoningID" url:"reasoningID"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextReasoningStartedData) GetTimestamp() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Timestamp
-}
-
-func (s *SyncEventSessionNextReasoningStartedData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionNextReasoningStartedData) GetReasoningID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ReasoningID
-}
-
-func (s *SyncEventSessionNextReasoningStartedData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextReasoningStartedData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningStartedData) SetTimestamp(timestamp float64) {
-	s.Timestamp = timestamp
-	s.require(syncEventSessionNextReasoningStartedDataFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningStartedData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionNextReasoningStartedDataFieldSessionID)
-}
-
-// SetReasoningID sets the ReasoningID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextReasoningStartedData) SetReasoningID(reasoningID string) {
-	s.ReasoningID = reasoningID
-	s.require(syncEventSessionNextReasoningStartedDataFieldReasoningID)
-}
-
-func (s *SyncEventSessionNextReasoningStartedData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextReasoningStartedData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextReasoningStartedData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextReasoningStartedData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextReasoningStartedData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextReasoningStartedData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextReasoningStartedName string
-
-const (
-	SyncEventSessionNextReasoningStartedNameSessionNextReasoningStarted1 SyncEventSessionNextReasoningStartedName = "session.next.reasoning.started.1"
-)
-
-func NewSyncEventSessionNextReasoningStartedNameFromString(s string) (SyncEventSessionNextReasoningStartedName, error) {
-	switch s {
-	case "session.next.reasoning.started.1":
-		return SyncEventSessionNextReasoningStartedNameSessionNextReasoningStarted1, nil
-	}
-	var t SyncEventSessionNextReasoningStartedName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextReasoningStartedName) Ptr() *SyncEventSessionNextReasoningStartedName {
-	return &s
-}
-
-type SyncEventSessionNextReasoningStartedType string
-
-const (
-	SyncEventSessionNextReasoningStartedTypeSync SyncEventSessionNextReasoningStartedType = "sync"
-)
-
-func NewSyncEventSessionNextReasoningStartedTypeFromString(s string) (SyncEventSessionNextReasoningStartedType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionNextReasoningStartedTypeSync, nil
-	}
-	var t SyncEventSessionNextReasoningStartedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextReasoningStartedType) Ptr() *SyncEventSessionNextReasoningStartedType {
-	return &s
-}
-
-var (
-	syncEventSessionNextRetriedFieldType        = big.NewInt(1 << 0)
-	syncEventSessionNextRetriedFieldName        = big.NewInt(1 << 1)
-	syncEventSessionNextRetriedFieldID          = big.NewInt(1 << 2)
-	syncEventSessionNextRetriedFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionNextRetriedFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionNextRetriedFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextRetried struct {
-	Type        SyncEventSessionNextRetriedType        `json:"type" url:"type"`
-	Name        SyncEventSessionNextRetriedName        `json:"name" url:"name"`
-	ID          string                                 `json:"id" url:"id"`
-	Seq         float64                                `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionNextRetriedAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionNextRetriedData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextRetried) GetType() SyncEventSessionNextRetriedType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextRetried) GetName() SyncEventSessionNextRetriedName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextRetried) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextRetried) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionNextRetried) GetAggregateID() SyncEventSessionNextRetriedAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionNextRetried) GetData() *SyncEventSessionNextRetriedData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionNextRetried) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextRetried) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextRetried) SetType(type_ SyncEventSessionNextRetriedType) {
-	s.Type = type_
-	s.require(syncEventSessionNextRetriedFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextRetried) SetName(name SyncEventSessionNextRetriedName) {
-	s.Name = name
-	s.require(syncEventSessionNextRetriedFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextRetried) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextRetriedFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextRetried) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionNextRetriedFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextRetried) SetAggregateID(aggregateID SyncEventSessionNextRetriedAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionNextRetriedFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextRetried) SetData(data *SyncEventSessionNextRetriedData) {
-	s.Data = data
-	s.require(syncEventSessionNextRetriedFieldData)
-}
-
-func (s *SyncEventSessionNextRetried) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextRetried
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextRetried(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextRetried) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextRetried
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextRetried) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextRetriedAggregateID string
-
-const (
-	SyncEventSessionNextRetriedAggregateIDSessionID SyncEventSessionNextRetriedAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionNextRetriedAggregateIDFromString(s string) (SyncEventSessionNextRetriedAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionNextRetriedAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionNextRetriedAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextRetriedAggregateID) Ptr() *SyncEventSessionNextRetriedAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionNextRetriedDataFieldTimestamp = big.NewInt(1 << 0)
-	syncEventSessionNextRetriedDataFieldSessionID = big.NewInt(1 << 1)
-	syncEventSessionNextRetriedDataFieldAttempt   = big.NewInt(1 << 2)
-	syncEventSessionNextRetriedDataFieldError     = big.NewInt(1 << 3)
-)
-
-type SyncEventSessionNextRetriedData struct {
-	Timestamp float64                `json:"timestamp" url:"timestamp"`
-	SessionID string                 `json:"sessionID" url:"sessionID"`
-	Attempt   float64                `json:"attempt" url:"attempt"`
-	Error     *SessionNextRetryError `json:"error" url:"error"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextRetriedData) GetTimestamp() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Timestamp
-}
-
-func (s *SyncEventSessionNextRetriedData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionNextRetriedData) GetAttempt() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Attempt
-}
-
-func (s *SyncEventSessionNextRetriedData) GetError() *SessionNextRetryError {
-	if s == nil {
-		return nil
-	}
-	return s.Error
-}
-
-func (s *SyncEventSessionNextRetriedData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextRetriedData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextRetriedData) SetTimestamp(timestamp float64) {
-	s.Timestamp = timestamp
-	s.require(syncEventSessionNextRetriedDataFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextRetriedData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionNextRetriedDataFieldSessionID)
-}
-
-// SetAttempt sets the Attempt field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextRetriedData) SetAttempt(attempt float64) {
-	s.Attempt = attempt
-	s.require(syncEventSessionNextRetriedDataFieldAttempt)
-}
-
-// SetError sets the Error field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextRetriedData) SetError(error_ *SessionNextRetryError) {
-	s.Error = error_
-	s.require(syncEventSessionNextRetriedDataFieldError)
-}
-
-func (s *SyncEventSessionNextRetriedData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextRetriedData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextRetriedData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextRetriedData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextRetriedData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextRetriedData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextRetriedName string
-
-const (
-	SyncEventSessionNextRetriedNameSessionNextRetried1 SyncEventSessionNextRetriedName = "session.next.retried.1"
-)
-
-func NewSyncEventSessionNextRetriedNameFromString(s string) (SyncEventSessionNextRetriedName, error) {
-	switch s {
-	case "session.next.retried.1":
-		return SyncEventSessionNextRetriedNameSessionNextRetried1, nil
-	}
-	var t SyncEventSessionNextRetriedName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextRetriedName) Ptr() *SyncEventSessionNextRetriedName {
-	return &s
-}
-
-type SyncEventSessionNextRetriedType string
-
-const (
-	SyncEventSessionNextRetriedTypeSync SyncEventSessionNextRetriedType = "sync"
-)
-
-func NewSyncEventSessionNextRetriedTypeFromString(s string) (SyncEventSessionNextRetriedType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionNextRetriedTypeSync, nil
-	}
-	var t SyncEventSessionNextRetriedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextRetriedType) Ptr() *SyncEventSessionNextRetriedType {
-	return &s
-}
-
-var (
-	syncEventSessionNextShellEndedFieldType        = big.NewInt(1 << 0)
-	syncEventSessionNextShellEndedFieldName        = big.NewInt(1 << 1)
-	syncEventSessionNextShellEndedFieldID          = big.NewInt(1 << 2)
-	syncEventSessionNextShellEndedFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionNextShellEndedFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionNextShellEndedFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextShellEnded struct {
-	Type        SyncEventSessionNextShellEndedType        `json:"type" url:"type"`
-	Name        SyncEventSessionNextShellEndedName        `json:"name" url:"name"`
-	ID          string                                    `json:"id" url:"id"`
-	Seq         float64                                   `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionNextShellEndedAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionNextShellEndedData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextShellEnded) GetType() SyncEventSessionNextShellEndedType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextShellEnded) GetName() SyncEventSessionNextShellEndedName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextShellEnded) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextShellEnded) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionNextShellEnded) GetAggregateID() SyncEventSessionNextShellEndedAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionNextShellEnded) GetData() *SyncEventSessionNextShellEndedData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionNextShellEnded) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextShellEnded) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextShellEnded) SetType(type_ SyncEventSessionNextShellEndedType) {
-	s.Type = type_
-	s.require(syncEventSessionNextShellEndedFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextShellEnded) SetName(name SyncEventSessionNextShellEndedName) {
-	s.Name = name
-	s.require(syncEventSessionNextShellEndedFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextShellEnded) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextShellEndedFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextShellEnded) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionNextShellEndedFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextShellEnded) SetAggregateID(aggregateID SyncEventSessionNextShellEndedAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionNextShellEndedFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextShellEnded) SetData(data *SyncEventSessionNextShellEndedData) {
-	s.Data = data
-	s.require(syncEventSessionNextShellEndedFieldData)
-}
-
-func (s *SyncEventSessionNextShellEnded) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextShellEnded
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextShellEnded(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextShellEnded) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextShellEnded
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextShellEnded) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextShellEndedAggregateID string
-
-const (
-	SyncEventSessionNextShellEndedAggregateIDSessionID SyncEventSessionNextShellEndedAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionNextShellEndedAggregateIDFromString(s string) (SyncEventSessionNextShellEndedAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionNextShellEndedAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionNextShellEndedAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextShellEndedAggregateID) Ptr() *SyncEventSessionNextShellEndedAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionNextShellEndedDataFieldTimestamp = big.NewInt(1 << 0)
-	syncEventSessionNextShellEndedDataFieldSessionID = big.NewInt(1 << 1)
-	syncEventSessionNextShellEndedDataFieldCallID    = big.NewInt(1 << 2)
-	syncEventSessionNextShellEndedDataFieldOutput    = big.NewInt(1 << 3)
-)
-
-type SyncEventSessionNextShellEndedData struct {
-	Timestamp float64 `json:"timestamp" url:"timestamp"`
-	SessionID string  `json:"sessionID" url:"sessionID"`
-	CallID    string  `json:"callID" url:"callID"`
-	Output    string  `json:"output" url:"output"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextShellEndedData) GetTimestamp() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Timestamp
-}
-
-func (s *SyncEventSessionNextShellEndedData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionNextShellEndedData) GetCallID() string {
-	if s == nil {
-		return ""
-	}
-	return s.CallID
-}
-
-func (s *SyncEventSessionNextShellEndedData) GetOutput() string {
-	if s == nil {
-		return ""
-	}
-	return s.Output
-}
-
-func (s *SyncEventSessionNextShellEndedData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextShellEndedData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextShellEndedData) SetTimestamp(timestamp float64) {
-	s.Timestamp = timestamp
-	s.require(syncEventSessionNextShellEndedDataFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextShellEndedData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionNextShellEndedDataFieldSessionID)
-}
-
-// SetCallID sets the CallID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextShellEndedData) SetCallID(callID string) {
-	s.CallID = callID
-	s.require(syncEventSessionNextShellEndedDataFieldCallID)
-}
-
-// SetOutput sets the Output field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextShellEndedData) SetOutput(output string) {
-	s.Output = output
-	s.require(syncEventSessionNextShellEndedDataFieldOutput)
-}
-
-func (s *SyncEventSessionNextShellEndedData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextShellEndedData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextShellEndedData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextShellEndedData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextShellEndedData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextShellEndedData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextShellEndedName string
-
-const (
-	SyncEventSessionNextShellEndedNameSessionNextShellEnded1 SyncEventSessionNextShellEndedName = "session.next.shell.ended.1"
-)
-
-func NewSyncEventSessionNextShellEndedNameFromString(s string) (SyncEventSessionNextShellEndedName, error) {
-	switch s {
-	case "session.next.shell.ended.1":
-		return SyncEventSessionNextShellEndedNameSessionNextShellEnded1, nil
-	}
-	var t SyncEventSessionNextShellEndedName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextShellEndedName) Ptr() *SyncEventSessionNextShellEndedName {
-	return &s
-}
-
-type SyncEventSessionNextShellEndedType string
-
-const (
-	SyncEventSessionNextShellEndedTypeSync SyncEventSessionNextShellEndedType = "sync"
-)
-
-func NewSyncEventSessionNextShellEndedTypeFromString(s string) (SyncEventSessionNextShellEndedType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionNextShellEndedTypeSync, nil
-	}
-	var t SyncEventSessionNextShellEndedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextShellEndedType) Ptr() *SyncEventSessionNextShellEndedType {
-	return &s
-}
-
-var (
-	syncEventSessionNextShellStartedFieldType        = big.NewInt(1 << 0)
-	syncEventSessionNextShellStartedFieldName        = big.NewInt(1 << 1)
-	syncEventSessionNextShellStartedFieldID          = big.NewInt(1 << 2)
-	syncEventSessionNextShellStartedFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionNextShellStartedFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionNextShellStartedFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextShellStarted struct {
-	Type        SyncEventSessionNextShellStartedType        `json:"type" url:"type"`
-	Name        SyncEventSessionNextShellStartedName        `json:"name" url:"name"`
-	ID          string                                      `json:"id" url:"id"`
-	Seq         float64                                     `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionNextShellStartedAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionNextShellStartedData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextShellStarted) GetType() SyncEventSessionNextShellStartedType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextShellStarted) GetName() SyncEventSessionNextShellStartedName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextShellStarted) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextShellStarted) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionNextShellStarted) GetAggregateID() SyncEventSessionNextShellStartedAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionNextShellStarted) GetData() *SyncEventSessionNextShellStartedData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionNextShellStarted) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextShellStarted) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextShellStarted) SetType(type_ SyncEventSessionNextShellStartedType) {
-	s.Type = type_
-	s.require(syncEventSessionNextShellStartedFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextShellStarted) SetName(name SyncEventSessionNextShellStartedName) {
-	s.Name = name
-	s.require(syncEventSessionNextShellStartedFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextShellStarted) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextShellStartedFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextShellStarted) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionNextShellStartedFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextShellStarted) SetAggregateID(aggregateID SyncEventSessionNextShellStartedAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionNextShellStartedFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextShellStarted) SetData(data *SyncEventSessionNextShellStartedData) {
-	s.Data = data
-	s.require(syncEventSessionNextShellStartedFieldData)
-}
-
-func (s *SyncEventSessionNextShellStarted) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextShellStarted
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextShellStarted(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextShellStarted) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextShellStarted
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextShellStarted) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextShellStartedAggregateID string
-
-const (
-	SyncEventSessionNextShellStartedAggregateIDSessionID SyncEventSessionNextShellStartedAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionNextShellStartedAggregateIDFromString(s string) (SyncEventSessionNextShellStartedAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionNextShellStartedAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionNextShellStartedAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextShellStartedAggregateID) Ptr() *SyncEventSessionNextShellStartedAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionNextShellStartedDataFieldTimestamp = big.NewInt(1 << 0)
-	syncEventSessionNextShellStartedDataFieldSessionID = big.NewInt(1 << 1)
-	syncEventSessionNextShellStartedDataFieldCallID    = big.NewInt(1 << 2)
-	syncEventSessionNextShellStartedDataFieldCommand   = big.NewInt(1 << 3)
-)
-
-type SyncEventSessionNextShellStartedData struct {
-	Timestamp float64 `json:"timestamp" url:"timestamp"`
-	SessionID string  `json:"sessionID" url:"sessionID"`
-	CallID    string  `json:"callID" url:"callID"`
-	Command   string  `json:"command" url:"command"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextShellStartedData) GetTimestamp() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Timestamp
-}
-
-func (s *SyncEventSessionNextShellStartedData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionNextShellStartedData) GetCallID() string {
-	if s == nil {
-		return ""
-	}
-	return s.CallID
-}
-
-func (s *SyncEventSessionNextShellStartedData) GetCommand() string {
-	if s == nil {
-		return ""
-	}
-	return s.Command
-}
-
-func (s *SyncEventSessionNextShellStartedData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextShellStartedData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextShellStartedData) SetTimestamp(timestamp float64) {
-	s.Timestamp = timestamp
-	s.require(syncEventSessionNextShellStartedDataFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextShellStartedData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionNextShellStartedDataFieldSessionID)
-}
-
-// SetCallID sets the CallID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextShellStartedData) SetCallID(callID string) {
-	s.CallID = callID
-	s.require(syncEventSessionNextShellStartedDataFieldCallID)
-}
-
-// SetCommand sets the Command field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextShellStartedData) SetCommand(command string) {
-	s.Command = command
-	s.require(syncEventSessionNextShellStartedDataFieldCommand)
-}
-
-func (s *SyncEventSessionNextShellStartedData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextShellStartedData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextShellStartedData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextShellStartedData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextShellStartedData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextShellStartedData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextShellStartedName string
-
-const (
-	SyncEventSessionNextShellStartedNameSessionNextShellStarted1 SyncEventSessionNextShellStartedName = "session.next.shell.started.1"
-)
-
-func NewSyncEventSessionNextShellStartedNameFromString(s string) (SyncEventSessionNextShellStartedName, error) {
-	switch s {
-	case "session.next.shell.started.1":
-		return SyncEventSessionNextShellStartedNameSessionNextShellStarted1, nil
-	}
-	var t SyncEventSessionNextShellStartedName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextShellStartedName) Ptr() *SyncEventSessionNextShellStartedName {
-	return &s
-}
-
-type SyncEventSessionNextShellStartedType string
-
-const (
-	SyncEventSessionNextShellStartedTypeSync SyncEventSessionNextShellStartedType = "sync"
-)
-
-func NewSyncEventSessionNextShellStartedTypeFromString(s string) (SyncEventSessionNextShellStartedType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionNextShellStartedTypeSync, nil
-	}
-	var t SyncEventSessionNextShellStartedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextShellStartedType) Ptr() *SyncEventSessionNextShellStartedType {
-	return &s
-}
-
-var (
-	syncEventSessionNextStepEndedFieldType        = big.NewInt(1 << 0)
-	syncEventSessionNextStepEndedFieldName        = big.NewInt(1 << 1)
-	syncEventSessionNextStepEndedFieldID          = big.NewInt(1 << 2)
-	syncEventSessionNextStepEndedFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionNextStepEndedFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionNextStepEndedFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextStepEnded struct {
-	Type        SyncEventSessionNextStepEndedType        `json:"type" url:"type"`
-	Name        SyncEventSessionNextStepEndedName        `json:"name" url:"name"`
-	ID          string                                   `json:"id" url:"id"`
-	Seq         float64                                  `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionNextStepEndedAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionNextStepEndedData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextStepEnded) GetType() SyncEventSessionNextStepEndedType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextStepEnded) GetName() SyncEventSessionNextStepEndedName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextStepEnded) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextStepEnded) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionNextStepEnded) GetAggregateID() SyncEventSessionNextStepEndedAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionNextStepEnded) GetData() *SyncEventSessionNextStepEndedData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionNextStepEnded) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextStepEnded) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepEnded) SetType(type_ SyncEventSessionNextStepEndedType) {
-	s.Type = type_
-	s.require(syncEventSessionNextStepEndedFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepEnded) SetName(name SyncEventSessionNextStepEndedName) {
-	s.Name = name
-	s.require(syncEventSessionNextStepEndedFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepEnded) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextStepEndedFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepEnded) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionNextStepEndedFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepEnded) SetAggregateID(aggregateID SyncEventSessionNextStepEndedAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionNextStepEndedFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepEnded) SetData(data *SyncEventSessionNextStepEndedData) {
-	s.Data = data
-	s.require(syncEventSessionNextStepEndedFieldData)
-}
-
-func (s *SyncEventSessionNextStepEnded) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextStepEnded
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextStepEnded(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextStepEnded) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextStepEnded
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextStepEnded) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextStepEndedAggregateID string
-
-const (
-	SyncEventSessionNextStepEndedAggregateIDSessionID SyncEventSessionNextStepEndedAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionNextStepEndedAggregateIDFromString(s string) (SyncEventSessionNextStepEndedAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionNextStepEndedAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionNextStepEndedAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextStepEndedAggregateID) Ptr() *SyncEventSessionNextStepEndedAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionNextStepEndedDataFieldTimestamp = big.NewInt(1 << 0)
-	syncEventSessionNextStepEndedDataFieldSessionID = big.NewInt(1 << 1)
-	syncEventSessionNextStepEndedDataFieldFinish    = big.NewInt(1 << 2)
-	syncEventSessionNextStepEndedDataFieldCost      = big.NewInt(1 << 3)
-	syncEventSessionNextStepEndedDataFieldTokens    = big.NewInt(1 << 4)
-	syncEventSessionNextStepEndedDataFieldSnapshot  = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextStepEndedData struct {
-	Timestamp float64                                  `json:"timestamp" url:"timestamp"`
-	SessionID string                                   `json:"sessionID" url:"sessionID"`
-	Finish    string                                   `json:"finish" url:"finish"`
-	Cost      float64                                  `json:"cost" url:"cost"`
-	Tokens    *SyncEventSessionNextStepEndedDataTokens `json:"tokens" url:"tokens"`
-	Snapshot  *string                                  `json:"snapshot,omitempty" url:"snapshot,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextStepEndedData) GetTimestamp() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Timestamp
-}
-
-func (s *SyncEventSessionNextStepEndedData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionNextStepEndedData) GetFinish() string {
-	if s == nil {
-		return ""
-	}
-	return s.Finish
-}
-
-func (s *SyncEventSessionNextStepEndedData) GetCost() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Cost
-}
-
-func (s *SyncEventSessionNextStepEndedData) GetTokens() *SyncEventSessionNextStepEndedDataTokens {
-	if s == nil {
-		return nil
-	}
-	return s.Tokens
-}
-
-func (s *SyncEventSessionNextStepEndedData) GetSnapshot() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Snapshot
-}
-
-func (s *SyncEventSessionNextStepEndedData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextStepEndedData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepEndedData) SetTimestamp(timestamp float64) {
-	s.Timestamp = timestamp
-	s.require(syncEventSessionNextStepEndedDataFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepEndedData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionNextStepEndedDataFieldSessionID)
-}
-
-// SetFinish sets the Finish field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepEndedData) SetFinish(finish string) {
-	s.Finish = finish
-	s.require(syncEventSessionNextStepEndedDataFieldFinish)
-}
-
-// SetCost sets the Cost field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepEndedData) SetCost(cost float64) {
-	s.Cost = cost
-	s.require(syncEventSessionNextStepEndedDataFieldCost)
-}
-
-// SetTokens sets the Tokens field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepEndedData) SetTokens(tokens *SyncEventSessionNextStepEndedDataTokens) {
-	s.Tokens = tokens
-	s.require(syncEventSessionNextStepEndedDataFieldTokens)
-}
-
-// SetSnapshot sets the Snapshot field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepEndedData) SetSnapshot(snapshot *string) {
-	s.Snapshot = snapshot
-	s.require(syncEventSessionNextStepEndedDataFieldSnapshot)
-}
-
-func (s *SyncEventSessionNextStepEndedData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextStepEndedData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextStepEndedData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextStepEndedData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextStepEndedData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextStepEndedData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-var (
-	syncEventSessionNextStepEndedDataTokensFieldInput     = big.NewInt(1 << 0)
-	syncEventSessionNextStepEndedDataTokensFieldOutput    = big.NewInt(1 << 1)
-	syncEventSessionNextStepEndedDataTokensFieldReasoning = big.NewInt(1 << 2)
-	syncEventSessionNextStepEndedDataTokensFieldCache     = big.NewInt(1 << 3)
-)
-
-type SyncEventSessionNextStepEndedDataTokens struct {
-	Input     float64                                       `json:"input" url:"input"`
-	Output    float64                                       `json:"output" url:"output"`
-	Reasoning float64                                       `json:"reasoning" url:"reasoning"`
-	Cache     *SyncEventSessionNextStepEndedDataTokensCache `json:"cache" url:"cache"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextStepEndedDataTokens) GetInput() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Input
-}
-
-func (s *SyncEventSessionNextStepEndedDataTokens) GetOutput() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Output
-}
-
-func (s *SyncEventSessionNextStepEndedDataTokens) GetReasoning() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Reasoning
-}
-
-func (s *SyncEventSessionNextStepEndedDataTokens) GetCache() *SyncEventSessionNextStepEndedDataTokensCache {
-	if s == nil {
-		return nil
-	}
-	return s.Cache
-}
-
-func (s *SyncEventSessionNextStepEndedDataTokens) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextStepEndedDataTokens) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetInput sets the Input field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepEndedDataTokens) SetInput(input float64) {
-	s.Input = input
-	s.require(syncEventSessionNextStepEndedDataTokensFieldInput)
-}
-
-// SetOutput sets the Output field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepEndedDataTokens) SetOutput(output float64) {
-	s.Output = output
-	s.require(syncEventSessionNextStepEndedDataTokensFieldOutput)
-}
-
-// SetReasoning sets the Reasoning field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepEndedDataTokens) SetReasoning(reasoning float64) {
-	s.Reasoning = reasoning
-	s.require(syncEventSessionNextStepEndedDataTokensFieldReasoning)
-}
-
-// SetCache sets the Cache field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepEndedDataTokens) SetCache(cache *SyncEventSessionNextStepEndedDataTokensCache) {
-	s.Cache = cache
-	s.require(syncEventSessionNextStepEndedDataTokensFieldCache)
-}
-
-func (s *SyncEventSessionNextStepEndedDataTokens) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextStepEndedDataTokens
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextStepEndedDataTokens(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextStepEndedDataTokens) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextStepEndedDataTokens
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextStepEndedDataTokens) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-var (
-	syncEventSessionNextStepEndedDataTokensCacheFieldRead  = big.NewInt(1 << 0)
-	syncEventSessionNextStepEndedDataTokensCacheFieldWrite = big.NewInt(1 << 1)
-)
-
-type SyncEventSessionNextStepEndedDataTokensCache struct {
-	Read  float64 `json:"read" url:"read"`
-	Write float64 `json:"write" url:"write"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextStepEndedDataTokensCache) GetRead() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Read
-}
-
-func (s *SyncEventSessionNextStepEndedDataTokensCache) GetWrite() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Write
-}
-
-func (s *SyncEventSessionNextStepEndedDataTokensCache) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextStepEndedDataTokensCache) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetRead sets the Read field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepEndedDataTokensCache) SetRead(read float64) {
-	s.Read = read
-	s.require(syncEventSessionNextStepEndedDataTokensCacheFieldRead)
-}
-
-// SetWrite sets the Write field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepEndedDataTokensCache) SetWrite(write float64) {
-	s.Write = write
-	s.require(syncEventSessionNextStepEndedDataTokensCacheFieldWrite)
-}
-
-func (s *SyncEventSessionNextStepEndedDataTokensCache) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextStepEndedDataTokensCache
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextStepEndedDataTokensCache(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextStepEndedDataTokensCache) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextStepEndedDataTokensCache
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextStepEndedDataTokensCache) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextStepEndedName string
-
-const (
-	SyncEventSessionNextStepEndedNameSessionNextStepEnded1 SyncEventSessionNextStepEndedName = "session.next.step.ended.1"
-)
-
-func NewSyncEventSessionNextStepEndedNameFromString(s string) (SyncEventSessionNextStepEndedName, error) {
-	switch s {
-	case "session.next.step.ended.1":
-		return SyncEventSessionNextStepEndedNameSessionNextStepEnded1, nil
-	}
-	var t SyncEventSessionNextStepEndedName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextStepEndedName) Ptr() *SyncEventSessionNextStepEndedName {
-	return &s
-}
-
-type SyncEventSessionNextStepEndedType string
-
-const (
-	SyncEventSessionNextStepEndedTypeSync SyncEventSessionNextStepEndedType = "sync"
-)
-
-func NewSyncEventSessionNextStepEndedTypeFromString(s string) (SyncEventSessionNextStepEndedType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionNextStepEndedTypeSync, nil
-	}
-	var t SyncEventSessionNextStepEndedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextStepEndedType) Ptr() *SyncEventSessionNextStepEndedType {
-	return &s
-}
-
-var (
-	syncEventSessionNextStepFailedFieldType        = big.NewInt(1 << 0)
-	syncEventSessionNextStepFailedFieldName        = big.NewInt(1 << 1)
-	syncEventSessionNextStepFailedFieldID          = big.NewInt(1 << 2)
-	syncEventSessionNextStepFailedFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionNextStepFailedFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionNextStepFailedFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextStepFailed struct {
-	Type        SyncEventSessionNextStepFailedType        `json:"type" url:"type"`
-	Name        SyncEventSessionNextStepFailedName        `json:"name" url:"name"`
-	ID          string                                    `json:"id" url:"id"`
-	Seq         float64                                   `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionNextStepFailedAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionNextStepFailedData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextStepFailed) GetType() SyncEventSessionNextStepFailedType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextStepFailed) GetName() SyncEventSessionNextStepFailedName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextStepFailed) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextStepFailed) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionNextStepFailed) GetAggregateID() SyncEventSessionNextStepFailedAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionNextStepFailed) GetData() *SyncEventSessionNextStepFailedData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionNextStepFailed) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextStepFailed) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepFailed) SetType(type_ SyncEventSessionNextStepFailedType) {
-	s.Type = type_
-	s.require(syncEventSessionNextStepFailedFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepFailed) SetName(name SyncEventSessionNextStepFailedName) {
-	s.Name = name
-	s.require(syncEventSessionNextStepFailedFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepFailed) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextStepFailedFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepFailed) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionNextStepFailedFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepFailed) SetAggregateID(aggregateID SyncEventSessionNextStepFailedAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionNextStepFailedFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepFailed) SetData(data *SyncEventSessionNextStepFailedData) {
-	s.Data = data
-	s.require(syncEventSessionNextStepFailedFieldData)
-}
-
-func (s *SyncEventSessionNextStepFailed) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextStepFailed
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextStepFailed(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextStepFailed) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextStepFailed
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextStepFailed) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextStepFailedAggregateID string
-
-const (
-	SyncEventSessionNextStepFailedAggregateIDSessionID SyncEventSessionNextStepFailedAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionNextStepFailedAggregateIDFromString(s string) (SyncEventSessionNextStepFailedAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionNextStepFailedAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionNextStepFailedAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextStepFailedAggregateID) Ptr() *SyncEventSessionNextStepFailedAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionNextStepFailedDataFieldTimestamp = big.NewInt(1 << 0)
-	syncEventSessionNextStepFailedDataFieldSessionID = big.NewInt(1 << 1)
-	syncEventSessionNextStepFailedDataFieldError     = big.NewInt(1 << 2)
-)
-
-type SyncEventSessionNextStepFailedData struct {
-	Timestamp float64              `json:"timestamp" url:"timestamp"`
-	SessionID string               `json:"sessionID" url:"sessionID"`
-	Error     *SessionErrorUnknown `json:"error" url:"error"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextStepFailedData) GetTimestamp() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Timestamp
-}
-
-func (s *SyncEventSessionNextStepFailedData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionNextStepFailedData) GetError() *SessionErrorUnknown {
-	if s == nil {
-		return nil
-	}
-	return s.Error
-}
-
-func (s *SyncEventSessionNextStepFailedData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextStepFailedData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepFailedData) SetTimestamp(timestamp float64) {
-	s.Timestamp = timestamp
-	s.require(syncEventSessionNextStepFailedDataFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepFailedData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionNextStepFailedDataFieldSessionID)
-}
-
-// SetError sets the Error field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepFailedData) SetError(error_ *SessionErrorUnknown) {
-	s.Error = error_
-	s.require(syncEventSessionNextStepFailedDataFieldError)
-}
-
-func (s *SyncEventSessionNextStepFailedData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextStepFailedData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextStepFailedData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextStepFailedData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextStepFailedData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextStepFailedData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextStepFailedName string
-
-const (
-	SyncEventSessionNextStepFailedNameSessionNextStepFailed1 SyncEventSessionNextStepFailedName = "session.next.step.failed.1"
-)
-
-func NewSyncEventSessionNextStepFailedNameFromString(s string) (SyncEventSessionNextStepFailedName, error) {
-	switch s {
-	case "session.next.step.failed.1":
-		return SyncEventSessionNextStepFailedNameSessionNextStepFailed1, nil
-	}
-	var t SyncEventSessionNextStepFailedName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextStepFailedName) Ptr() *SyncEventSessionNextStepFailedName {
-	return &s
-}
-
-type SyncEventSessionNextStepFailedType string
-
-const (
-	SyncEventSessionNextStepFailedTypeSync SyncEventSessionNextStepFailedType = "sync"
-)
-
-func NewSyncEventSessionNextStepFailedTypeFromString(s string) (SyncEventSessionNextStepFailedType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionNextStepFailedTypeSync, nil
-	}
-	var t SyncEventSessionNextStepFailedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextStepFailedType) Ptr() *SyncEventSessionNextStepFailedType {
-	return &s
-}
-
-var (
-	syncEventSessionNextStepStartedFieldType        = big.NewInt(1 << 0)
-	syncEventSessionNextStepStartedFieldName        = big.NewInt(1 << 1)
-	syncEventSessionNextStepStartedFieldID          = big.NewInt(1 << 2)
-	syncEventSessionNextStepStartedFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionNextStepStartedFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionNextStepStartedFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextStepStarted struct {
-	Type        SyncEventSessionNextStepStartedType        `json:"type" url:"type"`
-	Name        SyncEventSessionNextStepStartedName        `json:"name" url:"name"`
-	ID          string                                     `json:"id" url:"id"`
-	Seq         float64                                    `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionNextStepStartedAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionNextStepStartedData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextStepStarted) GetType() SyncEventSessionNextStepStartedType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextStepStarted) GetName() SyncEventSessionNextStepStartedName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextStepStarted) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextStepStarted) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionNextStepStarted) GetAggregateID() SyncEventSessionNextStepStartedAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionNextStepStarted) GetData() *SyncEventSessionNextStepStartedData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionNextStepStarted) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextStepStarted) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepStarted) SetType(type_ SyncEventSessionNextStepStartedType) {
-	s.Type = type_
-	s.require(syncEventSessionNextStepStartedFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepStarted) SetName(name SyncEventSessionNextStepStartedName) {
-	s.Name = name
-	s.require(syncEventSessionNextStepStartedFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepStarted) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextStepStartedFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepStarted) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionNextStepStartedFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepStarted) SetAggregateID(aggregateID SyncEventSessionNextStepStartedAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionNextStepStartedFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepStarted) SetData(data *SyncEventSessionNextStepStartedData) {
-	s.Data = data
-	s.require(syncEventSessionNextStepStartedFieldData)
-}
-
-func (s *SyncEventSessionNextStepStarted) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextStepStarted
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextStepStarted(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextStepStarted) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextStepStarted
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextStepStarted) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextStepStartedAggregateID string
-
-const (
-	SyncEventSessionNextStepStartedAggregateIDSessionID SyncEventSessionNextStepStartedAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionNextStepStartedAggregateIDFromString(s string) (SyncEventSessionNextStepStartedAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionNextStepStartedAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionNextStepStartedAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextStepStartedAggregateID) Ptr() *SyncEventSessionNextStepStartedAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionNextStepStartedDataFieldTimestamp = big.NewInt(1 << 0)
-	syncEventSessionNextStepStartedDataFieldSessionID = big.NewInt(1 << 1)
-	syncEventSessionNextStepStartedDataFieldAgent     = big.NewInt(1 << 2)
-	syncEventSessionNextStepStartedDataFieldModel     = big.NewInt(1 << 3)
-	syncEventSessionNextStepStartedDataFieldSnapshot  = big.NewInt(1 << 4)
-)
-
-type SyncEventSessionNextStepStartedData struct {
-	Timestamp float64                                   `json:"timestamp" url:"timestamp"`
-	SessionID string                                    `json:"sessionID" url:"sessionID"`
-	Agent     string                                    `json:"agent" url:"agent"`
-	Model     *SyncEventSessionNextStepStartedDataModel `json:"model" url:"model"`
-	Snapshot  *string                                   `json:"snapshot,omitempty" url:"snapshot,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextStepStartedData) GetTimestamp() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Timestamp
-}
-
-func (s *SyncEventSessionNextStepStartedData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionNextStepStartedData) GetAgent() string {
-	if s == nil {
-		return ""
-	}
-	return s.Agent
-}
-
-func (s *SyncEventSessionNextStepStartedData) GetModel() *SyncEventSessionNextStepStartedDataModel {
-	if s == nil {
-		return nil
-	}
-	return s.Model
-}
-
-func (s *SyncEventSessionNextStepStartedData) GetSnapshot() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Snapshot
-}
-
-func (s *SyncEventSessionNextStepStartedData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextStepStartedData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepStartedData) SetTimestamp(timestamp float64) {
-	s.Timestamp = timestamp
-	s.require(syncEventSessionNextStepStartedDataFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepStartedData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionNextStepStartedDataFieldSessionID)
-}
-
-// SetAgent sets the Agent field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepStartedData) SetAgent(agent string) {
-	s.Agent = agent
-	s.require(syncEventSessionNextStepStartedDataFieldAgent)
-}
-
-// SetModel sets the Model field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepStartedData) SetModel(model *SyncEventSessionNextStepStartedDataModel) {
-	s.Model = model
-	s.require(syncEventSessionNextStepStartedDataFieldModel)
-}
-
-// SetSnapshot sets the Snapshot field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepStartedData) SetSnapshot(snapshot *string) {
-	s.Snapshot = snapshot
-	s.require(syncEventSessionNextStepStartedDataFieldSnapshot)
-}
-
-func (s *SyncEventSessionNextStepStartedData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextStepStartedData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextStepStartedData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextStepStartedData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextStepStartedData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextStepStartedData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-var (
-	syncEventSessionNextStepStartedDataModelFieldID         = big.NewInt(1 << 0)
-	syncEventSessionNextStepStartedDataModelFieldProviderID = big.NewInt(1 << 1)
-	syncEventSessionNextStepStartedDataModelFieldVariant    = big.NewInt(1 << 2)
-)
-
-type SyncEventSessionNextStepStartedDataModel struct {
-	ID         string `json:"id" url:"id"`
-	ProviderID string `json:"providerID" url:"providerID"`
-	Variant    string `json:"variant" url:"variant"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextStepStartedDataModel) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextStepStartedDataModel) GetProviderID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ProviderID
-}
-
-func (s *SyncEventSessionNextStepStartedDataModel) GetVariant() string {
-	if s == nil {
-		return ""
-	}
-	return s.Variant
-}
-
-func (s *SyncEventSessionNextStepStartedDataModel) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextStepStartedDataModel) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepStartedDataModel) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextStepStartedDataModelFieldID)
-}
-
-// SetProviderID sets the ProviderID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepStartedDataModel) SetProviderID(providerID string) {
-	s.ProviderID = providerID
-	s.require(syncEventSessionNextStepStartedDataModelFieldProviderID)
-}
-
-// SetVariant sets the Variant field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextStepStartedDataModel) SetVariant(variant string) {
-	s.Variant = variant
-	s.require(syncEventSessionNextStepStartedDataModelFieldVariant)
-}
-
-func (s *SyncEventSessionNextStepStartedDataModel) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextStepStartedDataModel
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextStepStartedDataModel(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextStepStartedDataModel) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextStepStartedDataModel
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextStepStartedDataModel) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextStepStartedName string
-
-const (
-	SyncEventSessionNextStepStartedNameSessionNextStepStarted1 SyncEventSessionNextStepStartedName = "session.next.step.started.1"
-)
-
-func NewSyncEventSessionNextStepStartedNameFromString(s string) (SyncEventSessionNextStepStartedName, error) {
-	switch s {
-	case "session.next.step.started.1":
-		return SyncEventSessionNextStepStartedNameSessionNextStepStarted1, nil
-	}
-	var t SyncEventSessionNextStepStartedName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextStepStartedName) Ptr() *SyncEventSessionNextStepStartedName {
-	return &s
-}
-
-type SyncEventSessionNextStepStartedType string
-
-const (
-	SyncEventSessionNextStepStartedTypeSync SyncEventSessionNextStepStartedType = "sync"
-)
-
-func NewSyncEventSessionNextStepStartedTypeFromString(s string) (SyncEventSessionNextStepStartedType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionNextStepStartedTypeSync, nil
-	}
-	var t SyncEventSessionNextStepStartedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextStepStartedType) Ptr() *SyncEventSessionNextStepStartedType {
-	return &s
-}
-
-var (
-	syncEventSessionNextSyntheticFieldType        = big.NewInt(1 << 0)
-	syncEventSessionNextSyntheticFieldName        = big.NewInt(1 << 1)
-	syncEventSessionNextSyntheticFieldID          = big.NewInt(1 << 2)
-	syncEventSessionNextSyntheticFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionNextSyntheticFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionNextSyntheticFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextSynthetic struct {
-	Type        SyncEventSessionNextSyntheticType        `json:"type" url:"type"`
-	Name        SyncEventSessionNextSyntheticName        `json:"name" url:"name"`
-	ID          string                                   `json:"id" url:"id"`
-	Seq         float64                                  `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionNextSyntheticAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionNextSyntheticData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextSynthetic) GetType() SyncEventSessionNextSyntheticType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextSynthetic) GetName() SyncEventSessionNextSyntheticName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextSynthetic) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextSynthetic) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionNextSynthetic) GetAggregateID() SyncEventSessionNextSyntheticAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionNextSynthetic) GetData() *SyncEventSessionNextSyntheticData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionNextSynthetic) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextSynthetic) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextSynthetic) SetType(type_ SyncEventSessionNextSyntheticType) {
-	s.Type = type_
-	s.require(syncEventSessionNextSyntheticFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextSynthetic) SetName(name SyncEventSessionNextSyntheticName) {
-	s.Name = name
-	s.require(syncEventSessionNextSyntheticFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextSynthetic) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextSyntheticFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextSynthetic) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionNextSyntheticFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextSynthetic) SetAggregateID(aggregateID SyncEventSessionNextSyntheticAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionNextSyntheticFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextSynthetic) SetData(data *SyncEventSessionNextSyntheticData) {
-	s.Data = data
-	s.require(syncEventSessionNextSyntheticFieldData)
-}
-
-func (s *SyncEventSessionNextSynthetic) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextSynthetic
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextSynthetic(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextSynthetic) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextSynthetic
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextSynthetic) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextSyntheticAggregateID string
-
-const (
-	SyncEventSessionNextSyntheticAggregateIDSessionID SyncEventSessionNextSyntheticAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionNextSyntheticAggregateIDFromString(s string) (SyncEventSessionNextSyntheticAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionNextSyntheticAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionNextSyntheticAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextSyntheticAggregateID) Ptr() *SyncEventSessionNextSyntheticAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionNextSyntheticDataFieldTimestamp = big.NewInt(1 << 0)
-	syncEventSessionNextSyntheticDataFieldSessionID = big.NewInt(1 << 1)
-	syncEventSessionNextSyntheticDataFieldText      = big.NewInt(1 << 2)
-)
-
-type SyncEventSessionNextSyntheticData struct {
-	Timestamp float64 `json:"timestamp" url:"timestamp"`
-	SessionID string  `json:"sessionID" url:"sessionID"`
-	Text      string  `json:"text" url:"text"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextSyntheticData) GetTimestamp() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Timestamp
-}
-
-func (s *SyncEventSessionNextSyntheticData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionNextSyntheticData) GetText() string {
-	if s == nil {
-		return ""
-	}
-	return s.Text
-}
-
-func (s *SyncEventSessionNextSyntheticData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextSyntheticData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextSyntheticData) SetTimestamp(timestamp float64) {
-	s.Timestamp = timestamp
-	s.require(syncEventSessionNextSyntheticDataFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextSyntheticData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionNextSyntheticDataFieldSessionID)
-}
-
-// SetText sets the Text field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextSyntheticData) SetText(text string) {
-	s.Text = text
-	s.require(syncEventSessionNextSyntheticDataFieldText)
-}
-
-func (s *SyncEventSessionNextSyntheticData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextSyntheticData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextSyntheticData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextSyntheticData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextSyntheticData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextSyntheticData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextSyntheticName string
-
-const (
-	SyncEventSessionNextSyntheticNameSessionNextSynthetic1 SyncEventSessionNextSyntheticName = "session.next.synthetic.1"
-)
-
-func NewSyncEventSessionNextSyntheticNameFromString(s string) (SyncEventSessionNextSyntheticName, error) {
-	switch s {
-	case "session.next.synthetic.1":
-		return SyncEventSessionNextSyntheticNameSessionNextSynthetic1, nil
-	}
-	var t SyncEventSessionNextSyntheticName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextSyntheticName) Ptr() *SyncEventSessionNextSyntheticName {
-	return &s
-}
-
-type SyncEventSessionNextSyntheticType string
-
-const (
-	SyncEventSessionNextSyntheticTypeSync SyncEventSessionNextSyntheticType = "sync"
-)
-
-func NewSyncEventSessionNextSyntheticTypeFromString(s string) (SyncEventSessionNextSyntheticType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionNextSyntheticTypeSync, nil
-	}
-	var t SyncEventSessionNextSyntheticType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextSyntheticType) Ptr() *SyncEventSessionNextSyntheticType {
-	return &s
-}
-
-var (
-	syncEventSessionNextTextDeltaFieldType        = big.NewInt(1 << 0)
-	syncEventSessionNextTextDeltaFieldName        = big.NewInt(1 << 1)
-	syncEventSessionNextTextDeltaFieldID          = big.NewInt(1 << 2)
-	syncEventSessionNextTextDeltaFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionNextTextDeltaFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionNextTextDeltaFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextTextDelta struct {
-	Type        SyncEventSessionNextTextDeltaType        `json:"type" url:"type"`
-	Name        SyncEventSessionNextTextDeltaName        `json:"name" url:"name"`
-	ID          string                                   `json:"id" url:"id"`
-	Seq         float64                                  `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionNextTextDeltaAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionNextTextDeltaData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextTextDelta) GetType() SyncEventSessionNextTextDeltaType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextTextDelta) GetName() SyncEventSessionNextTextDeltaName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextTextDelta) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextTextDelta) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionNextTextDelta) GetAggregateID() SyncEventSessionNextTextDeltaAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionNextTextDelta) GetData() *SyncEventSessionNextTextDeltaData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionNextTextDelta) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextTextDelta) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextTextDelta) SetType(type_ SyncEventSessionNextTextDeltaType) {
-	s.Type = type_
-	s.require(syncEventSessionNextTextDeltaFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextTextDelta) SetName(name SyncEventSessionNextTextDeltaName) {
-	s.Name = name
-	s.require(syncEventSessionNextTextDeltaFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextTextDelta) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextTextDeltaFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextTextDelta) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionNextTextDeltaFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextTextDelta) SetAggregateID(aggregateID SyncEventSessionNextTextDeltaAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionNextTextDeltaFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextTextDelta) SetData(data *SyncEventSessionNextTextDeltaData) {
-	s.Data = data
-	s.require(syncEventSessionNextTextDeltaFieldData)
-}
-
-func (s *SyncEventSessionNextTextDelta) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextTextDelta
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextTextDelta(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextTextDelta) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextTextDelta
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextTextDelta) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextTextDeltaAggregateID string
-
-const (
-	SyncEventSessionNextTextDeltaAggregateIDSessionID SyncEventSessionNextTextDeltaAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionNextTextDeltaAggregateIDFromString(s string) (SyncEventSessionNextTextDeltaAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionNextTextDeltaAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionNextTextDeltaAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextTextDeltaAggregateID) Ptr() *SyncEventSessionNextTextDeltaAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionNextTextDeltaDataFieldTimestamp = big.NewInt(1 << 0)
-	syncEventSessionNextTextDeltaDataFieldSessionID = big.NewInt(1 << 1)
-	syncEventSessionNextTextDeltaDataFieldDelta     = big.NewInt(1 << 2)
-)
-
-type SyncEventSessionNextTextDeltaData struct {
-	Timestamp float64 `json:"timestamp" url:"timestamp"`
-	SessionID string  `json:"sessionID" url:"sessionID"`
-	Delta     string  `json:"delta" url:"delta"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextTextDeltaData) GetTimestamp() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Timestamp
-}
-
-func (s *SyncEventSessionNextTextDeltaData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionNextTextDeltaData) GetDelta() string {
-	if s == nil {
-		return ""
-	}
-	return s.Delta
-}
-
-func (s *SyncEventSessionNextTextDeltaData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextTextDeltaData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextTextDeltaData) SetTimestamp(timestamp float64) {
-	s.Timestamp = timestamp
-	s.require(syncEventSessionNextTextDeltaDataFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextTextDeltaData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionNextTextDeltaDataFieldSessionID)
-}
-
-// SetDelta sets the Delta field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextTextDeltaData) SetDelta(delta string) {
-	s.Delta = delta
-	s.require(syncEventSessionNextTextDeltaDataFieldDelta)
-}
-
-func (s *SyncEventSessionNextTextDeltaData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextTextDeltaData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextTextDeltaData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextTextDeltaData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextTextDeltaData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextTextDeltaData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextTextDeltaName string
-
-const (
-	SyncEventSessionNextTextDeltaNameSessionNextTextDelta1 SyncEventSessionNextTextDeltaName = "session.next.text.delta.1"
-)
-
-func NewSyncEventSessionNextTextDeltaNameFromString(s string) (SyncEventSessionNextTextDeltaName, error) {
-	switch s {
-	case "session.next.text.delta.1":
-		return SyncEventSessionNextTextDeltaNameSessionNextTextDelta1, nil
-	}
-	var t SyncEventSessionNextTextDeltaName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextTextDeltaName) Ptr() *SyncEventSessionNextTextDeltaName {
-	return &s
-}
-
-type SyncEventSessionNextTextDeltaType string
-
-const (
-	SyncEventSessionNextTextDeltaTypeSync SyncEventSessionNextTextDeltaType = "sync"
-)
-
-func NewSyncEventSessionNextTextDeltaTypeFromString(s string) (SyncEventSessionNextTextDeltaType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionNextTextDeltaTypeSync, nil
-	}
-	var t SyncEventSessionNextTextDeltaType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextTextDeltaType) Ptr() *SyncEventSessionNextTextDeltaType {
-	return &s
-}
-
-var (
-	syncEventSessionNextTextEndedFieldType        = big.NewInt(1 << 0)
-	syncEventSessionNextTextEndedFieldName        = big.NewInt(1 << 1)
-	syncEventSessionNextTextEndedFieldID          = big.NewInt(1 << 2)
-	syncEventSessionNextTextEndedFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionNextTextEndedFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionNextTextEndedFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextTextEnded struct {
-	Type        SyncEventSessionNextTextEndedType        `json:"type" url:"type"`
-	Name        SyncEventSessionNextTextEndedName        `json:"name" url:"name"`
-	ID          string                                   `json:"id" url:"id"`
-	Seq         float64                                  `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionNextTextEndedAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionNextTextEndedData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextTextEnded) GetType() SyncEventSessionNextTextEndedType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextTextEnded) GetName() SyncEventSessionNextTextEndedName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextTextEnded) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextTextEnded) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionNextTextEnded) GetAggregateID() SyncEventSessionNextTextEndedAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionNextTextEnded) GetData() *SyncEventSessionNextTextEndedData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionNextTextEnded) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextTextEnded) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextTextEnded) SetType(type_ SyncEventSessionNextTextEndedType) {
-	s.Type = type_
-	s.require(syncEventSessionNextTextEndedFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextTextEnded) SetName(name SyncEventSessionNextTextEndedName) {
-	s.Name = name
-	s.require(syncEventSessionNextTextEndedFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextTextEnded) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextTextEndedFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextTextEnded) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionNextTextEndedFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextTextEnded) SetAggregateID(aggregateID SyncEventSessionNextTextEndedAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionNextTextEndedFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextTextEnded) SetData(data *SyncEventSessionNextTextEndedData) {
-	s.Data = data
-	s.require(syncEventSessionNextTextEndedFieldData)
-}
-
-func (s *SyncEventSessionNextTextEnded) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextTextEnded
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextTextEnded(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextTextEnded) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextTextEnded
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextTextEnded) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextTextEndedAggregateID string
-
-const (
-	SyncEventSessionNextTextEndedAggregateIDSessionID SyncEventSessionNextTextEndedAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionNextTextEndedAggregateIDFromString(s string) (SyncEventSessionNextTextEndedAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionNextTextEndedAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionNextTextEndedAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextTextEndedAggregateID) Ptr() *SyncEventSessionNextTextEndedAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionNextTextEndedDataFieldTimestamp = big.NewInt(1 << 0)
-	syncEventSessionNextTextEndedDataFieldSessionID = big.NewInt(1 << 1)
-	syncEventSessionNextTextEndedDataFieldText      = big.NewInt(1 << 2)
-)
-
-type SyncEventSessionNextTextEndedData struct {
-	Timestamp float64 `json:"timestamp" url:"timestamp"`
-	SessionID string  `json:"sessionID" url:"sessionID"`
-	Text      string  `json:"text" url:"text"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextTextEndedData) GetTimestamp() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Timestamp
-}
-
-func (s *SyncEventSessionNextTextEndedData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionNextTextEndedData) GetText() string {
-	if s == nil {
-		return ""
-	}
-	return s.Text
-}
-
-func (s *SyncEventSessionNextTextEndedData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextTextEndedData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextTextEndedData) SetTimestamp(timestamp float64) {
-	s.Timestamp = timestamp
-	s.require(syncEventSessionNextTextEndedDataFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextTextEndedData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionNextTextEndedDataFieldSessionID)
-}
-
-// SetText sets the Text field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextTextEndedData) SetText(text string) {
-	s.Text = text
-	s.require(syncEventSessionNextTextEndedDataFieldText)
-}
-
-func (s *SyncEventSessionNextTextEndedData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextTextEndedData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextTextEndedData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextTextEndedData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextTextEndedData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextTextEndedData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextTextEndedName string
-
-const (
-	SyncEventSessionNextTextEndedNameSessionNextTextEnded1 SyncEventSessionNextTextEndedName = "session.next.text.ended.1"
-)
-
-func NewSyncEventSessionNextTextEndedNameFromString(s string) (SyncEventSessionNextTextEndedName, error) {
-	switch s {
-	case "session.next.text.ended.1":
-		return SyncEventSessionNextTextEndedNameSessionNextTextEnded1, nil
-	}
-	var t SyncEventSessionNextTextEndedName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextTextEndedName) Ptr() *SyncEventSessionNextTextEndedName {
-	return &s
-}
-
-type SyncEventSessionNextTextEndedType string
-
-const (
-	SyncEventSessionNextTextEndedTypeSync SyncEventSessionNextTextEndedType = "sync"
-)
-
-func NewSyncEventSessionNextTextEndedTypeFromString(s string) (SyncEventSessionNextTextEndedType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionNextTextEndedTypeSync, nil
-	}
-	var t SyncEventSessionNextTextEndedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextTextEndedType) Ptr() *SyncEventSessionNextTextEndedType {
-	return &s
-}
-
-var (
-	syncEventSessionNextTextStartedFieldType        = big.NewInt(1 << 0)
-	syncEventSessionNextTextStartedFieldName        = big.NewInt(1 << 1)
-	syncEventSessionNextTextStartedFieldID          = big.NewInt(1 << 2)
-	syncEventSessionNextTextStartedFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionNextTextStartedFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionNextTextStartedFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextTextStarted struct {
-	Type        SyncEventSessionNextTextStartedType        `json:"type" url:"type"`
-	Name        SyncEventSessionNextTextStartedName        `json:"name" url:"name"`
-	ID          string                                     `json:"id" url:"id"`
-	Seq         float64                                    `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionNextTextStartedAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionNextTextStartedData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextTextStarted) GetType() SyncEventSessionNextTextStartedType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextTextStarted) GetName() SyncEventSessionNextTextStartedName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextTextStarted) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextTextStarted) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionNextTextStarted) GetAggregateID() SyncEventSessionNextTextStartedAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionNextTextStarted) GetData() *SyncEventSessionNextTextStartedData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionNextTextStarted) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextTextStarted) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextTextStarted) SetType(type_ SyncEventSessionNextTextStartedType) {
-	s.Type = type_
-	s.require(syncEventSessionNextTextStartedFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextTextStarted) SetName(name SyncEventSessionNextTextStartedName) {
-	s.Name = name
-	s.require(syncEventSessionNextTextStartedFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextTextStarted) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextTextStartedFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextTextStarted) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionNextTextStartedFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextTextStarted) SetAggregateID(aggregateID SyncEventSessionNextTextStartedAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionNextTextStartedFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextTextStarted) SetData(data *SyncEventSessionNextTextStartedData) {
-	s.Data = data
-	s.require(syncEventSessionNextTextStartedFieldData)
-}
-
-func (s *SyncEventSessionNextTextStarted) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextTextStarted
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextTextStarted(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextTextStarted) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextTextStarted
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextTextStarted) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextTextStartedAggregateID string
-
-const (
-	SyncEventSessionNextTextStartedAggregateIDSessionID SyncEventSessionNextTextStartedAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionNextTextStartedAggregateIDFromString(s string) (SyncEventSessionNextTextStartedAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionNextTextStartedAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionNextTextStartedAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextTextStartedAggregateID) Ptr() *SyncEventSessionNextTextStartedAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionNextTextStartedDataFieldTimestamp = big.NewInt(1 << 0)
-	syncEventSessionNextTextStartedDataFieldSessionID = big.NewInt(1 << 1)
-)
-
-type SyncEventSessionNextTextStartedData struct {
-	Timestamp float64 `json:"timestamp" url:"timestamp"`
-	SessionID string  `json:"sessionID" url:"sessionID"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextTextStartedData) GetTimestamp() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Timestamp
-}
-
-func (s *SyncEventSessionNextTextStartedData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionNextTextStartedData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextTextStartedData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextTextStartedData) SetTimestamp(timestamp float64) {
-	s.Timestamp = timestamp
-	s.require(syncEventSessionNextTextStartedDataFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextTextStartedData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionNextTextStartedDataFieldSessionID)
-}
-
-func (s *SyncEventSessionNextTextStartedData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextTextStartedData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextTextStartedData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextTextStartedData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextTextStartedData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextTextStartedData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextTextStartedName string
-
-const (
-	SyncEventSessionNextTextStartedNameSessionNextTextStarted1 SyncEventSessionNextTextStartedName = "session.next.text.started.1"
-)
-
-func NewSyncEventSessionNextTextStartedNameFromString(s string) (SyncEventSessionNextTextStartedName, error) {
-	switch s {
-	case "session.next.text.started.1":
-		return SyncEventSessionNextTextStartedNameSessionNextTextStarted1, nil
-	}
-	var t SyncEventSessionNextTextStartedName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextTextStartedName) Ptr() *SyncEventSessionNextTextStartedName {
-	return &s
-}
-
-type SyncEventSessionNextTextStartedType string
-
-const (
-	SyncEventSessionNextTextStartedTypeSync SyncEventSessionNextTextStartedType = "sync"
-)
-
-func NewSyncEventSessionNextTextStartedTypeFromString(s string) (SyncEventSessionNextTextStartedType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionNextTextStartedTypeSync, nil
-	}
-	var t SyncEventSessionNextTextStartedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextTextStartedType) Ptr() *SyncEventSessionNextTextStartedType {
-	return &s
-}
-
-var (
-	syncEventSessionNextToolCalledFieldType        = big.NewInt(1 << 0)
-	syncEventSessionNextToolCalledFieldName        = big.NewInt(1 << 1)
-	syncEventSessionNextToolCalledFieldID          = big.NewInt(1 << 2)
-	syncEventSessionNextToolCalledFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionNextToolCalledFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionNextToolCalledFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextToolCalled struct {
-	Type        SyncEventSessionNextToolCalledType        `json:"type" url:"type"`
-	Name        SyncEventSessionNextToolCalledName        `json:"name" url:"name"`
-	ID          string                                    `json:"id" url:"id"`
-	Seq         float64                                   `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionNextToolCalledAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionNextToolCalledData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextToolCalled) GetType() SyncEventSessionNextToolCalledType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextToolCalled) GetName() SyncEventSessionNextToolCalledName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextToolCalled) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextToolCalled) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionNextToolCalled) GetAggregateID() SyncEventSessionNextToolCalledAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionNextToolCalled) GetData() *SyncEventSessionNextToolCalledData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionNextToolCalled) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextToolCalled) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolCalled) SetType(type_ SyncEventSessionNextToolCalledType) {
-	s.Type = type_
-	s.require(syncEventSessionNextToolCalledFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolCalled) SetName(name SyncEventSessionNextToolCalledName) {
-	s.Name = name
-	s.require(syncEventSessionNextToolCalledFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolCalled) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextToolCalledFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolCalled) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionNextToolCalledFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolCalled) SetAggregateID(aggregateID SyncEventSessionNextToolCalledAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionNextToolCalledFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolCalled) SetData(data *SyncEventSessionNextToolCalledData) {
-	s.Data = data
-	s.require(syncEventSessionNextToolCalledFieldData)
-}
-
-func (s *SyncEventSessionNextToolCalled) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextToolCalled
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextToolCalled(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextToolCalled) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextToolCalled
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextToolCalled) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextToolCalledAggregateID string
-
-const (
-	SyncEventSessionNextToolCalledAggregateIDSessionID SyncEventSessionNextToolCalledAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionNextToolCalledAggregateIDFromString(s string) (SyncEventSessionNextToolCalledAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionNextToolCalledAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionNextToolCalledAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextToolCalledAggregateID) Ptr() *SyncEventSessionNextToolCalledAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionNextToolCalledDataFieldTimestamp = big.NewInt(1 << 0)
-	syncEventSessionNextToolCalledDataFieldSessionID = big.NewInt(1 << 1)
-	syncEventSessionNextToolCalledDataFieldCallID    = big.NewInt(1 << 2)
-	syncEventSessionNextToolCalledDataFieldTool      = big.NewInt(1 << 3)
-	syncEventSessionNextToolCalledDataFieldInput     = big.NewInt(1 << 4)
-	syncEventSessionNextToolCalledDataFieldProvider  = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextToolCalledData struct {
-	Timestamp float64                                     `json:"timestamp" url:"timestamp"`
-	SessionID string                                      `json:"sessionID" url:"sessionID"`
-	CallID    string                                      `json:"callID" url:"callID"`
-	Tool      string                                      `json:"tool" url:"tool"`
-	Input     map[string]any                              `json:"input" url:"input"`
-	Provider  *SyncEventSessionNextToolCalledDataProvider `json:"provider" url:"provider"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextToolCalledData) GetTimestamp() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Timestamp
-}
-
-func (s *SyncEventSessionNextToolCalledData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionNextToolCalledData) GetCallID() string {
-	if s == nil {
-		return ""
-	}
-	return s.CallID
-}
-
-func (s *SyncEventSessionNextToolCalledData) GetTool() string {
-	if s == nil {
-		return ""
-	}
-	return s.Tool
-}
-
-func (s *SyncEventSessionNextToolCalledData) GetInput() map[string]any {
-	if s == nil {
-		return nil
-	}
-	return s.Input
-}
-
-func (s *SyncEventSessionNextToolCalledData) GetProvider() *SyncEventSessionNextToolCalledDataProvider {
-	if s == nil {
-		return nil
-	}
-	return s.Provider
-}
-
-func (s *SyncEventSessionNextToolCalledData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextToolCalledData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolCalledData) SetTimestamp(timestamp float64) {
-	s.Timestamp = timestamp
-	s.require(syncEventSessionNextToolCalledDataFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolCalledData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionNextToolCalledDataFieldSessionID)
-}
-
-// SetCallID sets the CallID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolCalledData) SetCallID(callID string) {
-	s.CallID = callID
-	s.require(syncEventSessionNextToolCalledDataFieldCallID)
-}
-
-// SetTool sets the Tool field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolCalledData) SetTool(tool string) {
-	s.Tool = tool
-	s.require(syncEventSessionNextToolCalledDataFieldTool)
-}
-
-// SetInput sets the Input field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolCalledData) SetInput(input map[string]any) {
-	s.Input = input
-	s.require(syncEventSessionNextToolCalledDataFieldInput)
-}
-
-// SetProvider sets the Provider field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolCalledData) SetProvider(provider *SyncEventSessionNextToolCalledDataProvider) {
-	s.Provider = provider
-	s.require(syncEventSessionNextToolCalledDataFieldProvider)
-}
-
-func (s *SyncEventSessionNextToolCalledData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextToolCalledData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextToolCalledData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextToolCalledData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextToolCalledData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextToolCalledData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-var (
-	syncEventSessionNextToolCalledDataProviderFieldExecuted = big.NewInt(1 << 0)
-	syncEventSessionNextToolCalledDataProviderFieldMetadata = big.NewInt(1 << 1)
-)
-
-type SyncEventSessionNextToolCalledDataProvider struct {
-	Executed bool           `json:"executed" url:"executed"`
-	Metadata map[string]any `json:"metadata,omitempty" url:"metadata,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextToolCalledDataProvider) GetExecuted() bool {
-	if s == nil {
-		return false
-	}
-	return s.Executed
-}
-
-func (s *SyncEventSessionNextToolCalledDataProvider) GetMetadata() map[string]any {
-	if s == nil {
-		return nil
-	}
-	return s.Metadata
-}
-
-func (s *SyncEventSessionNextToolCalledDataProvider) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextToolCalledDataProvider) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetExecuted sets the Executed field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolCalledDataProvider) SetExecuted(executed bool) {
-	s.Executed = executed
-	s.require(syncEventSessionNextToolCalledDataProviderFieldExecuted)
-}
-
-// SetMetadata sets the Metadata field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolCalledDataProvider) SetMetadata(metadata map[string]any) {
-	s.Metadata = metadata
-	s.require(syncEventSessionNextToolCalledDataProviderFieldMetadata)
-}
-
-func (s *SyncEventSessionNextToolCalledDataProvider) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextToolCalledDataProvider
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextToolCalledDataProvider(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextToolCalledDataProvider) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextToolCalledDataProvider
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextToolCalledDataProvider) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextToolCalledName string
-
-const (
-	SyncEventSessionNextToolCalledNameSessionNextToolCalled1 SyncEventSessionNextToolCalledName = "session.next.tool.called.1"
-)
-
-func NewSyncEventSessionNextToolCalledNameFromString(s string) (SyncEventSessionNextToolCalledName, error) {
-	switch s {
-	case "session.next.tool.called.1":
-		return SyncEventSessionNextToolCalledNameSessionNextToolCalled1, nil
-	}
-	var t SyncEventSessionNextToolCalledName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextToolCalledName) Ptr() *SyncEventSessionNextToolCalledName {
-	return &s
-}
-
-type SyncEventSessionNextToolCalledType string
-
-const (
-	SyncEventSessionNextToolCalledTypeSync SyncEventSessionNextToolCalledType = "sync"
-)
-
-func NewSyncEventSessionNextToolCalledTypeFromString(s string) (SyncEventSessionNextToolCalledType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionNextToolCalledTypeSync, nil
-	}
-	var t SyncEventSessionNextToolCalledType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextToolCalledType) Ptr() *SyncEventSessionNextToolCalledType {
-	return &s
-}
-
-var (
-	syncEventSessionNextToolFailedFieldType        = big.NewInt(1 << 0)
-	syncEventSessionNextToolFailedFieldName        = big.NewInt(1 << 1)
-	syncEventSessionNextToolFailedFieldID          = big.NewInt(1 << 2)
-	syncEventSessionNextToolFailedFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionNextToolFailedFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionNextToolFailedFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextToolFailed struct {
-	Type        SyncEventSessionNextToolFailedType        `json:"type" url:"type"`
-	Name        SyncEventSessionNextToolFailedName        `json:"name" url:"name"`
-	ID          string                                    `json:"id" url:"id"`
-	Seq         float64                                   `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionNextToolFailedAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionNextToolFailedData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextToolFailed) GetType() SyncEventSessionNextToolFailedType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextToolFailed) GetName() SyncEventSessionNextToolFailedName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextToolFailed) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextToolFailed) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionNextToolFailed) GetAggregateID() SyncEventSessionNextToolFailedAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionNextToolFailed) GetData() *SyncEventSessionNextToolFailedData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionNextToolFailed) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextToolFailed) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolFailed) SetType(type_ SyncEventSessionNextToolFailedType) {
-	s.Type = type_
-	s.require(syncEventSessionNextToolFailedFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolFailed) SetName(name SyncEventSessionNextToolFailedName) {
-	s.Name = name
-	s.require(syncEventSessionNextToolFailedFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolFailed) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextToolFailedFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolFailed) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionNextToolFailedFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolFailed) SetAggregateID(aggregateID SyncEventSessionNextToolFailedAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionNextToolFailedFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolFailed) SetData(data *SyncEventSessionNextToolFailedData) {
-	s.Data = data
-	s.require(syncEventSessionNextToolFailedFieldData)
-}
-
-func (s *SyncEventSessionNextToolFailed) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextToolFailed
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextToolFailed(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextToolFailed) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextToolFailed
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextToolFailed) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextToolFailedAggregateID string
-
-const (
-	SyncEventSessionNextToolFailedAggregateIDSessionID SyncEventSessionNextToolFailedAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionNextToolFailedAggregateIDFromString(s string) (SyncEventSessionNextToolFailedAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionNextToolFailedAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionNextToolFailedAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextToolFailedAggregateID) Ptr() *SyncEventSessionNextToolFailedAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionNextToolFailedDataFieldTimestamp = big.NewInt(1 << 0)
-	syncEventSessionNextToolFailedDataFieldSessionID = big.NewInt(1 << 1)
-	syncEventSessionNextToolFailedDataFieldCallID    = big.NewInt(1 << 2)
-	syncEventSessionNextToolFailedDataFieldError     = big.NewInt(1 << 3)
-	syncEventSessionNextToolFailedDataFieldProvider  = big.NewInt(1 << 4)
-)
-
-type SyncEventSessionNextToolFailedData struct {
-	Timestamp float64                                     `json:"timestamp" url:"timestamp"`
-	SessionID string                                      `json:"sessionID" url:"sessionID"`
-	CallID    string                                      `json:"callID" url:"callID"`
-	Error     *SessionErrorUnknown                        `json:"error" url:"error"`
-	Provider  *SyncEventSessionNextToolFailedDataProvider `json:"provider" url:"provider"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextToolFailedData) GetTimestamp() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Timestamp
-}
-
-func (s *SyncEventSessionNextToolFailedData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionNextToolFailedData) GetCallID() string {
-	if s == nil {
-		return ""
-	}
-	return s.CallID
-}
-
-func (s *SyncEventSessionNextToolFailedData) GetError() *SessionErrorUnknown {
-	if s == nil {
-		return nil
-	}
-	return s.Error
-}
-
-func (s *SyncEventSessionNextToolFailedData) GetProvider() *SyncEventSessionNextToolFailedDataProvider {
-	if s == nil {
-		return nil
-	}
-	return s.Provider
-}
-
-func (s *SyncEventSessionNextToolFailedData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextToolFailedData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolFailedData) SetTimestamp(timestamp float64) {
-	s.Timestamp = timestamp
-	s.require(syncEventSessionNextToolFailedDataFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolFailedData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionNextToolFailedDataFieldSessionID)
-}
-
-// SetCallID sets the CallID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolFailedData) SetCallID(callID string) {
-	s.CallID = callID
-	s.require(syncEventSessionNextToolFailedDataFieldCallID)
-}
-
-// SetError sets the Error field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolFailedData) SetError(error_ *SessionErrorUnknown) {
-	s.Error = error_
-	s.require(syncEventSessionNextToolFailedDataFieldError)
-}
-
-// SetProvider sets the Provider field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolFailedData) SetProvider(provider *SyncEventSessionNextToolFailedDataProvider) {
-	s.Provider = provider
-	s.require(syncEventSessionNextToolFailedDataFieldProvider)
-}
-
-func (s *SyncEventSessionNextToolFailedData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextToolFailedData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextToolFailedData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextToolFailedData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextToolFailedData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextToolFailedData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-var (
-	syncEventSessionNextToolFailedDataProviderFieldExecuted = big.NewInt(1 << 0)
-	syncEventSessionNextToolFailedDataProviderFieldMetadata = big.NewInt(1 << 1)
-)
-
-type SyncEventSessionNextToolFailedDataProvider struct {
-	Executed bool           `json:"executed" url:"executed"`
-	Metadata map[string]any `json:"metadata,omitempty" url:"metadata,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextToolFailedDataProvider) GetExecuted() bool {
-	if s == nil {
-		return false
-	}
-	return s.Executed
-}
-
-func (s *SyncEventSessionNextToolFailedDataProvider) GetMetadata() map[string]any {
-	if s == nil {
-		return nil
-	}
-	return s.Metadata
-}
-
-func (s *SyncEventSessionNextToolFailedDataProvider) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextToolFailedDataProvider) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetExecuted sets the Executed field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolFailedDataProvider) SetExecuted(executed bool) {
-	s.Executed = executed
-	s.require(syncEventSessionNextToolFailedDataProviderFieldExecuted)
-}
-
-// SetMetadata sets the Metadata field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolFailedDataProvider) SetMetadata(metadata map[string]any) {
-	s.Metadata = metadata
-	s.require(syncEventSessionNextToolFailedDataProviderFieldMetadata)
-}
-
-func (s *SyncEventSessionNextToolFailedDataProvider) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextToolFailedDataProvider
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextToolFailedDataProvider(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextToolFailedDataProvider) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextToolFailedDataProvider
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextToolFailedDataProvider) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextToolFailedName string
-
-const (
-	SyncEventSessionNextToolFailedNameSessionNextToolFailed1 SyncEventSessionNextToolFailedName = "session.next.tool.failed.1"
-)
-
-func NewSyncEventSessionNextToolFailedNameFromString(s string) (SyncEventSessionNextToolFailedName, error) {
-	switch s {
-	case "session.next.tool.failed.1":
-		return SyncEventSessionNextToolFailedNameSessionNextToolFailed1, nil
-	}
-	var t SyncEventSessionNextToolFailedName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextToolFailedName) Ptr() *SyncEventSessionNextToolFailedName {
-	return &s
-}
-
-type SyncEventSessionNextToolFailedType string
-
-const (
-	SyncEventSessionNextToolFailedTypeSync SyncEventSessionNextToolFailedType = "sync"
-)
-
-func NewSyncEventSessionNextToolFailedTypeFromString(s string) (SyncEventSessionNextToolFailedType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionNextToolFailedTypeSync, nil
-	}
-	var t SyncEventSessionNextToolFailedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextToolFailedType) Ptr() *SyncEventSessionNextToolFailedType {
-	return &s
-}
-
-var (
-	syncEventSessionNextToolInputDeltaFieldType        = big.NewInt(1 << 0)
-	syncEventSessionNextToolInputDeltaFieldName        = big.NewInt(1 << 1)
-	syncEventSessionNextToolInputDeltaFieldID          = big.NewInt(1 << 2)
-	syncEventSessionNextToolInputDeltaFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionNextToolInputDeltaFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionNextToolInputDeltaFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextToolInputDelta struct {
-	Type        SyncEventSessionNextToolInputDeltaType        `json:"type" url:"type"`
-	Name        SyncEventSessionNextToolInputDeltaName        `json:"name" url:"name"`
-	ID          string                                        `json:"id" url:"id"`
-	Seq         float64                                       `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionNextToolInputDeltaAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionNextToolInputDeltaData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextToolInputDelta) GetType() SyncEventSessionNextToolInputDeltaType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextToolInputDelta) GetName() SyncEventSessionNextToolInputDeltaName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextToolInputDelta) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextToolInputDelta) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionNextToolInputDelta) GetAggregateID() SyncEventSessionNextToolInputDeltaAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionNextToolInputDelta) GetData() *SyncEventSessionNextToolInputDeltaData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionNextToolInputDelta) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextToolInputDelta) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputDelta) SetType(type_ SyncEventSessionNextToolInputDeltaType) {
-	s.Type = type_
-	s.require(syncEventSessionNextToolInputDeltaFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputDelta) SetName(name SyncEventSessionNextToolInputDeltaName) {
-	s.Name = name
-	s.require(syncEventSessionNextToolInputDeltaFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputDelta) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextToolInputDeltaFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputDelta) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionNextToolInputDeltaFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputDelta) SetAggregateID(aggregateID SyncEventSessionNextToolInputDeltaAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionNextToolInputDeltaFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputDelta) SetData(data *SyncEventSessionNextToolInputDeltaData) {
-	s.Data = data
-	s.require(syncEventSessionNextToolInputDeltaFieldData)
-}
-
-func (s *SyncEventSessionNextToolInputDelta) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextToolInputDelta
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextToolInputDelta(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextToolInputDelta) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextToolInputDelta
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextToolInputDelta) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextToolInputDeltaAggregateID string
-
-const (
-	SyncEventSessionNextToolInputDeltaAggregateIDSessionID SyncEventSessionNextToolInputDeltaAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionNextToolInputDeltaAggregateIDFromString(s string) (SyncEventSessionNextToolInputDeltaAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionNextToolInputDeltaAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionNextToolInputDeltaAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextToolInputDeltaAggregateID) Ptr() *SyncEventSessionNextToolInputDeltaAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionNextToolInputDeltaDataFieldTimestamp = big.NewInt(1 << 0)
-	syncEventSessionNextToolInputDeltaDataFieldSessionID = big.NewInt(1 << 1)
-	syncEventSessionNextToolInputDeltaDataFieldCallID    = big.NewInt(1 << 2)
-	syncEventSessionNextToolInputDeltaDataFieldDelta     = big.NewInt(1 << 3)
-)
-
-type SyncEventSessionNextToolInputDeltaData struct {
-	Timestamp float64 `json:"timestamp" url:"timestamp"`
-	SessionID string  `json:"sessionID" url:"sessionID"`
-	CallID    string  `json:"callID" url:"callID"`
-	Delta     string  `json:"delta" url:"delta"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextToolInputDeltaData) GetTimestamp() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Timestamp
-}
-
-func (s *SyncEventSessionNextToolInputDeltaData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionNextToolInputDeltaData) GetCallID() string {
-	if s == nil {
-		return ""
-	}
-	return s.CallID
-}
-
-func (s *SyncEventSessionNextToolInputDeltaData) GetDelta() string {
-	if s == nil {
-		return ""
-	}
-	return s.Delta
-}
-
-func (s *SyncEventSessionNextToolInputDeltaData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextToolInputDeltaData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputDeltaData) SetTimestamp(timestamp float64) {
-	s.Timestamp = timestamp
-	s.require(syncEventSessionNextToolInputDeltaDataFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputDeltaData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionNextToolInputDeltaDataFieldSessionID)
-}
-
-// SetCallID sets the CallID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputDeltaData) SetCallID(callID string) {
-	s.CallID = callID
-	s.require(syncEventSessionNextToolInputDeltaDataFieldCallID)
-}
-
-// SetDelta sets the Delta field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputDeltaData) SetDelta(delta string) {
-	s.Delta = delta
-	s.require(syncEventSessionNextToolInputDeltaDataFieldDelta)
-}
-
-func (s *SyncEventSessionNextToolInputDeltaData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextToolInputDeltaData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextToolInputDeltaData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextToolInputDeltaData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextToolInputDeltaData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextToolInputDeltaData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextToolInputDeltaName string
-
-const (
-	SyncEventSessionNextToolInputDeltaNameSessionNextToolInputDelta1 SyncEventSessionNextToolInputDeltaName = "session.next.tool.input.delta.1"
-)
-
-func NewSyncEventSessionNextToolInputDeltaNameFromString(s string) (SyncEventSessionNextToolInputDeltaName, error) {
-	switch s {
-	case "session.next.tool.input.delta.1":
-		return SyncEventSessionNextToolInputDeltaNameSessionNextToolInputDelta1, nil
-	}
-	var t SyncEventSessionNextToolInputDeltaName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextToolInputDeltaName) Ptr() *SyncEventSessionNextToolInputDeltaName {
-	return &s
-}
-
-type SyncEventSessionNextToolInputDeltaType string
-
-const (
-	SyncEventSessionNextToolInputDeltaTypeSync SyncEventSessionNextToolInputDeltaType = "sync"
-)
-
-func NewSyncEventSessionNextToolInputDeltaTypeFromString(s string) (SyncEventSessionNextToolInputDeltaType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionNextToolInputDeltaTypeSync, nil
-	}
-	var t SyncEventSessionNextToolInputDeltaType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextToolInputDeltaType) Ptr() *SyncEventSessionNextToolInputDeltaType {
-	return &s
-}
-
-var (
-	syncEventSessionNextToolInputEndedFieldType        = big.NewInt(1 << 0)
-	syncEventSessionNextToolInputEndedFieldName        = big.NewInt(1 << 1)
-	syncEventSessionNextToolInputEndedFieldID          = big.NewInt(1 << 2)
-	syncEventSessionNextToolInputEndedFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionNextToolInputEndedFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionNextToolInputEndedFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextToolInputEnded struct {
-	Type        SyncEventSessionNextToolInputEndedType        `json:"type" url:"type"`
-	Name        SyncEventSessionNextToolInputEndedName        `json:"name" url:"name"`
-	ID          string                                        `json:"id" url:"id"`
-	Seq         float64                                       `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionNextToolInputEndedAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionNextToolInputEndedData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextToolInputEnded) GetType() SyncEventSessionNextToolInputEndedType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextToolInputEnded) GetName() SyncEventSessionNextToolInputEndedName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextToolInputEnded) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextToolInputEnded) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionNextToolInputEnded) GetAggregateID() SyncEventSessionNextToolInputEndedAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionNextToolInputEnded) GetData() *SyncEventSessionNextToolInputEndedData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionNextToolInputEnded) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextToolInputEnded) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputEnded) SetType(type_ SyncEventSessionNextToolInputEndedType) {
-	s.Type = type_
-	s.require(syncEventSessionNextToolInputEndedFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputEnded) SetName(name SyncEventSessionNextToolInputEndedName) {
-	s.Name = name
-	s.require(syncEventSessionNextToolInputEndedFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputEnded) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextToolInputEndedFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputEnded) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionNextToolInputEndedFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputEnded) SetAggregateID(aggregateID SyncEventSessionNextToolInputEndedAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionNextToolInputEndedFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputEnded) SetData(data *SyncEventSessionNextToolInputEndedData) {
-	s.Data = data
-	s.require(syncEventSessionNextToolInputEndedFieldData)
-}
-
-func (s *SyncEventSessionNextToolInputEnded) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextToolInputEnded
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextToolInputEnded(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextToolInputEnded) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextToolInputEnded
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextToolInputEnded) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextToolInputEndedAggregateID string
-
-const (
-	SyncEventSessionNextToolInputEndedAggregateIDSessionID SyncEventSessionNextToolInputEndedAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionNextToolInputEndedAggregateIDFromString(s string) (SyncEventSessionNextToolInputEndedAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionNextToolInputEndedAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionNextToolInputEndedAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextToolInputEndedAggregateID) Ptr() *SyncEventSessionNextToolInputEndedAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionNextToolInputEndedDataFieldTimestamp = big.NewInt(1 << 0)
-	syncEventSessionNextToolInputEndedDataFieldSessionID = big.NewInt(1 << 1)
-	syncEventSessionNextToolInputEndedDataFieldCallID    = big.NewInt(1 << 2)
-	syncEventSessionNextToolInputEndedDataFieldText      = big.NewInt(1 << 3)
-)
-
-type SyncEventSessionNextToolInputEndedData struct {
-	Timestamp float64 `json:"timestamp" url:"timestamp"`
-	SessionID string  `json:"sessionID" url:"sessionID"`
-	CallID    string  `json:"callID" url:"callID"`
-	Text      string  `json:"text" url:"text"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextToolInputEndedData) GetTimestamp() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Timestamp
-}
-
-func (s *SyncEventSessionNextToolInputEndedData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionNextToolInputEndedData) GetCallID() string {
-	if s == nil {
-		return ""
-	}
-	return s.CallID
-}
-
-func (s *SyncEventSessionNextToolInputEndedData) GetText() string {
-	if s == nil {
-		return ""
-	}
-	return s.Text
-}
-
-func (s *SyncEventSessionNextToolInputEndedData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextToolInputEndedData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputEndedData) SetTimestamp(timestamp float64) {
-	s.Timestamp = timestamp
-	s.require(syncEventSessionNextToolInputEndedDataFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputEndedData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionNextToolInputEndedDataFieldSessionID)
-}
-
-// SetCallID sets the CallID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputEndedData) SetCallID(callID string) {
-	s.CallID = callID
-	s.require(syncEventSessionNextToolInputEndedDataFieldCallID)
-}
-
-// SetText sets the Text field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputEndedData) SetText(text string) {
-	s.Text = text
-	s.require(syncEventSessionNextToolInputEndedDataFieldText)
-}
-
-func (s *SyncEventSessionNextToolInputEndedData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextToolInputEndedData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextToolInputEndedData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextToolInputEndedData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextToolInputEndedData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextToolInputEndedData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextToolInputEndedName string
-
-const (
-	SyncEventSessionNextToolInputEndedNameSessionNextToolInputEnded1 SyncEventSessionNextToolInputEndedName = "session.next.tool.input.ended.1"
-)
-
-func NewSyncEventSessionNextToolInputEndedNameFromString(s string) (SyncEventSessionNextToolInputEndedName, error) {
-	switch s {
-	case "session.next.tool.input.ended.1":
-		return SyncEventSessionNextToolInputEndedNameSessionNextToolInputEnded1, nil
-	}
-	var t SyncEventSessionNextToolInputEndedName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextToolInputEndedName) Ptr() *SyncEventSessionNextToolInputEndedName {
-	return &s
-}
-
-type SyncEventSessionNextToolInputEndedType string
-
-const (
-	SyncEventSessionNextToolInputEndedTypeSync SyncEventSessionNextToolInputEndedType = "sync"
-)
-
-func NewSyncEventSessionNextToolInputEndedTypeFromString(s string) (SyncEventSessionNextToolInputEndedType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionNextToolInputEndedTypeSync, nil
-	}
-	var t SyncEventSessionNextToolInputEndedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextToolInputEndedType) Ptr() *SyncEventSessionNextToolInputEndedType {
-	return &s
-}
-
-var (
-	syncEventSessionNextToolInputStartedFieldType        = big.NewInt(1 << 0)
-	syncEventSessionNextToolInputStartedFieldName        = big.NewInt(1 << 1)
-	syncEventSessionNextToolInputStartedFieldID          = big.NewInt(1 << 2)
-	syncEventSessionNextToolInputStartedFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionNextToolInputStartedFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionNextToolInputStartedFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextToolInputStarted struct {
-	Type        SyncEventSessionNextToolInputStartedType        `json:"type" url:"type"`
-	Name        SyncEventSessionNextToolInputStartedName        `json:"name" url:"name"`
-	ID          string                                          `json:"id" url:"id"`
-	Seq         float64                                         `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionNextToolInputStartedAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionNextToolInputStartedData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextToolInputStarted) GetType() SyncEventSessionNextToolInputStartedType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextToolInputStarted) GetName() SyncEventSessionNextToolInputStartedName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextToolInputStarted) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextToolInputStarted) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionNextToolInputStarted) GetAggregateID() SyncEventSessionNextToolInputStartedAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionNextToolInputStarted) GetData() *SyncEventSessionNextToolInputStartedData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionNextToolInputStarted) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextToolInputStarted) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputStarted) SetType(type_ SyncEventSessionNextToolInputStartedType) {
-	s.Type = type_
-	s.require(syncEventSessionNextToolInputStartedFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputStarted) SetName(name SyncEventSessionNextToolInputStartedName) {
-	s.Name = name
-	s.require(syncEventSessionNextToolInputStartedFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputStarted) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextToolInputStartedFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputStarted) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionNextToolInputStartedFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputStarted) SetAggregateID(aggregateID SyncEventSessionNextToolInputStartedAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionNextToolInputStartedFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputStarted) SetData(data *SyncEventSessionNextToolInputStartedData) {
-	s.Data = data
-	s.require(syncEventSessionNextToolInputStartedFieldData)
-}
-
-func (s *SyncEventSessionNextToolInputStarted) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextToolInputStarted
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextToolInputStarted(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextToolInputStarted) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextToolInputStarted
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextToolInputStarted) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextToolInputStartedAggregateID string
-
-const (
-	SyncEventSessionNextToolInputStartedAggregateIDSessionID SyncEventSessionNextToolInputStartedAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionNextToolInputStartedAggregateIDFromString(s string) (SyncEventSessionNextToolInputStartedAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionNextToolInputStartedAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionNextToolInputStartedAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextToolInputStartedAggregateID) Ptr() *SyncEventSessionNextToolInputStartedAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionNextToolInputStartedDataFieldTimestamp = big.NewInt(1 << 0)
-	syncEventSessionNextToolInputStartedDataFieldSessionID = big.NewInt(1 << 1)
-	syncEventSessionNextToolInputStartedDataFieldCallID    = big.NewInt(1 << 2)
-	syncEventSessionNextToolInputStartedDataFieldName      = big.NewInt(1 << 3)
-)
-
-type SyncEventSessionNextToolInputStartedData struct {
-	Timestamp float64 `json:"timestamp" url:"timestamp"`
-	SessionID string  `json:"sessionID" url:"sessionID"`
-	CallID    string  `json:"callID" url:"callID"`
-	Name      string  `json:"name" url:"name"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextToolInputStartedData) GetTimestamp() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Timestamp
-}
-
-func (s *SyncEventSessionNextToolInputStartedData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionNextToolInputStartedData) GetCallID() string {
-	if s == nil {
-		return ""
-	}
-	return s.CallID
-}
-
-func (s *SyncEventSessionNextToolInputStartedData) GetName() string {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextToolInputStartedData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextToolInputStartedData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputStartedData) SetTimestamp(timestamp float64) {
-	s.Timestamp = timestamp
-	s.require(syncEventSessionNextToolInputStartedDataFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputStartedData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionNextToolInputStartedDataFieldSessionID)
-}
-
-// SetCallID sets the CallID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputStartedData) SetCallID(callID string) {
-	s.CallID = callID
-	s.require(syncEventSessionNextToolInputStartedDataFieldCallID)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolInputStartedData) SetName(name string) {
-	s.Name = name
-	s.require(syncEventSessionNextToolInputStartedDataFieldName)
-}
-
-func (s *SyncEventSessionNextToolInputStartedData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextToolInputStartedData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextToolInputStartedData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextToolInputStartedData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextToolInputStartedData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextToolInputStartedData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextToolInputStartedName string
-
-const (
-	SyncEventSessionNextToolInputStartedNameSessionNextToolInputStarted1 SyncEventSessionNextToolInputStartedName = "session.next.tool.input.started.1"
-)
-
-func NewSyncEventSessionNextToolInputStartedNameFromString(s string) (SyncEventSessionNextToolInputStartedName, error) {
-	switch s {
-	case "session.next.tool.input.started.1":
-		return SyncEventSessionNextToolInputStartedNameSessionNextToolInputStarted1, nil
-	}
-	var t SyncEventSessionNextToolInputStartedName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextToolInputStartedName) Ptr() *SyncEventSessionNextToolInputStartedName {
-	return &s
-}
-
-type SyncEventSessionNextToolInputStartedType string
-
-const (
-	SyncEventSessionNextToolInputStartedTypeSync SyncEventSessionNextToolInputStartedType = "sync"
-)
-
-func NewSyncEventSessionNextToolInputStartedTypeFromString(s string) (SyncEventSessionNextToolInputStartedType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionNextToolInputStartedTypeSync, nil
-	}
-	var t SyncEventSessionNextToolInputStartedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextToolInputStartedType) Ptr() *SyncEventSessionNextToolInputStartedType {
-	return &s
-}
-
-var (
-	syncEventSessionNextToolProgressFieldType        = big.NewInt(1 << 0)
-	syncEventSessionNextToolProgressFieldName        = big.NewInt(1 << 1)
-	syncEventSessionNextToolProgressFieldID          = big.NewInt(1 << 2)
-	syncEventSessionNextToolProgressFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionNextToolProgressFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionNextToolProgressFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextToolProgress struct {
-	Type        SyncEventSessionNextToolProgressType        `json:"type" url:"type"`
-	Name        SyncEventSessionNextToolProgressName        `json:"name" url:"name"`
-	ID          string                                      `json:"id" url:"id"`
-	Seq         float64                                     `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionNextToolProgressAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionNextToolProgressData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextToolProgress) GetType() SyncEventSessionNextToolProgressType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextToolProgress) GetName() SyncEventSessionNextToolProgressName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextToolProgress) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextToolProgress) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionNextToolProgress) GetAggregateID() SyncEventSessionNextToolProgressAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionNextToolProgress) GetData() *SyncEventSessionNextToolProgressData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionNextToolProgress) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextToolProgress) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolProgress) SetType(type_ SyncEventSessionNextToolProgressType) {
-	s.Type = type_
-	s.require(syncEventSessionNextToolProgressFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolProgress) SetName(name SyncEventSessionNextToolProgressName) {
-	s.Name = name
-	s.require(syncEventSessionNextToolProgressFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolProgress) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextToolProgressFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolProgress) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionNextToolProgressFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolProgress) SetAggregateID(aggregateID SyncEventSessionNextToolProgressAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionNextToolProgressFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolProgress) SetData(data *SyncEventSessionNextToolProgressData) {
-	s.Data = data
-	s.require(syncEventSessionNextToolProgressFieldData)
-}
-
-func (s *SyncEventSessionNextToolProgress) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextToolProgress
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextToolProgress(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextToolProgress) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextToolProgress
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextToolProgress) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextToolProgressAggregateID string
-
-const (
-	SyncEventSessionNextToolProgressAggregateIDSessionID SyncEventSessionNextToolProgressAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionNextToolProgressAggregateIDFromString(s string) (SyncEventSessionNextToolProgressAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionNextToolProgressAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionNextToolProgressAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextToolProgressAggregateID) Ptr() *SyncEventSessionNextToolProgressAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionNextToolProgressDataFieldTimestamp  = big.NewInt(1 << 0)
-	syncEventSessionNextToolProgressDataFieldSessionID  = big.NewInt(1 << 1)
-	syncEventSessionNextToolProgressDataFieldCallID     = big.NewInt(1 << 2)
-	syncEventSessionNextToolProgressDataFieldStructured = big.NewInt(1 << 3)
-	syncEventSessionNextToolProgressDataFieldContent    = big.NewInt(1 << 4)
-)
-
-type SyncEventSessionNextToolProgressData struct {
-	Timestamp  float64                                            `json:"timestamp" url:"timestamp"`
-	SessionID  string                                             `json:"sessionID" url:"sessionID"`
-	CallID     string                                             `json:"callID" url:"callID"`
-	Structured map[string]any                                     `json:"structured" url:"structured"`
-	Content    []*SyncEventSessionNextToolProgressDataContentItem `json:"content" url:"content"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextToolProgressData) GetTimestamp() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Timestamp
-}
-
-func (s *SyncEventSessionNextToolProgressData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionNextToolProgressData) GetCallID() string {
-	if s == nil {
-		return ""
-	}
-	return s.CallID
-}
-
-func (s *SyncEventSessionNextToolProgressData) GetStructured() map[string]any {
-	if s == nil {
-		return nil
-	}
-	return s.Structured
-}
-
-func (s *SyncEventSessionNextToolProgressData) GetContent() []*SyncEventSessionNextToolProgressDataContentItem {
-	if s == nil {
-		return nil
-	}
-	return s.Content
-}
-
-func (s *SyncEventSessionNextToolProgressData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextToolProgressData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolProgressData) SetTimestamp(timestamp float64) {
-	s.Timestamp = timestamp
-	s.require(syncEventSessionNextToolProgressDataFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolProgressData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionNextToolProgressDataFieldSessionID)
-}
-
-// SetCallID sets the CallID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolProgressData) SetCallID(callID string) {
-	s.CallID = callID
-	s.require(syncEventSessionNextToolProgressDataFieldCallID)
-}
-
-// SetStructured sets the Structured field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolProgressData) SetStructured(structured map[string]any) {
-	s.Structured = structured
-	s.require(syncEventSessionNextToolProgressDataFieldStructured)
-}
-
-// SetContent sets the Content field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolProgressData) SetContent(content []*SyncEventSessionNextToolProgressDataContentItem) {
-	s.Content = content
-	s.require(syncEventSessionNextToolProgressDataFieldContent)
-}
-
-func (s *SyncEventSessionNextToolProgressData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextToolProgressData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextToolProgressData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextToolProgressData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextToolProgressData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextToolProgressData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextToolProgressDataContentItem struct {
-	Type string
-	Text *ToolTextContent
-	File *ToolFileContent
-}
-
-func (s *SyncEventSessionNextToolProgressDataContentItem) GetType() string {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextToolProgressDataContentItem) GetText() *ToolTextContent {
-	if s == nil {
-		return nil
-	}
-	return s.Text
-}
-
-func (s *SyncEventSessionNextToolProgressDataContentItem) GetFile() *ToolFileContent {
-	if s == nil {
-		return nil
-	}
-	return s.File
-}
-
-func (s *SyncEventSessionNextToolProgressDataContentItem) UnmarshalJSON(data []byte) error {
-	var unmarshaler struct {
-		Type string `json:"type"`
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
-		return err
-	}
-	s.Type = unmarshaler.Type
-	if unmarshaler.Type == "" {
-		return fmt.Errorf("%T did not include discriminant type", s)
-	}
-	switch unmarshaler.Type {
-	case "text":
-		value := new(ToolTextContent)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		s.Text = value
-	case "file":
-		value := new(ToolFileContent)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		s.File = value
-	}
-	return nil
-}
-
-func (s SyncEventSessionNextToolProgressDataContentItem) MarshalJSON() ([]byte, error) {
-	if err := s.validate(); err != nil {
-		return nil, err
-	}
-	if s.Text != nil {
-		return internal.MarshalJSONWithExtraProperty(s.Text, "type", "text")
-	}
-	if s.File != nil {
-		return internal.MarshalJSONWithExtraProperty(s.File, "type", "file")
-	}
-	return nil, fmt.Errorf("type %T does not define a non-empty union type", s)
-}
-
-type SyncEventSessionNextToolProgressDataContentItemVisitor interface {
-	VisitText(*ToolTextContent) error
-	VisitFile(*ToolFileContent) error
-}
-
-func (s *SyncEventSessionNextToolProgressDataContentItem) Accept(visitor SyncEventSessionNextToolProgressDataContentItemVisitor) error {
-	if s.Text != nil {
-		return visitor.VisitText(s.Text)
-	}
-	if s.File != nil {
-		return visitor.VisitFile(s.File)
-	}
-	return fmt.Errorf("type %T does not define a non-empty union type", s)
-}
-
-func (s *SyncEventSessionNextToolProgressDataContentItem) validate() error {
-	if s == nil {
-		return fmt.Errorf("type %T is nil", s)
-	}
-	var fields []string
-	if s.Text != nil {
-		fields = append(fields, "text")
-	}
-	if s.File != nil {
-		fields = append(fields, "file")
-	}
-	if len(fields) == 0 {
-		if s.Type != "" {
-			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", s, s.Type)
-		}
-		return fmt.Errorf("type %T is empty", s)
-	}
-	if len(fields) > 1 {
-		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", s, fields)
-	}
-	if s.Type != "" {
-		field := fields[0]
-		if s.Type != field {
-			return fmt.Errorf(
-				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
-				s,
-				s.Type,
-				s,
-			)
-		}
-	}
-	return nil
-}
-
-type SyncEventSessionNextToolProgressName string
-
-const (
-	SyncEventSessionNextToolProgressNameSessionNextToolProgress1 SyncEventSessionNextToolProgressName = "session.next.tool.progress.1"
-)
-
-func NewSyncEventSessionNextToolProgressNameFromString(s string) (SyncEventSessionNextToolProgressName, error) {
-	switch s {
-	case "session.next.tool.progress.1":
-		return SyncEventSessionNextToolProgressNameSessionNextToolProgress1, nil
-	}
-	var t SyncEventSessionNextToolProgressName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextToolProgressName) Ptr() *SyncEventSessionNextToolProgressName {
-	return &s
-}
-
-type SyncEventSessionNextToolProgressType string
-
-const (
-	SyncEventSessionNextToolProgressTypeSync SyncEventSessionNextToolProgressType = "sync"
-)
-
-func NewSyncEventSessionNextToolProgressTypeFromString(s string) (SyncEventSessionNextToolProgressType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionNextToolProgressTypeSync, nil
-	}
-	var t SyncEventSessionNextToolProgressType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextToolProgressType) Ptr() *SyncEventSessionNextToolProgressType {
-	return &s
-}
-
-var (
-	syncEventSessionNextToolSuccessFieldType        = big.NewInt(1 << 0)
-	syncEventSessionNextToolSuccessFieldName        = big.NewInt(1 << 1)
-	syncEventSessionNextToolSuccessFieldID          = big.NewInt(1 << 2)
-	syncEventSessionNextToolSuccessFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionNextToolSuccessFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionNextToolSuccessFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextToolSuccess struct {
-	Type        SyncEventSessionNextToolSuccessType        `json:"type" url:"type"`
-	Name        SyncEventSessionNextToolSuccessName        `json:"name" url:"name"`
-	ID          string                                     `json:"id" url:"id"`
-	Seq         float64                                    `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionNextToolSuccessAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionNextToolSuccessData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextToolSuccess) GetType() SyncEventSessionNextToolSuccessType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextToolSuccess) GetName() SyncEventSessionNextToolSuccessName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionNextToolSuccess) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionNextToolSuccess) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionNextToolSuccess) GetAggregateID() SyncEventSessionNextToolSuccessAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionNextToolSuccess) GetData() *SyncEventSessionNextToolSuccessData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionNextToolSuccess) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextToolSuccess) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolSuccess) SetType(type_ SyncEventSessionNextToolSuccessType) {
-	s.Type = type_
-	s.require(syncEventSessionNextToolSuccessFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolSuccess) SetName(name SyncEventSessionNextToolSuccessName) {
-	s.Name = name
-	s.require(syncEventSessionNextToolSuccessFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolSuccess) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionNextToolSuccessFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolSuccess) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionNextToolSuccessFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolSuccess) SetAggregateID(aggregateID SyncEventSessionNextToolSuccessAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionNextToolSuccessFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolSuccess) SetData(data *SyncEventSessionNextToolSuccessData) {
-	s.Data = data
-	s.require(syncEventSessionNextToolSuccessFieldData)
-}
-
-func (s *SyncEventSessionNextToolSuccess) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextToolSuccess
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextToolSuccess(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextToolSuccess) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextToolSuccess
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextToolSuccess) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextToolSuccessAggregateID string
-
-const (
-	SyncEventSessionNextToolSuccessAggregateIDSessionID SyncEventSessionNextToolSuccessAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionNextToolSuccessAggregateIDFromString(s string) (SyncEventSessionNextToolSuccessAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionNextToolSuccessAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionNextToolSuccessAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextToolSuccessAggregateID) Ptr() *SyncEventSessionNextToolSuccessAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionNextToolSuccessDataFieldTimestamp  = big.NewInt(1 << 0)
-	syncEventSessionNextToolSuccessDataFieldSessionID  = big.NewInt(1 << 1)
-	syncEventSessionNextToolSuccessDataFieldCallID     = big.NewInt(1 << 2)
-	syncEventSessionNextToolSuccessDataFieldStructured = big.NewInt(1 << 3)
-	syncEventSessionNextToolSuccessDataFieldContent    = big.NewInt(1 << 4)
-	syncEventSessionNextToolSuccessDataFieldProvider   = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionNextToolSuccessData struct {
-	Timestamp  float64                                           `json:"timestamp" url:"timestamp"`
-	SessionID  string                                            `json:"sessionID" url:"sessionID"`
-	CallID     string                                            `json:"callID" url:"callID"`
-	Structured map[string]any                                    `json:"structured" url:"structured"`
-	Content    []*SyncEventSessionNextToolSuccessDataContentItem `json:"content" url:"content"`
-	Provider   *SyncEventSessionNextToolSuccessDataProvider      `json:"provider" url:"provider"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextToolSuccessData) GetTimestamp() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Timestamp
-}
-
-func (s *SyncEventSessionNextToolSuccessData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionNextToolSuccessData) GetCallID() string {
-	if s == nil {
-		return ""
-	}
-	return s.CallID
-}
-
-func (s *SyncEventSessionNextToolSuccessData) GetStructured() map[string]any {
-	if s == nil {
-		return nil
-	}
-	return s.Structured
-}
-
-func (s *SyncEventSessionNextToolSuccessData) GetContent() []*SyncEventSessionNextToolSuccessDataContentItem {
-	if s == nil {
-		return nil
-	}
-	return s.Content
-}
-
-func (s *SyncEventSessionNextToolSuccessData) GetProvider() *SyncEventSessionNextToolSuccessDataProvider {
-	if s == nil {
-		return nil
-	}
-	return s.Provider
-}
-
-func (s *SyncEventSessionNextToolSuccessData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextToolSuccessData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolSuccessData) SetTimestamp(timestamp float64) {
-	s.Timestamp = timestamp
-	s.require(syncEventSessionNextToolSuccessDataFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolSuccessData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionNextToolSuccessDataFieldSessionID)
-}
-
-// SetCallID sets the CallID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolSuccessData) SetCallID(callID string) {
-	s.CallID = callID
-	s.require(syncEventSessionNextToolSuccessDataFieldCallID)
-}
-
-// SetStructured sets the Structured field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolSuccessData) SetStructured(structured map[string]any) {
-	s.Structured = structured
-	s.require(syncEventSessionNextToolSuccessDataFieldStructured)
-}
-
-// SetContent sets the Content field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolSuccessData) SetContent(content []*SyncEventSessionNextToolSuccessDataContentItem) {
-	s.Content = content
-	s.require(syncEventSessionNextToolSuccessDataFieldContent)
-}
-
-// SetProvider sets the Provider field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolSuccessData) SetProvider(provider *SyncEventSessionNextToolSuccessDataProvider) {
-	s.Provider = provider
-	s.require(syncEventSessionNextToolSuccessDataFieldProvider)
-}
-
-func (s *SyncEventSessionNextToolSuccessData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextToolSuccessData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextToolSuccessData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextToolSuccessData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextToolSuccessData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextToolSuccessData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextToolSuccessDataContentItem struct {
-	Type string
-	Text *ToolTextContent
-	File *ToolFileContent
-}
-
-func (s *SyncEventSessionNextToolSuccessDataContentItem) GetType() string {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionNextToolSuccessDataContentItem) GetText() *ToolTextContent {
-	if s == nil {
-		return nil
-	}
-	return s.Text
-}
-
-func (s *SyncEventSessionNextToolSuccessDataContentItem) GetFile() *ToolFileContent {
-	if s == nil {
-		return nil
-	}
-	return s.File
-}
-
-func (s *SyncEventSessionNextToolSuccessDataContentItem) UnmarshalJSON(data []byte) error {
-	var unmarshaler struct {
-		Type string `json:"type"`
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
-		return err
-	}
-	s.Type = unmarshaler.Type
-	if unmarshaler.Type == "" {
-		return fmt.Errorf("%T did not include discriminant type", s)
-	}
-	switch unmarshaler.Type {
-	case "text":
-		value := new(ToolTextContent)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		s.Text = value
-	case "file":
-		value := new(ToolFileContent)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		s.File = value
-	}
-	return nil
-}
-
-func (s SyncEventSessionNextToolSuccessDataContentItem) MarshalJSON() ([]byte, error) {
-	if err := s.validate(); err != nil {
-		return nil, err
-	}
-	if s.Text != nil {
-		return internal.MarshalJSONWithExtraProperty(s.Text, "type", "text")
-	}
-	if s.File != nil {
-		return internal.MarshalJSONWithExtraProperty(s.File, "type", "file")
-	}
-	return nil, fmt.Errorf("type %T does not define a non-empty union type", s)
-}
-
-type SyncEventSessionNextToolSuccessDataContentItemVisitor interface {
-	VisitText(*ToolTextContent) error
-	VisitFile(*ToolFileContent) error
-}
-
-func (s *SyncEventSessionNextToolSuccessDataContentItem) Accept(visitor SyncEventSessionNextToolSuccessDataContentItemVisitor) error {
-	if s.Text != nil {
-		return visitor.VisitText(s.Text)
-	}
-	if s.File != nil {
-		return visitor.VisitFile(s.File)
-	}
-	return fmt.Errorf("type %T does not define a non-empty union type", s)
-}
-
-func (s *SyncEventSessionNextToolSuccessDataContentItem) validate() error {
-	if s == nil {
-		return fmt.Errorf("type %T is nil", s)
-	}
-	var fields []string
-	if s.Text != nil {
-		fields = append(fields, "text")
-	}
-	if s.File != nil {
-		fields = append(fields, "file")
-	}
-	if len(fields) == 0 {
-		if s.Type != "" {
-			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", s, s.Type)
-		}
-		return fmt.Errorf("type %T is empty", s)
-	}
-	if len(fields) > 1 {
-		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", s, fields)
-	}
-	if s.Type != "" {
-		field := fields[0]
-		if s.Type != field {
-			return fmt.Errorf(
-				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
-				s,
-				s.Type,
-				s,
-			)
-		}
-	}
-	return nil
-}
-
-var (
-	syncEventSessionNextToolSuccessDataProviderFieldExecuted = big.NewInt(1 << 0)
-	syncEventSessionNextToolSuccessDataProviderFieldMetadata = big.NewInt(1 << 1)
-)
-
-type SyncEventSessionNextToolSuccessDataProvider struct {
-	Executed bool           `json:"executed" url:"executed"`
-	Metadata map[string]any `json:"metadata,omitempty" url:"metadata,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionNextToolSuccessDataProvider) GetExecuted() bool {
-	if s == nil {
-		return false
-	}
-	return s.Executed
-}
-
-func (s *SyncEventSessionNextToolSuccessDataProvider) GetMetadata() map[string]any {
-	if s == nil {
-		return nil
-	}
-	return s.Metadata
-}
-
-func (s *SyncEventSessionNextToolSuccessDataProvider) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionNextToolSuccessDataProvider) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetExecuted sets the Executed field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolSuccessDataProvider) SetExecuted(executed bool) {
-	s.Executed = executed
-	s.require(syncEventSessionNextToolSuccessDataProviderFieldExecuted)
-}
-
-// SetMetadata sets the Metadata field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionNextToolSuccessDataProvider) SetMetadata(metadata map[string]any) {
-	s.Metadata = metadata
-	s.require(syncEventSessionNextToolSuccessDataProviderFieldMetadata)
-}
-
-func (s *SyncEventSessionNextToolSuccessDataProvider) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionNextToolSuccessDataProvider
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionNextToolSuccessDataProvider(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionNextToolSuccessDataProvider) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionNextToolSuccessDataProvider
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionNextToolSuccessDataProvider) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionNextToolSuccessName string
-
-const (
-	SyncEventSessionNextToolSuccessNameSessionNextToolSuccess1 SyncEventSessionNextToolSuccessName = "session.next.tool.success.1"
-)
-
-func NewSyncEventSessionNextToolSuccessNameFromString(s string) (SyncEventSessionNextToolSuccessName, error) {
-	switch s {
-	case "session.next.tool.success.1":
-		return SyncEventSessionNextToolSuccessNameSessionNextToolSuccess1, nil
-	}
-	var t SyncEventSessionNextToolSuccessName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextToolSuccessName) Ptr() *SyncEventSessionNextToolSuccessName {
-	return &s
-}
-
-type SyncEventSessionNextToolSuccessType string
-
-const (
-	SyncEventSessionNextToolSuccessTypeSync SyncEventSessionNextToolSuccessType = "sync"
-)
-
-func NewSyncEventSessionNextToolSuccessTypeFromString(s string) (SyncEventSessionNextToolSuccessType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionNextToolSuccessTypeSync, nil
-	}
-	var t SyncEventSessionNextToolSuccessType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionNextToolSuccessType) Ptr() *SyncEventSessionNextToolSuccessType {
-	return &s
-}
-
-var (
-	syncEventSessionUpdatedFieldType        = big.NewInt(1 << 0)
-	syncEventSessionUpdatedFieldName        = big.NewInt(1 << 1)
-	syncEventSessionUpdatedFieldID          = big.NewInt(1 << 2)
-	syncEventSessionUpdatedFieldSeq         = big.NewInt(1 << 3)
-	syncEventSessionUpdatedFieldAggregateID = big.NewInt(1 << 4)
-	syncEventSessionUpdatedFieldData        = big.NewInt(1 << 5)
-)
-
-type SyncEventSessionUpdated struct {
-	Type        SyncEventSessionUpdatedType        `json:"type" url:"type"`
-	Name        SyncEventSessionUpdatedName        `json:"name" url:"name"`
-	ID          string                             `json:"id" url:"id"`
-	Seq         float64                            `json:"seq" url:"seq"`
-	AggregateID SyncEventSessionUpdatedAggregateID `json:"aggregateID" url:"aggregateID"`
-	Data        *SyncEventSessionUpdatedData       `json:"data" url:"data"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionUpdated) GetType() SyncEventSessionUpdatedType {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SyncEventSessionUpdated) GetName() SyncEventSessionUpdatedName {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SyncEventSessionUpdated) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionUpdated) GetSeq() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Seq
-}
-
-func (s *SyncEventSessionUpdated) GetAggregateID() SyncEventSessionUpdatedAggregateID {
-	if s == nil {
-		return ""
-	}
-	return s.AggregateID
-}
-
-func (s *SyncEventSessionUpdated) GetData() *SyncEventSessionUpdatedData {
-	if s == nil {
-		return nil
-	}
-	return s.Data
-}
-
-func (s *SyncEventSessionUpdated) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionUpdated) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetType sets the Type field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdated) SetType(type_ SyncEventSessionUpdatedType) {
-	s.Type = type_
-	s.require(syncEventSessionUpdatedFieldType)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdated) SetName(name SyncEventSessionUpdatedName) {
-	s.Name = name
-	s.require(syncEventSessionUpdatedFieldName)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdated) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionUpdatedFieldID)
-}
-
-// SetSeq sets the Seq field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdated) SetSeq(seq float64) {
-	s.Seq = seq
-	s.require(syncEventSessionUpdatedFieldSeq)
-}
-
-// SetAggregateID sets the AggregateID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdated) SetAggregateID(aggregateID SyncEventSessionUpdatedAggregateID) {
-	s.AggregateID = aggregateID
-	s.require(syncEventSessionUpdatedFieldAggregateID)
-}
-
-// SetData sets the Data field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdated) SetData(data *SyncEventSessionUpdatedData) {
-	s.Data = data
-	s.require(syncEventSessionUpdatedFieldData)
-}
-
-func (s *SyncEventSessionUpdated) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionUpdated
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionUpdated(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionUpdated) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionUpdated
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionUpdated) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionUpdatedAggregateID string
-
-const (
-	SyncEventSessionUpdatedAggregateIDSessionID SyncEventSessionUpdatedAggregateID = "sessionID"
-)
-
-func NewSyncEventSessionUpdatedAggregateIDFromString(s string) (SyncEventSessionUpdatedAggregateID, error) {
-	switch s {
-	case "sessionID":
-		return SyncEventSessionUpdatedAggregateIDSessionID, nil
-	}
-	var t SyncEventSessionUpdatedAggregateID
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionUpdatedAggregateID) Ptr() *SyncEventSessionUpdatedAggregateID {
-	return &s
-}
-
-var (
-	syncEventSessionUpdatedDataFieldSessionID = big.NewInt(1 << 0)
-	syncEventSessionUpdatedDataFieldInfo      = big.NewInt(1 << 1)
-)
-
-type SyncEventSessionUpdatedData struct {
-	SessionID string                           `json:"sessionID" url:"sessionID"`
-	Info      *SyncEventSessionUpdatedDataInfo `json:"info" url:"info"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionUpdatedData) GetSessionID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SessionID
-}
-
-func (s *SyncEventSessionUpdatedData) GetInfo() *SyncEventSessionUpdatedDataInfo {
-	if s == nil {
-		return nil
-	}
-	return s.Info
-}
-
-func (s *SyncEventSessionUpdatedData) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionUpdatedData) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedData) SetSessionID(sessionID string) {
-	s.SessionID = sessionID
-	s.require(syncEventSessionUpdatedDataFieldSessionID)
-}
-
-// SetInfo sets the Info field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedData) SetInfo(info *SyncEventSessionUpdatedDataInfo) {
-	s.Info = info
-	s.require(syncEventSessionUpdatedDataFieldInfo)
-}
-
-func (s *SyncEventSessionUpdatedData) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionUpdatedData
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionUpdatedData(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionUpdatedData) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionUpdatedData
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionUpdatedData) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-var (
-	syncEventSessionUpdatedDataInfoFieldID          = big.NewInt(1 << 0)
-	syncEventSessionUpdatedDataInfoFieldSlug        = big.NewInt(1 << 1)
-	syncEventSessionUpdatedDataInfoFieldProjectID   = big.NewInt(1 << 2)
-	syncEventSessionUpdatedDataInfoFieldWorkspaceID = big.NewInt(1 << 3)
-	syncEventSessionUpdatedDataInfoFieldDirectory   = big.NewInt(1 << 4)
-	syncEventSessionUpdatedDataInfoFieldPath        = big.NewInt(1 << 5)
-	syncEventSessionUpdatedDataInfoFieldParentID    = big.NewInt(1 << 6)
-	syncEventSessionUpdatedDataInfoFieldSummary     = big.NewInt(1 << 7)
-	syncEventSessionUpdatedDataInfoFieldCost        = big.NewInt(1 << 8)
-	syncEventSessionUpdatedDataInfoFieldTokens      = big.NewInt(1 << 9)
-	syncEventSessionUpdatedDataInfoFieldShare       = big.NewInt(1 << 10)
-	syncEventSessionUpdatedDataInfoFieldTitle       = big.NewInt(1 << 11)
-	syncEventSessionUpdatedDataInfoFieldAgent       = big.NewInt(1 << 12)
-	syncEventSessionUpdatedDataInfoFieldModel       = big.NewInt(1 << 13)
-	syncEventSessionUpdatedDataInfoFieldVersion     = big.NewInt(1 << 14)
-	syncEventSessionUpdatedDataInfoFieldTime        = big.NewInt(1 << 15)
-	syncEventSessionUpdatedDataInfoFieldPermission  = big.NewInt(1 << 16)
-	syncEventSessionUpdatedDataInfoFieldRevert      = big.NewInt(1 << 17)
-)
-
-type SyncEventSessionUpdatedDataInfo struct {
-	ID          *string                                 `json:"id,omitempty" url:"id,omitempty"`
-	Slug        *string                                 `json:"slug,omitempty" url:"slug,omitempty"`
-	ProjectID   *string                                 `json:"projectID,omitempty" url:"projectID,omitempty"`
-	WorkspaceID *string                                 `json:"workspaceID,omitempty" url:"workspaceID,omitempty"`
-	Directory   *string                                 `json:"directory,omitempty" url:"directory,omitempty"`
-	Path        *string                                 `json:"path,omitempty" url:"path,omitempty"`
-	ParentID    *string                                 `json:"parentID,omitempty" url:"parentID,omitempty"`
-	Summary     *SyncEventSessionUpdatedDataInfoSummary `json:"summary,omitempty" url:"summary,omitempty"`
-	Cost        *float64                                `json:"cost,omitempty" url:"cost,omitempty"`
-	Tokens      *SyncEventSessionUpdatedDataInfoTokens  `json:"tokens,omitempty" url:"tokens,omitempty"`
-	Share       *SyncEventSessionUpdatedDataInfoShare   `json:"share,omitempty" url:"share,omitempty"`
-	Title       *string                                 `json:"title,omitempty" url:"title,omitempty"`
-	Agent       *string                                 `json:"agent,omitempty" url:"agent,omitempty"`
-	Model       *SyncEventSessionUpdatedDataInfoModel   `json:"model,omitempty" url:"model,omitempty"`
-	Version     *string                                 `json:"version,omitempty" url:"version,omitempty"`
-	Time        *SyncEventSessionUpdatedDataInfoTime    `json:"time,omitempty" url:"time,omitempty"`
-	Permission  *PermissionRuleset                      `json:"permission,omitempty" url:"permission,omitempty"`
-	Revert      *SyncEventSessionUpdatedDataInfoRevert  `json:"revert,omitempty" url:"revert,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionUpdatedDataInfo) GetID() *string {
-	if s == nil {
-		return nil
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionUpdatedDataInfo) GetSlug() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Slug
-}
-
-func (s *SyncEventSessionUpdatedDataInfo) GetProjectID() *string {
-	if s == nil {
-		return nil
-	}
-	return s.ProjectID
-}
-
-func (s *SyncEventSessionUpdatedDataInfo) GetWorkspaceID() *string {
-	if s == nil {
-		return nil
-	}
-	return s.WorkspaceID
-}
-
-func (s *SyncEventSessionUpdatedDataInfo) GetDirectory() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Directory
-}
-
-func (s *SyncEventSessionUpdatedDataInfo) GetPath() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Path
-}
-
-func (s *SyncEventSessionUpdatedDataInfo) GetParentID() *string {
-	if s == nil {
-		return nil
-	}
-	return s.ParentID
-}
-
-func (s *SyncEventSessionUpdatedDataInfo) GetSummary() *SyncEventSessionUpdatedDataInfoSummary {
-	if s == nil {
-		return nil
-	}
-	return s.Summary
-}
-
-func (s *SyncEventSessionUpdatedDataInfo) GetCost() *float64 {
-	if s == nil {
-		return nil
-	}
-	return s.Cost
-}
-
-func (s *SyncEventSessionUpdatedDataInfo) GetTokens() *SyncEventSessionUpdatedDataInfoTokens {
-	if s == nil {
-		return nil
-	}
-	return s.Tokens
-}
-
-func (s *SyncEventSessionUpdatedDataInfo) GetShare() *SyncEventSessionUpdatedDataInfoShare {
-	if s == nil {
-		return nil
-	}
-	return s.Share
-}
-
-func (s *SyncEventSessionUpdatedDataInfo) GetTitle() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Title
-}
-
-func (s *SyncEventSessionUpdatedDataInfo) GetAgent() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Agent
-}
-
-func (s *SyncEventSessionUpdatedDataInfo) GetModel() *SyncEventSessionUpdatedDataInfoModel {
-	if s == nil {
-		return nil
-	}
-	return s.Model
-}
-
-func (s *SyncEventSessionUpdatedDataInfo) GetVersion() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Version
-}
-
-func (s *SyncEventSessionUpdatedDataInfo) GetTime() *SyncEventSessionUpdatedDataInfoTime {
-	if s == nil {
-		return nil
-	}
-	return s.Time
-}
-
-func (s *SyncEventSessionUpdatedDataInfo) GetPermission() *PermissionRuleset {
-	if s == nil {
-		return nil
-	}
-	return s.Permission
-}
-
-func (s *SyncEventSessionUpdatedDataInfo) GetRevert() *SyncEventSessionUpdatedDataInfoRevert {
-	if s == nil {
-		return nil
-	}
-	return s.Revert
-}
-
-func (s *SyncEventSessionUpdatedDataInfo) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionUpdatedDataInfo) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfo) SetID(id *string) {
-	s.ID = id
-	s.require(syncEventSessionUpdatedDataInfoFieldID)
-}
-
-// SetSlug sets the Slug field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfo) SetSlug(slug *string) {
-	s.Slug = slug
-	s.require(syncEventSessionUpdatedDataInfoFieldSlug)
-}
-
-// SetProjectID sets the ProjectID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfo) SetProjectID(projectID *string) {
-	s.ProjectID = projectID
-	s.require(syncEventSessionUpdatedDataInfoFieldProjectID)
-}
-
-// SetWorkspaceID sets the WorkspaceID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfo) SetWorkspaceID(workspaceID *string) {
-	s.WorkspaceID = workspaceID
-	s.require(syncEventSessionUpdatedDataInfoFieldWorkspaceID)
-}
-
-// SetDirectory sets the Directory field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfo) SetDirectory(directory *string) {
-	s.Directory = directory
-	s.require(syncEventSessionUpdatedDataInfoFieldDirectory)
-}
-
-// SetPath sets the Path field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfo) SetPath(path *string) {
-	s.Path = path
-	s.require(syncEventSessionUpdatedDataInfoFieldPath)
-}
-
-// SetParentID sets the ParentID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfo) SetParentID(parentID *string) {
-	s.ParentID = parentID
-	s.require(syncEventSessionUpdatedDataInfoFieldParentID)
-}
-
-// SetSummary sets the Summary field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfo) SetSummary(summary *SyncEventSessionUpdatedDataInfoSummary) {
-	s.Summary = summary
-	s.require(syncEventSessionUpdatedDataInfoFieldSummary)
-}
-
-// SetCost sets the Cost field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfo) SetCost(cost *float64) {
-	s.Cost = cost
-	s.require(syncEventSessionUpdatedDataInfoFieldCost)
-}
-
-// SetTokens sets the Tokens field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfo) SetTokens(tokens *SyncEventSessionUpdatedDataInfoTokens) {
-	s.Tokens = tokens
-	s.require(syncEventSessionUpdatedDataInfoFieldTokens)
-}
-
-// SetShare sets the Share field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfo) SetShare(share *SyncEventSessionUpdatedDataInfoShare) {
-	s.Share = share
-	s.require(syncEventSessionUpdatedDataInfoFieldShare)
-}
-
-// SetTitle sets the Title field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfo) SetTitle(title *string) {
-	s.Title = title
-	s.require(syncEventSessionUpdatedDataInfoFieldTitle)
-}
-
-// SetAgent sets the Agent field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfo) SetAgent(agent *string) {
-	s.Agent = agent
-	s.require(syncEventSessionUpdatedDataInfoFieldAgent)
-}
-
-// SetModel sets the Model field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfo) SetModel(model *SyncEventSessionUpdatedDataInfoModel) {
-	s.Model = model
-	s.require(syncEventSessionUpdatedDataInfoFieldModel)
-}
-
-// SetVersion sets the Version field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfo) SetVersion(version *string) {
-	s.Version = version
-	s.require(syncEventSessionUpdatedDataInfoFieldVersion)
-}
-
-// SetTime sets the Time field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfo) SetTime(time *SyncEventSessionUpdatedDataInfoTime) {
-	s.Time = time
-	s.require(syncEventSessionUpdatedDataInfoFieldTime)
-}
-
-// SetPermission sets the Permission field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfo) SetPermission(permission *PermissionRuleset) {
-	s.Permission = permission
-	s.require(syncEventSessionUpdatedDataInfoFieldPermission)
-}
-
-// SetRevert sets the Revert field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfo) SetRevert(revert *SyncEventSessionUpdatedDataInfoRevert) {
-	s.Revert = revert
-	s.require(syncEventSessionUpdatedDataInfoFieldRevert)
-}
-
-func (s *SyncEventSessionUpdatedDataInfo) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionUpdatedDataInfo
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionUpdatedDataInfo(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionUpdatedDataInfo) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionUpdatedDataInfo
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionUpdatedDataInfo) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-var (
-	syncEventSessionUpdatedDataInfoModelFieldID         = big.NewInt(1 << 0)
-	syncEventSessionUpdatedDataInfoModelFieldProviderID = big.NewInt(1 << 1)
-	syncEventSessionUpdatedDataInfoModelFieldVariant    = big.NewInt(1 << 2)
-)
-
-type SyncEventSessionUpdatedDataInfoModel struct {
-	ID         string  `json:"id" url:"id"`
-	ProviderID string  `json:"providerID" url:"providerID"`
-	Variant    *string `json:"variant,omitempty" url:"variant,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionUpdatedDataInfoModel) GetID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ID
-}
-
-func (s *SyncEventSessionUpdatedDataInfoModel) GetProviderID() string {
-	if s == nil {
-		return ""
-	}
-	return s.ProviderID
-}
-
-func (s *SyncEventSessionUpdatedDataInfoModel) GetVariant() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Variant
-}
-
-func (s *SyncEventSessionUpdatedDataInfoModel) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionUpdatedDataInfoModel) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfoModel) SetID(id string) {
-	s.ID = id
-	s.require(syncEventSessionUpdatedDataInfoModelFieldID)
-}
-
-// SetProviderID sets the ProviderID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfoModel) SetProviderID(providerID string) {
-	s.ProviderID = providerID
-	s.require(syncEventSessionUpdatedDataInfoModelFieldProviderID)
-}
-
-// SetVariant sets the Variant field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfoModel) SetVariant(variant *string) {
-	s.Variant = variant
-	s.require(syncEventSessionUpdatedDataInfoModelFieldVariant)
-}
-
-func (s *SyncEventSessionUpdatedDataInfoModel) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionUpdatedDataInfoModel
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionUpdatedDataInfoModel(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionUpdatedDataInfoModel) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionUpdatedDataInfoModel
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionUpdatedDataInfoModel) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-var (
-	syncEventSessionUpdatedDataInfoRevertFieldMessageID = big.NewInt(1 << 0)
-	syncEventSessionUpdatedDataInfoRevertFieldPartID    = big.NewInt(1 << 1)
-	syncEventSessionUpdatedDataInfoRevertFieldSnapshot  = big.NewInt(1 << 2)
-	syncEventSessionUpdatedDataInfoRevertFieldDiff      = big.NewInt(1 << 3)
-)
-
-type SyncEventSessionUpdatedDataInfoRevert struct {
-	MessageID string  `json:"messageID" url:"messageID"`
-	PartID    *string `json:"partID,omitempty" url:"partID,omitempty"`
-	Snapshot  *string `json:"snapshot,omitempty" url:"snapshot,omitempty"`
-	Diff      *string `json:"diff,omitempty" url:"diff,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionUpdatedDataInfoRevert) GetMessageID() string {
-	if s == nil {
-		return ""
-	}
-	return s.MessageID
-}
-
-func (s *SyncEventSessionUpdatedDataInfoRevert) GetPartID() *string {
-	if s == nil {
-		return nil
-	}
-	return s.PartID
-}
-
-func (s *SyncEventSessionUpdatedDataInfoRevert) GetSnapshot() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Snapshot
-}
-
-func (s *SyncEventSessionUpdatedDataInfoRevert) GetDiff() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Diff
-}
-
-func (s *SyncEventSessionUpdatedDataInfoRevert) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionUpdatedDataInfoRevert) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetMessageID sets the MessageID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfoRevert) SetMessageID(messageID string) {
-	s.MessageID = messageID
-	s.require(syncEventSessionUpdatedDataInfoRevertFieldMessageID)
-}
-
-// SetPartID sets the PartID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfoRevert) SetPartID(partID *string) {
-	s.PartID = partID
-	s.require(syncEventSessionUpdatedDataInfoRevertFieldPartID)
-}
-
-// SetSnapshot sets the Snapshot field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfoRevert) SetSnapshot(snapshot *string) {
-	s.Snapshot = snapshot
-	s.require(syncEventSessionUpdatedDataInfoRevertFieldSnapshot)
-}
-
-// SetDiff sets the Diff field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfoRevert) SetDiff(diff *string) {
-	s.Diff = diff
-	s.require(syncEventSessionUpdatedDataInfoRevertFieldDiff)
-}
-
-func (s *SyncEventSessionUpdatedDataInfoRevert) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionUpdatedDataInfoRevert
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionUpdatedDataInfoRevert(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionUpdatedDataInfoRevert) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionUpdatedDataInfoRevert
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionUpdatedDataInfoRevert) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-var (
-	syncEventSessionUpdatedDataInfoShareFieldURL = big.NewInt(1 << 0)
-)
-
-type SyncEventSessionUpdatedDataInfoShare struct {
-	URL *string `json:"url,omitempty" url:"url,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionUpdatedDataInfoShare) GetURL() *string {
-	if s == nil {
-		return nil
-	}
-	return s.URL
-}
-
-func (s *SyncEventSessionUpdatedDataInfoShare) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionUpdatedDataInfoShare) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetURL sets the URL field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfoShare) SetURL(url *string) {
-	s.URL = url
-	s.require(syncEventSessionUpdatedDataInfoShareFieldURL)
-}
-
-func (s *SyncEventSessionUpdatedDataInfoShare) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionUpdatedDataInfoShare
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionUpdatedDataInfoShare(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionUpdatedDataInfoShare) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionUpdatedDataInfoShare
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionUpdatedDataInfoShare) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-var (
-	syncEventSessionUpdatedDataInfoSummaryFieldAdditions = big.NewInt(1 << 0)
-	syncEventSessionUpdatedDataInfoSummaryFieldDeletions = big.NewInt(1 << 1)
-	syncEventSessionUpdatedDataInfoSummaryFieldFiles     = big.NewInt(1 << 2)
-	syncEventSessionUpdatedDataInfoSummaryFieldDiffs     = big.NewInt(1 << 3)
-)
-
-type SyncEventSessionUpdatedDataInfoSummary struct {
-	Additions float64             `json:"additions" url:"additions"`
-	Deletions float64             `json:"deletions" url:"deletions"`
-	Files     float64             `json:"files" url:"files"`
-	Diffs     []*SnapshotFileDiff `json:"diffs,omitempty" url:"diffs,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionUpdatedDataInfoSummary) GetAdditions() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Additions
-}
-
-func (s *SyncEventSessionUpdatedDataInfoSummary) GetDeletions() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Deletions
-}
-
-func (s *SyncEventSessionUpdatedDataInfoSummary) GetFiles() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Files
-}
-
-func (s *SyncEventSessionUpdatedDataInfoSummary) GetDiffs() []*SnapshotFileDiff {
-	if s == nil {
-		return nil
-	}
-	return s.Diffs
-}
-
-func (s *SyncEventSessionUpdatedDataInfoSummary) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionUpdatedDataInfoSummary) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetAdditions sets the Additions field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfoSummary) SetAdditions(additions float64) {
-	s.Additions = additions
-	s.require(syncEventSessionUpdatedDataInfoSummaryFieldAdditions)
-}
-
-// SetDeletions sets the Deletions field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfoSummary) SetDeletions(deletions float64) {
-	s.Deletions = deletions
-	s.require(syncEventSessionUpdatedDataInfoSummaryFieldDeletions)
-}
-
-// SetFiles sets the Files field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfoSummary) SetFiles(files float64) {
-	s.Files = files
-	s.require(syncEventSessionUpdatedDataInfoSummaryFieldFiles)
-}
-
-// SetDiffs sets the Diffs field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfoSummary) SetDiffs(diffs []*SnapshotFileDiff) {
-	s.Diffs = diffs
-	s.require(syncEventSessionUpdatedDataInfoSummaryFieldDiffs)
-}
-
-func (s *SyncEventSessionUpdatedDataInfoSummary) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionUpdatedDataInfoSummary
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionUpdatedDataInfoSummary(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionUpdatedDataInfoSummary) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionUpdatedDataInfoSummary
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionUpdatedDataInfoSummary) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-var (
-	syncEventSessionUpdatedDataInfoTimeFieldCreated    = big.NewInt(1 << 0)
-	syncEventSessionUpdatedDataInfoTimeFieldUpdated    = big.NewInt(1 << 1)
-	syncEventSessionUpdatedDataInfoTimeFieldCompacting = big.NewInt(1 << 2)
-	syncEventSessionUpdatedDataInfoTimeFieldArchived   = big.NewInt(1 << 3)
-)
-
-type SyncEventSessionUpdatedDataInfoTime struct {
-	Created    *int     `json:"created,omitempty" url:"created,omitempty"`
-	Updated    *int     `json:"updated,omitempty" url:"updated,omitempty"`
-	Compacting *int     `json:"compacting,omitempty" url:"compacting,omitempty"`
-	Archived   *float64 `json:"archived,omitempty" url:"archived,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionUpdatedDataInfoTime) GetCreated() *int {
-	if s == nil {
-		return nil
-	}
-	return s.Created
-}
-
-func (s *SyncEventSessionUpdatedDataInfoTime) GetUpdated() *int {
-	if s == nil {
-		return nil
-	}
-	return s.Updated
-}
-
-func (s *SyncEventSessionUpdatedDataInfoTime) GetCompacting() *int {
-	if s == nil {
-		return nil
-	}
-	return s.Compacting
-}
-
-func (s *SyncEventSessionUpdatedDataInfoTime) GetArchived() *float64 {
-	if s == nil {
-		return nil
-	}
-	return s.Archived
-}
-
-func (s *SyncEventSessionUpdatedDataInfoTime) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionUpdatedDataInfoTime) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetCreated sets the Created field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfoTime) SetCreated(created *int) {
-	s.Created = created
-	s.require(syncEventSessionUpdatedDataInfoTimeFieldCreated)
-}
-
-// SetUpdated sets the Updated field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfoTime) SetUpdated(updated *int) {
-	s.Updated = updated
-	s.require(syncEventSessionUpdatedDataInfoTimeFieldUpdated)
-}
-
-// SetCompacting sets the Compacting field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfoTime) SetCompacting(compacting *int) {
-	s.Compacting = compacting
-	s.require(syncEventSessionUpdatedDataInfoTimeFieldCompacting)
-}
-
-// SetArchived sets the Archived field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfoTime) SetArchived(archived *float64) {
-	s.Archived = archived
-	s.require(syncEventSessionUpdatedDataInfoTimeFieldArchived)
-}
-
-func (s *SyncEventSessionUpdatedDataInfoTime) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionUpdatedDataInfoTime
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionUpdatedDataInfoTime(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionUpdatedDataInfoTime) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionUpdatedDataInfoTime
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionUpdatedDataInfoTime) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-var (
-	syncEventSessionUpdatedDataInfoTokensFieldInput     = big.NewInt(1 << 0)
-	syncEventSessionUpdatedDataInfoTokensFieldOutput    = big.NewInt(1 << 1)
-	syncEventSessionUpdatedDataInfoTokensFieldReasoning = big.NewInt(1 << 2)
-	syncEventSessionUpdatedDataInfoTokensFieldCache     = big.NewInt(1 << 3)
-)
-
-type SyncEventSessionUpdatedDataInfoTokens struct {
-	Input     float64                                     `json:"input" url:"input"`
-	Output    float64                                     `json:"output" url:"output"`
-	Reasoning float64                                     `json:"reasoning" url:"reasoning"`
-	Cache     *SyncEventSessionUpdatedDataInfoTokensCache `json:"cache" url:"cache"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionUpdatedDataInfoTokens) GetInput() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Input
-}
-
-func (s *SyncEventSessionUpdatedDataInfoTokens) GetOutput() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Output
-}
-
-func (s *SyncEventSessionUpdatedDataInfoTokens) GetReasoning() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Reasoning
-}
-
-func (s *SyncEventSessionUpdatedDataInfoTokens) GetCache() *SyncEventSessionUpdatedDataInfoTokensCache {
-	if s == nil {
-		return nil
-	}
-	return s.Cache
-}
-
-func (s *SyncEventSessionUpdatedDataInfoTokens) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionUpdatedDataInfoTokens) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetInput sets the Input field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfoTokens) SetInput(input float64) {
-	s.Input = input
-	s.require(syncEventSessionUpdatedDataInfoTokensFieldInput)
-}
-
-// SetOutput sets the Output field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfoTokens) SetOutput(output float64) {
-	s.Output = output
-	s.require(syncEventSessionUpdatedDataInfoTokensFieldOutput)
-}
-
-// SetReasoning sets the Reasoning field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfoTokens) SetReasoning(reasoning float64) {
-	s.Reasoning = reasoning
-	s.require(syncEventSessionUpdatedDataInfoTokensFieldReasoning)
-}
-
-// SetCache sets the Cache field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfoTokens) SetCache(cache *SyncEventSessionUpdatedDataInfoTokensCache) {
-	s.Cache = cache
-	s.require(syncEventSessionUpdatedDataInfoTokensFieldCache)
-}
-
-func (s *SyncEventSessionUpdatedDataInfoTokens) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionUpdatedDataInfoTokens
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionUpdatedDataInfoTokens(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionUpdatedDataInfoTokens) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionUpdatedDataInfoTokens
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionUpdatedDataInfoTokens) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-var (
-	syncEventSessionUpdatedDataInfoTokensCacheFieldRead  = big.NewInt(1 << 0)
-	syncEventSessionUpdatedDataInfoTokensCacheFieldWrite = big.NewInt(1 << 1)
-)
-
-type SyncEventSessionUpdatedDataInfoTokensCache struct {
-	Read  float64 `json:"read" url:"read"`
-	Write float64 `json:"write" url:"write"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SyncEventSessionUpdatedDataInfoTokensCache) GetRead() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Read
-}
-
-func (s *SyncEventSessionUpdatedDataInfoTokensCache) GetWrite() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.Write
-}
-
-func (s *SyncEventSessionUpdatedDataInfoTokensCache) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SyncEventSessionUpdatedDataInfoTokensCache) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetRead sets the Read field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfoTokensCache) SetRead(read float64) {
-	s.Read = read
-	s.require(syncEventSessionUpdatedDataInfoTokensCacheFieldRead)
-}
-
-// SetWrite sets the Write field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SyncEventSessionUpdatedDataInfoTokensCache) SetWrite(write float64) {
-	s.Write = write
-	s.require(syncEventSessionUpdatedDataInfoTokensCacheFieldWrite)
-}
-
-func (s *SyncEventSessionUpdatedDataInfoTokensCache) UnmarshalJSON(data []byte) error {
-	type unmarshaler SyncEventSessionUpdatedDataInfoTokensCache
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SyncEventSessionUpdatedDataInfoTokensCache(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SyncEventSessionUpdatedDataInfoTokensCache) MarshalJSON() ([]byte, error) {
-	type embed SyncEventSessionUpdatedDataInfoTokensCache
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SyncEventSessionUpdatedDataInfoTokensCache) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SyncEventSessionUpdatedName string
-
-const (
-	SyncEventSessionUpdatedNameSessionUpdated1 SyncEventSessionUpdatedName = "session.updated.1"
-)
-
-func NewSyncEventSessionUpdatedNameFromString(s string) (SyncEventSessionUpdatedName, error) {
-	switch s {
-	case "session.updated.1":
-		return SyncEventSessionUpdatedNameSessionUpdated1, nil
-	}
-	var t SyncEventSessionUpdatedName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionUpdatedName) Ptr() *SyncEventSessionUpdatedName {
-	return &s
-}
-
-type SyncEventSessionUpdatedType string
-
-const (
-	SyncEventSessionUpdatedTypeSync SyncEventSessionUpdatedType = "sync"
-)
-
-func NewSyncEventSessionUpdatedTypeFromString(s string) (SyncEventSessionUpdatedType, error) {
-	switch s {
-	case "sync":
-		return SyncEventSessionUpdatedTypeSync, nil
-	}
-	var t SyncEventSessionUpdatedType
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (s SyncEventSessionUpdatedType) Ptr() *SyncEventSessionUpdatedType {
-	return &s
 }
 
 var (
