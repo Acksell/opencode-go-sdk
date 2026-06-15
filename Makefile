@@ -48,8 +48,8 @@ WIREMOCK_COMPOSE := $(CURDIR)/sdk/wiremock/docker-compose.test.yml
 .PHONY: test
 test:   ## build + test the generated Go SDK (boots WireMock for the generated tests)
 	@cd sdk && go build ./...
-	@docker compose -f $(WIREMOCK_COMPOSE) up -d --wait
 	@trap 'docker compose -f $(WIREMOCK_COMPOSE) down' EXIT; \
+		docker compose -f $(WIREMOCK_COMPOSE) up -d --wait; \
 		port="$$(docker compose -f $(WIREMOCK_COMPOSE) port wiremock 8080 | sed 's/.*://')"; \
 		cd sdk && WIREMOCK_URL="http://127.0.0.1:$$port" go test ./...
 
