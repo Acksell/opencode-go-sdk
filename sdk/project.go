@@ -44,6 +44,49 @@ func (p *ProjectCurrentRequest) SetWorkspace(workspace *string) {
 }
 
 var (
+	projectDirectoriesRequestFieldProjectID = big.NewInt(1 << 0)
+	projectDirectoriesRequestFieldDirectory = big.NewInt(1 << 1)
+	projectDirectoriesRequestFieldWorkspace = big.NewInt(1 << 2)
+)
+
+type ProjectDirectoriesRequest struct {
+	ProjectID string  `json:"-" url:"-"`
+	Directory *string `json:"-" url:"directory,omitempty"`
+	Workspace *string `json:"-" url:"workspace,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (p *ProjectDirectoriesRequest) require(field *big.Int) {
+	if p.explicitFields == nil {
+		p.explicitFields = big.NewInt(0)
+	}
+	p.explicitFields.Or(p.explicitFields, field)
+}
+
+// SetProjectID sets the ProjectID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *ProjectDirectoriesRequest) SetProjectID(projectID string) {
+	p.ProjectID = projectID
+	p.require(projectDirectoriesRequestFieldProjectID)
+}
+
+// SetDirectory sets the Directory field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *ProjectDirectoriesRequest) SetDirectory(directory *string) {
+	p.Directory = directory
+	p.require(projectDirectoriesRequestFieldDirectory)
+}
+
+// SetWorkspace sets the Workspace field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *ProjectDirectoriesRequest) SetWorkspace(workspace *string) {
+	p.Workspace = workspace
+	p.require(projectDirectoriesRequestFieldWorkspace)
+}
+
+var (
 	projectInitGitRequestFieldDirectory = big.NewInt(1 << 0)
 	projectInitGitRequestFieldWorkspace = big.NewInt(1 << 1)
 )
@@ -109,6 +152,640 @@ func (p *ProjectListRequest) SetDirectory(directory *string) {
 func (p *ProjectListRequest) SetWorkspace(workspace *string) {
 	p.Workspace = workspace
 	p.require(projectListRequestFieldWorkspace)
+}
+
+var (
+	projectFieldID        = big.NewInt(1 << 0)
+	projectFieldWorktree  = big.NewInt(1 << 1)
+	projectFieldVcs       = big.NewInt(1 << 2)
+	projectFieldName      = big.NewInt(1 << 3)
+	projectFieldIcon      = big.NewInt(1 << 4)
+	projectFieldCommands  = big.NewInt(1 << 5)
+	projectFieldTime      = big.NewInt(1 << 6)
+	projectFieldSandboxes = big.NewInt(1 << 7)
+)
+
+type Project struct {
+	ID        string           `json:"id" url:"id"`
+	Worktree  string           `json:"worktree" url:"worktree"`
+	Vcs       *ProjectVcs      `json:"vcs,omitempty" url:"vcs,omitempty"`
+	Name      *string          `json:"name,omitempty" url:"name,omitempty"`
+	Icon      *ProjectIcon     `json:"icon,omitempty" url:"icon,omitempty"`
+	Commands  *ProjectCommands `json:"commands,omitempty" url:"commands,omitempty"`
+	Time      *ProjectTime     `json:"time" url:"time"`
+	Sandboxes []string         `json:"sandboxes" url:"sandboxes"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (p *Project) GetID() string {
+	if p == nil {
+		return ""
+	}
+	return p.ID
+}
+
+func (p *Project) GetWorktree() string {
+	if p == nil {
+		return ""
+	}
+	return p.Worktree
+}
+
+func (p *Project) GetVcs() *ProjectVcs {
+	if p == nil {
+		return nil
+	}
+	return p.Vcs
+}
+
+func (p *Project) GetName() *string {
+	if p == nil {
+		return nil
+	}
+	return p.Name
+}
+
+func (p *Project) GetIcon() *ProjectIcon {
+	if p == nil {
+		return nil
+	}
+	return p.Icon
+}
+
+func (p *Project) GetCommands() *ProjectCommands {
+	if p == nil {
+		return nil
+	}
+	return p.Commands
+}
+
+func (p *Project) GetTime() *ProjectTime {
+	if p == nil {
+		return nil
+	}
+	return p.Time
+}
+
+func (p *Project) GetSandboxes() []string {
+	if p == nil {
+		return nil
+	}
+	return p.Sandboxes
+}
+
+func (p *Project) GetExtraProperties() map[string]interface{} {
+	if p == nil {
+		return nil
+	}
+	return p.extraProperties
+}
+
+func (p *Project) require(field *big.Int) {
+	if p.explicitFields == nil {
+		p.explicitFields = big.NewInt(0)
+	}
+	p.explicitFields.Or(p.explicitFields, field)
+}
+
+// SetID sets the ID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *Project) SetID(id string) {
+	p.ID = id
+	p.require(projectFieldID)
+}
+
+// SetWorktree sets the Worktree field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *Project) SetWorktree(worktree string) {
+	p.Worktree = worktree
+	p.require(projectFieldWorktree)
+}
+
+// SetVcs sets the Vcs field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *Project) SetVcs(vcs *ProjectVcs) {
+	p.Vcs = vcs
+	p.require(projectFieldVcs)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *Project) SetName(name *string) {
+	p.Name = name
+	p.require(projectFieldName)
+}
+
+// SetIcon sets the Icon field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *Project) SetIcon(icon *ProjectIcon) {
+	p.Icon = icon
+	p.require(projectFieldIcon)
+}
+
+// SetCommands sets the Commands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *Project) SetCommands(commands *ProjectCommands) {
+	p.Commands = commands
+	p.require(projectFieldCommands)
+}
+
+// SetTime sets the Time field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *Project) SetTime(time *ProjectTime) {
+	p.Time = time
+	p.require(projectFieldTime)
+}
+
+// SetSandboxes sets the Sandboxes field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *Project) SetSandboxes(sandboxes []string) {
+	p.Sandboxes = sandboxes
+	p.require(projectFieldSandboxes)
+}
+
+func (p *Project) UnmarshalJSON(data []byte) error {
+	type unmarshaler Project
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*p = Project(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *p)
+	if err != nil {
+		return err
+	}
+	p.extraProperties = extraProperties
+	p.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (p *Project) MarshalJSON() ([]byte, error) {
+	type embed Project
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*p),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, p.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (p *Project) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	if len(p.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(p.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(p); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", p)
+}
+
+var (
+	projectCommandsFieldStart = big.NewInt(1 << 0)
+)
+
+type ProjectCommands struct {
+	// Startup script to run when creating a new workspace (worktree)
+	Start *string `json:"start,omitempty" url:"start,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (p *ProjectCommands) GetStart() *string {
+	if p == nil {
+		return nil
+	}
+	return p.Start
+}
+
+func (p *ProjectCommands) GetExtraProperties() map[string]interface{} {
+	if p == nil {
+		return nil
+	}
+	return p.extraProperties
+}
+
+func (p *ProjectCommands) require(field *big.Int) {
+	if p.explicitFields == nil {
+		p.explicitFields = big.NewInt(0)
+	}
+	p.explicitFields.Or(p.explicitFields, field)
+}
+
+// SetStart sets the Start field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *ProjectCommands) SetStart(start *string) {
+	p.Start = start
+	p.require(projectCommandsFieldStart)
+}
+
+func (p *ProjectCommands) UnmarshalJSON(data []byte) error {
+	type unmarshaler ProjectCommands
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*p = ProjectCommands(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *p)
+	if err != nil {
+		return err
+	}
+	p.extraProperties = extraProperties
+	p.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (p *ProjectCommands) MarshalJSON() ([]byte, error) {
+	type embed ProjectCommands
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*p),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, p.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (p *ProjectCommands) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	if len(p.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(p.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(p); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", p)
+}
+
+type ProjectDirectories = []*ProjectDirectoriesItem
+
+var (
+	projectDirectoriesItemFieldDirectory = big.NewInt(1 << 0)
+	projectDirectoriesItemFieldStrategy  = big.NewInt(1 << 1)
+)
+
+type ProjectDirectoriesItem struct {
+	Directory string  `json:"directory" url:"directory"`
+	Strategy  *string `json:"strategy,omitempty" url:"strategy,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (p *ProjectDirectoriesItem) GetDirectory() string {
+	if p == nil {
+		return ""
+	}
+	return p.Directory
+}
+
+func (p *ProjectDirectoriesItem) GetStrategy() *string {
+	if p == nil {
+		return nil
+	}
+	return p.Strategy
+}
+
+func (p *ProjectDirectoriesItem) GetExtraProperties() map[string]interface{} {
+	if p == nil {
+		return nil
+	}
+	return p.extraProperties
+}
+
+func (p *ProjectDirectoriesItem) require(field *big.Int) {
+	if p.explicitFields == nil {
+		p.explicitFields = big.NewInt(0)
+	}
+	p.explicitFields.Or(p.explicitFields, field)
+}
+
+// SetDirectory sets the Directory field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *ProjectDirectoriesItem) SetDirectory(directory string) {
+	p.Directory = directory
+	p.require(projectDirectoriesItemFieldDirectory)
+}
+
+// SetStrategy sets the Strategy field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *ProjectDirectoriesItem) SetStrategy(strategy *string) {
+	p.Strategy = strategy
+	p.require(projectDirectoriesItemFieldStrategy)
+}
+
+func (p *ProjectDirectoriesItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ProjectDirectoriesItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*p = ProjectDirectoriesItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *p)
+	if err != nil {
+		return err
+	}
+	p.extraProperties = extraProperties
+	p.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (p *ProjectDirectoriesItem) MarshalJSON() ([]byte, error) {
+	type embed ProjectDirectoriesItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*p),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, p.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (p *ProjectDirectoriesItem) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	if len(p.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(p.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(p); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", p)
+}
+
+var (
+	projectIconFieldURL      = big.NewInt(1 << 0)
+	projectIconFieldOverride = big.NewInt(1 << 1)
+	projectIconFieldColor    = big.NewInt(1 << 2)
+)
+
+type ProjectIcon struct {
+	URL      *string `json:"url,omitempty" url:"url,omitempty"`
+	Override *string `json:"override,omitempty" url:"override,omitempty"`
+	Color    *string `json:"color,omitempty" url:"color,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (p *ProjectIcon) GetURL() *string {
+	if p == nil {
+		return nil
+	}
+	return p.URL
+}
+
+func (p *ProjectIcon) GetOverride() *string {
+	if p == nil {
+		return nil
+	}
+	return p.Override
+}
+
+func (p *ProjectIcon) GetColor() *string {
+	if p == nil {
+		return nil
+	}
+	return p.Color
+}
+
+func (p *ProjectIcon) GetExtraProperties() map[string]interface{} {
+	if p == nil {
+		return nil
+	}
+	return p.extraProperties
+}
+
+func (p *ProjectIcon) require(field *big.Int) {
+	if p.explicitFields == nil {
+		p.explicitFields = big.NewInt(0)
+	}
+	p.explicitFields.Or(p.explicitFields, field)
+}
+
+// SetURL sets the URL field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *ProjectIcon) SetURL(url *string) {
+	p.URL = url
+	p.require(projectIconFieldURL)
+}
+
+// SetOverride sets the Override field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *ProjectIcon) SetOverride(override *string) {
+	p.Override = override
+	p.require(projectIconFieldOverride)
+}
+
+// SetColor sets the Color field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *ProjectIcon) SetColor(color *string) {
+	p.Color = color
+	p.require(projectIconFieldColor)
+}
+
+func (p *ProjectIcon) UnmarshalJSON(data []byte) error {
+	type unmarshaler ProjectIcon
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*p = ProjectIcon(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *p)
+	if err != nil {
+		return err
+	}
+	p.extraProperties = extraProperties
+	p.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (p *ProjectIcon) MarshalJSON() ([]byte, error) {
+	type embed ProjectIcon
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*p),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, p.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (p *ProjectIcon) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	if len(p.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(p.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(p); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", p)
+}
+
+var (
+	projectTimeFieldCreated     = big.NewInt(1 << 0)
+	projectTimeFieldUpdated     = big.NewInt(1 << 1)
+	projectTimeFieldInitialized = big.NewInt(1 << 2)
+)
+
+type ProjectTime struct {
+	Created     int  `json:"created" url:"created"`
+	Updated     int  `json:"updated" url:"updated"`
+	Initialized *int `json:"initialized,omitempty" url:"initialized,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (p *ProjectTime) GetCreated() int {
+	if p == nil {
+		return 0
+	}
+	return p.Created
+}
+
+func (p *ProjectTime) GetUpdated() int {
+	if p == nil {
+		return 0
+	}
+	return p.Updated
+}
+
+func (p *ProjectTime) GetInitialized() *int {
+	if p == nil {
+		return nil
+	}
+	return p.Initialized
+}
+
+func (p *ProjectTime) GetExtraProperties() map[string]interface{} {
+	if p == nil {
+		return nil
+	}
+	return p.extraProperties
+}
+
+func (p *ProjectTime) require(field *big.Int) {
+	if p.explicitFields == nil {
+		p.explicitFields = big.NewInt(0)
+	}
+	p.explicitFields.Or(p.explicitFields, field)
+}
+
+// SetCreated sets the Created field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *ProjectTime) SetCreated(created int) {
+	p.Created = created
+	p.require(projectTimeFieldCreated)
+}
+
+// SetUpdated sets the Updated field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *ProjectTime) SetUpdated(updated int) {
+	p.Updated = updated
+	p.require(projectTimeFieldUpdated)
+}
+
+// SetInitialized sets the Initialized field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *ProjectTime) SetInitialized(initialized *int) {
+	p.Initialized = initialized
+	p.require(projectTimeFieldInitialized)
+}
+
+func (p *ProjectTime) UnmarshalJSON(data []byte) error {
+	type unmarshaler ProjectTime
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*p = ProjectTime(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *p)
+	if err != nil {
+		return err
+	}
+	p.extraProperties = extraProperties
+	p.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (p *ProjectTime) MarshalJSON() ([]byte, error) {
+	type embed ProjectTime
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*p),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, p.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (p *ProjectTime) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	if len(p.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(p.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(p); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", p)
+}
+
+type ProjectVcs string
+
+const (
+	ProjectVcsGit ProjectVcs = "git"
+)
+
+func NewProjectVcsFromString(s string) (ProjectVcs, error) {
+	switch s {
+	case "git":
+		return ProjectVcsGit, nil
+	}
+	var t ProjectVcs
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (p ProjectVcs) Ptr() *ProjectVcs {
+	return &p
 }
 
 var (

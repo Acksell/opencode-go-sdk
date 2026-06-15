@@ -58,6 +58,7 @@ func (r *RawClient) Health(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
+			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
 		},
 	)
 	if err != nil {

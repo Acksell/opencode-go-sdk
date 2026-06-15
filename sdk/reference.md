@@ -728,6 +728,83 @@ client.Project.Update(
 </dl>
 </details>
 
+<details><summary><code>client.Project.Directories(ProjectID) -> sdk.ProjectDirectories</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List known local absolute directories for a project.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &sdk.ProjectDirectoriesRequest{
+        ProjectID: "projectID",
+    }
+client.Project.Directories(
+        context.TODO(),
+        request,
+    )
+}
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**projectID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**directory:** `*string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**workspace:** `*string` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## question
 <details><summary><code>client.Question.List() -> []*sdk.QuestionRequest</code></summary>
 <dl>
@@ -1659,6 +1736,14 @@ client.Session.Create(
 <dl>
 <dd>
 
+**metadata:** `map[string]any` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **permission:** `*sdk.PermissionRuleset` 
     
 </dd>
@@ -1974,6 +2059,14 @@ client.Session.Update(
 <dd>
 
 **title:** `*string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metadata:** `map[string]any` 
     
 </dd>
 </dl>

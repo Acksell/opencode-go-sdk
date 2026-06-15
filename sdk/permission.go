@@ -125,6 +125,286 @@ func (p *PermissionReplyRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
+var (
+	permissionRequestFieldID         = big.NewInt(1 << 0)
+	permissionRequestFieldSessionID  = big.NewInt(1 << 1)
+	permissionRequestFieldPermission = big.NewInt(1 << 2)
+	permissionRequestFieldPatterns   = big.NewInt(1 << 3)
+	permissionRequestFieldMetadata   = big.NewInt(1 << 4)
+	permissionRequestFieldAlways     = big.NewInt(1 << 5)
+	permissionRequestFieldTool       = big.NewInt(1 << 6)
+)
+
+type PermissionRequest struct {
+	ID         string                 `json:"id" url:"id"`
+	SessionID  string                 `json:"sessionID" url:"sessionID"`
+	Permission string                 `json:"permission" url:"permission"`
+	Patterns   []string               `json:"patterns" url:"patterns"`
+	Metadata   map[string]any         `json:"metadata" url:"metadata"`
+	Always     []string               `json:"always" url:"always"`
+	Tool       *PermissionRequestTool `json:"tool,omitempty" url:"tool,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (p *PermissionRequest) GetID() string {
+	if p == nil {
+		return ""
+	}
+	return p.ID
+}
+
+func (p *PermissionRequest) GetSessionID() string {
+	if p == nil {
+		return ""
+	}
+	return p.SessionID
+}
+
+func (p *PermissionRequest) GetPermission() string {
+	if p == nil {
+		return ""
+	}
+	return p.Permission
+}
+
+func (p *PermissionRequest) GetPatterns() []string {
+	if p == nil {
+		return nil
+	}
+	return p.Patterns
+}
+
+func (p *PermissionRequest) GetMetadata() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Metadata
+}
+
+func (p *PermissionRequest) GetAlways() []string {
+	if p == nil {
+		return nil
+	}
+	return p.Always
+}
+
+func (p *PermissionRequest) GetTool() *PermissionRequestTool {
+	if p == nil {
+		return nil
+	}
+	return p.Tool
+}
+
+func (p *PermissionRequest) GetExtraProperties() map[string]interface{} {
+	if p == nil {
+		return nil
+	}
+	return p.extraProperties
+}
+
+func (p *PermissionRequest) require(field *big.Int) {
+	if p.explicitFields == nil {
+		p.explicitFields = big.NewInt(0)
+	}
+	p.explicitFields.Or(p.explicitFields, field)
+}
+
+// SetID sets the ID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *PermissionRequest) SetID(id string) {
+	p.ID = id
+	p.require(permissionRequestFieldID)
+}
+
+// SetSessionID sets the SessionID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *PermissionRequest) SetSessionID(sessionID string) {
+	p.SessionID = sessionID
+	p.require(permissionRequestFieldSessionID)
+}
+
+// SetPermission sets the Permission field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *PermissionRequest) SetPermission(permission string) {
+	p.Permission = permission
+	p.require(permissionRequestFieldPermission)
+}
+
+// SetPatterns sets the Patterns field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *PermissionRequest) SetPatterns(patterns []string) {
+	p.Patterns = patterns
+	p.require(permissionRequestFieldPatterns)
+}
+
+// SetMetadata sets the Metadata field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *PermissionRequest) SetMetadata(metadata map[string]any) {
+	p.Metadata = metadata
+	p.require(permissionRequestFieldMetadata)
+}
+
+// SetAlways sets the Always field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *PermissionRequest) SetAlways(always []string) {
+	p.Always = always
+	p.require(permissionRequestFieldAlways)
+}
+
+// SetTool sets the Tool field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *PermissionRequest) SetTool(tool *PermissionRequestTool) {
+	p.Tool = tool
+	p.require(permissionRequestFieldTool)
+}
+
+func (p *PermissionRequest) UnmarshalJSON(data []byte) error {
+	type unmarshaler PermissionRequest
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*p = PermissionRequest(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *p)
+	if err != nil {
+		return err
+	}
+	p.extraProperties = extraProperties
+	p.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (p *PermissionRequest) MarshalJSON() ([]byte, error) {
+	type embed PermissionRequest
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*p),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, p.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (p *PermissionRequest) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	if len(p.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(p.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(p); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", p)
+}
+
+var (
+	permissionRequestToolFieldMessageID = big.NewInt(1 << 0)
+	permissionRequestToolFieldCallID    = big.NewInt(1 << 1)
+)
+
+type PermissionRequestTool struct {
+	MessageID string `json:"messageID" url:"messageID"`
+	CallID    string `json:"callID" url:"callID"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (p *PermissionRequestTool) GetMessageID() string {
+	if p == nil {
+		return ""
+	}
+	return p.MessageID
+}
+
+func (p *PermissionRequestTool) GetCallID() string {
+	if p == nil {
+		return ""
+	}
+	return p.CallID
+}
+
+func (p *PermissionRequestTool) GetExtraProperties() map[string]interface{} {
+	if p == nil {
+		return nil
+	}
+	return p.extraProperties
+}
+
+func (p *PermissionRequestTool) require(field *big.Int) {
+	if p.explicitFields == nil {
+		p.explicitFields = big.NewInt(0)
+	}
+	p.explicitFields.Or(p.explicitFields, field)
+}
+
+// SetMessageID sets the MessageID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *PermissionRequestTool) SetMessageID(messageID string) {
+	p.MessageID = messageID
+	p.require(permissionRequestToolFieldMessageID)
+}
+
+// SetCallID sets the CallID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *PermissionRequestTool) SetCallID(callID string) {
+	p.CallID = callID
+	p.require(permissionRequestToolFieldCallID)
+}
+
+func (p *PermissionRequestTool) UnmarshalJSON(data []byte) error {
+	type unmarshaler PermissionRequestTool
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*p = PermissionRequestTool(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *p)
+	if err != nil {
+		return err
+	}
+	p.extraProperties = extraProperties
+	p.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (p *PermissionRequestTool) MarshalJSON() ([]byte, error) {
+	type embed PermissionRequestTool
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*p),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, p.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (p *PermissionRequestTool) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	if len(p.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(p.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(p); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", p)
+}
+
 type PermissionReplyRequestReply string
 
 const (

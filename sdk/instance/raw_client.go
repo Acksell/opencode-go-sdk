@@ -66,6 +66,7 @@ func (r *RawClient) Dispose(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
+			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
 		},
 	)
 	if err != nil {
@@ -113,6 +114,7 @@ func (r *RawClient) AppAgents(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
+			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
 		},
 	)
 	if err != nil {

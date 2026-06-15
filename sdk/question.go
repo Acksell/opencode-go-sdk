@@ -4,6 +4,7 @@ package api
 
 import (
 	json "encoding/json"
+	fmt "fmt"
 	internal "github.com/acksell/opencode-go-sdk/sdk/internal"
 	big "math/big"
 )
@@ -157,4 +158,137 @@ func (q *QuestionReplyRequest) MarshalJSON() ([]byte, error) {
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, q.explicitFields)
 	return json.Marshal(explicitMarshaler)
+}
+
+var (
+	questionRequestFieldID        = big.NewInt(1 << 0)
+	questionRequestFieldSessionID = big.NewInt(1 << 1)
+	questionRequestFieldQuestions = big.NewInt(1 << 2)
+	questionRequestFieldTool      = big.NewInt(1 << 3)
+)
+
+type QuestionRequest struct {
+	ID        string `json:"id" url:"id"`
+	SessionID string `json:"sessionID" url:"sessionID"`
+	// Questions to ask
+	Questions []*QuestionInfo `json:"questions" url:"questions"`
+	Tool      *QuestionTool   `json:"tool,omitempty" url:"tool,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (q *QuestionRequest) GetID() string {
+	if q == nil {
+		return ""
+	}
+	return q.ID
+}
+
+func (q *QuestionRequest) GetSessionID() string {
+	if q == nil {
+		return ""
+	}
+	return q.SessionID
+}
+
+func (q *QuestionRequest) GetQuestions() []*QuestionInfo {
+	if q == nil {
+		return nil
+	}
+	return q.Questions
+}
+
+func (q *QuestionRequest) GetTool() *QuestionTool {
+	if q == nil {
+		return nil
+	}
+	return q.Tool
+}
+
+func (q *QuestionRequest) GetExtraProperties() map[string]interface{} {
+	if q == nil {
+		return nil
+	}
+	return q.extraProperties
+}
+
+func (q *QuestionRequest) require(field *big.Int) {
+	if q.explicitFields == nil {
+		q.explicitFields = big.NewInt(0)
+	}
+	q.explicitFields.Or(q.explicitFields, field)
+}
+
+// SetID sets the ID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (q *QuestionRequest) SetID(id string) {
+	q.ID = id
+	q.require(questionRequestFieldID)
+}
+
+// SetSessionID sets the SessionID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (q *QuestionRequest) SetSessionID(sessionID string) {
+	q.SessionID = sessionID
+	q.require(questionRequestFieldSessionID)
+}
+
+// SetQuestions sets the Questions field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (q *QuestionRequest) SetQuestions(questions []*QuestionInfo) {
+	q.Questions = questions
+	q.require(questionRequestFieldQuestions)
+}
+
+// SetTool sets the Tool field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (q *QuestionRequest) SetTool(tool *QuestionTool) {
+	q.Tool = tool
+	q.require(questionRequestFieldTool)
+}
+
+func (q *QuestionRequest) UnmarshalJSON(data []byte) error {
+	type unmarshaler QuestionRequest
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*q = QuestionRequest(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *q)
+	if err != nil {
+		return err
+	}
+	q.extraProperties = extraProperties
+	q.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (q *QuestionRequest) MarshalJSON() ([]byte, error) {
+	type embed QuestionRequest
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*q),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, q.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (q *QuestionRequest) String() string {
+	if q == nil {
+		return "<nil>"
+	}
+	if len(q.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(q.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(q); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", q)
 }

@@ -230,8 +230,9 @@ var (
 	sessionCreateRequestFieldTitle       = big.NewInt(1 << 3)
 	sessionCreateRequestFieldAgent       = big.NewInt(1 << 4)
 	sessionCreateRequestFieldModel       = big.NewInt(1 << 5)
-	sessionCreateRequestFieldPermission  = big.NewInt(1 << 6)
-	sessionCreateRequestFieldWorkspaceID = big.NewInt(1 << 7)
+	sessionCreateRequestFieldMetadata    = big.NewInt(1 << 6)
+	sessionCreateRequestFieldPermission  = big.NewInt(1 << 7)
+	sessionCreateRequestFieldWorkspaceID = big.NewInt(1 << 8)
 )
 
 type SessionCreateRequest struct {
@@ -241,6 +242,7 @@ type SessionCreateRequest struct {
 	Title       *string                    `json:"title,omitempty" url:"-"`
 	Agent       *string                    `json:"agent,omitempty" url:"-"`
 	Model       *SessionCreateRequestModel `json:"model,omitempty" url:"-"`
+	Metadata    map[string]any             `json:"metadata,omitempty" url:"-"`
 	Permission  *PermissionRuleset         `json:"permission,omitempty" url:"-"`
 	WorkspaceID *string                    `json:"workspaceID,omitempty" url:"-"`
 
@@ -295,6 +297,13 @@ func (s *SessionCreateRequest) SetAgent(agent *string) {
 func (s *SessionCreateRequest) SetModel(model *SessionCreateRequestModel) {
 	s.Model = model
 	s.require(sessionCreateRequestFieldModel)
+}
+
+// SetMetadata sets the Metadata field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SessionCreateRequest) SetMetadata(metadata map[string]any) {
+	s.Metadata = metadata
+	s.require(sessionCreateRequestFieldMetadata)
 }
 
 // SetPermission sets the Permission field and marks it as non-optional;
@@ -4445,8 +4454,9 @@ var (
 	sessionUpdateRequestFieldDirectory  = big.NewInt(1 << 1)
 	sessionUpdateRequestFieldWorkspace  = big.NewInt(1 << 2)
 	sessionUpdateRequestFieldTitle      = big.NewInt(1 << 3)
-	sessionUpdateRequestFieldPermission = big.NewInt(1 << 4)
-	sessionUpdateRequestFieldTime       = big.NewInt(1 << 5)
+	sessionUpdateRequestFieldMetadata   = big.NewInt(1 << 4)
+	sessionUpdateRequestFieldPermission = big.NewInt(1 << 5)
+	sessionUpdateRequestFieldTime       = big.NewInt(1 << 6)
 )
 
 type SessionUpdateRequest struct {
@@ -4454,6 +4464,7 @@ type SessionUpdateRequest struct {
 	Directory  *string                   `json:"-" url:"directory,omitempty"`
 	Workspace  *string                   `json:"-" url:"workspace,omitempty"`
 	Title      *string                   `json:"title,omitempty" url:"-"`
+	Metadata   map[string]any            `json:"metadata,omitempty" url:"-"`
 	Permission *PermissionRuleset        `json:"permission,omitempty" url:"-"`
 	Time       *SessionUpdateRequestTime `json:"time,omitempty" url:"-"`
 
@@ -4494,6 +4505,13 @@ func (s *SessionUpdateRequest) SetWorkspace(workspace *string) {
 func (s *SessionUpdateRequest) SetTitle(title *string) {
 	s.Title = title
 	s.require(sessionUpdateRequestFieldTitle)
+}
+
+// SetMetadata sets the Metadata field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SessionUpdateRequest) SetMetadata(metadata map[string]any) {
+	s.Metadata = metadata
+	s.require(sessionUpdateRequestFieldMetadata)
 }
 
 // SetPermission sets the Permission field and marks it as non-optional;

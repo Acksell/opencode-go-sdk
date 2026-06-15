@@ -170,3 +170,28 @@ func TestProjectUpdateWithWireMock(
 	require.NoError(t, invocationErr, "Client method call should succeed")
 	VerifyRequestCount(t, "TestProjectUpdateWithWireMock", "PATCH", "/project/projectID", nil, 1)
 }
+
+func TestProjectDirectoriesWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+	)
+	request := &sdk.ProjectDirectoriesRequest{
+		ProjectID: "projectID",
+	}
+	_, invocationErr := client.Project.Directories(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestProjectDirectoriesWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestProjectDirectoriesWithWireMock", "GET", "/project/projectID/directories", nil, 1)
+}

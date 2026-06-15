@@ -904,6 +904,7 @@ type AssistantMessageError struct {
 	MessageAbortedError      *MessageAbortedError
 	StructuredOutputError    *StructuredOutputError
 	ContextOverflowError     *ContextOverflowError
+	ContentFilterError       *ContentFilterError
 	APIError                 *APIError
 }
 
@@ -954,6 +955,13 @@ func (a *AssistantMessageError) GetContextOverflowError() *ContextOverflowError 
 		return nil
 	}
 	return a.ContextOverflowError
+}
+
+func (a *AssistantMessageError) GetContentFilterError() *ContentFilterError {
+	if a == nil {
+		return nil
+	}
+	return a.ContentFilterError
 }
 
 func (a *AssistantMessageError) GetAPIError() *APIError {
@@ -1011,6 +1019,12 @@ func (a *AssistantMessageError) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		a.ContextOverflowError = value
+	case "ContentFilterError":
+		value := new(ContentFilterError)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		a.ContentFilterError = value
 	case "APIError":
 		value := new(APIError)
 		if err := json.Unmarshal(data, &value); err != nil {
@@ -1043,6 +1057,9 @@ func (a AssistantMessageError) MarshalJSON() ([]byte, error) {
 	if a.ContextOverflowError != nil {
 		return internal.MarshalJSONWithExtraProperty(a.ContextOverflowError, "name", "ContextOverflowError")
 	}
+	if a.ContentFilterError != nil {
+		return internal.MarshalJSONWithExtraProperty(a.ContentFilterError, "name", "ContentFilterError")
+	}
 	if a.APIError != nil {
 		return internal.MarshalJSONWithExtraProperty(a.APIError, "name", "APIError")
 	}
@@ -1056,6 +1073,7 @@ type AssistantMessageErrorVisitor interface {
 	VisitMessageAbortedError(*MessageAbortedError) error
 	VisitStructuredOutputError(*StructuredOutputError) error
 	VisitContextOverflowError(*ContextOverflowError) error
+	VisitContentFilterError(*ContentFilterError) error
 	VisitAPIError(*APIError) error
 }
 
@@ -1077,6 +1095,9 @@ func (a *AssistantMessageError) Accept(visitor AssistantMessageErrorVisitor) err
 	}
 	if a.ContextOverflowError != nil {
 		return visitor.VisitContextOverflowError(a.ContextOverflowError)
+	}
+	if a.ContentFilterError != nil {
+		return visitor.VisitContentFilterError(a.ContentFilterError)
 	}
 	if a.APIError != nil {
 		return visitor.VisitAPIError(a.APIError)
@@ -1106,6 +1127,9 @@ func (a *AssistantMessageError) validate() error {
 	}
 	if a.ContextOverflowError != nil {
 		fields = append(fields, "ContextOverflowError")
+	}
+	if a.ContentFilterError != nil {
+		fields = append(fields, "ContentFilterError")
 	}
 	if a.APIError != nil {
 		fields = append(fields, "APIError")
@@ -2015,6 +2039,174 @@ func (c *CompactionPart) String() string {
 }
 
 var (
+	contentFilterErrorFieldData = big.NewInt(1 << 0)
+)
+
+type ContentFilterError struct {
+	Data *ContentFilterErrorData `json:"data" url:"data"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ContentFilterError) GetData() *ContentFilterErrorData {
+	if c == nil {
+		return nil
+	}
+	return c.Data
+}
+
+func (c *ContentFilterError) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ContentFilterError) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetData sets the Data field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ContentFilterError) SetData(data *ContentFilterErrorData) {
+	c.Data = data
+	c.require(contentFilterErrorFieldData)
+}
+
+func (c *ContentFilterError) UnmarshalJSON(data []byte) error {
+	type unmarshaler ContentFilterError
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ContentFilterError(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ContentFilterError) MarshalJSON() ([]byte, error) {
+	type embed ContentFilterError
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ContentFilterError) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	contentFilterErrorDataFieldMessage = big.NewInt(1 << 0)
+)
+
+type ContentFilterErrorData struct {
+	Message string `json:"message" url:"message"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ContentFilterErrorData) GetMessage() string {
+	if c == nil {
+		return ""
+	}
+	return c.Message
+}
+
+func (c *ContentFilterErrorData) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ContentFilterErrorData) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetMessage sets the Message field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ContentFilterErrorData) SetMessage(message string) {
+	c.Message = message
+	c.require(contentFilterErrorDataFieldMessage)
+}
+
+func (c *ContentFilterErrorData) UnmarshalJSON(data []byte) error {
+	type unmarshaler ContentFilterErrorData
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ContentFilterErrorData(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ContentFilterErrorData) MarshalJSON() ([]byte, error) {
+	type embed ContentFilterErrorData
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ContentFilterErrorData) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
 	contextOverflowErrorFieldData = big.NewInt(1 << 0)
 )
 
@@ -2196,6 +2388,71 @@ func (c *ContextOverflowErrorData) String() string {
 		return value
 	}
 	return fmt.Sprintf("%#v", c)
+}
+
+type EffectHttpApiErrorBadRequest struct {
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (e *EffectHttpApiErrorBadRequest) GetExtraProperties() map[string]interface{} {
+	if e == nil {
+		return nil
+	}
+	return e.extraProperties
+}
+
+func (e *EffectHttpApiErrorBadRequest) require(field *big.Int) {
+	if e.explicitFields == nil {
+		e.explicitFields = big.NewInt(0)
+	}
+	e.explicitFields.Or(e.explicitFields, field)
+}
+
+func (e *EffectHttpApiErrorBadRequest) UnmarshalJSON(data []byte) error {
+	type unmarshaler EffectHttpApiErrorBadRequest
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*e = EffectHttpApiErrorBadRequest(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *e)
+	if err != nil {
+		return err
+	}
+	e.extraProperties = extraProperties
+	e.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (e *EffectHttpApiErrorBadRequest) MarshalJSON() ([]byte, error) {
+	type embed EffectHttpApiErrorBadRequest
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*e),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, e.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (e *EffectHttpApiErrorBadRequest) String() string {
+	if e == nil {
+		return "<nil>"
+	}
+	if len(e.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(e.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(e); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", e)
 }
 
 var (
@@ -2871,6 +3128,157 @@ func (f *FileSource) String() string {
 		return value
 	}
 	return fmt.Sprintf("%#v", f)
+}
+
+var (
+	invalidRequestErrorFieldTag     = big.NewInt(1 << 0)
+	invalidRequestErrorFieldMessage = big.NewInt(1 << 1)
+	invalidRequestErrorFieldKind    = big.NewInt(1 << 2)
+	invalidRequestErrorFieldField   = big.NewInt(1 << 3)
+)
+
+type InvalidRequestError struct {
+	Tag     InvalidRequestErrorTag `json:"_tag" url:"_tag"`
+	Message string                 `json:"message" url:"message"`
+	Kind    *string                `json:"kind,omitempty" url:"kind,omitempty"`
+	Field   *string                `json:"field,omitempty" url:"field,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (i *InvalidRequestError) GetTag() InvalidRequestErrorTag {
+	if i == nil {
+		return ""
+	}
+	return i.Tag
+}
+
+func (i *InvalidRequestError) GetMessage() string {
+	if i == nil {
+		return ""
+	}
+	return i.Message
+}
+
+func (i *InvalidRequestError) GetKind() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Kind
+}
+
+func (i *InvalidRequestError) GetField() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Field
+}
+
+func (i *InvalidRequestError) GetExtraProperties() map[string]interface{} {
+	if i == nil {
+		return nil
+	}
+	return i.extraProperties
+}
+
+func (i *InvalidRequestError) require(field *big.Int) {
+	if i.explicitFields == nil {
+		i.explicitFields = big.NewInt(0)
+	}
+	i.explicitFields.Or(i.explicitFields, field)
+}
+
+// SetTag sets the Tag field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (i *InvalidRequestError) SetTag(tag InvalidRequestErrorTag) {
+	i.Tag = tag
+	i.require(invalidRequestErrorFieldTag)
+}
+
+// SetMessage sets the Message field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (i *InvalidRequestError) SetMessage(message string) {
+	i.Message = message
+	i.require(invalidRequestErrorFieldMessage)
+}
+
+// SetKind sets the Kind field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (i *InvalidRequestError) SetKind(kind *string) {
+	i.Kind = kind
+	i.require(invalidRequestErrorFieldKind)
+}
+
+// SetField sets the Field field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (i *InvalidRequestError) SetField(field *string) {
+	i.Field = field
+	i.require(invalidRequestErrorFieldField)
+}
+
+func (i *InvalidRequestError) UnmarshalJSON(data []byte) error {
+	type unmarshaler InvalidRequestError
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*i = InvalidRequestError(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *i)
+	if err != nil {
+		return err
+	}
+	i.extraProperties = extraProperties
+	i.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (i *InvalidRequestError) MarshalJSON() ([]byte, error) {
+	type embed InvalidRequestError
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*i),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, i.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (i *InvalidRequestError) String() string {
+	if i == nil {
+		return "<nil>"
+	}
+	if len(i.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(i.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(i); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", i)
+}
+
+type InvalidRequestErrorTag string
+
+const (
+	InvalidRequestErrorTagInvalidRequestError InvalidRequestErrorTag = "InvalidRequestError"
+)
+
+func NewInvalidRequestErrorTagFromString(s string) (InvalidRequestErrorTag, error) {
+	switch s {
+	case "InvalidRequestError":
+		return InvalidRequestErrorTagInvalidRequestError, nil
+	}
+	var t InvalidRequestErrorTag
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (i InvalidRequestErrorTag) Ptr() *InvalidRequestErrorTag {
+	return &i
 }
 
 type JSONSchema = map[string]any
@@ -4178,12 +4586,15 @@ func (m *ModelCapabilitiesInterleavedField) String() string {
 type ModelCapabilitiesInterleavedFieldField string
 
 const (
+	ModelCapabilitiesInterleavedFieldFieldReasoning        ModelCapabilitiesInterleavedFieldField = "reasoning"
 	ModelCapabilitiesInterleavedFieldFieldReasoningContent ModelCapabilitiesInterleavedFieldField = "reasoning_content"
 	ModelCapabilitiesInterleavedFieldFieldReasoningDetails ModelCapabilitiesInterleavedFieldField = "reasoning_details"
 )
 
 func NewModelCapabilitiesInterleavedFieldFieldFromString(s string) (ModelCapabilitiesInterleavedFieldField, error) {
 	switch s {
+	case "reasoning":
+		return ModelCapabilitiesInterleavedFieldFieldReasoning, nil
 	case "reasoning_content":
 		return ModelCapabilitiesInterleavedFieldFieldReasoningContent, nil
 	case "reasoning_details":
@@ -6320,23 +6731,15 @@ func (p PermissionAction) Ptr() *PermissionAction {
 }
 
 var (
-	permissionRequestFieldID         = big.NewInt(1 << 0)
-	permissionRequestFieldSessionID  = big.NewInt(1 << 1)
-	permissionRequestFieldPermission = big.NewInt(1 << 2)
-	permissionRequestFieldPatterns   = big.NewInt(1 << 3)
-	permissionRequestFieldMetadata   = big.NewInt(1 << 4)
-	permissionRequestFieldAlways     = big.NewInt(1 << 5)
-	permissionRequestFieldTool       = big.NewInt(1 << 6)
+	permissionNotFoundErrorFieldTag       = big.NewInt(1 << 0)
+	permissionNotFoundErrorFieldRequestID = big.NewInt(1 << 1)
+	permissionNotFoundErrorFieldMessage   = big.NewInt(1 << 2)
 )
 
-type PermissionRequest struct {
-	ID         string                 `json:"id" url:"id"`
-	SessionID  string                 `json:"sessionID" url:"sessionID"`
-	Permission string                 `json:"permission" url:"permission"`
-	Patterns   []string               `json:"patterns" url:"patterns"`
-	Metadata   map[string]any         `json:"metadata" url:"metadata"`
-	Always     []string               `json:"always" url:"always"`
-	Tool       *PermissionRequestTool `json:"tool,omitempty" url:"tool,omitempty"`
+type PermissionNotFoundError struct {
+	Tag       PermissionNotFoundErrorTag `json:"_tag" url:"_tag"`
+	RequestID string                     `json:"requestID" url:"requestID"`
+	Message   string                     `json:"message" url:"message"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -6345,125 +6748,69 @@ type PermissionRequest struct {
 	rawJSON         json.RawMessage
 }
 
-func (p *PermissionRequest) GetID() string {
+func (p *PermissionNotFoundError) GetTag() PermissionNotFoundErrorTag {
 	if p == nil {
 		return ""
 	}
-	return p.ID
+	return p.Tag
 }
 
-func (p *PermissionRequest) GetSessionID() string {
+func (p *PermissionNotFoundError) GetRequestID() string {
 	if p == nil {
 		return ""
 	}
-	return p.SessionID
+	return p.RequestID
 }
 
-func (p *PermissionRequest) GetPermission() string {
+func (p *PermissionNotFoundError) GetMessage() string {
 	if p == nil {
 		return ""
 	}
-	return p.Permission
+	return p.Message
 }
 
-func (p *PermissionRequest) GetPatterns() []string {
-	if p == nil {
-		return nil
-	}
-	return p.Patterns
-}
-
-func (p *PermissionRequest) GetMetadata() map[string]any {
-	if p == nil {
-		return nil
-	}
-	return p.Metadata
-}
-
-func (p *PermissionRequest) GetAlways() []string {
-	if p == nil {
-		return nil
-	}
-	return p.Always
-}
-
-func (p *PermissionRequest) GetTool() *PermissionRequestTool {
-	if p == nil {
-		return nil
-	}
-	return p.Tool
-}
-
-func (p *PermissionRequest) GetExtraProperties() map[string]interface{} {
+func (p *PermissionNotFoundError) GetExtraProperties() map[string]interface{} {
 	if p == nil {
 		return nil
 	}
 	return p.extraProperties
 }
 
-func (p *PermissionRequest) require(field *big.Int) {
+func (p *PermissionNotFoundError) require(field *big.Int) {
 	if p.explicitFields == nil {
 		p.explicitFields = big.NewInt(0)
 	}
 	p.explicitFields.Or(p.explicitFields, field)
 }
 
-// SetID sets the ID field and marks it as non-optional;
+// SetTag sets the Tag field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (p *PermissionRequest) SetID(id string) {
-	p.ID = id
-	p.require(permissionRequestFieldID)
+func (p *PermissionNotFoundError) SetTag(tag PermissionNotFoundErrorTag) {
+	p.Tag = tag
+	p.require(permissionNotFoundErrorFieldTag)
 }
 
-// SetSessionID sets the SessionID field and marks it as non-optional;
+// SetRequestID sets the RequestID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (p *PermissionRequest) SetSessionID(sessionID string) {
-	p.SessionID = sessionID
-	p.require(permissionRequestFieldSessionID)
+func (p *PermissionNotFoundError) SetRequestID(requestID string) {
+	p.RequestID = requestID
+	p.require(permissionNotFoundErrorFieldRequestID)
 }
 
-// SetPermission sets the Permission field and marks it as non-optional;
+// SetMessage sets the Message field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (p *PermissionRequest) SetPermission(permission string) {
-	p.Permission = permission
-	p.require(permissionRequestFieldPermission)
+func (p *PermissionNotFoundError) SetMessage(message string) {
+	p.Message = message
+	p.require(permissionNotFoundErrorFieldMessage)
 }
 
-// SetPatterns sets the Patterns field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (p *PermissionRequest) SetPatterns(patterns []string) {
-	p.Patterns = patterns
-	p.require(permissionRequestFieldPatterns)
-}
-
-// SetMetadata sets the Metadata field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (p *PermissionRequest) SetMetadata(metadata map[string]any) {
-	p.Metadata = metadata
-	p.require(permissionRequestFieldMetadata)
-}
-
-// SetAlways sets the Always field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (p *PermissionRequest) SetAlways(always []string) {
-	p.Always = always
-	p.require(permissionRequestFieldAlways)
-}
-
-// SetTool sets the Tool field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (p *PermissionRequest) SetTool(tool *PermissionRequestTool) {
-	p.Tool = tool
-	p.require(permissionRequestFieldTool)
-}
-
-func (p *PermissionRequest) UnmarshalJSON(data []byte) error {
-	type unmarshaler PermissionRequest
+func (p *PermissionNotFoundError) UnmarshalJSON(data []byte) error {
+	type unmarshaler PermissionNotFoundError
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*p = PermissionRequest(value)
+	*p = PermissionNotFoundError(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *p)
 	if err != nil {
 		return err
@@ -6473,8 +6820,8 @@ func (p *PermissionRequest) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (p *PermissionRequest) MarshalJSON() ([]byte, error) {
-	type embed PermissionRequest
+func (p *PermissionNotFoundError) MarshalJSON() ([]byte, error) {
+	type embed PermissionNotFoundError
 	var marshaler = struct {
 		embed
 	}{
@@ -6484,7 +6831,7 @@ func (p *PermissionRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (p *PermissionRequest) String() string {
+func (p *PermissionNotFoundError) String() string {
 	if p == nil {
 		return "<nil>"
 	}
@@ -6499,104 +6846,23 @@ func (p *PermissionRequest) String() string {
 	return fmt.Sprintf("%#v", p)
 }
 
-var (
-	permissionRequestToolFieldMessageID = big.NewInt(1 << 0)
-	permissionRequestToolFieldCallID    = big.NewInt(1 << 1)
+type PermissionNotFoundErrorTag string
+
+const (
+	PermissionNotFoundErrorTagPermissionNotFoundError PermissionNotFoundErrorTag = "PermissionNotFoundError"
 )
 
-type PermissionRequestTool struct {
-	MessageID string `json:"messageID" url:"messageID"`
-	CallID    string `json:"callID" url:"callID"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
+func NewPermissionNotFoundErrorTagFromString(s string) (PermissionNotFoundErrorTag, error) {
+	switch s {
+	case "PermissionNotFoundError":
+		return PermissionNotFoundErrorTagPermissionNotFoundError, nil
+	}
+	var t PermissionNotFoundErrorTag
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (p *PermissionRequestTool) GetMessageID() string {
-	if p == nil {
-		return ""
-	}
-	return p.MessageID
-}
-
-func (p *PermissionRequestTool) GetCallID() string {
-	if p == nil {
-		return ""
-	}
-	return p.CallID
-}
-
-func (p *PermissionRequestTool) GetExtraProperties() map[string]interface{} {
-	if p == nil {
-		return nil
-	}
-	return p.extraProperties
-}
-
-func (p *PermissionRequestTool) require(field *big.Int) {
-	if p.explicitFields == nil {
-		p.explicitFields = big.NewInt(0)
-	}
-	p.explicitFields.Or(p.explicitFields, field)
-}
-
-// SetMessageID sets the MessageID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (p *PermissionRequestTool) SetMessageID(messageID string) {
-	p.MessageID = messageID
-	p.require(permissionRequestToolFieldMessageID)
-}
-
-// SetCallID sets the CallID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (p *PermissionRequestTool) SetCallID(callID string) {
-	p.CallID = callID
-	p.require(permissionRequestToolFieldCallID)
-}
-
-func (p *PermissionRequestTool) UnmarshalJSON(data []byte) error {
-	type unmarshaler PermissionRequestTool
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*p = PermissionRequestTool(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *p)
-	if err != nil {
-		return err
-	}
-	p.extraProperties = extraProperties
-	p.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (p *PermissionRequestTool) MarshalJSON() ([]byte, error) {
-	type embed PermissionRequestTool
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*p),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, p.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (p *PermissionRequestTool) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	if len(p.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(p.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(p); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", p)
+func (p PermissionNotFoundErrorTag) Ptr() *PermissionNotFoundErrorTag {
+	return &p
 }
 
 var (
@@ -6718,25 +6984,15 @@ func (p *PermissionRule) String() string {
 type PermissionRuleset = []*PermissionRule
 
 var (
-	projectFieldID        = big.NewInt(1 << 0)
-	projectFieldWorktree  = big.NewInt(1 << 1)
-	projectFieldVcs       = big.NewInt(1 << 2)
-	projectFieldName      = big.NewInt(1 << 3)
-	projectFieldIcon      = big.NewInt(1 << 4)
-	projectFieldCommands  = big.NewInt(1 << 5)
-	projectFieldTime      = big.NewInt(1 << 6)
-	projectFieldSandboxes = big.NewInt(1 << 7)
+	projectNotFoundErrorFieldTag       = big.NewInt(1 << 0)
+	projectNotFoundErrorFieldProjectID = big.NewInt(1 << 1)
+	projectNotFoundErrorFieldMessage   = big.NewInt(1 << 2)
 )
 
-type Project struct {
-	ID        string           `json:"id" url:"id"`
-	Worktree  string           `json:"worktree" url:"worktree"`
-	Vcs       *ProjectVcs      `json:"vcs,omitempty" url:"vcs,omitempty"`
-	Name      *string          `json:"name,omitempty" url:"name,omitempty"`
-	Icon      *ProjectIcon     `json:"icon,omitempty" url:"icon,omitempty"`
-	Commands  *ProjectCommands `json:"commands,omitempty" url:"commands,omitempty"`
-	Time      *ProjectTime     `json:"time" url:"time"`
-	Sandboxes []string         `json:"sandboxes" url:"sandboxes"`
+type ProjectNotFoundError struct {
+	Tag       ProjectNotFoundErrorTag `json:"_tag" url:"_tag"`
+	ProjectID string                  `json:"projectID" url:"projectID"`
+	Message   string                  `json:"message" url:"message"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -6745,139 +7001,69 @@ type Project struct {
 	rawJSON         json.RawMessage
 }
 
-func (p *Project) GetID() string {
+func (p *ProjectNotFoundError) GetTag() ProjectNotFoundErrorTag {
 	if p == nil {
 		return ""
 	}
-	return p.ID
+	return p.Tag
 }
 
-func (p *Project) GetWorktree() string {
+func (p *ProjectNotFoundError) GetProjectID() string {
 	if p == nil {
 		return ""
 	}
-	return p.Worktree
+	return p.ProjectID
 }
 
-func (p *Project) GetVcs() *ProjectVcs {
+func (p *ProjectNotFoundError) GetMessage() string {
 	if p == nil {
-		return nil
+		return ""
 	}
-	return p.Vcs
+	return p.Message
 }
 
-func (p *Project) GetName() *string {
-	if p == nil {
-		return nil
-	}
-	return p.Name
-}
-
-func (p *Project) GetIcon() *ProjectIcon {
-	if p == nil {
-		return nil
-	}
-	return p.Icon
-}
-
-func (p *Project) GetCommands() *ProjectCommands {
-	if p == nil {
-		return nil
-	}
-	return p.Commands
-}
-
-func (p *Project) GetTime() *ProjectTime {
-	if p == nil {
-		return nil
-	}
-	return p.Time
-}
-
-func (p *Project) GetSandboxes() []string {
-	if p == nil {
-		return nil
-	}
-	return p.Sandboxes
-}
-
-func (p *Project) GetExtraProperties() map[string]interface{} {
+func (p *ProjectNotFoundError) GetExtraProperties() map[string]interface{} {
 	if p == nil {
 		return nil
 	}
 	return p.extraProperties
 }
 
-func (p *Project) require(field *big.Int) {
+func (p *ProjectNotFoundError) require(field *big.Int) {
 	if p.explicitFields == nil {
 		p.explicitFields = big.NewInt(0)
 	}
 	p.explicitFields.Or(p.explicitFields, field)
 }
 
-// SetID sets the ID field and marks it as non-optional;
+// SetTag sets the Tag field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (p *Project) SetID(id string) {
-	p.ID = id
-	p.require(projectFieldID)
+func (p *ProjectNotFoundError) SetTag(tag ProjectNotFoundErrorTag) {
+	p.Tag = tag
+	p.require(projectNotFoundErrorFieldTag)
 }
 
-// SetWorktree sets the Worktree field and marks it as non-optional;
+// SetProjectID sets the ProjectID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (p *Project) SetWorktree(worktree string) {
-	p.Worktree = worktree
-	p.require(projectFieldWorktree)
+func (p *ProjectNotFoundError) SetProjectID(projectID string) {
+	p.ProjectID = projectID
+	p.require(projectNotFoundErrorFieldProjectID)
 }
 
-// SetVcs sets the Vcs field and marks it as non-optional;
+// SetMessage sets the Message field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (p *Project) SetVcs(vcs *ProjectVcs) {
-	p.Vcs = vcs
-	p.require(projectFieldVcs)
+func (p *ProjectNotFoundError) SetMessage(message string) {
+	p.Message = message
+	p.require(projectNotFoundErrorFieldMessage)
 }
 
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (p *Project) SetName(name *string) {
-	p.Name = name
-	p.require(projectFieldName)
-}
-
-// SetIcon sets the Icon field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (p *Project) SetIcon(icon *ProjectIcon) {
-	p.Icon = icon
-	p.require(projectFieldIcon)
-}
-
-// SetCommands sets the Commands field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (p *Project) SetCommands(commands *ProjectCommands) {
-	p.Commands = commands
-	p.require(projectFieldCommands)
-}
-
-// SetTime sets the Time field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (p *Project) SetTime(time *ProjectTime) {
-	p.Time = time
-	p.require(projectFieldTime)
-}
-
-// SetSandboxes sets the Sandboxes field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (p *Project) SetSandboxes(sandboxes []string) {
-	p.Sandboxes = sandboxes
-	p.require(projectFieldSandboxes)
-}
-
-func (p *Project) UnmarshalJSON(data []byte) error {
-	type unmarshaler Project
+func (p *ProjectNotFoundError) UnmarshalJSON(data []byte) error {
+	type unmarshaler ProjectNotFoundError
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*p = Project(value)
+	*p = ProjectNotFoundError(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *p)
 	if err != nil {
 		return err
@@ -6887,8 +7073,8 @@ func (p *Project) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (p *Project) MarshalJSON() ([]byte, error) {
-	type embed Project
+func (p *ProjectNotFoundError) MarshalJSON() ([]byte, error) {
+	type embed ProjectNotFoundError
 	var marshaler = struct {
 		embed
 	}{
@@ -6898,7 +7084,7 @@ func (p *Project) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (p *Project) String() string {
+func (p *ProjectNotFoundError) String() string {
 	if p == nil {
 		return "<nil>"
 	}
@@ -6913,339 +7099,22 @@ func (p *Project) String() string {
 	return fmt.Sprintf("%#v", p)
 }
 
-var (
-	projectCommandsFieldStart = big.NewInt(1 << 0)
-)
-
-type ProjectCommands struct {
-	// Startup script to run when creating a new workspace (worktree)
-	Start *string `json:"start,omitempty" url:"start,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (p *ProjectCommands) GetStart() *string {
-	if p == nil {
-		return nil
-	}
-	return p.Start
-}
-
-func (p *ProjectCommands) GetExtraProperties() map[string]interface{} {
-	if p == nil {
-		return nil
-	}
-	return p.extraProperties
-}
-
-func (p *ProjectCommands) require(field *big.Int) {
-	if p.explicitFields == nil {
-		p.explicitFields = big.NewInt(0)
-	}
-	p.explicitFields.Or(p.explicitFields, field)
-}
-
-// SetStart sets the Start field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (p *ProjectCommands) SetStart(start *string) {
-	p.Start = start
-	p.require(projectCommandsFieldStart)
-}
-
-func (p *ProjectCommands) UnmarshalJSON(data []byte) error {
-	type unmarshaler ProjectCommands
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*p = ProjectCommands(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *p)
-	if err != nil {
-		return err
-	}
-	p.extraProperties = extraProperties
-	p.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (p *ProjectCommands) MarshalJSON() ([]byte, error) {
-	type embed ProjectCommands
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*p),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, p.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (p *ProjectCommands) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	if len(p.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(p.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(p); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", p)
-}
-
-var (
-	projectIconFieldURL      = big.NewInt(1 << 0)
-	projectIconFieldOverride = big.NewInt(1 << 1)
-	projectIconFieldColor    = big.NewInt(1 << 2)
-)
-
-type ProjectIcon struct {
-	URL      *string `json:"url,omitempty" url:"url,omitempty"`
-	Override *string `json:"override,omitempty" url:"override,omitempty"`
-	Color    *string `json:"color,omitempty" url:"color,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (p *ProjectIcon) GetURL() *string {
-	if p == nil {
-		return nil
-	}
-	return p.URL
-}
-
-func (p *ProjectIcon) GetOverride() *string {
-	if p == nil {
-		return nil
-	}
-	return p.Override
-}
-
-func (p *ProjectIcon) GetColor() *string {
-	if p == nil {
-		return nil
-	}
-	return p.Color
-}
-
-func (p *ProjectIcon) GetExtraProperties() map[string]interface{} {
-	if p == nil {
-		return nil
-	}
-	return p.extraProperties
-}
-
-func (p *ProjectIcon) require(field *big.Int) {
-	if p.explicitFields == nil {
-		p.explicitFields = big.NewInt(0)
-	}
-	p.explicitFields.Or(p.explicitFields, field)
-}
-
-// SetURL sets the URL field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (p *ProjectIcon) SetURL(url *string) {
-	p.URL = url
-	p.require(projectIconFieldURL)
-}
-
-// SetOverride sets the Override field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (p *ProjectIcon) SetOverride(override *string) {
-	p.Override = override
-	p.require(projectIconFieldOverride)
-}
-
-// SetColor sets the Color field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (p *ProjectIcon) SetColor(color *string) {
-	p.Color = color
-	p.require(projectIconFieldColor)
-}
-
-func (p *ProjectIcon) UnmarshalJSON(data []byte) error {
-	type unmarshaler ProjectIcon
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*p = ProjectIcon(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *p)
-	if err != nil {
-		return err
-	}
-	p.extraProperties = extraProperties
-	p.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (p *ProjectIcon) MarshalJSON() ([]byte, error) {
-	type embed ProjectIcon
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*p),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, p.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (p *ProjectIcon) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	if len(p.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(p.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(p); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", p)
-}
-
-var (
-	projectTimeFieldCreated     = big.NewInt(1 << 0)
-	projectTimeFieldUpdated     = big.NewInt(1 << 1)
-	projectTimeFieldInitialized = big.NewInt(1 << 2)
-)
-
-type ProjectTime struct {
-	Created     int  `json:"created" url:"created"`
-	Updated     int  `json:"updated" url:"updated"`
-	Initialized *int `json:"initialized,omitempty" url:"initialized,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (p *ProjectTime) GetCreated() int {
-	if p == nil {
-		return 0
-	}
-	return p.Created
-}
-
-func (p *ProjectTime) GetUpdated() int {
-	if p == nil {
-		return 0
-	}
-	return p.Updated
-}
-
-func (p *ProjectTime) GetInitialized() *int {
-	if p == nil {
-		return nil
-	}
-	return p.Initialized
-}
-
-func (p *ProjectTime) GetExtraProperties() map[string]interface{} {
-	if p == nil {
-		return nil
-	}
-	return p.extraProperties
-}
-
-func (p *ProjectTime) require(field *big.Int) {
-	if p.explicitFields == nil {
-		p.explicitFields = big.NewInt(0)
-	}
-	p.explicitFields.Or(p.explicitFields, field)
-}
-
-// SetCreated sets the Created field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (p *ProjectTime) SetCreated(created int) {
-	p.Created = created
-	p.require(projectTimeFieldCreated)
-}
-
-// SetUpdated sets the Updated field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (p *ProjectTime) SetUpdated(updated int) {
-	p.Updated = updated
-	p.require(projectTimeFieldUpdated)
-}
-
-// SetInitialized sets the Initialized field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (p *ProjectTime) SetInitialized(initialized *int) {
-	p.Initialized = initialized
-	p.require(projectTimeFieldInitialized)
-}
-
-func (p *ProjectTime) UnmarshalJSON(data []byte) error {
-	type unmarshaler ProjectTime
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*p = ProjectTime(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *p)
-	if err != nil {
-		return err
-	}
-	p.extraProperties = extraProperties
-	p.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (p *ProjectTime) MarshalJSON() ([]byte, error) {
-	type embed ProjectTime
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*p),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, p.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (p *ProjectTime) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	if len(p.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(p.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(p); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", p)
-}
-
-type ProjectVcs string
+type ProjectNotFoundErrorTag string
 
 const (
-	ProjectVcsGit ProjectVcs = "git"
+	ProjectNotFoundErrorTagProjectNotFoundError ProjectNotFoundErrorTag = "ProjectNotFoundError"
 )
 
-func NewProjectVcsFromString(s string) (ProjectVcs, error) {
+func NewProjectNotFoundErrorTagFromString(s string) (ProjectNotFoundErrorTag, error) {
 	switch s {
-	case "git":
-		return ProjectVcsGit, nil
+	case "ProjectNotFoundError":
+		return ProjectNotFoundErrorTagProjectNotFoundError, nil
 	}
-	var t ProjectVcs
+	var t ProjectNotFoundErrorTag
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (p ProjectVcs) Ptr() *ProjectVcs {
+func (p ProjectNotFoundErrorTag) Ptr() *ProjectNotFoundErrorTag {
 	return &p
 }
 
@@ -8058,6 +7927,141 @@ func (q *QuestionInfo) String() string {
 }
 
 var (
+	questionNotFoundErrorFieldTag       = big.NewInt(1 << 0)
+	questionNotFoundErrorFieldRequestID = big.NewInt(1 << 1)
+	questionNotFoundErrorFieldMessage   = big.NewInt(1 << 2)
+)
+
+type QuestionNotFoundError struct {
+	Tag       QuestionNotFoundErrorTag `json:"_tag" url:"_tag"`
+	RequestID string                   `json:"requestID" url:"requestID"`
+	Message   string                   `json:"message" url:"message"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (q *QuestionNotFoundError) GetTag() QuestionNotFoundErrorTag {
+	if q == nil {
+		return ""
+	}
+	return q.Tag
+}
+
+func (q *QuestionNotFoundError) GetRequestID() string {
+	if q == nil {
+		return ""
+	}
+	return q.RequestID
+}
+
+func (q *QuestionNotFoundError) GetMessage() string {
+	if q == nil {
+		return ""
+	}
+	return q.Message
+}
+
+func (q *QuestionNotFoundError) GetExtraProperties() map[string]interface{} {
+	if q == nil {
+		return nil
+	}
+	return q.extraProperties
+}
+
+func (q *QuestionNotFoundError) require(field *big.Int) {
+	if q.explicitFields == nil {
+		q.explicitFields = big.NewInt(0)
+	}
+	q.explicitFields.Or(q.explicitFields, field)
+}
+
+// SetTag sets the Tag field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (q *QuestionNotFoundError) SetTag(tag QuestionNotFoundErrorTag) {
+	q.Tag = tag
+	q.require(questionNotFoundErrorFieldTag)
+}
+
+// SetRequestID sets the RequestID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (q *QuestionNotFoundError) SetRequestID(requestID string) {
+	q.RequestID = requestID
+	q.require(questionNotFoundErrorFieldRequestID)
+}
+
+// SetMessage sets the Message field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (q *QuestionNotFoundError) SetMessage(message string) {
+	q.Message = message
+	q.require(questionNotFoundErrorFieldMessage)
+}
+
+func (q *QuestionNotFoundError) UnmarshalJSON(data []byte) error {
+	type unmarshaler QuestionNotFoundError
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*q = QuestionNotFoundError(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *q)
+	if err != nil {
+		return err
+	}
+	q.extraProperties = extraProperties
+	q.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (q *QuestionNotFoundError) MarshalJSON() ([]byte, error) {
+	type embed QuestionNotFoundError
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*q),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, q.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (q *QuestionNotFoundError) String() string {
+	if q == nil {
+		return "<nil>"
+	}
+	if len(q.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(q.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(q); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", q)
+}
+
+type QuestionNotFoundErrorTag string
+
+const (
+	QuestionNotFoundErrorTagQuestionNotFoundError QuestionNotFoundErrorTag = "QuestionNotFoundError"
+)
+
+func NewQuestionNotFoundErrorTagFromString(s string) (QuestionNotFoundErrorTag, error) {
+	switch s {
+	case "QuestionNotFoundError":
+		return QuestionNotFoundErrorTagQuestionNotFoundError, nil
+	}
+	var t QuestionNotFoundErrorTag
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (q QuestionNotFoundErrorTag) Ptr() *QuestionNotFoundErrorTag {
+	return &q
+}
+
+var (
 	questionOptionFieldLabel       = big.NewInt(1 << 0)
 	questionOptionFieldDescription = big.NewInt(1 << 1)
 )
@@ -8145,139 +8149,6 @@ func (q *QuestionOption) MarshalJSON() ([]byte, error) {
 }
 
 func (q *QuestionOption) String() string {
-	if q == nil {
-		return "<nil>"
-	}
-	if len(q.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(q.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(q); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", q)
-}
-
-var (
-	questionRequestFieldID        = big.NewInt(1 << 0)
-	questionRequestFieldSessionID = big.NewInt(1 << 1)
-	questionRequestFieldQuestions = big.NewInt(1 << 2)
-	questionRequestFieldTool      = big.NewInt(1 << 3)
-)
-
-type QuestionRequest struct {
-	ID        string `json:"id" url:"id"`
-	SessionID string `json:"sessionID" url:"sessionID"`
-	// Questions to ask
-	Questions []*QuestionInfo `json:"questions" url:"questions"`
-	Tool      *QuestionTool   `json:"tool,omitempty" url:"tool,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (q *QuestionRequest) GetID() string {
-	if q == nil {
-		return ""
-	}
-	return q.ID
-}
-
-func (q *QuestionRequest) GetSessionID() string {
-	if q == nil {
-		return ""
-	}
-	return q.SessionID
-}
-
-func (q *QuestionRequest) GetQuestions() []*QuestionInfo {
-	if q == nil {
-		return nil
-	}
-	return q.Questions
-}
-
-func (q *QuestionRequest) GetTool() *QuestionTool {
-	if q == nil {
-		return nil
-	}
-	return q.Tool
-}
-
-func (q *QuestionRequest) GetExtraProperties() map[string]interface{} {
-	if q == nil {
-		return nil
-	}
-	return q.extraProperties
-}
-
-func (q *QuestionRequest) require(field *big.Int) {
-	if q.explicitFields == nil {
-		q.explicitFields = big.NewInt(0)
-	}
-	q.explicitFields.Or(q.explicitFields, field)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (q *QuestionRequest) SetID(id string) {
-	q.ID = id
-	q.require(questionRequestFieldID)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (q *QuestionRequest) SetSessionID(sessionID string) {
-	q.SessionID = sessionID
-	q.require(questionRequestFieldSessionID)
-}
-
-// SetQuestions sets the Questions field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (q *QuestionRequest) SetQuestions(questions []*QuestionInfo) {
-	q.Questions = questions
-	q.require(questionRequestFieldQuestions)
-}
-
-// SetTool sets the Tool field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (q *QuestionRequest) SetTool(tool *QuestionTool) {
-	q.Tool = tool
-	q.require(questionRequestFieldTool)
-}
-
-func (q *QuestionRequest) UnmarshalJSON(data []byte) error {
-	type unmarshaler QuestionRequest
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*q = QuestionRequest(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *q)
-	if err != nil {
-		return err
-	}
-	q.extraProperties = extraProperties
-	q.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (q *QuestionRequest) MarshalJSON() ([]byte, error) {
-	type embed QuestionRequest
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*q),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, q.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (q *QuestionRequest) String() string {
 	if q == nil {
 		return "<nil>"
 	}
@@ -9336,9 +9207,10 @@ var (
 	sessionFieldAgent       = big.NewInt(1 << 12)
 	sessionFieldModel       = big.NewInt(1 << 13)
 	sessionFieldVersion     = big.NewInt(1 << 14)
-	sessionFieldTime        = big.NewInt(1 << 15)
-	sessionFieldPermission  = big.NewInt(1 << 16)
-	sessionFieldRevert      = big.NewInt(1 << 17)
+	sessionFieldMetadata    = big.NewInt(1 << 15)
+	sessionFieldTime        = big.NewInt(1 << 16)
+	sessionFieldPermission  = big.NewInt(1 << 17)
+	sessionFieldRevert      = big.NewInt(1 << 18)
 )
 
 type Session struct {
@@ -9357,6 +9229,7 @@ type Session struct {
 	Agent       *string            `json:"agent,omitempty" url:"agent,omitempty"`
 	Model       *SessionModel      `json:"model,omitempty" url:"model,omitempty"`
 	Version     string             `json:"version" url:"version"`
+	Metadata    map[string]any     `json:"metadata,omitempty" url:"metadata,omitempty"`
 	Time        *SessionTime       `json:"time" url:"time"`
 	Permission  *PermissionRuleset `json:"permission,omitempty" url:"permission,omitempty"`
 	Revert      *SessionRevert     `json:"revert,omitempty" url:"revert,omitempty"`
@@ -9471,6 +9344,13 @@ func (s *Session) GetVersion() string {
 		return ""
 	}
 	return s.Version
+}
+
+func (s *Session) GetMetadata() map[string]any {
+	if s == nil {
+		return nil
+	}
+	return s.Metadata
 }
 
 func (s *Session) GetTime() *SessionTime {
@@ -9613,6 +9493,13 @@ func (s *Session) SetVersion(version string) {
 	s.require(sessionFieldVersion)
 }
 
+// SetMetadata sets the Metadata field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *Session) SetMetadata(metadata map[string]any) {
+	s.Metadata = metadata
+	s.require(sessionFieldMetadata)
+}
+
 // SetTime sets the Time field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (s *Session) SetTime(time *SessionTime) {
@@ -9674,6 +9561,141 @@ func (s *Session) String() string {
 		return value
 	}
 	return fmt.Sprintf("%#v", s)
+}
+
+var (
+	sessionBusyErrorFieldTag       = big.NewInt(1 << 0)
+	sessionBusyErrorFieldSessionID = big.NewInt(1 << 1)
+	sessionBusyErrorFieldMessage   = big.NewInt(1 << 2)
+)
+
+type SessionBusyError struct {
+	Tag       SessionBusyErrorTag `json:"_tag" url:"_tag"`
+	SessionID string              `json:"sessionID" url:"sessionID"`
+	Message   string              `json:"message" url:"message"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (s *SessionBusyError) GetTag() SessionBusyErrorTag {
+	if s == nil {
+		return ""
+	}
+	return s.Tag
+}
+
+func (s *SessionBusyError) GetSessionID() string {
+	if s == nil {
+		return ""
+	}
+	return s.SessionID
+}
+
+func (s *SessionBusyError) GetMessage() string {
+	if s == nil {
+		return ""
+	}
+	return s.Message
+}
+
+func (s *SessionBusyError) GetExtraProperties() map[string]interface{} {
+	if s == nil {
+		return nil
+	}
+	return s.extraProperties
+}
+
+func (s *SessionBusyError) require(field *big.Int) {
+	if s.explicitFields == nil {
+		s.explicitFields = big.NewInt(0)
+	}
+	s.explicitFields.Or(s.explicitFields, field)
+}
+
+// SetTag sets the Tag field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SessionBusyError) SetTag(tag SessionBusyErrorTag) {
+	s.Tag = tag
+	s.require(sessionBusyErrorFieldTag)
+}
+
+// SetSessionID sets the SessionID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SessionBusyError) SetSessionID(sessionID string) {
+	s.SessionID = sessionID
+	s.require(sessionBusyErrorFieldSessionID)
+}
+
+// SetMessage sets the Message field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SessionBusyError) SetMessage(message string) {
+	s.Message = message
+	s.require(sessionBusyErrorFieldMessage)
+}
+
+func (s *SessionBusyError) UnmarshalJSON(data []byte) error {
+	type unmarshaler SessionBusyError
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*s = SessionBusyError(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *s)
+	if err != nil {
+		return err
+	}
+	s.extraProperties = extraProperties
+	s.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (s *SessionBusyError) MarshalJSON() ([]byte, error) {
+	type embed SessionBusyError
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*s),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (s *SessionBusyError) String() string {
+	if s == nil {
+		return "<nil>"
+	}
+	if len(s.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(s); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", s)
+}
+
+type SessionBusyErrorTag string
+
+const (
+	SessionBusyErrorTagSessionBusyError SessionBusyErrorTag = "SessionBusyError"
+)
+
+func NewSessionBusyErrorTagFromString(s string) (SessionBusyErrorTag, error) {
+	switch s {
+	case "SessionBusyError":
+		return SessionBusyErrorTagSessionBusyError, nil
+	}
+	var t SessionBusyErrorTag
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SessionBusyErrorTag) Ptr() *SessionBusyErrorTag {
+	return &s
 }
 
 var (
@@ -14238,10 +14260,12 @@ func (u *UnknownError) String() string {
 
 var (
 	unknownErrorDataFieldMessage = big.NewInt(1 << 0)
+	unknownErrorDataFieldRef     = big.NewInt(1 << 1)
 )
 
 type UnknownErrorData struct {
-	Message string `json:"message" url:"message"`
+	Message string  `json:"message" url:"message"`
+	Ref     *string `json:"ref,omitempty" url:"ref,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -14255,6 +14279,13 @@ func (u *UnknownErrorData) GetMessage() string {
 		return ""
 	}
 	return u.Message
+}
+
+func (u *UnknownErrorData) GetRef() *string {
+	if u == nil {
+		return nil
+	}
+	return u.Ref
 }
 
 func (u *UnknownErrorData) GetExtraProperties() map[string]interface{} {
@@ -14276,6 +14307,13 @@ func (u *UnknownErrorData) require(field *big.Int) {
 func (u *UnknownErrorData) SetMessage(message string) {
 	u.Message = message
 	u.require(unknownErrorDataFieldMessage)
+}
+
+// SetRef sets the Ref field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (u *UnknownErrorData) SetRef(ref *string) {
+	u.Ref = ref
+	u.require(unknownErrorDataFieldRef)
 }
 
 func (u *UnknownErrorData) UnmarshalJSON(data []byte) error {
@@ -14769,7 +14807,7 @@ var (
 )
 
 type UserMessageTime struct {
-	Created int `json:"created" url:"created"`
+	Created float64 `json:"created" url:"created"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -14778,7 +14816,7 @@ type UserMessageTime struct {
 	rawJSON         json.RawMessage
 }
 
-func (u *UserMessageTime) GetCreated() int {
+func (u *UserMessageTime) GetCreated() float64 {
 	if u == nil {
 		return 0
 	}
@@ -14801,7 +14839,7 @@ func (u *UserMessageTime) require(field *big.Int) {
 
 // SetCreated sets the Created field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (u *UserMessageTime) SetCreated(created int) {
+func (u *UserMessageTime) SetCreated(created float64) {
 	u.Created = created
 	u.require(userMessageTimeFieldCreated)
 }

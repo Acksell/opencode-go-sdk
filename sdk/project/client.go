@@ -100,3 +100,20 @@ func (c *Client) Update(
 	}
 	return response.Body, nil
 }
+
+// List known local absolute directories for a project.
+func (c *Client) Directories(
+	ctx context.Context,
+	request *sdk.ProjectDirectoriesRequest,
+	opts ...option.RequestOption,
+) (sdk.ProjectDirectories, error) {
+	response, err := c.WithRawResponse.Directories(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}

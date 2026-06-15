@@ -18,6 +18,11 @@ var ErrorCodes internal.ErrorCodes = internal.ErrorCodes{
 			APIError: apiError,
 		}
 	},
+	409: func(apiError *core.APIError) error {
+		return &ConflictError{
+			APIError: apiError,
+		}
+	},
 	500: func(apiError *core.APIError) error {
 		return &InternalServerError{
 			APIError: apiError,

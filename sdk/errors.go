@@ -7,7 +7,7 @@ import (
 	core "github.com/acksell/opencode-go-sdk/sdk/core"
 )
 
-// Bad request
+// BadRequest | InvalidRequestError
 type BadRequestError struct {
 	*core.APIError
 	Body any
@@ -29,6 +29,30 @@ func (b *BadRequestError) MarshalJSON() ([]byte, error) {
 
 func (b *BadRequestError) Unwrap() error {
 	return b.APIError
+}
+
+// SessionBusyError
+type ConflictError struct {
+	*core.APIError
+	Body *SessionBusyError
+}
+
+func (c *ConflictError) UnmarshalJSON(data []byte) error {
+	var body *SessionBusyError
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	c.StatusCode = 409
+	c.Body = body
+	return nil
+}
+
+func (c *ConflictError) MarshalJSON() ([]byte, error) {
+	return json.Marshal(c.Body)
+}
+
+func (c *ConflictError) Unwrap() error {
+	return c.APIError
 }
 
 // InternalServerError
@@ -55,14 +79,14 @@ func (i *InternalServerError) Unwrap() error {
 	return i.APIError
 }
 
-// Not found
+// ProjectNotFoundError
 type NotFoundError struct {
 	*core.APIError
-	Body *NotFoundErrorBody
+	Body any
 }
 
 func (n *NotFoundError) UnmarshalJSON(data []byte) error {
-	var body *NotFoundErrorBody
+	var body any
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
