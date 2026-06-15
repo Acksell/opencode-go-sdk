@@ -8,11 +8,12 @@ The committed SDK is regenerated automatically every Monday from
 so it tracks opencode with no manual work per version bump.
 
 ```bash
-go get github.com/acksell/opencode-go-sdk/sdk@sdk/v0.1.2
+go get github.com/acksell/opencode-go-sdk/sdk@latest
 ```
 
-The module lives in the `sdk/` subdirectory, so the version selector is the
-full tag `sdk/v0.1.2` — not a bare `v0.1.2`.
+The module lives in the `sdk/` subdirectory, so its tags are prefixed `sdk/`.
+To pin a specific release, the version selector is the full tag — e.g.
+`@sdk/v0.1.2`, not a bare `@v0.1.2`.
 
 > [!IMPORTANT]
 > Watch for version drift between your installed opencode CLI and this SDK.
