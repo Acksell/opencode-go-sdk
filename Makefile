@@ -39,10 +39,19 @@ generate:   ## run fern generate against the trimmed spec
 check:   ## validate the Fern config + trimmed spec without generating
 	@cd fern && fern check
 
+# The fern-generated tests under sdk/<tag>/<tag>_test exercise the SDK against
+# a WireMock server preloaded with stub mappings (both generated into
+# sdk/wiremock/). We boot that compose stack, point the tests at the
+# dynamically-mapped host port via WIREMOCK_URL, and always tear it down.
+WIREMOCK_COMPOSE := $(CURDIR)/sdk/wiremock/docker-compose.test.yml
+
 .PHONY: test
-test:   ## build + test the generated Go SDK
-	@go build ./...
-	@go test ./...
+test:   ## build + test the generated Go SDK (boots WireMock for the generated tests)
+	@cd sdk && go build ./...
+	@docker compose -f $(WIREMOCK_COMPOSE) up -d --wait
+	@trap 'docker compose -f $(WIREMOCK_COMPOSE) down' EXIT; \
+		port="$$(docker compose -f $(WIREMOCK_COMPOSE) port wiremock 8080 | sed 's/.*://')"; \
+		cd sdk && WIREMOCK_URL="http://127.0.0.1:$$port" go test ./...
 
 .PHONY: clean
 clean:   ## remove pulled spec + trimmed-spec intermediate
