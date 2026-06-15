@@ -40,6 +40,8 @@ jobs:
 
       - name: pull + trim + generate
         run: make regen
+        env:
+          FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
 
       - name: build + test generated SDK
         run: make test
