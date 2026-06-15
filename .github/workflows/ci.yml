@@ -1,0 +1,32 @@
+name: ci
+
+# Builds and tests the committed Go SDK on every PR and on pushes to main.
+# This is the gate to require as a branch-protection status check — separate
+# from regen.yml, which regenerates the SDK from upstream and publishes.
+#
+# The SDK is committed under sdk/, so this job only needs Go (to build/test)
+# and Docker (make test boots the generated WireMock stack); it does not pull
+# or regenerate the spec.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: build + test SDK
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
+          cache: false
+
+      - name: build + test
+        run: make test
