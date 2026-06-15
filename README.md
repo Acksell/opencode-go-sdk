@@ -3,6 +3,22 @@
 Go SDK for [opencode](https://opencode.ai), generated with [Fern](https://buildwithfern.com/)
 from a filtered subset of opencode's OpenAPI.
 
+The committed SDK is regenerated automatically every Monday from
+[upstream's `openapi.json`](https://raw.githubusercontent.com/anomalyco/opencode/dev/packages/sdk/openapi.json),
+so it tracks opencode with no manual work per version bump.
+
+```bash
+go get github.com/acksell/opencode-go-sdk/sdk@sdk/v0.1.2
+```
+
+The module lives in the `sdk/` subdirectory, so the version selector is the
+full tag `sdk/v0.1.2` — not a bare `v0.1.2`.
+
+> [!IMPORTANT]
+> Watch for version drift between your installed opencode CLI and this SDK.
+> opencode has shipped breaking changes even in minor releases — bump the CLI
+> and the SDK in lockstep, and only after your tests pass.
+
 opencode's published OpenAPI exposes 131 endpoints — over Fern's 50-endpoint
 hobby-tier cap. This repo holds a trim filter that reduces opencode's spec to
 the 47 endpoints relevant for SDK consumers, plus the Fern config that
@@ -110,10 +126,14 @@ consumers can `go get` without running Fern themselves.
 
 ## Editing the allow-list
 
-If clank or another consumer needs a new endpoint, edit `PREFIX_RULES` or
+If a consumer needs a new endpoint, edit `PREFIX_RULES` or
 `EXACT_RULES` at the top of `scripts/trim-opencode-spec.py`. Prefer extending
 an existing prefix over adding exact paths — keeps the allow-list short and
 forward-compatible. Then `make regen` to rebuild.
+
+Want an endpoint added or something else changed? Open an issue — the SDK aims
+to stay fully automated, so changes land in the trim config rather than in
+hand-edited output.
 
 ## Versions to bump periodically
 
@@ -127,7 +147,7 @@ Two version pins live in `fern/`:
 After bumping either, run `make check` (= `fern check`) to validate the
 config + spec against the new versions before generating.
 
-## Consuming the SDK in clank
+## Consuming the SDK
 
 The generated Go module lives in `./sdk/` to keep it isolated from the build
 scaffolding at the repo root. So consumers import via the `/sdk` subpath:
@@ -145,11 +165,12 @@ import (
 ```
 
 For a local-checkout dev loop (no GitHub round-trip), add a `replace`
-directive in clank's `go.mod` pointing at this repo's `sdk/` directory:
+directive in your `go.mod` pointing at this repo's `sdk/` directory:
 
 ```
 replace github.com/acksell/opencode-go-sdk/sdk => /path/to/opencode-go-sdk/sdk
 ```
 
-This mirrors the pattern clank already uses for the Stainless SDK during
-local iteration.
+---
+
+_Not affiliated with opencode._

@@ -87,7 +87,7 @@ def transitive_schemas(schemas: dict, seed: set) -> set:
     return needed
 
 
-# SDK consumers (clank) never use these schemas — they're sync/replay-layer
+# SDK consumers never use these schemas — they're sync/replay-layer
 # duplicates of domain events, all sharing `type: "sync"`. Dropping them
 # from any anyOf they appear in lets us put a real discriminator on the
 # remaining variants (otherwise OpenAPI's "each variant must have a unique
@@ -128,7 +128,7 @@ def transform_anyof_unions(schemas: dict) -> tuple[int, int]:
         nonlocal dropped, patched
         if isinstance(node, dict):
             if isinstance(node.get("anyOf"), list):
-                # 1a) Drop SyncEvent-style variants (clank-irrelevant +
+                # 1a) Drop SyncEvent-style variants (consumer-irrelevant +
                 # their shared discriminator value would block uniqueness).
                 # 1b) Dedupe by $ref — opencode's spec lists some refs twice
                 # under the same anyOf, which would also collide on
@@ -215,7 +215,7 @@ def main():
     kept_schemas = {name: s for name, s in schemas_in.items() if name in needed_schemas}
 
     # Walk every anyOf union in the trimmed schemas:
-    #   - drop SyncEvent* variants (clank-irrelevant + their shared "sync"
+    #   - drop SyncEvent* variants (consumer-irrelevant + their shared "sync"
     #     discriminator value would block injecting a real discriminator)
     #   - inject `discriminator` so Fern's generated UnmarshalJSON validates
     #     the wire `type` / `role` / `status` instead of falling back to its
