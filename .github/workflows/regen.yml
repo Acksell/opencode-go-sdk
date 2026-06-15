@@ -58,6 +58,13 @@ jobs:
         run: |
           set -euo pipefail
 
+          # Only main may publish. A manual workflow_dispatch can run from any
+          # branch — validate generate+test there, but never push/tag/release.
+          if [ "${GITHUB_REF}" != "refs/heads/main" ]; then
+            echo "Ran on ${GITHUB_REF}, not refs/heads/main — skipping publish."
+            exit 0
+          fi
+
           if [ -z "$(git status --porcelain)" ]; then
             echo "No changes from regeneration — nothing to release."
             exit 0
