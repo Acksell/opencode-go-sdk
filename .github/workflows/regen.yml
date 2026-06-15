@@ -4,8 +4,13 @@ name: regen
 #   - On manual trigger (workflow_dispatch)
 #   - Weekly on Mondays at 03:00 UTC
 #
-# Opens a PR with the regenerated SDK if anything changed. The job fails fast
-# if generation fails or the resulting SDK doesn't build/test.
+# The job fails fast if generation fails or the resulting SDK doesn't
+# build/test. Only once generate + build + test all pass does it commit the
+# regenerated SDK to main, bump the patch version, and cut a GitHub release.
+#
+# Note: anything pushed/tagged here uses the default GITHUB_TOKEN, which by
+# design does NOT trigger other workflows — so the release must happen inline
+# in this job rather than via a separate "on: tag push" workflow.
 
 on:
   workflow_dispatch:
@@ -14,13 +19,14 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   regen:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # need full tag history to compute the next version
 
       - uses: actions/setup-python@v5
         with:
@@ -40,22 +46,63 @@ jobs:
 
       - name: pull + trim + generate
         run: make regen
+        env:
+          FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
 
       - name: build + test generated SDK
         run: make test
 
-      - name: open PR with regeneration
-        uses: peter-evans/create-pull-request@v6
-        with:
-          branch: regen/${{ github.run_id }}
-          commit-message: "regen: sync from upstream opencode spec"
-          title: "regen: sync from upstream opencode spec"
-          body: |
-            Automated SDK regeneration.
+      - name: commit, tag, and release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
 
-            - Pulled opencode OpenAPI from upstream (anomalyco/opencode dev branch)
-            - Filtered to allow-list via `scripts/trim-opencode-spec.py`
-            - Regenerated Go SDK via Fern
+          # Only main may publish. A manual workflow_dispatch can run from any
+          # branch — validate generate+test there, but never push/tag/release.
+          if [ "${GITHUB_REF}" != "refs/heads/main" ]; then
+            echo "Ran on ${GITHUB_REF}, not refs/heads/main — skipping publish."
+            exit 0
+          fi
 
-            See the trim-script stats in the job log for kept/dropped counts.
-          delete-branch: true
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No changes from regeneration — nothing to release."
+            exit 0
+          fi
+
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Bump the patch on the latest sdk/vX.Y.Z tag. The module lives in the
+          # sdk/ subdir, so release tags must carry the sdk/ path prefix for
+          # `go get github.com/acksell/opencode-go-sdk/sdk@vX.Y.Z` to resolve.
+          latest="$(git tag -l 'sdk/v*' | sed 's#^sdk/v##' | sort -V | tail -1)"
+          if [ -z "$latest" ]; then
+            next="0.1.0"
+          else
+            IFS=. read -r major minor patch <<<"$latest"
+            next="${major}.${minor}.$((patch + 1))"
+          fi
+          tag="sdk/v${next}"
+          echo "Releasing $tag"
+
+          git add -A
+          git commit -m "regen: sync from upstream opencode spec ($tag)"
+          git push origin HEAD:main
+
+          git tag "$tag"
+          git push origin "$tag"
+
+          notes_file="$(mktemp)"
+          {
+            echo "Automated SDK regeneration from the upstream opencode OpenAPI spec."
+            echo
+            echo '```'
+            echo "go get github.com/acksell/opencode-go-sdk/sdk@$tag"
+            echo '```'
+          } >"$notes_file"
+
+          gh release create "$tag" \
+            --repo "${{ github.repository }}" \
+            --title "$tag" \
+            --notes-file "$notes_file"
