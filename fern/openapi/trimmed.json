@@ -823,29 +823,10 @@
                     "type": "string"
                   },
                   "icon": {
-                    "type": "object",
-                    "properties": {
-                      "url": {
-                        "type": "string"
-                      },
-                      "override": {
-                        "type": "string"
-                      },
-                      "color": {
-                        "type": "string"
-                      }
-                    },
-                    "additionalProperties": false
+                    "$ref": "#/components/schemas/ProjectIcon"
                   },
                   "commands": {
-                    "type": "object",
-                    "properties": {
-                      "start": {
-                        "type": "string",
-                        "description": "Startup script to run when creating a new workspace (worktree)"
-                      }
-                    },
-                    "additionalProperties": false
+                    "$ref": "#/components/schemas/ProjectCommands"
                   }
                 },
                 "additionalProperties": false
@@ -6899,20 +6880,12 @@
                   "type": {
                     "type": "string",
                     "enum": [
-                      "plugin.added"
+                      "integration.updated"
                     ]
                   },
                   "properties": {
                     "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "id"
-                    ],
-                    "additionalProperties": false
+                    "properties": {}
                   }
                 },
                 "required": [
@@ -6932,12 +6905,20 @@
                   "type": {
                     "type": "string",
                     "enum": [
-                      "integration.updated"
+                      "integration.connection.updated"
                     ]
                   },
                   "properties": {
                     "type": "object",
-                    "properties": {}
+                    "properties": {
+                      "integrationID": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "integrationID"
+                    ],
+                    "additionalProperties": false
                   }
                 },
                 "required": [
@@ -7324,23 +7305,7 @@
                         "pattern": "^msg_"
                       },
                       "model": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "string"
-                          },
-                          "providerID": {
-                            "type": "string"
-                          },
-                          "variant": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "id",
-                          "providerID"
-                        ],
-                        "additionalProperties": false
+                        "$ref": "#/components/schemas/ModelRef"
                       }
                     },
                     "required": [
@@ -7503,95 +7468,6 @@
                       "messageID",
                       "prompt",
                       "delivery"
-                    ],
-                    "additionalProperties": false
-                  }
-                },
-                "required": [
-                  "id",
-                  "type",
-                  "properties"
-                ],
-                "additionalProperties": false
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "pattern": "^evt_"
-                  },
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "session.next.prompt.promoted"
-                    ]
-                  },
-                  "properties": {
-                    "type": "object",
-                    "properties": {
-                      "timestamp": {
-                        "type": "number"
-                      },
-                      "sessionID": {
-                        "type": "string",
-                        "pattern": "^ses"
-                      },
-                      "messageID": {
-                        "type": "string",
-                        "pattern": "^msg_"
-                      },
-                      "prompt": {
-                        "$ref": "#/components/schemas/Prompt"
-                      },
-                      "timeCreated": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "timestamp",
-                      "sessionID",
-                      "messageID",
-                      "prompt",
-                      "timeCreated"
-                    ],
-                    "additionalProperties": false
-                  }
-                },
-                "required": [
-                  "id",
-                  "type",
-                  "properties"
-                ],
-                "additionalProperties": false
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "pattern": "^evt_"
-                  },
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "session.next.interrupt.requested"
-                    ]
-                  },
-                  "properties": {
-                    "type": "object",
-                    "properties": {
-                      "timestamp": {
-                        "type": "number"
-                      },
-                      "sessionID": {
-                        "type": "string",
-                        "pattern": "^ses"
-                      }
-                    },
-                    "required": [
-                      "timestamp",
-                      "sessionID"
                     ],
                     "additionalProperties": false
                   }
@@ -7825,23 +7701,7 @@
                         "type": "string"
                       },
                       "model": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "string"
-                          },
-                          "providerID": {
-                            "type": "string"
-                          },
-                          "variant": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "id",
-                          "providerID"
-                        ],
-                        "additionalProperties": false
+                        "$ref": "#/components/schemas/ModelRef"
                       },
                       "snapshot": {
                         "type": "string"
@@ -7936,6 +7796,12 @@
                       },
                       "snapshot": {
                         "type": "string"
+                      },
+                      "files": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
                       }
                     },
                     "required": [
@@ -8183,10 +8049,7 @@
                         "type": "string"
                       },
                       "providerMetadata": {
-                        "type": "object",
-                        "additionalProperties": {
-                          "type": "object"
-                        }
+                        "$ref": "#/components/schemas/LLMProviderMetadata"
                       }
                     },
                     "required": [
@@ -8290,10 +8153,7 @@
                         "type": "string"
                       },
                       "providerMetadata": {
-                        "type": "object",
-                        "additionalProperties": {
-                          "type": "object"
-                        }
+                        "$ref": "#/components/schemas/LLMProviderMetadata"
                       }
                     },
                     "required": [
@@ -8509,10 +8369,7 @@
                             "type": "boolean"
                           },
                           "metadata": {
-                            "type": "object",
-                            "additionalProperties": {
-                              "type": "object"
-                            }
+                            "$ref": "#/components/schemas/LLMProviderMetadata"
                           }
                         },
                         "required": [
@@ -8576,21 +8433,7 @@
                       "content": {
                         "type": "array",
                         "items": {
-                          "anyOf": [
-                            {
-                              "$ref": "#/components/schemas/ToolTextContent"
-                            },
-                            {
-                              "$ref": "#/components/schemas/ToolFileContent"
-                            }
-                          ],
-                          "discriminator": {
-                            "propertyName": "type",
-                            "mapping": {
-                              "text": "#/components/schemas/ToolTextContent",
-                              "file": "#/components/schemas/ToolFileContent"
-                            }
-                          }
+                          "$ref": "#/components/schemas/LLMToolContent"
                         }
                       }
                     },
@@ -8648,21 +8491,7 @@
                       "content": {
                         "type": "array",
                         "items": {
-                          "anyOf": [
-                            {
-                              "$ref": "#/components/schemas/ToolTextContent"
-                            },
-                            {
-                              "$ref": "#/components/schemas/ToolFileContent"
-                            }
-                          ],
-                          "discriminator": {
-                            "propertyName": "type",
-                            "mapping": {
-                              "text": "#/components/schemas/ToolTextContent",
-                              "file": "#/components/schemas/ToolFileContent"
-                            }
-                          }
+                          "$ref": "#/components/schemas/LLMToolContent"
                         }
                       },
                       "outputPaths": {
@@ -8679,10 +8508,7 @@
                             "type": "boolean"
                           },
                           "metadata": {
-                            "type": "object",
-                            "additionalProperties": {
-                              "type": "object"
-                            }
+                            "$ref": "#/components/schemas/LLMProviderMetadata"
                           }
                         },
                         "required": [
@@ -8751,10 +8577,7 @@
                             "type": "boolean"
                           },
                           "metadata": {
-                            "type": "object",
-                            "additionalProperties": {
-                              "type": "object"
-                            }
+                            "$ref": "#/components/schemas/LLMProviderMetadata"
                           }
                         },
                         "required": [
@@ -8973,6 +8796,129 @@
                       "reason",
                       "text",
                       "recent"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "id",
+                  "type",
+                  "properties"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^evt_"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "session.next.revert.staged"
+                    ]
+                  },
+                  "properties": {
+                    "type": "object",
+                    "properties": {
+                      "timestamp": {
+                        "type": "number"
+                      },
+                      "sessionID": {
+                        "type": "string",
+                        "pattern": "^ses"
+                      },
+                      "revert": {
+                        "$ref": "#/components/schemas/RevertState"
+                      }
+                    },
+                    "required": [
+                      "timestamp",
+                      "sessionID",
+                      "revert"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "id",
+                  "type",
+                  "properties"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^evt_"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "session.next.revert.cleared"
+                    ]
+                  },
+                  "properties": {
+                    "type": "object",
+                    "properties": {
+                      "timestamp": {
+                        "type": "number"
+                      },
+                      "sessionID": {
+                        "type": "string",
+                        "pattern": "^ses"
+                      }
+                    },
+                    "required": [
+                      "timestamp",
+                      "sessionID"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "id",
+                  "type",
+                  "properties"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^evt_"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "session.next.revert.committed"
+                    ]
+                  },
+                  "properties": {
+                    "type": "object",
+                    "properties": {
+                      "timestamp": {
+                        "type": "number"
+                      },
+                      "sessionID": {
+                        "type": "string",
+                        "pattern": "^ses"
+                      },
+                      "messageID": {
+                        "type": "string",
+                        "pattern": "^msg_"
+                      }
+                    },
+                    "required": [
+                      "timestamp",
+                      "sessionID",
+                      "messageID"
                     ],
                     "additionalProperties": false
                   }
@@ -9245,6 +9191,31 @@
                   "type": {
                     "type": "string",
                     "enum": [
+                      "reference.updated"
+                    ]
+                  },
+                  "properties": {
+                    "type": "object",
+                    "properties": {}
+                  }
+                },
+                "required": [
+                  "id",
+                  "type",
+                  "properties"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^evt_"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
                       "permission.v2.asked"
                     ]
                   },
@@ -9350,12 +9321,20 @@
                   "type": {
                     "type": "string",
                     "enum": [
-                      "reference.updated"
+                      "plugin.added"
                     ]
                   },
                   "properties": {
                     "type": "object",
-                    "properties": {}
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id"
+                    ],
+                    "additionalProperties": false
                   }
                 },
                 "required": [
@@ -10221,60 +10200,19 @@
                         "type": "string"
                       },
                       "vcs": {
-                        "type": "string",
-                        "enum": [
-                          "git"
-                        ]
+                        "$ref": "#/components/schemas/ProjectVcs"
                       },
                       "name": {
                         "type": "string"
                       },
                       "icon": {
-                        "type": "object",
-                        "properties": {
-                          "url": {
-                            "type": "string"
-                          },
-                          "override": {
-                            "type": "string"
-                          },
-                          "color": {
-                            "type": "string"
-                          }
-                        },
-                        "additionalProperties": false
+                        "$ref": "#/components/schemas/ProjectIcon"
                       },
                       "commands": {
-                        "type": "object",
-                        "properties": {
-                          "start": {
-                            "type": "string",
-                            "description": "Startup script to run when creating a new workspace (worktree)"
-                          }
-                        },
-                        "additionalProperties": false
+                        "$ref": "#/components/schemas/ProjectCommands"
                       },
                       "time": {
-                        "type": "object",
-                        "properties": {
-                          "created": {
-                            "type": "integer",
-                            "minimum": 0
-                          },
-                          "updated": {
-                            "type": "integer",
-                            "minimum": 0
-                          },
-                          "initialized": {
-                            "type": "integer",
-                            "minimum": 0
-                          }
-                        },
-                        "required": [
-                          "created",
-                          "updated"
-                        ],
-                        "additionalProperties": false
+                        "$ref": "#/components/schemas/ProjectTime"
                       },
                       "sandboxes": {
                         "type": "array",
@@ -11281,60 +11219,19 @@
             "type": "string"
           },
           "vcs": {
-            "type": "string",
-            "enum": [
-              "git"
-            ]
+            "$ref": "#/components/schemas/ProjectVcs"
           },
           "name": {
             "type": "string"
           },
           "icon": {
-            "type": "object",
-            "properties": {
-              "url": {
-                "type": "string"
-              },
-              "override": {
-                "type": "string"
-              },
-              "color": {
-                "type": "string"
-              }
-            },
-            "additionalProperties": false
+            "$ref": "#/components/schemas/ProjectIcon"
           },
           "commands": {
-            "type": "object",
-            "properties": {
-              "start": {
-                "type": "string",
-                "description": "Startup script to run when creating a new workspace (worktree)"
-              }
-            },
-            "additionalProperties": false
+            "$ref": "#/components/schemas/ProjectCommands"
           },
           "time": {
-            "type": "object",
-            "properties": {
-              "created": {
-                "type": "integer",
-                "minimum": 0
-              },
-              "updated": {
-                "type": "integer",
-                "minimum": 0
-              },
-              "initialized": {
-                "type": "integer",
-                "minimum": 0
-              }
-            },
-            "required": [
-              "created",
-              "updated"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/ProjectTime"
           },
           "sandboxes": {
             "type": "array",
@@ -11940,6 +11837,25 @@
         ],
         "additionalProperties": false
       },
+      "ModelRef": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "providerID": {
+            "type": "string"
+          },
+          "variant": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "providerID"
+        ],
+        "additionalProperties": false
+      },
       "LocationRef": {
         "type": "object",
         "properties": {
@@ -12035,6 +11951,12 @@
         ],
         "additionalProperties": false
       },
+      "LLMProviderMetadata": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object"
+        }
+      },
       "ToolTextContent": {
         "type": "object",
         "properties": {
@@ -12080,6 +12002,23 @@
         ],
         "additionalProperties": false
       },
+      "LLMToolContent": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/ToolTextContent"
+          },
+          {
+            "$ref": "#/components/schemas/ToolFileContent"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "text": "#/components/schemas/ToolTextContent",
+            "file": "#/components/schemas/ToolFileContent"
+          }
+        }
+      },
       "SessionNextRetry_error": {
         "type": "object",
         "properties": {
@@ -12111,6 +12050,69 @@
         "required": [
           "message",
           "isRetryable"
+        ],
+        "additionalProperties": false
+      },
+      "FileDiff": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "added",
+              "modified",
+              "deleted"
+            ]
+          },
+          "additions": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "deletions": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "patch": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "status",
+          "additions",
+          "deletions",
+          "patch"
+        ],
+        "additionalProperties": false
+      },
+      "RevertState": {
+        "type": "object",
+        "properties": {
+          "messageID": {
+            "type": "string",
+            "pattern": "^msg_"
+          },
+          "partID": {
+            "type": "string"
+          },
+          "snapshot": {
+            "type": "string"
+          },
+          "diff": {
+            "type": "string"
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FileDiff"
+            }
+          }
+        },
+        "required": [
+          "messageID"
         ],
         "additionalProperties": false
       },
@@ -12216,6 +12218,59 @@
         "items": {
           "type": "string"
         }
+      },
+      "ProjectVcs": {
+        "type": "string",
+        "enum": [
+          "git"
+        ]
+      },
+      "ProjectIcon": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "override": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProjectCommands": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "string",
+            "description": "Startup script to run when creating a new workspace (worktree)"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProjectTime": {
+        "type": "object",
+        "properties": {
+          "created": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "updated": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "initialized": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "created",
+          "updated"
+        ],
+        "additionalProperties": false
       },
       "EventServerInstanceDisposed": {
         "type": "object",

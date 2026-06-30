@@ -708,7 +708,7 @@ client.Project.Update(
 <dl>
 <dd>
 
-**icon:** `*sdk.ProjectUpdateRequestIcon` 
+**icon:** `*sdk.ProjectIcon` 
     
 </dd>
 </dl>
@@ -716,7 +716,7 @@ client.Project.Update(
 <dl>
 <dd>
 
-**commands:** `*sdk.ProjectUpdateRequestCommands` 
+**commands:** `*sdk.ProjectCommands` 
     
 </dd>
 </dl>

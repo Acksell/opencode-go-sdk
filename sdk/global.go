@@ -194,6 +194,179 @@ func (e *EventServerInstanceDisposedProperties) String() string {
 }
 
 var (
+	fileDiffFieldPath      = big.NewInt(1 << 0)
+	fileDiffFieldStatus    = big.NewInt(1 << 1)
+	fileDiffFieldAdditions = big.NewInt(1 << 2)
+	fileDiffFieldDeletions = big.NewInt(1 << 3)
+	fileDiffFieldPatch     = big.NewInt(1 << 4)
+)
+
+type FileDiff struct {
+	Path      string         `json:"path" url:"path"`
+	Status    FileDiffStatus `json:"status" url:"status"`
+	Additions int            `json:"additions" url:"additions"`
+	Deletions int            `json:"deletions" url:"deletions"`
+	Patch     string         `json:"patch" url:"patch"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (f *FileDiff) GetPath() string {
+	if f == nil {
+		return ""
+	}
+	return f.Path
+}
+
+func (f *FileDiff) GetStatus() FileDiffStatus {
+	if f == nil {
+		return ""
+	}
+	return f.Status
+}
+
+func (f *FileDiff) GetAdditions() int {
+	if f == nil {
+		return 0
+	}
+	return f.Additions
+}
+
+func (f *FileDiff) GetDeletions() int {
+	if f == nil {
+		return 0
+	}
+	return f.Deletions
+}
+
+func (f *FileDiff) GetPatch() string {
+	if f == nil {
+		return ""
+	}
+	return f.Patch
+}
+
+func (f *FileDiff) GetExtraProperties() map[string]interface{} {
+	if f == nil {
+		return nil
+	}
+	return f.extraProperties
+}
+
+func (f *FileDiff) require(field *big.Int) {
+	if f.explicitFields == nil {
+		f.explicitFields = big.NewInt(0)
+	}
+	f.explicitFields.Or(f.explicitFields, field)
+}
+
+// SetPath sets the Path field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FileDiff) SetPath(path string) {
+	f.Path = path
+	f.require(fileDiffFieldPath)
+}
+
+// SetStatus sets the Status field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FileDiff) SetStatus(status FileDiffStatus) {
+	f.Status = status
+	f.require(fileDiffFieldStatus)
+}
+
+// SetAdditions sets the Additions field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FileDiff) SetAdditions(additions int) {
+	f.Additions = additions
+	f.require(fileDiffFieldAdditions)
+}
+
+// SetDeletions sets the Deletions field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FileDiff) SetDeletions(deletions int) {
+	f.Deletions = deletions
+	f.require(fileDiffFieldDeletions)
+}
+
+// SetPatch sets the Patch field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FileDiff) SetPatch(patch string) {
+	f.Patch = patch
+	f.require(fileDiffFieldPatch)
+}
+
+func (f *FileDiff) UnmarshalJSON(data []byte) error {
+	type unmarshaler FileDiff
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*f = FileDiff(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *f)
+	if err != nil {
+		return err
+	}
+	f.extraProperties = extraProperties
+	f.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (f *FileDiff) MarshalJSON() ([]byte, error) {
+	type embed FileDiff
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*f),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, f.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (f *FileDiff) String() string {
+	if f == nil {
+		return "<nil>"
+	}
+	if len(f.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(f.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(f); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", f)
+}
+
+type FileDiffStatus string
+
+const (
+	FileDiffStatusAdded    FileDiffStatus = "added"
+	FileDiffStatusModified FileDiffStatus = "modified"
+	FileDiffStatusDeleted  FileDiffStatus = "deleted"
+)
+
+func NewFileDiffStatusFromString(s string) (FileDiffStatus, error) {
+	switch s {
+	case "added":
+		return FileDiffStatusAdded, nil
+	case "modified":
+		return FileDiffStatusModified, nil
+	case "deleted":
+		return FileDiffStatusDeleted, nil
+	}
+	var t FileDiffStatus
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (f FileDiffStatus) Ptr() *FileDiffStatus {
+	return &f
+}
+
+var (
 	globalEventFieldDirectory = big.NewInt(1 << 0)
 	globalEventFieldProject   = big.NewInt(1 << 1)
 	globalEventFieldWorkspace = big.NewInt(1 << 2)
@@ -326,94 +499,96 @@ func (g *GlobalEvent) String() string {
 }
 
 type GlobalEventPayload struct {
-	Type                          string
-	ModelsDevRefreshed            *GlobalEventPayloadModelsDevRefreshed
-	PluginAdded                   *GlobalEventPayloadPluginAdded
-	IntegrationUpdated            *GlobalEventPayloadIntegrationUpdated
-	CatalogUpdated                *GlobalEventPayloadCatalogUpdated
-	SessionCreated                *GlobalEventPayloadSessionCreated
-	SessionUpdated                *GlobalEventPayloadSessionUpdated
-	SessionDeleted                *GlobalEventPayloadSessionDeleted
-	MessageUpdated                *GlobalEventPayloadMessageUpdated
-	MessageRemoved                *GlobalEventPayloadMessageRemoved
-	MessagePartUpdated            *GlobalEventPayloadMessagePartUpdated
-	MessagePartRemoved            *GlobalEventPayloadMessagePartRemoved
-	SessionNextAgentSwitched      *GlobalEventPayloadSessionNextAgentSwitched
-	SessionNextModelSwitched      *GlobalEventPayloadSessionNextModelSwitched
-	SessionNextMoved              *GlobalEventPayloadSessionNextMoved
-	SessionNextPrompted           *GlobalEventPayloadSessionNextPrompted
-	SessionNextPromptAdmitted     *GlobalEventPayloadSessionNextPromptAdmitted
-	SessionNextPromptPromoted     *GlobalEventPayloadSessionNextPromptPromoted
-	SessionNextInterruptRequested *GlobalEventPayloadSessionNextInterruptRequested
-	SessionNextContextUpdated     *GlobalEventPayloadSessionNextContextUpdated
-	SessionNextSynthetic          *GlobalEventPayloadSessionNextSynthetic
-	SessionNextShellStarted       *GlobalEventPayloadSessionNextShellStarted
-	SessionNextShellEnded         *GlobalEventPayloadSessionNextShellEnded
-	SessionNextStepStarted        *GlobalEventPayloadSessionNextStepStarted
-	SessionNextStepEnded          *GlobalEventPayloadSessionNextStepEnded
-	SessionNextStepFailed         *GlobalEventPayloadSessionNextStepFailed
-	SessionNextTextStarted        *GlobalEventPayloadSessionNextTextStarted
-	SessionNextTextDelta          *GlobalEventPayloadSessionNextTextDelta
-	SessionNextTextEnded          *GlobalEventPayloadSessionNextTextEnded
-	SessionNextReasoningStarted   *GlobalEventPayloadSessionNextReasoningStarted
-	SessionNextReasoningDelta     *GlobalEventPayloadSessionNextReasoningDelta
-	SessionNextReasoningEnded     *GlobalEventPayloadSessionNextReasoningEnded
-	SessionNextToolInputStarted   *GlobalEventPayloadSessionNextToolInputStarted
-	SessionNextToolInputDelta     *GlobalEventPayloadSessionNextToolInputDelta
-	SessionNextToolInputEnded     *GlobalEventPayloadSessionNextToolInputEnded
-	SessionNextToolCalled         *GlobalEventPayloadSessionNextToolCalled
-	SessionNextToolProgress       *GlobalEventPayloadSessionNextToolProgress
-	SessionNextToolSuccess        *GlobalEventPayloadSessionNextToolSuccess
-	SessionNextToolFailed         *GlobalEventPayloadSessionNextToolFailed
-	SessionNextRetried            *GlobalEventPayloadSessionNextRetried
-	SessionNextCompactionStarted  *GlobalEventPayloadSessionNextCompactionStarted
-	SessionNextCompactionDelta    *GlobalEventPayloadSessionNextCompactionDelta
-	SessionNextCompactionEnded    *GlobalEventPayloadSessionNextCompactionEnded
-	MessagePartDelta              *GlobalEventPayloadMessagePartDelta
-	SessionDiff                   *GlobalEventPayloadSessionDiff
-	SessionError                  *GlobalEventPayloadSessionError
-	InstallationUpdated           *GlobalEventPayloadInstallationUpdated
-	InstallationUpdateAvailable   *GlobalEventPayloadInstallationUpdateAvailable
-	FileEdited                    *GlobalEventPayloadFileEdited
-	PermissionV2Asked             *GlobalEventPayloadPermissionV2Asked
-	PermissionV2Replied           *GlobalEventPayloadPermissionV2Replied
-	ReferenceUpdated              *GlobalEventPayloadReferenceUpdated
-	ProjectDirectoriesUpdated     *GlobalEventPayloadProjectDirectoriesUpdated
-	FileWatcherUpdated            *GlobalEventPayloadFileWatcherUpdated
-	PtyCreated                    *GlobalEventPayloadPtyCreated
-	PtyUpdated                    *GlobalEventPayloadPtyUpdated
-	PtyExited                     *GlobalEventPayloadPtyExited
-	PtyDeleted                    *GlobalEventPayloadPtyDeleted
-	QuestionV2Asked               *GlobalEventPayloadQuestionV2Asked
-	QuestionV2Replied             *GlobalEventPayloadQuestionV2Replied
-	QuestionV2Rejected            *GlobalEventPayloadQuestionV2Rejected
-	TodoUpdated                   *GlobalEventPayloadTodoUpdated
-	LspUpdated                    *GlobalEventPayloadLspUpdated
-	PermissionAsked               *GlobalEventPayloadPermissionAsked
-	PermissionReplied             *GlobalEventPayloadPermissionReplied
-	TuiPromptAppend               *GlobalEventPayloadTuiPromptAppend
-	TuiCommandExecute             *GlobalEventPayloadTuiCommandExecute
-	TuiToastShow                  *GlobalEventPayloadTuiToastShow
-	TuiSessionSelect              *GlobalEventPayloadTuiSessionSelect
-	McpToolsChanged               *GlobalEventPayloadMcpToolsChanged
-	McpBrowserOpenFailed          *GlobalEventPayloadMcpBrowserOpenFailed
-	CommandExecuted               *GlobalEventPayloadCommandExecuted
-	ProjectUpdated                *GlobalEventPayloadProjectUpdated
-	SessionStatus                 *GlobalEventPayloadSessionStatus
-	SessionIdle                   *GlobalEventPayloadSessionIdle
-	QuestionAsked                 *GlobalEventPayloadQuestionAsked
-	QuestionReplied               *GlobalEventPayloadQuestionReplied
-	QuestionRejected              *GlobalEventPayloadQuestionRejected
-	SessionCompacted              *GlobalEventPayloadSessionCompacted
-	VcsBranchUpdated              *GlobalEventPayloadVcsBranchUpdated
-	WorkspaceReady                *GlobalEventPayloadWorkspaceReady
-	WorkspaceFailed               *GlobalEventPayloadWorkspaceFailed
-	WorkspaceStatus               *GlobalEventPayloadWorkspaceStatus
-	WorktreeReady                 *GlobalEventPayloadWorktreeReady
-	WorktreeFailed                *GlobalEventPayloadWorktreeFailed
-	ServerConnected               *GlobalEventPayloadServerConnected
-	GlobalDisposed                *GlobalEventPayloadGlobalDisposed
-	ServerInstanceDisposed        *EventServerInstanceDisposed
+	Type                         string
+	ModelsDevRefreshed           *GlobalEventPayloadModelsDevRefreshed
+	IntegrationUpdated           *GlobalEventPayloadIntegrationUpdated
+	IntegrationConnectionUpdated *GlobalEventPayloadIntegrationConnectionUpdated
+	CatalogUpdated               *GlobalEventPayloadCatalogUpdated
+	SessionCreated               *GlobalEventPayloadSessionCreated
+	SessionUpdated               *GlobalEventPayloadSessionUpdated
+	SessionDeleted               *GlobalEventPayloadSessionDeleted
+	MessageUpdated               *GlobalEventPayloadMessageUpdated
+	MessageRemoved               *GlobalEventPayloadMessageRemoved
+	MessagePartUpdated           *GlobalEventPayloadMessagePartUpdated
+	MessagePartRemoved           *GlobalEventPayloadMessagePartRemoved
+	SessionNextAgentSwitched     *GlobalEventPayloadSessionNextAgentSwitched
+	SessionNextModelSwitched     *GlobalEventPayloadSessionNextModelSwitched
+	SessionNextMoved             *GlobalEventPayloadSessionNextMoved
+	SessionNextPrompted          *GlobalEventPayloadSessionNextPrompted
+	SessionNextPromptAdmitted    *GlobalEventPayloadSessionNextPromptAdmitted
+	SessionNextContextUpdated    *GlobalEventPayloadSessionNextContextUpdated
+	SessionNextSynthetic         *GlobalEventPayloadSessionNextSynthetic
+	SessionNextShellStarted      *GlobalEventPayloadSessionNextShellStarted
+	SessionNextShellEnded        *GlobalEventPayloadSessionNextShellEnded
+	SessionNextStepStarted       *GlobalEventPayloadSessionNextStepStarted
+	SessionNextStepEnded         *GlobalEventPayloadSessionNextStepEnded
+	SessionNextStepFailed        *GlobalEventPayloadSessionNextStepFailed
+	SessionNextTextStarted       *GlobalEventPayloadSessionNextTextStarted
+	SessionNextTextDelta         *GlobalEventPayloadSessionNextTextDelta
+	SessionNextTextEnded         *GlobalEventPayloadSessionNextTextEnded
+	SessionNextReasoningStarted  *GlobalEventPayloadSessionNextReasoningStarted
+	SessionNextReasoningDelta    *GlobalEventPayloadSessionNextReasoningDelta
+	SessionNextReasoningEnded    *GlobalEventPayloadSessionNextReasoningEnded
+	SessionNextToolInputStarted  *GlobalEventPayloadSessionNextToolInputStarted
+	SessionNextToolInputDelta    *GlobalEventPayloadSessionNextToolInputDelta
+	SessionNextToolInputEnded    *GlobalEventPayloadSessionNextToolInputEnded
+	SessionNextToolCalled        *GlobalEventPayloadSessionNextToolCalled
+	SessionNextToolProgress      *GlobalEventPayloadSessionNextToolProgress
+	SessionNextToolSuccess       *GlobalEventPayloadSessionNextToolSuccess
+	SessionNextToolFailed        *GlobalEventPayloadSessionNextToolFailed
+	SessionNextRetried           *GlobalEventPayloadSessionNextRetried
+	SessionNextCompactionStarted *GlobalEventPayloadSessionNextCompactionStarted
+	SessionNextCompactionDelta   *GlobalEventPayloadSessionNextCompactionDelta
+	SessionNextCompactionEnded   *GlobalEventPayloadSessionNextCompactionEnded
+	SessionNextRevertStaged      *GlobalEventPayloadSessionNextRevertStaged
+	SessionNextRevertCleared     *GlobalEventPayloadSessionNextRevertCleared
+	SessionNextRevertCommitted   *GlobalEventPayloadSessionNextRevertCommitted
+	MessagePartDelta             *GlobalEventPayloadMessagePartDelta
+	SessionDiff                  *GlobalEventPayloadSessionDiff
+	SessionError                 *GlobalEventPayloadSessionError
+	InstallationUpdated          *GlobalEventPayloadInstallationUpdated
+	InstallationUpdateAvailable  *GlobalEventPayloadInstallationUpdateAvailable
+	FileEdited                   *GlobalEventPayloadFileEdited
+	ReferenceUpdated             *GlobalEventPayloadReferenceUpdated
+	PermissionV2Asked            *GlobalEventPayloadPermissionV2Asked
+	PermissionV2Replied          *GlobalEventPayloadPermissionV2Replied
+	PluginAdded                  *GlobalEventPayloadPluginAdded
+	ProjectDirectoriesUpdated    *GlobalEventPayloadProjectDirectoriesUpdated
+	FileWatcherUpdated           *GlobalEventPayloadFileWatcherUpdated
+	PtyCreated                   *GlobalEventPayloadPtyCreated
+	PtyUpdated                   *GlobalEventPayloadPtyUpdated
+	PtyExited                    *GlobalEventPayloadPtyExited
+	PtyDeleted                   *GlobalEventPayloadPtyDeleted
+	QuestionV2Asked              *GlobalEventPayloadQuestionV2Asked
+	QuestionV2Replied            *GlobalEventPayloadQuestionV2Replied
+	QuestionV2Rejected           *GlobalEventPayloadQuestionV2Rejected
+	TodoUpdated                  *GlobalEventPayloadTodoUpdated
+	LspUpdated                   *GlobalEventPayloadLspUpdated
+	PermissionAsked              *GlobalEventPayloadPermissionAsked
+	PermissionReplied            *GlobalEventPayloadPermissionReplied
+	TuiPromptAppend              *GlobalEventPayloadTuiPromptAppend
+	TuiCommandExecute            *GlobalEventPayloadTuiCommandExecute
+	TuiToastShow                 *GlobalEventPayloadTuiToastShow
+	TuiSessionSelect             *GlobalEventPayloadTuiSessionSelect
+	McpToolsChanged              *GlobalEventPayloadMcpToolsChanged
+	McpBrowserOpenFailed         *GlobalEventPayloadMcpBrowserOpenFailed
+	CommandExecuted              *GlobalEventPayloadCommandExecuted
+	ProjectUpdated               *GlobalEventPayloadProjectUpdated
+	SessionStatus                *GlobalEventPayloadSessionStatus
+	SessionIdle                  *GlobalEventPayloadSessionIdle
+	QuestionAsked                *GlobalEventPayloadQuestionAsked
+	QuestionReplied              *GlobalEventPayloadQuestionReplied
+	QuestionRejected             *GlobalEventPayloadQuestionRejected
+	SessionCompacted             *GlobalEventPayloadSessionCompacted
+	VcsBranchUpdated             *GlobalEventPayloadVcsBranchUpdated
+	WorkspaceReady               *GlobalEventPayloadWorkspaceReady
+	WorkspaceFailed              *GlobalEventPayloadWorkspaceFailed
+	WorkspaceStatus              *GlobalEventPayloadWorkspaceStatus
+	WorktreeReady                *GlobalEventPayloadWorktreeReady
+	WorktreeFailed               *GlobalEventPayloadWorktreeFailed
+	ServerConnected              *GlobalEventPayloadServerConnected
+	GlobalDisposed               *GlobalEventPayloadGlobalDisposed
+	ServerInstanceDisposed       *EventServerInstanceDisposed
 }
 
 func (g *GlobalEventPayload) GetType() string {
@@ -430,18 +605,18 @@ func (g *GlobalEventPayload) GetModelsDevRefreshed() *GlobalEventPayloadModelsDe
 	return g.ModelsDevRefreshed
 }
 
-func (g *GlobalEventPayload) GetPluginAdded() *GlobalEventPayloadPluginAdded {
-	if g == nil {
-		return nil
-	}
-	return g.PluginAdded
-}
-
 func (g *GlobalEventPayload) GetIntegrationUpdated() *GlobalEventPayloadIntegrationUpdated {
 	if g == nil {
 		return nil
 	}
 	return g.IntegrationUpdated
+}
+
+func (g *GlobalEventPayload) GetIntegrationConnectionUpdated() *GlobalEventPayloadIntegrationConnectionUpdated {
+	if g == nil {
+		return nil
+	}
+	return g.IntegrationConnectionUpdated
 }
 
 func (g *GlobalEventPayload) GetCatalogUpdated() *GlobalEventPayloadCatalogUpdated {
@@ -533,20 +708,6 @@ func (g *GlobalEventPayload) GetSessionNextPromptAdmitted() *GlobalEventPayloadS
 		return nil
 	}
 	return g.SessionNextPromptAdmitted
-}
-
-func (g *GlobalEventPayload) GetSessionNextPromptPromoted() *GlobalEventPayloadSessionNextPromptPromoted {
-	if g == nil {
-		return nil
-	}
-	return g.SessionNextPromptPromoted
-}
-
-func (g *GlobalEventPayload) GetSessionNextInterruptRequested() *GlobalEventPayloadSessionNextInterruptRequested {
-	if g == nil {
-		return nil
-	}
-	return g.SessionNextInterruptRequested
 }
 
 func (g *GlobalEventPayload) GetSessionNextContextUpdated() *GlobalEventPayloadSessionNextContextUpdated {
@@ -717,6 +878,27 @@ func (g *GlobalEventPayload) GetSessionNextCompactionEnded() *GlobalEventPayload
 	return g.SessionNextCompactionEnded
 }
 
+func (g *GlobalEventPayload) GetSessionNextRevertStaged() *GlobalEventPayloadSessionNextRevertStaged {
+	if g == nil {
+		return nil
+	}
+	return g.SessionNextRevertStaged
+}
+
+func (g *GlobalEventPayload) GetSessionNextRevertCleared() *GlobalEventPayloadSessionNextRevertCleared {
+	if g == nil {
+		return nil
+	}
+	return g.SessionNextRevertCleared
+}
+
+func (g *GlobalEventPayload) GetSessionNextRevertCommitted() *GlobalEventPayloadSessionNextRevertCommitted {
+	if g == nil {
+		return nil
+	}
+	return g.SessionNextRevertCommitted
+}
+
 func (g *GlobalEventPayload) GetMessagePartDelta() *GlobalEventPayloadMessagePartDelta {
 	if g == nil {
 		return nil
@@ -759,6 +941,13 @@ func (g *GlobalEventPayload) GetFileEdited() *GlobalEventPayloadFileEdited {
 	return g.FileEdited
 }
 
+func (g *GlobalEventPayload) GetReferenceUpdated() *GlobalEventPayloadReferenceUpdated {
+	if g == nil {
+		return nil
+	}
+	return g.ReferenceUpdated
+}
+
 func (g *GlobalEventPayload) GetPermissionV2Asked() *GlobalEventPayloadPermissionV2Asked {
 	if g == nil {
 		return nil
@@ -773,11 +962,11 @@ func (g *GlobalEventPayload) GetPermissionV2Replied() *GlobalEventPayloadPermiss
 	return g.PermissionV2Replied
 }
 
-func (g *GlobalEventPayload) GetReferenceUpdated() *GlobalEventPayloadReferenceUpdated {
+func (g *GlobalEventPayload) GetPluginAdded() *GlobalEventPayloadPluginAdded {
 	if g == nil {
 		return nil
 	}
-	return g.ReferenceUpdated
+	return g.PluginAdded
 }
 
 func (g *GlobalEventPayload) GetProjectDirectoriesUpdated() *GlobalEventPayloadProjectDirectoriesUpdated {
@@ -1050,18 +1239,18 @@ func (g *GlobalEventPayload) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		g.ModelsDevRefreshed = value
-	case "plugin.added":
-		value := new(GlobalEventPayloadPluginAdded)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		g.PluginAdded = value
 	case "integration.updated":
 		value := new(GlobalEventPayloadIntegrationUpdated)
 		if err := json.Unmarshal(data, &value); err != nil {
 			return err
 		}
 		g.IntegrationUpdated = value
+	case "integration.connection.updated":
+		value := new(GlobalEventPayloadIntegrationConnectionUpdated)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.IntegrationConnectionUpdated = value
 	case "catalog.updated":
 		value := new(GlobalEventPayloadCatalogUpdated)
 		if err := json.Unmarshal(data, &value); err != nil {
@@ -1140,18 +1329,6 @@ func (g *GlobalEventPayload) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		g.SessionNextPromptAdmitted = value
-	case "session.next.prompt.promoted":
-		value := new(GlobalEventPayloadSessionNextPromptPromoted)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		g.SessionNextPromptPromoted = value
-	case "session.next.interrupt.requested":
-		value := new(GlobalEventPayloadSessionNextInterruptRequested)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		g.SessionNextInterruptRequested = value
 	case "session.next.context.updated":
 		value := new(GlobalEventPayloadSessionNextContextUpdated)
 		if err := json.Unmarshal(data, &value); err != nil {
@@ -1296,6 +1473,24 @@ func (g *GlobalEventPayload) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		g.SessionNextCompactionEnded = value
+	case "session.next.revert.staged":
+		value := new(GlobalEventPayloadSessionNextRevertStaged)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextRevertStaged = value
+	case "session.next.revert.cleared":
+		value := new(GlobalEventPayloadSessionNextRevertCleared)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextRevertCleared = value
+	case "session.next.revert.committed":
+		value := new(GlobalEventPayloadSessionNextRevertCommitted)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.SessionNextRevertCommitted = value
 	case "message.part.delta":
 		value := new(GlobalEventPayloadMessagePartDelta)
 		if err := json.Unmarshal(data, &value); err != nil {
@@ -1332,6 +1527,12 @@ func (g *GlobalEventPayload) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		g.FileEdited = value
+	case "reference.updated":
+		value := new(GlobalEventPayloadReferenceUpdated)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		g.ReferenceUpdated = value
 	case "permission.v2.asked":
 		value := new(GlobalEventPayloadPermissionV2Asked)
 		if err := json.Unmarshal(data, &value); err != nil {
@@ -1344,12 +1545,12 @@ func (g *GlobalEventPayload) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		g.PermissionV2Replied = value
-	case "reference.updated":
-		value := new(GlobalEventPayloadReferenceUpdated)
+	case "plugin.added":
+		value := new(GlobalEventPayloadPluginAdded)
 		if err := json.Unmarshal(data, &value); err != nil {
 			return err
 		}
-		g.ReferenceUpdated = value
+		g.PluginAdded = value
 	case "project.directories.updated":
 		value := new(GlobalEventPayloadProjectDirectoriesUpdated)
 		if err := json.Unmarshal(data, &value); err != nil {
@@ -1577,11 +1778,11 @@ func (g GlobalEventPayload) MarshalJSON() ([]byte, error) {
 	if g.ModelsDevRefreshed != nil {
 		return internal.MarshalJSONWithExtraProperty(g.ModelsDevRefreshed, "type", "models-dev.refreshed")
 	}
-	if g.PluginAdded != nil {
-		return internal.MarshalJSONWithExtraProperty(g.PluginAdded, "type", "plugin.added")
-	}
 	if g.IntegrationUpdated != nil {
 		return internal.MarshalJSONWithExtraProperty(g.IntegrationUpdated, "type", "integration.updated")
+	}
+	if g.IntegrationConnectionUpdated != nil {
+		return internal.MarshalJSONWithExtraProperty(g.IntegrationConnectionUpdated, "type", "integration.connection.updated")
 	}
 	if g.CatalogUpdated != nil {
 		return internal.MarshalJSONWithExtraProperty(g.CatalogUpdated, "type", "catalog.updated")
@@ -1621,12 +1822,6 @@ func (g GlobalEventPayload) MarshalJSON() ([]byte, error) {
 	}
 	if g.SessionNextPromptAdmitted != nil {
 		return internal.MarshalJSONWithExtraProperty(g.SessionNextPromptAdmitted, "type", "session.next.prompt.admitted")
-	}
-	if g.SessionNextPromptPromoted != nil {
-		return internal.MarshalJSONWithExtraProperty(g.SessionNextPromptPromoted, "type", "session.next.prompt.promoted")
-	}
-	if g.SessionNextInterruptRequested != nil {
-		return internal.MarshalJSONWithExtraProperty(g.SessionNextInterruptRequested, "type", "session.next.interrupt.requested")
 	}
 	if g.SessionNextContextUpdated != nil {
 		return internal.MarshalJSONWithExtraProperty(g.SessionNextContextUpdated, "type", "session.next.context.updated")
@@ -1700,6 +1895,15 @@ func (g GlobalEventPayload) MarshalJSON() ([]byte, error) {
 	if g.SessionNextCompactionEnded != nil {
 		return internal.MarshalJSONWithExtraProperty(g.SessionNextCompactionEnded, "type", "session.next.compaction.ended")
 	}
+	if g.SessionNextRevertStaged != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextRevertStaged, "type", "session.next.revert.staged")
+	}
+	if g.SessionNextRevertCleared != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextRevertCleared, "type", "session.next.revert.cleared")
+	}
+	if g.SessionNextRevertCommitted != nil {
+		return internal.MarshalJSONWithExtraProperty(g.SessionNextRevertCommitted, "type", "session.next.revert.committed")
+	}
 	if g.MessagePartDelta != nil {
 		return internal.MarshalJSONWithExtraProperty(g.MessagePartDelta, "type", "message.part.delta")
 	}
@@ -1718,14 +1922,17 @@ func (g GlobalEventPayload) MarshalJSON() ([]byte, error) {
 	if g.FileEdited != nil {
 		return internal.MarshalJSONWithExtraProperty(g.FileEdited, "type", "file.edited")
 	}
+	if g.ReferenceUpdated != nil {
+		return internal.MarshalJSONWithExtraProperty(g.ReferenceUpdated, "type", "reference.updated")
+	}
 	if g.PermissionV2Asked != nil {
 		return internal.MarshalJSONWithExtraProperty(g.PermissionV2Asked, "type", "permission.v2.asked")
 	}
 	if g.PermissionV2Replied != nil {
 		return internal.MarshalJSONWithExtraProperty(g.PermissionV2Replied, "type", "permission.v2.replied")
 	}
-	if g.ReferenceUpdated != nil {
-		return internal.MarshalJSONWithExtraProperty(g.ReferenceUpdated, "type", "reference.updated")
+	if g.PluginAdded != nil {
+		return internal.MarshalJSONWithExtraProperty(g.PluginAdded, "type", "plugin.added")
 	}
 	if g.ProjectDirectoriesUpdated != nil {
 		return internal.MarshalJSONWithExtraProperty(g.ProjectDirectoriesUpdated, "type", "project.directories.updated")
@@ -1840,8 +2047,8 @@ func (g GlobalEventPayload) MarshalJSON() ([]byte, error) {
 
 type GlobalEventPayloadVisitor interface {
 	VisitModelsDevRefreshed(*GlobalEventPayloadModelsDevRefreshed) error
-	VisitPluginAdded(*GlobalEventPayloadPluginAdded) error
 	VisitIntegrationUpdated(*GlobalEventPayloadIntegrationUpdated) error
+	VisitIntegrationConnectionUpdated(*GlobalEventPayloadIntegrationConnectionUpdated) error
 	VisitCatalogUpdated(*GlobalEventPayloadCatalogUpdated) error
 	VisitSessionCreated(*GlobalEventPayloadSessionCreated) error
 	VisitSessionUpdated(*GlobalEventPayloadSessionUpdated) error
@@ -1855,8 +2062,6 @@ type GlobalEventPayloadVisitor interface {
 	VisitSessionNextMoved(*GlobalEventPayloadSessionNextMoved) error
 	VisitSessionNextPrompted(*GlobalEventPayloadSessionNextPrompted) error
 	VisitSessionNextPromptAdmitted(*GlobalEventPayloadSessionNextPromptAdmitted) error
-	VisitSessionNextPromptPromoted(*GlobalEventPayloadSessionNextPromptPromoted) error
-	VisitSessionNextInterruptRequested(*GlobalEventPayloadSessionNextInterruptRequested) error
 	VisitSessionNextContextUpdated(*GlobalEventPayloadSessionNextContextUpdated) error
 	VisitSessionNextSynthetic(*GlobalEventPayloadSessionNextSynthetic) error
 	VisitSessionNextShellStarted(*GlobalEventPayloadSessionNextShellStarted) error
@@ -1881,15 +2086,19 @@ type GlobalEventPayloadVisitor interface {
 	VisitSessionNextCompactionStarted(*GlobalEventPayloadSessionNextCompactionStarted) error
 	VisitSessionNextCompactionDelta(*GlobalEventPayloadSessionNextCompactionDelta) error
 	VisitSessionNextCompactionEnded(*GlobalEventPayloadSessionNextCompactionEnded) error
+	VisitSessionNextRevertStaged(*GlobalEventPayloadSessionNextRevertStaged) error
+	VisitSessionNextRevertCleared(*GlobalEventPayloadSessionNextRevertCleared) error
+	VisitSessionNextRevertCommitted(*GlobalEventPayloadSessionNextRevertCommitted) error
 	VisitMessagePartDelta(*GlobalEventPayloadMessagePartDelta) error
 	VisitSessionDiff(*GlobalEventPayloadSessionDiff) error
 	VisitSessionError(*GlobalEventPayloadSessionError) error
 	VisitInstallationUpdated(*GlobalEventPayloadInstallationUpdated) error
 	VisitInstallationUpdateAvailable(*GlobalEventPayloadInstallationUpdateAvailable) error
 	VisitFileEdited(*GlobalEventPayloadFileEdited) error
+	VisitReferenceUpdated(*GlobalEventPayloadReferenceUpdated) error
 	VisitPermissionV2Asked(*GlobalEventPayloadPermissionV2Asked) error
 	VisitPermissionV2Replied(*GlobalEventPayloadPermissionV2Replied) error
-	VisitReferenceUpdated(*GlobalEventPayloadReferenceUpdated) error
+	VisitPluginAdded(*GlobalEventPayloadPluginAdded) error
 	VisitProjectDirectoriesUpdated(*GlobalEventPayloadProjectDirectoriesUpdated) error
 	VisitFileWatcherUpdated(*GlobalEventPayloadFileWatcherUpdated) error
 	VisitPtyCreated(*GlobalEventPayloadPtyCreated) error
@@ -1932,11 +2141,11 @@ func (g *GlobalEventPayload) Accept(visitor GlobalEventPayloadVisitor) error {
 	if g.ModelsDevRefreshed != nil {
 		return visitor.VisitModelsDevRefreshed(g.ModelsDevRefreshed)
 	}
-	if g.PluginAdded != nil {
-		return visitor.VisitPluginAdded(g.PluginAdded)
-	}
 	if g.IntegrationUpdated != nil {
 		return visitor.VisitIntegrationUpdated(g.IntegrationUpdated)
+	}
+	if g.IntegrationConnectionUpdated != nil {
+		return visitor.VisitIntegrationConnectionUpdated(g.IntegrationConnectionUpdated)
 	}
 	if g.CatalogUpdated != nil {
 		return visitor.VisitCatalogUpdated(g.CatalogUpdated)
@@ -1976,12 +2185,6 @@ func (g *GlobalEventPayload) Accept(visitor GlobalEventPayloadVisitor) error {
 	}
 	if g.SessionNextPromptAdmitted != nil {
 		return visitor.VisitSessionNextPromptAdmitted(g.SessionNextPromptAdmitted)
-	}
-	if g.SessionNextPromptPromoted != nil {
-		return visitor.VisitSessionNextPromptPromoted(g.SessionNextPromptPromoted)
-	}
-	if g.SessionNextInterruptRequested != nil {
-		return visitor.VisitSessionNextInterruptRequested(g.SessionNextInterruptRequested)
 	}
 	if g.SessionNextContextUpdated != nil {
 		return visitor.VisitSessionNextContextUpdated(g.SessionNextContextUpdated)
@@ -2055,6 +2258,15 @@ func (g *GlobalEventPayload) Accept(visitor GlobalEventPayloadVisitor) error {
 	if g.SessionNextCompactionEnded != nil {
 		return visitor.VisitSessionNextCompactionEnded(g.SessionNextCompactionEnded)
 	}
+	if g.SessionNextRevertStaged != nil {
+		return visitor.VisitSessionNextRevertStaged(g.SessionNextRevertStaged)
+	}
+	if g.SessionNextRevertCleared != nil {
+		return visitor.VisitSessionNextRevertCleared(g.SessionNextRevertCleared)
+	}
+	if g.SessionNextRevertCommitted != nil {
+		return visitor.VisitSessionNextRevertCommitted(g.SessionNextRevertCommitted)
+	}
 	if g.MessagePartDelta != nil {
 		return visitor.VisitMessagePartDelta(g.MessagePartDelta)
 	}
@@ -2073,14 +2285,17 @@ func (g *GlobalEventPayload) Accept(visitor GlobalEventPayloadVisitor) error {
 	if g.FileEdited != nil {
 		return visitor.VisitFileEdited(g.FileEdited)
 	}
+	if g.ReferenceUpdated != nil {
+		return visitor.VisitReferenceUpdated(g.ReferenceUpdated)
+	}
 	if g.PermissionV2Asked != nil {
 		return visitor.VisitPermissionV2Asked(g.PermissionV2Asked)
 	}
 	if g.PermissionV2Replied != nil {
 		return visitor.VisitPermissionV2Replied(g.PermissionV2Replied)
 	}
-	if g.ReferenceUpdated != nil {
-		return visitor.VisitReferenceUpdated(g.ReferenceUpdated)
+	if g.PluginAdded != nil {
+		return visitor.VisitPluginAdded(g.PluginAdded)
 	}
 	if g.ProjectDirectoriesUpdated != nil {
 		return visitor.VisitProjectDirectoriesUpdated(g.ProjectDirectoriesUpdated)
@@ -2201,11 +2416,11 @@ func (g *GlobalEventPayload) validate() error {
 	if g.ModelsDevRefreshed != nil {
 		fields = append(fields, "models-dev.refreshed")
 	}
-	if g.PluginAdded != nil {
-		fields = append(fields, "plugin.added")
-	}
 	if g.IntegrationUpdated != nil {
 		fields = append(fields, "integration.updated")
+	}
+	if g.IntegrationConnectionUpdated != nil {
+		fields = append(fields, "integration.connection.updated")
 	}
 	if g.CatalogUpdated != nil {
 		fields = append(fields, "catalog.updated")
@@ -2245,12 +2460,6 @@ func (g *GlobalEventPayload) validate() error {
 	}
 	if g.SessionNextPromptAdmitted != nil {
 		fields = append(fields, "session.next.prompt.admitted")
-	}
-	if g.SessionNextPromptPromoted != nil {
-		fields = append(fields, "session.next.prompt.promoted")
-	}
-	if g.SessionNextInterruptRequested != nil {
-		fields = append(fields, "session.next.interrupt.requested")
 	}
 	if g.SessionNextContextUpdated != nil {
 		fields = append(fields, "session.next.context.updated")
@@ -2324,6 +2533,15 @@ func (g *GlobalEventPayload) validate() error {
 	if g.SessionNextCompactionEnded != nil {
 		fields = append(fields, "session.next.compaction.ended")
 	}
+	if g.SessionNextRevertStaged != nil {
+		fields = append(fields, "session.next.revert.staged")
+	}
+	if g.SessionNextRevertCleared != nil {
+		fields = append(fields, "session.next.revert.cleared")
+	}
+	if g.SessionNextRevertCommitted != nil {
+		fields = append(fields, "session.next.revert.committed")
+	}
 	if g.MessagePartDelta != nil {
 		fields = append(fields, "message.part.delta")
 	}
@@ -2342,14 +2560,17 @@ func (g *GlobalEventPayload) validate() error {
 	if g.FileEdited != nil {
 		fields = append(fields, "file.edited")
 	}
+	if g.ReferenceUpdated != nil {
+		fields = append(fields, "reference.updated")
+	}
 	if g.PermissionV2Asked != nil {
 		fields = append(fields, "permission.v2.asked")
 	}
 	if g.PermissionV2Replied != nil {
 		fields = append(fields, "permission.v2.replied")
 	}
-	if g.ReferenceUpdated != nil {
-		fields = append(fields, "reference.updated")
+	if g.PluginAdded != nil {
+		fields = append(fields, "plugin.added")
 	}
 	if g.ProjectDirectoriesUpdated != nil {
 		fields = append(fields, "project.directories.updated")
@@ -3807,6 +4028,190 @@ func (g *GlobalEventPayloadInstallationUpdatedProperties) MarshalJSON() ([]byte,
 }
 
 func (g *GlobalEventPayloadInstallationUpdatedProperties) String() string {
+	if g == nil {
+		return "<nil>"
+	}
+	if len(g.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(g); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", g)
+}
+
+var (
+	globalEventPayloadIntegrationConnectionUpdatedFieldID         = big.NewInt(1 << 0)
+	globalEventPayloadIntegrationConnectionUpdatedFieldProperties = big.NewInt(1 << 1)
+)
+
+type GlobalEventPayloadIntegrationConnectionUpdated struct {
+	ID         string                                                    `json:"id" url:"id"`
+	Properties *GlobalEventPayloadIntegrationConnectionUpdatedProperties `json:"properties" url:"properties"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (g *GlobalEventPayloadIntegrationConnectionUpdated) GetID() string {
+	if g == nil {
+		return ""
+	}
+	return g.ID
+}
+
+func (g *GlobalEventPayloadIntegrationConnectionUpdated) GetProperties() *GlobalEventPayloadIntegrationConnectionUpdatedProperties {
+	if g == nil {
+		return nil
+	}
+	return g.Properties
+}
+
+func (g *GlobalEventPayloadIntegrationConnectionUpdated) GetExtraProperties() map[string]interface{} {
+	if g == nil {
+		return nil
+	}
+	return g.extraProperties
+}
+
+func (g *GlobalEventPayloadIntegrationConnectionUpdated) require(field *big.Int) {
+	if g.explicitFields == nil {
+		g.explicitFields = big.NewInt(0)
+	}
+	g.explicitFields.Or(g.explicitFields, field)
+}
+
+// SetID sets the ID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GlobalEventPayloadIntegrationConnectionUpdated) SetID(id string) {
+	g.ID = id
+	g.require(globalEventPayloadIntegrationConnectionUpdatedFieldID)
+}
+
+// SetProperties sets the Properties field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GlobalEventPayloadIntegrationConnectionUpdated) SetProperties(properties *GlobalEventPayloadIntegrationConnectionUpdatedProperties) {
+	g.Properties = properties
+	g.require(globalEventPayloadIntegrationConnectionUpdatedFieldProperties)
+}
+
+func (g *GlobalEventPayloadIntegrationConnectionUpdated) UnmarshalJSON(data []byte) error {
+	type unmarshaler GlobalEventPayloadIntegrationConnectionUpdated
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*g = GlobalEventPayloadIntegrationConnectionUpdated(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *g)
+	if err != nil {
+		return err
+	}
+	g.extraProperties = extraProperties
+	g.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (g *GlobalEventPayloadIntegrationConnectionUpdated) MarshalJSON() ([]byte, error) {
+	type embed GlobalEventPayloadIntegrationConnectionUpdated
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*g),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (g *GlobalEventPayloadIntegrationConnectionUpdated) String() string {
+	if g == nil {
+		return "<nil>"
+	}
+	if len(g.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(g); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", g)
+}
+
+var (
+	globalEventPayloadIntegrationConnectionUpdatedPropertiesFieldIntegrationID = big.NewInt(1 << 0)
+)
+
+type GlobalEventPayloadIntegrationConnectionUpdatedProperties struct {
+	IntegrationID string `json:"integrationID" url:"integrationID"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (g *GlobalEventPayloadIntegrationConnectionUpdatedProperties) GetIntegrationID() string {
+	if g == nil {
+		return ""
+	}
+	return g.IntegrationID
+}
+
+func (g *GlobalEventPayloadIntegrationConnectionUpdatedProperties) GetExtraProperties() map[string]interface{} {
+	if g == nil {
+		return nil
+	}
+	return g.extraProperties
+}
+
+func (g *GlobalEventPayloadIntegrationConnectionUpdatedProperties) require(field *big.Int) {
+	if g.explicitFields == nil {
+		g.explicitFields = big.NewInt(0)
+	}
+	g.explicitFields.Or(g.explicitFields, field)
+}
+
+// SetIntegrationID sets the IntegrationID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GlobalEventPayloadIntegrationConnectionUpdatedProperties) SetIntegrationID(integrationID string) {
+	g.IntegrationID = integrationID
+	g.require(globalEventPayloadIntegrationConnectionUpdatedPropertiesFieldIntegrationID)
+}
+
+func (g *GlobalEventPayloadIntegrationConnectionUpdatedProperties) UnmarshalJSON(data []byte) error {
+	type unmarshaler GlobalEventPayloadIntegrationConnectionUpdatedProperties
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*g = GlobalEventPayloadIntegrationConnectionUpdatedProperties(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *g)
+	if err != nil {
+		return err
+	}
+	g.extraProperties = extraProperties
+	g.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (g *GlobalEventPayloadIntegrationConnectionUpdatedProperties) MarshalJSON() ([]byte, error) {
+	type embed GlobalEventPayloadIntegrationConnectionUpdatedProperties
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*g),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (g *GlobalEventPayloadIntegrationConnectionUpdatedProperties) String() string {
 	if g == nil {
 		return "<nil>"
 	}
@@ -7377,14 +7782,14 @@ var (
 )
 
 type GlobalEventPayloadProjectUpdatedProperties struct {
-	ID        string                                              `json:"id" url:"id"`
-	Worktree  string                                              `json:"worktree" url:"worktree"`
-	Vcs       *GlobalEventPayloadProjectUpdatedPropertiesVcs      `json:"vcs,omitempty" url:"vcs,omitempty"`
-	Name      *string                                             `json:"name,omitempty" url:"name,omitempty"`
-	Icon      *GlobalEventPayloadProjectUpdatedPropertiesIcon     `json:"icon,omitempty" url:"icon,omitempty"`
-	Commands  *GlobalEventPayloadProjectUpdatedPropertiesCommands `json:"commands,omitempty" url:"commands,omitempty"`
-	Time      *GlobalEventPayloadProjectUpdatedPropertiesTime     `json:"time" url:"time"`
-	Sandboxes []string                                            `json:"sandboxes" url:"sandboxes"`
+	ID        string           `json:"id" url:"id"`
+	Worktree  string           `json:"worktree" url:"worktree"`
+	Vcs       *ProjectVcs      `json:"vcs,omitempty" url:"vcs,omitempty"`
+	Name      *string          `json:"name,omitempty" url:"name,omitempty"`
+	Icon      *ProjectIcon     `json:"icon,omitempty" url:"icon,omitempty"`
+	Commands  *ProjectCommands `json:"commands,omitempty" url:"commands,omitempty"`
+	Time      *ProjectTime     `json:"time" url:"time"`
+	Sandboxes []string         `json:"sandboxes" url:"sandboxes"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -7407,7 +7812,7 @@ func (g *GlobalEventPayloadProjectUpdatedProperties) GetWorktree() string {
 	return g.Worktree
 }
 
-func (g *GlobalEventPayloadProjectUpdatedProperties) GetVcs() *GlobalEventPayloadProjectUpdatedPropertiesVcs {
+func (g *GlobalEventPayloadProjectUpdatedProperties) GetVcs() *ProjectVcs {
 	if g == nil {
 		return nil
 	}
@@ -7421,21 +7826,21 @@ func (g *GlobalEventPayloadProjectUpdatedProperties) GetName() *string {
 	return g.Name
 }
 
-func (g *GlobalEventPayloadProjectUpdatedProperties) GetIcon() *GlobalEventPayloadProjectUpdatedPropertiesIcon {
+func (g *GlobalEventPayloadProjectUpdatedProperties) GetIcon() *ProjectIcon {
 	if g == nil {
 		return nil
 	}
 	return g.Icon
 }
 
-func (g *GlobalEventPayloadProjectUpdatedProperties) GetCommands() *GlobalEventPayloadProjectUpdatedPropertiesCommands {
+func (g *GlobalEventPayloadProjectUpdatedProperties) GetCommands() *ProjectCommands {
 	if g == nil {
 		return nil
 	}
 	return g.Commands
 }
 
-func (g *GlobalEventPayloadProjectUpdatedProperties) GetTime() *GlobalEventPayloadProjectUpdatedPropertiesTime {
+func (g *GlobalEventPayloadProjectUpdatedProperties) GetTime() *ProjectTime {
 	if g == nil {
 		return nil
 	}
@@ -7479,7 +7884,7 @@ func (g *GlobalEventPayloadProjectUpdatedProperties) SetWorktree(worktree string
 
 // SetVcs sets the Vcs field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadProjectUpdatedProperties) SetVcs(vcs *GlobalEventPayloadProjectUpdatedPropertiesVcs) {
+func (g *GlobalEventPayloadProjectUpdatedProperties) SetVcs(vcs *ProjectVcs) {
 	g.Vcs = vcs
 	g.require(globalEventPayloadProjectUpdatedPropertiesFieldVcs)
 }
@@ -7493,21 +7898,21 @@ func (g *GlobalEventPayloadProjectUpdatedProperties) SetName(name *string) {
 
 // SetIcon sets the Icon field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadProjectUpdatedProperties) SetIcon(icon *GlobalEventPayloadProjectUpdatedPropertiesIcon) {
+func (g *GlobalEventPayloadProjectUpdatedProperties) SetIcon(icon *ProjectIcon) {
 	g.Icon = icon
 	g.require(globalEventPayloadProjectUpdatedPropertiesFieldIcon)
 }
 
 // SetCommands sets the Commands field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadProjectUpdatedProperties) SetCommands(commands *GlobalEventPayloadProjectUpdatedPropertiesCommands) {
+func (g *GlobalEventPayloadProjectUpdatedProperties) SetCommands(commands *ProjectCommands) {
 	g.Commands = commands
 	g.require(globalEventPayloadProjectUpdatedPropertiesFieldCommands)
 }
 
 // SetTime sets the Time field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadProjectUpdatedProperties) SetTime(time *GlobalEventPayloadProjectUpdatedPropertiesTime) {
+func (g *GlobalEventPayloadProjectUpdatedProperties) SetTime(time *ProjectTime) {
 	g.Time = time
 	g.require(globalEventPayloadProjectUpdatedPropertiesFieldTime)
 }
@@ -7559,342 +7964,6 @@ func (g *GlobalEventPayloadProjectUpdatedProperties) String() string {
 		return value
 	}
 	return fmt.Sprintf("%#v", g)
-}
-
-var (
-	globalEventPayloadProjectUpdatedPropertiesCommandsFieldStart = big.NewInt(1 << 0)
-)
-
-type GlobalEventPayloadProjectUpdatedPropertiesCommands struct {
-	// Startup script to run when creating a new workspace (worktree)
-	Start *string `json:"start,omitempty" url:"start,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (g *GlobalEventPayloadProjectUpdatedPropertiesCommands) GetStart() *string {
-	if g == nil {
-		return nil
-	}
-	return g.Start
-}
-
-func (g *GlobalEventPayloadProjectUpdatedPropertiesCommands) GetExtraProperties() map[string]interface{} {
-	if g == nil {
-		return nil
-	}
-	return g.extraProperties
-}
-
-func (g *GlobalEventPayloadProjectUpdatedPropertiesCommands) require(field *big.Int) {
-	if g.explicitFields == nil {
-		g.explicitFields = big.NewInt(0)
-	}
-	g.explicitFields.Or(g.explicitFields, field)
-}
-
-// SetStart sets the Start field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadProjectUpdatedPropertiesCommands) SetStart(start *string) {
-	g.Start = start
-	g.require(globalEventPayloadProjectUpdatedPropertiesCommandsFieldStart)
-}
-
-func (g *GlobalEventPayloadProjectUpdatedPropertiesCommands) UnmarshalJSON(data []byte) error {
-	type unmarshaler GlobalEventPayloadProjectUpdatedPropertiesCommands
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*g = GlobalEventPayloadProjectUpdatedPropertiesCommands(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *g)
-	if err != nil {
-		return err
-	}
-	g.extraProperties = extraProperties
-	g.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (g *GlobalEventPayloadProjectUpdatedPropertiesCommands) MarshalJSON() ([]byte, error) {
-	type embed GlobalEventPayloadProjectUpdatedPropertiesCommands
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*g),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (g *GlobalEventPayloadProjectUpdatedPropertiesCommands) String() string {
-	if g == nil {
-		return "<nil>"
-	}
-	if len(g.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(g); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", g)
-}
-
-var (
-	globalEventPayloadProjectUpdatedPropertiesIconFieldURL      = big.NewInt(1 << 0)
-	globalEventPayloadProjectUpdatedPropertiesIconFieldOverride = big.NewInt(1 << 1)
-	globalEventPayloadProjectUpdatedPropertiesIconFieldColor    = big.NewInt(1 << 2)
-)
-
-type GlobalEventPayloadProjectUpdatedPropertiesIcon struct {
-	URL      *string `json:"url,omitempty" url:"url,omitempty"`
-	Override *string `json:"override,omitempty" url:"override,omitempty"`
-	Color    *string `json:"color,omitempty" url:"color,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (g *GlobalEventPayloadProjectUpdatedPropertiesIcon) GetURL() *string {
-	if g == nil {
-		return nil
-	}
-	return g.URL
-}
-
-func (g *GlobalEventPayloadProjectUpdatedPropertiesIcon) GetOverride() *string {
-	if g == nil {
-		return nil
-	}
-	return g.Override
-}
-
-func (g *GlobalEventPayloadProjectUpdatedPropertiesIcon) GetColor() *string {
-	if g == nil {
-		return nil
-	}
-	return g.Color
-}
-
-func (g *GlobalEventPayloadProjectUpdatedPropertiesIcon) GetExtraProperties() map[string]interface{} {
-	if g == nil {
-		return nil
-	}
-	return g.extraProperties
-}
-
-func (g *GlobalEventPayloadProjectUpdatedPropertiesIcon) require(field *big.Int) {
-	if g.explicitFields == nil {
-		g.explicitFields = big.NewInt(0)
-	}
-	g.explicitFields.Or(g.explicitFields, field)
-}
-
-// SetURL sets the URL field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadProjectUpdatedPropertiesIcon) SetURL(url *string) {
-	g.URL = url
-	g.require(globalEventPayloadProjectUpdatedPropertiesIconFieldURL)
-}
-
-// SetOverride sets the Override field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadProjectUpdatedPropertiesIcon) SetOverride(override *string) {
-	g.Override = override
-	g.require(globalEventPayloadProjectUpdatedPropertiesIconFieldOverride)
-}
-
-// SetColor sets the Color field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadProjectUpdatedPropertiesIcon) SetColor(color *string) {
-	g.Color = color
-	g.require(globalEventPayloadProjectUpdatedPropertiesIconFieldColor)
-}
-
-func (g *GlobalEventPayloadProjectUpdatedPropertiesIcon) UnmarshalJSON(data []byte) error {
-	type unmarshaler GlobalEventPayloadProjectUpdatedPropertiesIcon
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*g = GlobalEventPayloadProjectUpdatedPropertiesIcon(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *g)
-	if err != nil {
-		return err
-	}
-	g.extraProperties = extraProperties
-	g.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (g *GlobalEventPayloadProjectUpdatedPropertiesIcon) MarshalJSON() ([]byte, error) {
-	type embed GlobalEventPayloadProjectUpdatedPropertiesIcon
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*g),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (g *GlobalEventPayloadProjectUpdatedPropertiesIcon) String() string {
-	if g == nil {
-		return "<nil>"
-	}
-	if len(g.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(g); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", g)
-}
-
-var (
-	globalEventPayloadProjectUpdatedPropertiesTimeFieldCreated     = big.NewInt(1 << 0)
-	globalEventPayloadProjectUpdatedPropertiesTimeFieldUpdated     = big.NewInt(1 << 1)
-	globalEventPayloadProjectUpdatedPropertiesTimeFieldInitialized = big.NewInt(1 << 2)
-)
-
-type GlobalEventPayloadProjectUpdatedPropertiesTime struct {
-	Created     int  `json:"created" url:"created"`
-	Updated     int  `json:"updated" url:"updated"`
-	Initialized *int `json:"initialized,omitempty" url:"initialized,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (g *GlobalEventPayloadProjectUpdatedPropertiesTime) GetCreated() int {
-	if g == nil {
-		return 0
-	}
-	return g.Created
-}
-
-func (g *GlobalEventPayloadProjectUpdatedPropertiesTime) GetUpdated() int {
-	if g == nil {
-		return 0
-	}
-	return g.Updated
-}
-
-func (g *GlobalEventPayloadProjectUpdatedPropertiesTime) GetInitialized() *int {
-	if g == nil {
-		return nil
-	}
-	return g.Initialized
-}
-
-func (g *GlobalEventPayloadProjectUpdatedPropertiesTime) GetExtraProperties() map[string]interface{} {
-	if g == nil {
-		return nil
-	}
-	return g.extraProperties
-}
-
-func (g *GlobalEventPayloadProjectUpdatedPropertiesTime) require(field *big.Int) {
-	if g.explicitFields == nil {
-		g.explicitFields = big.NewInt(0)
-	}
-	g.explicitFields.Or(g.explicitFields, field)
-}
-
-// SetCreated sets the Created field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadProjectUpdatedPropertiesTime) SetCreated(created int) {
-	g.Created = created
-	g.require(globalEventPayloadProjectUpdatedPropertiesTimeFieldCreated)
-}
-
-// SetUpdated sets the Updated field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadProjectUpdatedPropertiesTime) SetUpdated(updated int) {
-	g.Updated = updated
-	g.require(globalEventPayloadProjectUpdatedPropertiesTimeFieldUpdated)
-}
-
-// SetInitialized sets the Initialized field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadProjectUpdatedPropertiesTime) SetInitialized(initialized *int) {
-	g.Initialized = initialized
-	g.require(globalEventPayloadProjectUpdatedPropertiesTimeFieldInitialized)
-}
-
-func (g *GlobalEventPayloadProjectUpdatedPropertiesTime) UnmarshalJSON(data []byte) error {
-	type unmarshaler GlobalEventPayloadProjectUpdatedPropertiesTime
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*g = GlobalEventPayloadProjectUpdatedPropertiesTime(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *g)
-	if err != nil {
-		return err
-	}
-	g.extraProperties = extraProperties
-	g.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (g *GlobalEventPayloadProjectUpdatedPropertiesTime) MarshalJSON() ([]byte, error) {
-	type embed GlobalEventPayloadProjectUpdatedPropertiesTime
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*g),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (g *GlobalEventPayloadProjectUpdatedPropertiesTime) String() string {
-	if g == nil {
-		return "<nil>"
-	}
-	if len(g.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(g); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", g)
-}
-
-type GlobalEventPayloadProjectUpdatedPropertiesVcs string
-
-const (
-	GlobalEventPayloadProjectUpdatedPropertiesVcsGit GlobalEventPayloadProjectUpdatedPropertiesVcs = "git"
-)
-
-func NewGlobalEventPayloadProjectUpdatedPropertiesVcsFromString(s string) (GlobalEventPayloadProjectUpdatedPropertiesVcs, error) {
-	switch s {
-	case "git":
-		return GlobalEventPayloadProjectUpdatedPropertiesVcsGit, nil
-	}
-	var t GlobalEventPayloadProjectUpdatedPropertiesVcs
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (g GlobalEventPayloadProjectUpdatedPropertiesVcs) Ptr() *GlobalEventPayloadProjectUpdatedPropertiesVcs {
-	return &g
 }
 
 var (
@@ -12943,206 +13012,6 @@ func (g *GlobalEventPayloadSessionNextContextUpdatedProperties) String() string 
 }
 
 var (
-	globalEventPayloadSessionNextInterruptRequestedFieldID         = big.NewInt(1 << 0)
-	globalEventPayloadSessionNextInterruptRequestedFieldProperties = big.NewInt(1 << 1)
-)
-
-type GlobalEventPayloadSessionNextInterruptRequested struct {
-	ID         string                                                     `json:"id" url:"id"`
-	Properties *GlobalEventPayloadSessionNextInterruptRequestedProperties `json:"properties" url:"properties"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (g *GlobalEventPayloadSessionNextInterruptRequested) GetID() string {
-	if g == nil {
-		return ""
-	}
-	return g.ID
-}
-
-func (g *GlobalEventPayloadSessionNextInterruptRequested) GetProperties() *GlobalEventPayloadSessionNextInterruptRequestedProperties {
-	if g == nil {
-		return nil
-	}
-	return g.Properties
-}
-
-func (g *GlobalEventPayloadSessionNextInterruptRequested) GetExtraProperties() map[string]interface{} {
-	if g == nil {
-		return nil
-	}
-	return g.extraProperties
-}
-
-func (g *GlobalEventPayloadSessionNextInterruptRequested) require(field *big.Int) {
-	if g.explicitFields == nil {
-		g.explicitFields = big.NewInt(0)
-	}
-	g.explicitFields.Or(g.explicitFields, field)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadSessionNextInterruptRequested) SetID(id string) {
-	g.ID = id
-	g.require(globalEventPayloadSessionNextInterruptRequestedFieldID)
-}
-
-// SetProperties sets the Properties field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadSessionNextInterruptRequested) SetProperties(properties *GlobalEventPayloadSessionNextInterruptRequestedProperties) {
-	g.Properties = properties
-	g.require(globalEventPayloadSessionNextInterruptRequestedFieldProperties)
-}
-
-func (g *GlobalEventPayloadSessionNextInterruptRequested) UnmarshalJSON(data []byte) error {
-	type unmarshaler GlobalEventPayloadSessionNextInterruptRequested
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*g = GlobalEventPayloadSessionNextInterruptRequested(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *g)
-	if err != nil {
-		return err
-	}
-	g.extraProperties = extraProperties
-	g.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (g *GlobalEventPayloadSessionNextInterruptRequested) MarshalJSON() ([]byte, error) {
-	type embed GlobalEventPayloadSessionNextInterruptRequested
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*g),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (g *GlobalEventPayloadSessionNextInterruptRequested) String() string {
-	if g == nil {
-		return "<nil>"
-	}
-	if len(g.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(g); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", g)
-}
-
-var (
-	globalEventPayloadSessionNextInterruptRequestedPropertiesFieldTimestamp = big.NewInt(1 << 0)
-	globalEventPayloadSessionNextInterruptRequestedPropertiesFieldSessionID = big.NewInt(1 << 1)
-)
-
-type GlobalEventPayloadSessionNextInterruptRequestedProperties struct {
-	Timestamp float64 `json:"timestamp" url:"timestamp"`
-	SessionID string  `json:"sessionID" url:"sessionID"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (g *GlobalEventPayloadSessionNextInterruptRequestedProperties) GetTimestamp() float64 {
-	if g == nil {
-		return 0
-	}
-	return g.Timestamp
-}
-
-func (g *GlobalEventPayloadSessionNextInterruptRequestedProperties) GetSessionID() string {
-	if g == nil {
-		return ""
-	}
-	return g.SessionID
-}
-
-func (g *GlobalEventPayloadSessionNextInterruptRequestedProperties) GetExtraProperties() map[string]interface{} {
-	if g == nil {
-		return nil
-	}
-	return g.extraProperties
-}
-
-func (g *GlobalEventPayloadSessionNextInterruptRequestedProperties) require(field *big.Int) {
-	if g.explicitFields == nil {
-		g.explicitFields = big.NewInt(0)
-	}
-	g.explicitFields.Or(g.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadSessionNextInterruptRequestedProperties) SetTimestamp(timestamp float64) {
-	g.Timestamp = timestamp
-	g.require(globalEventPayloadSessionNextInterruptRequestedPropertiesFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadSessionNextInterruptRequestedProperties) SetSessionID(sessionID string) {
-	g.SessionID = sessionID
-	g.require(globalEventPayloadSessionNextInterruptRequestedPropertiesFieldSessionID)
-}
-
-func (g *GlobalEventPayloadSessionNextInterruptRequestedProperties) UnmarshalJSON(data []byte) error {
-	type unmarshaler GlobalEventPayloadSessionNextInterruptRequestedProperties
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*g = GlobalEventPayloadSessionNextInterruptRequestedProperties(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *g)
-	if err != nil {
-		return err
-	}
-	g.extraProperties = extraProperties
-	g.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (g *GlobalEventPayloadSessionNextInterruptRequestedProperties) MarshalJSON() ([]byte, error) {
-	type embed GlobalEventPayloadSessionNextInterruptRequestedProperties
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*g),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (g *GlobalEventPayloadSessionNextInterruptRequestedProperties) String() string {
-	if g == nil {
-		return "<nil>"
-	}
-	if len(g.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(g); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", g)
-}
-
-var (
 	globalEventPayloadSessionNextModelSwitchedFieldID         = big.NewInt(1 << 0)
 	globalEventPayloadSessionNextModelSwitchedFieldProperties = big.NewInt(1 << 1)
 )
@@ -13250,10 +13119,10 @@ var (
 )
 
 type GlobalEventPayloadSessionNextModelSwitchedProperties struct {
-	Timestamp float64                                                    `json:"timestamp" url:"timestamp"`
-	SessionID string                                                     `json:"sessionID" url:"sessionID"`
-	MessageID string                                                     `json:"messageID" url:"messageID"`
-	Model     *GlobalEventPayloadSessionNextModelSwitchedPropertiesModel `json:"model" url:"model"`
+	Timestamp float64   `json:"timestamp" url:"timestamp"`
+	SessionID string    `json:"sessionID" url:"sessionID"`
+	MessageID string    `json:"messageID" url:"messageID"`
+	Model     *ModelRef `json:"model" url:"model"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -13283,7 +13152,7 @@ func (g *GlobalEventPayloadSessionNextModelSwitchedProperties) GetMessageID() st
 	return g.MessageID
 }
 
-func (g *GlobalEventPayloadSessionNextModelSwitchedProperties) GetModel() *GlobalEventPayloadSessionNextModelSwitchedPropertiesModel {
+func (g *GlobalEventPayloadSessionNextModelSwitchedProperties) GetModel() *ModelRef {
 	if g == nil {
 		return nil
 	}
@@ -13327,7 +13196,7 @@ func (g *GlobalEventPayloadSessionNextModelSwitchedProperties) SetMessageID(mess
 
 // SetModel sets the Model field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadSessionNextModelSwitchedProperties) SetModel(model *GlobalEventPayloadSessionNextModelSwitchedPropertiesModel) {
+func (g *GlobalEventPayloadSessionNextModelSwitchedProperties) SetModel(model *ModelRef) {
 	g.Model = model
 	g.require(globalEventPayloadSessionNextModelSwitchedPropertiesFieldModel)
 }
@@ -13360,122 +13229,6 @@ func (g *GlobalEventPayloadSessionNextModelSwitchedProperties) MarshalJSON() ([]
 }
 
 func (g *GlobalEventPayloadSessionNextModelSwitchedProperties) String() string {
-	if g == nil {
-		return "<nil>"
-	}
-	if len(g.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(g); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", g)
-}
-
-var (
-	globalEventPayloadSessionNextModelSwitchedPropertiesModelFieldID         = big.NewInt(1 << 0)
-	globalEventPayloadSessionNextModelSwitchedPropertiesModelFieldProviderID = big.NewInt(1 << 1)
-	globalEventPayloadSessionNextModelSwitchedPropertiesModelFieldVariant    = big.NewInt(1 << 2)
-)
-
-type GlobalEventPayloadSessionNextModelSwitchedPropertiesModel struct {
-	ID         string  `json:"id" url:"id"`
-	ProviderID string  `json:"providerID" url:"providerID"`
-	Variant    *string `json:"variant,omitempty" url:"variant,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (g *GlobalEventPayloadSessionNextModelSwitchedPropertiesModel) GetID() string {
-	if g == nil {
-		return ""
-	}
-	return g.ID
-}
-
-func (g *GlobalEventPayloadSessionNextModelSwitchedPropertiesModel) GetProviderID() string {
-	if g == nil {
-		return ""
-	}
-	return g.ProviderID
-}
-
-func (g *GlobalEventPayloadSessionNextModelSwitchedPropertiesModel) GetVariant() *string {
-	if g == nil {
-		return nil
-	}
-	return g.Variant
-}
-
-func (g *GlobalEventPayloadSessionNextModelSwitchedPropertiesModel) GetExtraProperties() map[string]interface{} {
-	if g == nil {
-		return nil
-	}
-	return g.extraProperties
-}
-
-func (g *GlobalEventPayloadSessionNextModelSwitchedPropertiesModel) require(field *big.Int) {
-	if g.explicitFields == nil {
-		g.explicitFields = big.NewInt(0)
-	}
-	g.explicitFields.Or(g.explicitFields, field)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadSessionNextModelSwitchedPropertiesModel) SetID(id string) {
-	g.ID = id
-	g.require(globalEventPayloadSessionNextModelSwitchedPropertiesModelFieldID)
-}
-
-// SetProviderID sets the ProviderID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadSessionNextModelSwitchedPropertiesModel) SetProviderID(providerID string) {
-	g.ProviderID = providerID
-	g.require(globalEventPayloadSessionNextModelSwitchedPropertiesModelFieldProviderID)
-}
-
-// SetVariant sets the Variant field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadSessionNextModelSwitchedPropertiesModel) SetVariant(variant *string) {
-	g.Variant = variant
-	g.require(globalEventPayloadSessionNextModelSwitchedPropertiesModelFieldVariant)
-}
-
-func (g *GlobalEventPayloadSessionNextModelSwitchedPropertiesModel) UnmarshalJSON(data []byte) error {
-	type unmarshaler GlobalEventPayloadSessionNextModelSwitchedPropertiesModel
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*g = GlobalEventPayloadSessionNextModelSwitchedPropertiesModel(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *g)
-	if err != nil {
-		return err
-	}
-	g.extraProperties = extraProperties
-	g.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (g *GlobalEventPayloadSessionNextModelSwitchedPropertiesModel) MarshalJSON() ([]byte, error) {
-	type embed GlobalEventPayloadSessionNextModelSwitchedPropertiesModel
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*g),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (g *GlobalEventPayloadSessionNextModelSwitchedPropertiesModel) String() string {
 	if g == nil {
 		return "<nil>"
 	}
@@ -13990,254 +13743,6 @@ func NewGlobalEventPayloadSessionNextPromptAdmittedPropertiesDeliveryFromString(
 
 func (g GlobalEventPayloadSessionNextPromptAdmittedPropertiesDelivery) Ptr() *GlobalEventPayloadSessionNextPromptAdmittedPropertiesDelivery {
 	return &g
-}
-
-var (
-	globalEventPayloadSessionNextPromptPromotedFieldID         = big.NewInt(1 << 0)
-	globalEventPayloadSessionNextPromptPromotedFieldProperties = big.NewInt(1 << 1)
-)
-
-type GlobalEventPayloadSessionNextPromptPromoted struct {
-	ID         string                                                 `json:"id" url:"id"`
-	Properties *GlobalEventPayloadSessionNextPromptPromotedProperties `json:"properties" url:"properties"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (g *GlobalEventPayloadSessionNextPromptPromoted) GetID() string {
-	if g == nil {
-		return ""
-	}
-	return g.ID
-}
-
-func (g *GlobalEventPayloadSessionNextPromptPromoted) GetProperties() *GlobalEventPayloadSessionNextPromptPromotedProperties {
-	if g == nil {
-		return nil
-	}
-	return g.Properties
-}
-
-func (g *GlobalEventPayloadSessionNextPromptPromoted) GetExtraProperties() map[string]interface{} {
-	if g == nil {
-		return nil
-	}
-	return g.extraProperties
-}
-
-func (g *GlobalEventPayloadSessionNextPromptPromoted) require(field *big.Int) {
-	if g.explicitFields == nil {
-		g.explicitFields = big.NewInt(0)
-	}
-	g.explicitFields.Or(g.explicitFields, field)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadSessionNextPromptPromoted) SetID(id string) {
-	g.ID = id
-	g.require(globalEventPayloadSessionNextPromptPromotedFieldID)
-}
-
-// SetProperties sets the Properties field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadSessionNextPromptPromoted) SetProperties(properties *GlobalEventPayloadSessionNextPromptPromotedProperties) {
-	g.Properties = properties
-	g.require(globalEventPayloadSessionNextPromptPromotedFieldProperties)
-}
-
-func (g *GlobalEventPayloadSessionNextPromptPromoted) UnmarshalJSON(data []byte) error {
-	type unmarshaler GlobalEventPayloadSessionNextPromptPromoted
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*g = GlobalEventPayloadSessionNextPromptPromoted(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *g)
-	if err != nil {
-		return err
-	}
-	g.extraProperties = extraProperties
-	g.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (g *GlobalEventPayloadSessionNextPromptPromoted) MarshalJSON() ([]byte, error) {
-	type embed GlobalEventPayloadSessionNextPromptPromoted
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*g),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (g *GlobalEventPayloadSessionNextPromptPromoted) String() string {
-	if g == nil {
-		return "<nil>"
-	}
-	if len(g.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(g); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", g)
-}
-
-var (
-	globalEventPayloadSessionNextPromptPromotedPropertiesFieldTimestamp   = big.NewInt(1 << 0)
-	globalEventPayloadSessionNextPromptPromotedPropertiesFieldSessionID   = big.NewInt(1 << 1)
-	globalEventPayloadSessionNextPromptPromotedPropertiesFieldMessageID   = big.NewInt(1 << 2)
-	globalEventPayloadSessionNextPromptPromotedPropertiesFieldPrompt      = big.NewInt(1 << 3)
-	globalEventPayloadSessionNextPromptPromotedPropertiesFieldTimeCreated = big.NewInt(1 << 4)
-)
-
-type GlobalEventPayloadSessionNextPromptPromotedProperties struct {
-	Timestamp   float64 `json:"timestamp" url:"timestamp"`
-	SessionID   string  `json:"sessionID" url:"sessionID"`
-	MessageID   string  `json:"messageID" url:"messageID"`
-	Prompt      *Prompt `json:"prompt" url:"prompt"`
-	TimeCreated float64 `json:"timeCreated" url:"timeCreated"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (g *GlobalEventPayloadSessionNextPromptPromotedProperties) GetTimestamp() float64 {
-	if g == nil {
-		return 0
-	}
-	return g.Timestamp
-}
-
-func (g *GlobalEventPayloadSessionNextPromptPromotedProperties) GetSessionID() string {
-	if g == nil {
-		return ""
-	}
-	return g.SessionID
-}
-
-func (g *GlobalEventPayloadSessionNextPromptPromotedProperties) GetMessageID() string {
-	if g == nil {
-		return ""
-	}
-	return g.MessageID
-}
-
-func (g *GlobalEventPayloadSessionNextPromptPromotedProperties) GetPrompt() *Prompt {
-	if g == nil {
-		return nil
-	}
-	return g.Prompt
-}
-
-func (g *GlobalEventPayloadSessionNextPromptPromotedProperties) GetTimeCreated() float64 {
-	if g == nil {
-		return 0
-	}
-	return g.TimeCreated
-}
-
-func (g *GlobalEventPayloadSessionNextPromptPromotedProperties) GetExtraProperties() map[string]interface{} {
-	if g == nil {
-		return nil
-	}
-	return g.extraProperties
-}
-
-func (g *GlobalEventPayloadSessionNextPromptPromotedProperties) require(field *big.Int) {
-	if g.explicitFields == nil {
-		g.explicitFields = big.NewInt(0)
-	}
-	g.explicitFields.Or(g.explicitFields, field)
-}
-
-// SetTimestamp sets the Timestamp field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadSessionNextPromptPromotedProperties) SetTimestamp(timestamp float64) {
-	g.Timestamp = timestamp
-	g.require(globalEventPayloadSessionNextPromptPromotedPropertiesFieldTimestamp)
-}
-
-// SetSessionID sets the SessionID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadSessionNextPromptPromotedProperties) SetSessionID(sessionID string) {
-	g.SessionID = sessionID
-	g.require(globalEventPayloadSessionNextPromptPromotedPropertiesFieldSessionID)
-}
-
-// SetMessageID sets the MessageID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadSessionNextPromptPromotedProperties) SetMessageID(messageID string) {
-	g.MessageID = messageID
-	g.require(globalEventPayloadSessionNextPromptPromotedPropertiesFieldMessageID)
-}
-
-// SetPrompt sets the Prompt field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadSessionNextPromptPromotedProperties) SetPrompt(prompt *Prompt) {
-	g.Prompt = prompt
-	g.require(globalEventPayloadSessionNextPromptPromotedPropertiesFieldPrompt)
-}
-
-// SetTimeCreated sets the TimeCreated field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadSessionNextPromptPromotedProperties) SetTimeCreated(timeCreated float64) {
-	g.TimeCreated = timeCreated
-	g.require(globalEventPayloadSessionNextPromptPromotedPropertiesFieldTimeCreated)
-}
-
-func (g *GlobalEventPayloadSessionNextPromptPromotedProperties) UnmarshalJSON(data []byte) error {
-	type unmarshaler GlobalEventPayloadSessionNextPromptPromotedProperties
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*g = GlobalEventPayloadSessionNextPromptPromotedProperties(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *g)
-	if err != nil {
-		return err
-	}
-	g.extraProperties = extraProperties
-	g.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (g *GlobalEventPayloadSessionNextPromptPromotedProperties) MarshalJSON() ([]byte, error) {
-	type embed GlobalEventPayloadSessionNextPromptPromotedProperties
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*g),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (g *GlobalEventPayloadSessionNextPromptPromotedProperties) String() string {
-	if g == nil {
-		return "<nil>"
-	}
-	if len(g.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(g); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", g)
 }
 
 var (
@@ -14868,12 +14373,12 @@ var (
 )
 
 type GlobalEventPayloadSessionNextReasoningEndedProperties struct {
-	Timestamp          float64                   `json:"timestamp" url:"timestamp"`
-	SessionID          string                    `json:"sessionID" url:"sessionID"`
-	AssistantMessageID string                    `json:"assistantMessageID" url:"assistantMessageID"`
-	ReasoningID        string                    `json:"reasoningID" url:"reasoningID"`
-	Text               string                    `json:"text" url:"text"`
-	ProviderMetadata   map[string]map[string]any `json:"providerMetadata,omitempty" url:"providerMetadata,omitempty"`
+	Timestamp          float64              `json:"timestamp" url:"timestamp"`
+	SessionID          string               `json:"sessionID" url:"sessionID"`
+	AssistantMessageID string               `json:"assistantMessageID" url:"assistantMessageID"`
+	ReasoningID        string               `json:"reasoningID" url:"reasoningID"`
+	Text               string               `json:"text" url:"text"`
+	ProviderMetadata   *LlmProviderMetadata `json:"providerMetadata,omitempty" url:"providerMetadata,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -14917,7 +14422,7 @@ func (g *GlobalEventPayloadSessionNextReasoningEndedProperties) GetText() string
 	return g.Text
 }
 
-func (g *GlobalEventPayloadSessionNextReasoningEndedProperties) GetProviderMetadata() map[string]map[string]any {
+func (g *GlobalEventPayloadSessionNextReasoningEndedProperties) GetProviderMetadata() *LlmProviderMetadata {
 	if g == nil {
 		return nil
 	}
@@ -14975,7 +14480,7 @@ func (g *GlobalEventPayloadSessionNextReasoningEndedProperties) SetText(text str
 
 // SetProviderMetadata sets the ProviderMetadata field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadSessionNextReasoningEndedProperties) SetProviderMetadata(providerMetadata map[string]map[string]any) {
+func (g *GlobalEventPayloadSessionNextReasoningEndedProperties) SetProviderMetadata(providerMetadata *LlmProviderMetadata) {
 	g.ProviderMetadata = providerMetadata
 	g.require(globalEventPayloadSessionNextReasoningEndedPropertiesFieldProviderMetadata)
 }
@@ -15131,11 +14636,11 @@ var (
 )
 
 type GlobalEventPayloadSessionNextReasoningStartedProperties struct {
-	Timestamp          float64                   `json:"timestamp" url:"timestamp"`
-	SessionID          string                    `json:"sessionID" url:"sessionID"`
-	AssistantMessageID string                    `json:"assistantMessageID" url:"assistantMessageID"`
-	ReasoningID        string                    `json:"reasoningID" url:"reasoningID"`
-	ProviderMetadata   map[string]map[string]any `json:"providerMetadata,omitempty" url:"providerMetadata,omitempty"`
+	Timestamp          float64              `json:"timestamp" url:"timestamp"`
+	SessionID          string               `json:"sessionID" url:"sessionID"`
+	AssistantMessageID string               `json:"assistantMessageID" url:"assistantMessageID"`
+	ReasoningID        string               `json:"reasoningID" url:"reasoningID"`
+	ProviderMetadata   *LlmProviderMetadata `json:"providerMetadata,omitempty" url:"providerMetadata,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -15172,7 +14677,7 @@ func (g *GlobalEventPayloadSessionNextReasoningStartedProperties) GetReasoningID
 	return g.ReasoningID
 }
 
-func (g *GlobalEventPayloadSessionNextReasoningStartedProperties) GetProviderMetadata() map[string]map[string]any {
+func (g *GlobalEventPayloadSessionNextReasoningStartedProperties) GetProviderMetadata() *LlmProviderMetadata {
 	if g == nil {
 		return nil
 	}
@@ -15223,7 +14728,7 @@ func (g *GlobalEventPayloadSessionNextReasoningStartedProperties) SetReasoningID
 
 // SetProviderMetadata sets the ProviderMetadata field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadSessionNextReasoningStartedProperties) SetProviderMetadata(providerMetadata map[string]map[string]any) {
+func (g *GlobalEventPayloadSessionNextReasoningStartedProperties) SetProviderMetadata(providerMetadata *LlmProviderMetadata) {
 	g.ProviderMetadata = providerMetadata
 	g.require(globalEventPayloadSessionNextReasoningStartedPropertiesFieldProviderMetadata)
 }
@@ -15488,6 +14993,638 @@ func (g *GlobalEventPayloadSessionNextRetriedProperties) MarshalJSON() ([]byte, 
 }
 
 func (g *GlobalEventPayloadSessionNextRetriedProperties) String() string {
+	if g == nil {
+		return "<nil>"
+	}
+	if len(g.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(g); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", g)
+}
+
+var (
+	globalEventPayloadSessionNextRevertClearedFieldID         = big.NewInt(1 << 0)
+	globalEventPayloadSessionNextRevertClearedFieldProperties = big.NewInt(1 << 1)
+)
+
+type GlobalEventPayloadSessionNextRevertCleared struct {
+	ID         string                                                `json:"id" url:"id"`
+	Properties *GlobalEventPayloadSessionNextRevertClearedProperties `json:"properties" url:"properties"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (g *GlobalEventPayloadSessionNextRevertCleared) GetID() string {
+	if g == nil {
+		return ""
+	}
+	return g.ID
+}
+
+func (g *GlobalEventPayloadSessionNextRevertCleared) GetProperties() *GlobalEventPayloadSessionNextRevertClearedProperties {
+	if g == nil {
+		return nil
+	}
+	return g.Properties
+}
+
+func (g *GlobalEventPayloadSessionNextRevertCleared) GetExtraProperties() map[string]interface{} {
+	if g == nil {
+		return nil
+	}
+	return g.extraProperties
+}
+
+func (g *GlobalEventPayloadSessionNextRevertCleared) require(field *big.Int) {
+	if g.explicitFields == nil {
+		g.explicitFields = big.NewInt(0)
+	}
+	g.explicitFields.Or(g.explicitFields, field)
+}
+
+// SetID sets the ID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GlobalEventPayloadSessionNextRevertCleared) SetID(id string) {
+	g.ID = id
+	g.require(globalEventPayloadSessionNextRevertClearedFieldID)
+}
+
+// SetProperties sets the Properties field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GlobalEventPayloadSessionNextRevertCleared) SetProperties(properties *GlobalEventPayloadSessionNextRevertClearedProperties) {
+	g.Properties = properties
+	g.require(globalEventPayloadSessionNextRevertClearedFieldProperties)
+}
+
+func (g *GlobalEventPayloadSessionNextRevertCleared) UnmarshalJSON(data []byte) error {
+	type unmarshaler GlobalEventPayloadSessionNextRevertCleared
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*g = GlobalEventPayloadSessionNextRevertCleared(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *g)
+	if err != nil {
+		return err
+	}
+	g.extraProperties = extraProperties
+	g.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (g *GlobalEventPayloadSessionNextRevertCleared) MarshalJSON() ([]byte, error) {
+	type embed GlobalEventPayloadSessionNextRevertCleared
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*g),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (g *GlobalEventPayloadSessionNextRevertCleared) String() string {
+	if g == nil {
+		return "<nil>"
+	}
+	if len(g.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(g); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", g)
+}
+
+var (
+	globalEventPayloadSessionNextRevertClearedPropertiesFieldTimestamp = big.NewInt(1 << 0)
+	globalEventPayloadSessionNextRevertClearedPropertiesFieldSessionID = big.NewInt(1 << 1)
+)
+
+type GlobalEventPayloadSessionNextRevertClearedProperties struct {
+	Timestamp float64 `json:"timestamp" url:"timestamp"`
+	SessionID string  `json:"sessionID" url:"sessionID"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (g *GlobalEventPayloadSessionNextRevertClearedProperties) GetTimestamp() float64 {
+	if g == nil {
+		return 0
+	}
+	return g.Timestamp
+}
+
+func (g *GlobalEventPayloadSessionNextRevertClearedProperties) GetSessionID() string {
+	if g == nil {
+		return ""
+	}
+	return g.SessionID
+}
+
+func (g *GlobalEventPayloadSessionNextRevertClearedProperties) GetExtraProperties() map[string]interface{} {
+	if g == nil {
+		return nil
+	}
+	return g.extraProperties
+}
+
+func (g *GlobalEventPayloadSessionNextRevertClearedProperties) require(field *big.Int) {
+	if g.explicitFields == nil {
+		g.explicitFields = big.NewInt(0)
+	}
+	g.explicitFields.Or(g.explicitFields, field)
+}
+
+// SetTimestamp sets the Timestamp field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GlobalEventPayloadSessionNextRevertClearedProperties) SetTimestamp(timestamp float64) {
+	g.Timestamp = timestamp
+	g.require(globalEventPayloadSessionNextRevertClearedPropertiesFieldTimestamp)
+}
+
+// SetSessionID sets the SessionID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GlobalEventPayloadSessionNextRevertClearedProperties) SetSessionID(sessionID string) {
+	g.SessionID = sessionID
+	g.require(globalEventPayloadSessionNextRevertClearedPropertiesFieldSessionID)
+}
+
+func (g *GlobalEventPayloadSessionNextRevertClearedProperties) UnmarshalJSON(data []byte) error {
+	type unmarshaler GlobalEventPayloadSessionNextRevertClearedProperties
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*g = GlobalEventPayloadSessionNextRevertClearedProperties(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *g)
+	if err != nil {
+		return err
+	}
+	g.extraProperties = extraProperties
+	g.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (g *GlobalEventPayloadSessionNextRevertClearedProperties) MarshalJSON() ([]byte, error) {
+	type embed GlobalEventPayloadSessionNextRevertClearedProperties
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*g),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (g *GlobalEventPayloadSessionNextRevertClearedProperties) String() string {
+	if g == nil {
+		return "<nil>"
+	}
+	if len(g.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(g); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", g)
+}
+
+var (
+	globalEventPayloadSessionNextRevertCommittedFieldID         = big.NewInt(1 << 0)
+	globalEventPayloadSessionNextRevertCommittedFieldProperties = big.NewInt(1 << 1)
+)
+
+type GlobalEventPayloadSessionNextRevertCommitted struct {
+	ID         string                                                  `json:"id" url:"id"`
+	Properties *GlobalEventPayloadSessionNextRevertCommittedProperties `json:"properties" url:"properties"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (g *GlobalEventPayloadSessionNextRevertCommitted) GetID() string {
+	if g == nil {
+		return ""
+	}
+	return g.ID
+}
+
+func (g *GlobalEventPayloadSessionNextRevertCommitted) GetProperties() *GlobalEventPayloadSessionNextRevertCommittedProperties {
+	if g == nil {
+		return nil
+	}
+	return g.Properties
+}
+
+func (g *GlobalEventPayloadSessionNextRevertCommitted) GetExtraProperties() map[string]interface{} {
+	if g == nil {
+		return nil
+	}
+	return g.extraProperties
+}
+
+func (g *GlobalEventPayloadSessionNextRevertCommitted) require(field *big.Int) {
+	if g.explicitFields == nil {
+		g.explicitFields = big.NewInt(0)
+	}
+	g.explicitFields.Or(g.explicitFields, field)
+}
+
+// SetID sets the ID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GlobalEventPayloadSessionNextRevertCommitted) SetID(id string) {
+	g.ID = id
+	g.require(globalEventPayloadSessionNextRevertCommittedFieldID)
+}
+
+// SetProperties sets the Properties field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GlobalEventPayloadSessionNextRevertCommitted) SetProperties(properties *GlobalEventPayloadSessionNextRevertCommittedProperties) {
+	g.Properties = properties
+	g.require(globalEventPayloadSessionNextRevertCommittedFieldProperties)
+}
+
+func (g *GlobalEventPayloadSessionNextRevertCommitted) UnmarshalJSON(data []byte) error {
+	type unmarshaler GlobalEventPayloadSessionNextRevertCommitted
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*g = GlobalEventPayloadSessionNextRevertCommitted(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *g)
+	if err != nil {
+		return err
+	}
+	g.extraProperties = extraProperties
+	g.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (g *GlobalEventPayloadSessionNextRevertCommitted) MarshalJSON() ([]byte, error) {
+	type embed GlobalEventPayloadSessionNextRevertCommitted
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*g),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (g *GlobalEventPayloadSessionNextRevertCommitted) String() string {
+	if g == nil {
+		return "<nil>"
+	}
+	if len(g.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(g); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", g)
+}
+
+var (
+	globalEventPayloadSessionNextRevertCommittedPropertiesFieldTimestamp = big.NewInt(1 << 0)
+	globalEventPayloadSessionNextRevertCommittedPropertiesFieldSessionID = big.NewInt(1 << 1)
+	globalEventPayloadSessionNextRevertCommittedPropertiesFieldMessageID = big.NewInt(1 << 2)
+)
+
+type GlobalEventPayloadSessionNextRevertCommittedProperties struct {
+	Timestamp float64 `json:"timestamp" url:"timestamp"`
+	SessionID string  `json:"sessionID" url:"sessionID"`
+	MessageID string  `json:"messageID" url:"messageID"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (g *GlobalEventPayloadSessionNextRevertCommittedProperties) GetTimestamp() float64 {
+	if g == nil {
+		return 0
+	}
+	return g.Timestamp
+}
+
+func (g *GlobalEventPayloadSessionNextRevertCommittedProperties) GetSessionID() string {
+	if g == nil {
+		return ""
+	}
+	return g.SessionID
+}
+
+func (g *GlobalEventPayloadSessionNextRevertCommittedProperties) GetMessageID() string {
+	if g == nil {
+		return ""
+	}
+	return g.MessageID
+}
+
+func (g *GlobalEventPayloadSessionNextRevertCommittedProperties) GetExtraProperties() map[string]interface{} {
+	if g == nil {
+		return nil
+	}
+	return g.extraProperties
+}
+
+func (g *GlobalEventPayloadSessionNextRevertCommittedProperties) require(field *big.Int) {
+	if g.explicitFields == nil {
+		g.explicitFields = big.NewInt(0)
+	}
+	g.explicitFields.Or(g.explicitFields, field)
+}
+
+// SetTimestamp sets the Timestamp field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GlobalEventPayloadSessionNextRevertCommittedProperties) SetTimestamp(timestamp float64) {
+	g.Timestamp = timestamp
+	g.require(globalEventPayloadSessionNextRevertCommittedPropertiesFieldTimestamp)
+}
+
+// SetSessionID sets the SessionID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GlobalEventPayloadSessionNextRevertCommittedProperties) SetSessionID(sessionID string) {
+	g.SessionID = sessionID
+	g.require(globalEventPayloadSessionNextRevertCommittedPropertiesFieldSessionID)
+}
+
+// SetMessageID sets the MessageID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GlobalEventPayloadSessionNextRevertCommittedProperties) SetMessageID(messageID string) {
+	g.MessageID = messageID
+	g.require(globalEventPayloadSessionNextRevertCommittedPropertiesFieldMessageID)
+}
+
+func (g *GlobalEventPayloadSessionNextRevertCommittedProperties) UnmarshalJSON(data []byte) error {
+	type unmarshaler GlobalEventPayloadSessionNextRevertCommittedProperties
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*g = GlobalEventPayloadSessionNextRevertCommittedProperties(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *g)
+	if err != nil {
+		return err
+	}
+	g.extraProperties = extraProperties
+	g.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (g *GlobalEventPayloadSessionNextRevertCommittedProperties) MarshalJSON() ([]byte, error) {
+	type embed GlobalEventPayloadSessionNextRevertCommittedProperties
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*g),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (g *GlobalEventPayloadSessionNextRevertCommittedProperties) String() string {
+	if g == nil {
+		return "<nil>"
+	}
+	if len(g.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(g); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", g)
+}
+
+var (
+	globalEventPayloadSessionNextRevertStagedFieldID         = big.NewInt(1 << 0)
+	globalEventPayloadSessionNextRevertStagedFieldProperties = big.NewInt(1 << 1)
+)
+
+type GlobalEventPayloadSessionNextRevertStaged struct {
+	ID         string                                               `json:"id" url:"id"`
+	Properties *GlobalEventPayloadSessionNextRevertStagedProperties `json:"properties" url:"properties"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (g *GlobalEventPayloadSessionNextRevertStaged) GetID() string {
+	if g == nil {
+		return ""
+	}
+	return g.ID
+}
+
+func (g *GlobalEventPayloadSessionNextRevertStaged) GetProperties() *GlobalEventPayloadSessionNextRevertStagedProperties {
+	if g == nil {
+		return nil
+	}
+	return g.Properties
+}
+
+func (g *GlobalEventPayloadSessionNextRevertStaged) GetExtraProperties() map[string]interface{} {
+	if g == nil {
+		return nil
+	}
+	return g.extraProperties
+}
+
+func (g *GlobalEventPayloadSessionNextRevertStaged) require(field *big.Int) {
+	if g.explicitFields == nil {
+		g.explicitFields = big.NewInt(0)
+	}
+	g.explicitFields.Or(g.explicitFields, field)
+}
+
+// SetID sets the ID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GlobalEventPayloadSessionNextRevertStaged) SetID(id string) {
+	g.ID = id
+	g.require(globalEventPayloadSessionNextRevertStagedFieldID)
+}
+
+// SetProperties sets the Properties field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GlobalEventPayloadSessionNextRevertStaged) SetProperties(properties *GlobalEventPayloadSessionNextRevertStagedProperties) {
+	g.Properties = properties
+	g.require(globalEventPayloadSessionNextRevertStagedFieldProperties)
+}
+
+func (g *GlobalEventPayloadSessionNextRevertStaged) UnmarshalJSON(data []byte) error {
+	type unmarshaler GlobalEventPayloadSessionNextRevertStaged
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*g = GlobalEventPayloadSessionNextRevertStaged(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *g)
+	if err != nil {
+		return err
+	}
+	g.extraProperties = extraProperties
+	g.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (g *GlobalEventPayloadSessionNextRevertStaged) MarshalJSON() ([]byte, error) {
+	type embed GlobalEventPayloadSessionNextRevertStaged
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*g),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (g *GlobalEventPayloadSessionNextRevertStaged) String() string {
+	if g == nil {
+		return "<nil>"
+	}
+	if len(g.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(g); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", g)
+}
+
+var (
+	globalEventPayloadSessionNextRevertStagedPropertiesFieldTimestamp = big.NewInt(1 << 0)
+	globalEventPayloadSessionNextRevertStagedPropertiesFieldSessionID = big.NewInt(1 << 1)
+	globalEventPayloadSessionNextRevertStagedPropertiesFieldRevert    = big.NewInt(1 << 2)
+)
+
+type GlobalEventPayloadSessionNextRevertStagedProperties struct {
+	Timestamp float64      `json:"timestamp" url:"timestamp"`
+	SessionID string       `json:"sessionID" url:"sessionID"`
+	Revert    *RevertState `json:"revert" url:"revert"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (g *GlobalEventPayloadSessionNextRevertStagedProperties) GetTimestamp() float64 {
+	if g == nil {
+		return 0
+	}
+	return g.Timestamp
+}
+
+func (g *GlobalEventPayloadSessionNextRevertStagedProperties) GetSessionID() string {
+	if g == nil {
+		return ""
+	}
+	return g.SessionID
+}
+
+func (g *GlobalEventPayloadSessionNextRevertStagedProperties) GetRevert() *RevertState {
+	if g == nil {
+		return nil
+	}
+	return g.Revert
+}
+
+func (g *GlobalEventPayloadSessionNextRevertStagedProperties) GetExtraProperties() map[string]interface{} {
+	if g == nil {
+		return nil
+	}
+	return g.extraProperties
+}
+
+func (g *GlobalEventPayloadSessionNextRevertStagedProperties) require(field *big.Int) {
+	if g.explicitFields == nil {
+		g.explicitFields = big.NewInt(0)
+	}
+	g.explicitFields.Or(g.explicitFields, field)
+}
+
+// SetTimestamp sets the Timestamp field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GlobalEventPayloadSessionNextRevertStagedProperties) SetTimestamp(timestamp float64) {
+	g.Timestamp = timestamp
+	g.require(globalEventPayloadSessionNextRevertStagedPropertiesFieldTimestamp)
+}
+
+// SetSessionID sets the SessionID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GlobalEventPayloadSessionNextRevertStagedProperties) SetSessionID(sessionID string) {
+	g.SessionID = sessionID
+	g.require(globalEventPayloadSessionNextRevertStagedPropertiesFieldSessionID)
+}
+
+// SetRevert sets the Revert field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GlobalEventPayloadSessionNextRevertStagedProperties) SetRevert(revert *RevertState) {
+	g.Revert = revert
+	g.require(globalEventPayloadSessionNextRevertStagedPropertiesFieldRevert)
+}
+
+func (g *GlobalEventPayloadSessionNextRevertStagedProperties) UnmarshalJSON(data []byte) error {
+	type unmarshaler GlobalEventPayloadSessionNextRevertStagedProperties
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*g = GlobalEventPayloadSessionNextRevertStagedProperties(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *g)
+	if err != nil {
+		return err
+	}
+	g.extraProperties = extraProperties
+	g.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (g *GlobalEventPayloadSessionNextRevertStagedProperties) MarshalJSON() ([]byte, error) {
+	type embed GlobalEventPayloadSessionNextRevertStagedProperties
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*g),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (g *GlobalEventPayloadSessionNextRevertStagedProperties) String() string {
 	if g == nil {
 		return "<nil>"
 	}
@@ -16090,6 +16227,7 @@ var (
 	globalEventPayloadSessionNextStepEndedPropertiesFieldCost               = big.NewInt(1 << 4)
 	globalEventPayloadSessionNextStepEndedPropertiesFieldTokens             = big.NewInt(1 << 5)
 	globalEventPayloadSessionNextStepEndedPropertiesFieldSnapshot           = big.NewInt(1 << 6)
+	globalEventPayloadSessionNextStepEndedPropertiesFieldFiles              = big.NewInt(1 << 7)
 )
 
 type GlobalEventPayloadSessionNextStepEndedProperties struct {
@@ -16100,6 +16238,7 @@ type GlobalEventPayloadSessionNextStepEndedProperties struct {
 	Cost               float64                                                 `json:"cost" url:"cost"`
 	Tokens             *GlobalEventPayloadSessionNextStepEndedPropertiesTokens `json:"tokens" url:"tokens"`
 	Snapshot           *string                                                 `json:"snapshot,omitempty" url:"snapshot,omitempty"`
+	Files              []string                                                `json:"files,omitempty" url:"files,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -16155,6 +16294,13 @@ func (g *GlobalEventPayloadSessionNextStepEndedProperties) GetSnapshot() *string
 		return nil
 	}
 	return g.Snapshot
+}
+
+func (g *GlobalEventPayloadSessionNextStepEndedProperties) GetFiles() []string {
+	if g == nil {
+		return nil
+	}
+	return g.Files
 }
 
 func (g *GlobalEventPayloadSessionNextStepEndedProperties) GetExtraProperties() map[string]interface{} {
@@ -16218,6 +16364,13 @@ func (g *GlobalEventPayloadSessionNextStepEndedProperties) SetTokens(tokens *Glo
 func (g *GlobalEventPayloadSessionNextStepEndedProperties) SetSnapshot(snapshot *string) {
 	g.Snapshot = snapshot
 	g.require(globalEventPayloadSessionNextStepEndedPropertiesFieldSnapshot)
+}
+
+// SetFiles sets the Files field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GlobalEventPayloadSessionNextStepEndedProperties) SetFiles(files []string) {
+	g.Files = files
+	g.require(globalEventPayloadSessionNextStepEndedPropertiesFieldFiles)
 }
 
 func (g *GlobalEventPayloadSessionNextStepEndedProperties) UnmarshalJSON(data []byte) error {
@@ -16836,12 +16989,12 @@ var (
 )
 
 type GlobalEventPayloadSessionNextStepStartedProperties struct {
-	Timestamp          float64                                                  `json:"timestamp" url:"timestamp"`
-	SessionID          string                                                   `json:"sessionID" url:"sessionID"`
-	AssistantMessageID string                                                   `json:"assistantMessageID" url:"assistantMessageID"`
-	Agent              string                                                   `json:"agent" url:"agent"`
-	Model              *GlobalEventPayloadSessionNextStepStartedPropertiesModel `json:"model" url:"model"`
-	Snapshot           *string                                                  `json:"snapshot,omitempty" url:"snapshot,omitempty"`
+	Timestamp          float64   `json:"timestamp" url:"timestamp"`
+	SessionID          string    `json:"sessionID" url:"sessionID"`
+	AssistantMessageID string    `json:"assistantMessageID" url:"assistantMessageID"`
+	Agent              string    `json:"agent" url:"agent"`
+	Model              *ModelRef `json:"model" url:"model"`
+	Snapshot           *string   `json:"snapshot,omitempty" url:"snapshot,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -16878,7 +17031,7 @@ func (g *GlobalEventPayloadSessionNextStepStartedProperties) GetAgent() string {
 	return g.Agent
 }
 
-func (g *GlobalEventPayloadSessionNextStepStartedProperties) GetModel() *GlobalEventPayloadSessionNextStepStartedPropertiesModel {
+func (g *GlobalEventPayloadSessionNextStepStartedProperties) GetModel() *ModelRef {
 	if g == nil {
 		return nil
 	}
@@ -16936,7 +17089,7 @@ func (g *GlobalEventPayloadSessionNextStepStartedProperties) SetAgent(agent stri
 
 // SetModel sets the Model field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadSessionNextStepStartedProperties) SetModel(model *GlobalEventPayloadSessionNextStepStartedPropertiesModel) {
+func (g *GlobalEventPayloadSessionNextStepStartedProperties) SetModel(model *ModelRef) {
 	g.Model = model
 	g.require(globalEventPayloadSessionNextStepStartedPropertiesFieldModel)
 }
@@ -16976,122 +17129,6 @@ func (g *GlobalEventPayloadSessionNextStepStartedProperties) MarshalJSON() ([]by
 }
 
 func (g *GlobalEventPayloadSessionNextStepStartedProperties) String() string {
-	if g == nil {
-		return "<nil>"
-	}
-	if len(g.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(g); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", g)
-}
-
-var (
-	globalEventPayloadSessionNextStepStartedPropertiesModelFieldID         = big.NewInt(1 << 0)
-	globalEventPayloadSessionNextStepStartedPropertiesModelFieldProviderID = big.NewInt(1 << 1)
-	globalEventPayloadSessionNextStepStartedPropertiesModelFieldVariant    = big.NewInt(1 << 2)
-)
-
-type GlobalEventPayloadSessionNextStepStartedPropertiesModel struct {
-	ID         string  `json:"id" url:"id"`
-	ProviderID string  `json:"providerID" url:"providerID"`
-	Variant    *string `json:"variant,omitempty" url:"variant,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (g *GlobalEventPayloadSessionNextStepStartedPropertiesModel) GetID() string {
-	if g == nil {
-		return ""
-	}
-	return g.ID
-}
-
-func (g *GlobalEventPayloadSessionNextStepStartedPropertiesModel) GetProviderID() string {
-	if g == nil {
-		return ""
-	}
-	return g.ProviderID
-}
-
-func (g *GlobalEventPayloadSessionNextStepStartedPropertiesModel) GetVariant() *string {
-	if g == nil {
-		return nil
-	}
-	return g.Variant
-}
-
-func (g *GlobalEventPayloadSessionNextStepStartedPropertiesModel) GetExtraProperties() map[string]interface{} {
-	if g == nil {
-		return nil
-	}
-	return g.extraProperties
-}
-
-func (g *GlobalEventPayloadSessionNextStepStartedPropertiesModel) require(field *big.Int) {
-	if g.explicitFields == nil {
-		g.explicitFields = big.NewInt(0)
-	}
-	g.explicitFields.Or(g.explicitFields, field)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadSessionNextStepStartedPropertiesModel) SetID(id string) {
-	g.ID = id
-	g.require(globalEventPayloadSessionNextStepStartedPropertiesModelFieldID)
-}
-
-// SetProviderID sets the ProviderID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadSessionNextStepStartedPropertiesModel) SetProviderID(providerID string) {
-	g.ProviderID = providerID
-	g.require(globalEventPayloadSessionNextStepStartedPropertiesModelFieldProviderID)
-}
-
-// SetVariant sets the Variant field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadSessionNextStepStartedPropertiesModel) SetVariant(variant *string) {
-	g.Variant = variant
-	g.require(globalEventPayloadSessionNextStepStartedPropertiesModelFieldVariant)
-}
-
-func (g *GlobalEventPayloadSessionNextStepStartedPropertiesModel) UnmarshalJSON(data []byte) error {
-	type unmarshaler GlobalEventPayloadSessionNextStepStartedPropertiesModel
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*g = GlobalEventPayloadSessionNextStepStartedPropertiesModel(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *g)
-	if err != nil {
-		return err
-	}
-	g.extraProperties = extraProperties
-	g.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (g *GlobalEventPayloadSessionNextStepStartedPropertiesModel) MarshalJSON() ([]byte, error) {
-	type embed GlobalEventPayloadSessionNextStepStartedPropertiesModel
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*g),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (g *GlobalEventPayloadSessionNextStepStartedPropertiesModel) String() string {
 	if g == nil {
 		return "<nil>"
 	}
@@ -18352,8 +18389,8 @@ var (
 )
 
 type GlobalEventPayloadSessionNextToolCalledPropertiesProvider struct {
-	Executed bool                      `json:"executed" url:"executed"`
-	Metadata map[string]map[string]any `json:"metadata,omitempty" url:"metadata,omitempty"`
+	Executed bool                 `json:"executed" url:"executed"`
+	Metadata *LlmProviderMetadata `json:"metadata,omitempty" url:"metadata,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -18369,7 +18406,7 @@ func (g *GlobalEventPayloadSessionNextToolCalledPropertiesProvider) GetExecuted(
 	return g.Executed
 }
 
-func (g *GlobalEventPayloadSessionNextToolCalledPropertiesProvider) GetMetadata() map[string]map[string]any {
+func (g *GlobalEventPayloadSessionNextToolCalledPropertiesProvider) GetMetadata() *LlmProviderMetadata {
 	if g == nil {
 		return nil
 	}
@@ -18399,7 +18436,7 @@ func (g *GlobalEventPayloadSessionNextToolCalledPropertiesProvider) SetExecuted(
 
 // SetMetadata sets the Metadata field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadSessionNextToolCalledPropertiesProvider) SetMetadata(metadata map[string]map[string]any) {
+func (g *GlobalEventPayloadSessionNextToolCalledPropertiesProvider) SetMetadata(metadata *LlmProviderMetadata) {
 	g.Metadata = metadata
 	g.require(globalEventPayloadSessionNextToolCalledPropertiesProviderFieldMetadata)
 }
@@ -18732,8 +18769,8 @@ var (
 )
 
 type GlobalEventPayloadSessionNextToolFailedPropertiesProvider struct {
-	Executed bool                      `json:"executed" url:"executed"`
-	Metadata map[string]map[string]any `json:"metadata,omitempty" url:"metadata,omitempty"`
+	Executed bool                 `json:"executed" url:"executed"`
+	Metadata *LlmProviderMetadata `json:"metadata,omitempty" url:"metadata,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -18749,7 +18786,7 @@ func (g *GlobalEventPayloadSessionNextToolFailedPropertiesProvider) GetExecuted(
 	return g.Executed
 }
 
-func (g *GlobalEventPayloadSessionNextToolFailedPropertiesProvider) GetMetadata() map[string]map[string]any {
+func (g *GlobalEventPayloadSessionNextToolFailedPropertiesProvider) GetMetadata() *LlmProviderMetadata {
 	if g == nil {
 		return nil
 	}
@@ -18779,7 +18816,7 @@ func (g *GlobalEventPayloadSessionNextToolFailedPropertiesProvider) SetExecuted(
 
 // SetMetadata sets the Metadata field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadSessionNextToolFailedPropertiesProvider) SetMetadata(metadata map[string]map[string]any) {
+func (g *GlobalEventPayloadSessionNextToolFailedPropertiesProvider) SetMetadata(metadata *LlmProviderMetadata) {
 	g.Metadata = metadata
 	g.require(globalEventPayloadSessionNextToolFailedPropertiesProviderFieldMetadata)
 }
@@ -19680,12 +19717,12 @@ var (
 )
 
 type GlobalEventPayloadSessionNextToolProgressProperties struct {
-	Timestamp          float64                                                           `json:"timestamp" url:"timestamp"`
-	SessionID          string                                                            `json:"sessionID" url:"sessionID"`
-	AssistantMessageID string                                                            `json:"assistantMessageID" url:"assistantMessageID"`
-	CallID             string                                                            `json:"callID" url:"callID"`
-	Structured         map[string]any                                                    `json:"structured" url:"structured"`
-	Content            []*GlobalEventPayloadSessionNextToolProgressPropertiesContentItem `json:"content" url:"content"`
+	Timestamp          float64           `json:"timestamp" url:"timestamp"`
+	SessionID          string            `json:"sessionID" url:"sessionID"`
+	AssistantMessageID string            `json:"assistantMessageID" url:"assistantMessageID"`
+	CallID             string            `json:"callID" url:"callID"`
+	Structured         map[string]any    `json:"structured" url:"structured"`
+	Content            []*LlmToolContent `json:"content" url:"content"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -19729,7 +19766,7 @@ func (g *GlobalEventPayloadSessionNextToolProgressProperties) GetStructured() ma
 	return g.Structured
 }
 
-func (g *GlobalEventPayloadSessionNextToolProgressProperties) GetContent() []*GlobalEventPayloadSessionNextToolProgressPropertiesContentItem {
+func (g *GlobalEventPayloadSessionNextToolProgressProperties) GetContent() []*LlmToolContent {
 	if g == nil {
 		return nil
 	}
@@ -19787,7 +19824,7 @@ func (g *GlobalEventPayloadSessionNextToolProgressProperties) SetStructured(stru
 
 // SetContent sets the Content field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadSessionNextToolProgressProperties) SetContent(content []*GlobalEventPayloadSessionNextToolProgressPropertiesContentItem) {
+func (g *GlobalEventPayloadSessionNextToolProgressProperties) SetContent(content []*LlmToolContent) {
 	g.Content = content
 	g.require(globalEventPayloadSessionNextToolProgressPropertiesFieldContent)
 }
@@ -19832,123 +19869,6 @@ func (g *GlobalEventPayloadSessionNextToolProgressProperties) String() string {
 		return value
 	}
 	return fmt.Sprintf("%#v", g)
-}
-
-type GlobalEventPayloadSessionNextToolProgressPropertiesContentItem struct {
-	Type string
-	Text *ToolTextContent
-	File *ToolFileContent
-}
-
-func (g *GlobalEventPayloadSessionNextToolProgressPropertiesContentItem) GetType() string {
-	if g == nil {
-		return ""
-	}
-	return g.Type
-}
-
-func (g *GlobalEventPayloadSessionNextToolProgressPropertiesContentItem) GetText() *ToolTextContent {
-	if g == nil {
-		return nil
-	}
-	return g.Text
-}
-
-func (g *GlobalEventPayloadSessionNextToolProgressPropertiesContentItem) GetFile() *ToolFileContent {
-	if g == nil {
-		return nil
-	}
-	return g.File
-}
-
-func (g *GlobalEventPayloadSessionNextToolProgressPropertiesContentItem) UnmarshalJSON(data []byte) error {
-	var unmarshaler struct {
-		Type string `json:"type"`
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
-		return err
-	}
-	g.Type = unmarshaler.Type
-	if unmarshaler.Type == "" {
-		return fmt.Errorf("%T did not include discriminant type", g)
-	}
-	switch unmarshaler.Type {
-	case "text":
-		value := new(ToolTextContent)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		g.Text = value
-	case "file":
-		value := new(ToolFileContent)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		g.File = value
-	}
-	return nil
-}
-
-func (g GlobalEventPayloadSessionNextToolProgressPropertiesContentItem) MarshalJSON() ([]byte, error) {
-	if err := g.validate(); err != nil {
-		return nil, err
-	}
-	if g.Text != nil {
-		return internal.MarshalJSONWithExtraProperty(g.Text, "type", "text")
-	}
-	if g.File != nil {
-		return internal.MarshalJSONWithExtraProperty(g.File, "type", "file")
-	}
-	return nil, fmt.Errorf("type %T does not define a non-empty union type", g)
-}
-
-type GlobalEventPayloadSessionNextToolProgressPropertiesContentItemVisitor interface {
-	VisitText(*ToolTextContent) error
-	VisitFile(*ToolFileContent) error
-}
-
-func (g *GlobalEventPayloadSessionNextToolProgressPropertiesContentItem) Accept(visitor GlobalEventPayloadSessionNextToolProgressPropertiesContentItemVisitor) error {
-	if g.Text != nil {
-		return visitor.VisitText(g.Text)
-	}
-	if g.File != nil {
-		return visitor.VisitFile(g.File)
-	}
-	return fmt.Errorf("type %T does not define a non-empty union type", g)
-}
-
-func (g *GlobalEventPayloadSessionNextToolProgressPropertiesContentItem) validate() error {
-	if g == nil {
-		return fmt.Errorf("type %T is nil", g)
-	}
-	var fields []string
-	if g.Text != nil {
-		fields = append(fields, "text")
-	}
-	if g.File != nil {
-		fields = append(fields, "file")
-	}
-	if len(fields) == 0 {
-		if g.Type != "" {
-			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", g, g.Type)
-		}
-		return fmt.Errorf("type %T is empty", g)
-	}
-	if len(fields) > 1 {
-		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", g, fields)
-	}
-	if g.Type != "" {
-		field := fields[0]
-		if g.Type != field {
-			return fmt.Errorf(
-				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
-				g,
-				g.Type,
-				g,
-			)
-		}
-	}
-	return nil
 }
 
 var (
@@ -20064,15 +19984,15 @@ var (
 )
 
 type GlobalEventPayloadSessionNextToolSuccessProperties struct {
-	Timestamp          float64                                                          `json:"timestamp" url:"timestamp"`
-	SessionID          string                                                           `json:"sessionID" url:"sessionID"`
-	AssistantMessageID string                                                           `json:"assistantMessageID" url:"assistantMessageID"`
-	CallID             string                                                           `json:"callID" url:"callID"`
-	Structured         map[string]any                                                   `json:"structured" url:"structured"`
-	Content            []*GlobalEventPayloadSessionNextToolSuccessPropertiesContentItem `json:"content" url:"content"`
-	OutputPaths        []string                                                         `json:"outputPaths,omitempty" url:"outputPaths,omitempty"`
-	Result             any                                                              `json:"result,omitempty" url:"result,omitempty"`
-	Provider           *GlobalEventPayloadSessionNextToolSuccessPropertiesProvider      `json:"provider" url:"provider"`
+	Timestamp          float64                                                     `json:"timestamp" url:"timestamp"`
+	SessionID          string                                                      `json:"sessionID" url:"sessionID"`
+	AssistantMessageID string                                                      `json:"assistantMessageID" url:"assistantMessageID"`
+	CallID             string                                                      `json:"callID" url:"callID"`
+	Structured         map[string]any                                              `json:"structured" url:"structured"`
+	Content            []*LlmToolContent                                           `json:"content" url:"content"`
+	OutputPaths        []string                                                    `json:"outputPaths,omitempty" url:"outputPaths,omitempty"`
+	Result             any                                                         `json:"result,omitempty" url:"result,omitempty"`
+	Provider           *GlobalEventPayloadSessionNextToolSuccessPropertiesProvider `json:"provider" url:"provider"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -20116,7 +20036,7 @@ func (g *GlobalEventPayloadSessionNextToolSuccessProperties) GetStructured() map
 	return g.Structured
 }
 
-func (g *GlobalEventPayloadSessionNextToolSuccessProperties) GetContent() []*GlobalEventPayloadSessionNextToolSuccessPropertiesContentItem {
+func (g *GlobalEventPayloadSessionNextToolSuccessProperties) GetContent() []*LlmToolContent {
 	if g == nil {
 		return nil
 	}
@@ -20195,7 +20115,7 @@ func (g *GlobalEventPayloadSessionNextToolSuccessProperties) SetStructured(struc
 
 // SetContent sets the Content field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadSessionNextToolSuccessProperties) SetContent(content []*GlobalEventPayloadSessionNextToolSuccessPropertiesContentItem) {
+func (g *GlobalEventPayloadSessionNextToolSuccessProperties) SetContent(content []*LlmToolContent) {
 	g.Content = content
 	g.require(globalEventPayloadSessionNextToolSuccessPropertiesFieldContent)
 }
@@ -20263,131 +20183,14 @@ func (g *GlobalEventPayloadSessionNextToolSuccessProperties) String() string {
 	return fmt.Sprintf("%#v", g)
 }
 
-type GlobalEventPayloadSessionNextToolSuccessPropertiesContentItem struct {
-	Type string
-	Text *ToolTextContent
-	File *ToolFileContent
-}
-
-func (g *GlobalEventPayloadSessionNextToolSuccessPropertiesContentItem) GetType() string {
-	if g == nil {
-		return ""
-	}
-	return g.Type
-}
-
-func (g *GlobalEventPayloadSessionNextToolSuccessPropertiesContentItem) GetText() *ToolTextContent {
-	if g == nil {
-		return nil
-	}
-	return g.Text
-}
-
-func (g *GlobalEventPayloadSessionNextToolSuccessPropertiesContentItem) GetFile() *ToolFileContent {
-	if g == nil {
-		return nil
-	}
-	return g.File
-}
-
-func (g *GlobalEventPayloadSessionNextToolSuccessPropertiesContentItem) UnmarshalJSON(data []byte) error {
-	var unmarshaler struct {
-		Type string `json:"type"`
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
-		return err
-	}
-	g.Type = unmarshaler.Type
-	if unmarshaler.Type == "" {
-		return fmt.Errorf("%T did not include discriminant type", g)
-	}
-	switch unmarshaler.Type {
-	case "text":
-		value := new(ToolTextContent)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		g.Text = value
-	case "file":
-		value := new(ToolFileContent)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		g.File = value
-	}
-	return nil
-}
-
-func (g GlobalEventPayloadSessionNextToolSuccessPropertiesContentItem) MarshalJSON() ([]byte, error) {
-	if err := g.validate(); err != nil {
-		return nil, err
-	}
-	if g.Text != nil {
-		return internal.MarshalJSONWithExtraProperty(g.Text, "type", "text")
-	}
-	if g.File != nil {
-		return internal.MarshalJSONWithExtraProperty(g.File, "type", "file")
-	}
-	return nil, fmt.Errorf("type %T does not define a non-empty union type", g)
-}
-
-type GlobalEventPayloadSessionNextToolSuccessPropertiesContentItemVisitor interface {
-	VisitText(*ToolTextContent) error
-	VisitFile(*ToolFileContent) error
-}
-
-func (g *GlobalEventPayloadSessionNextToolSuccessPropertiesContentItem) Accept(visitor GlobalEventPayloadSessionNextToolSuccessPropertiesContentItemVisitor) error {
-	if g.Text != nil {
-		return visitor.VisitText(g.Text)
-	}
-	if g.File != nil {
-		return visitor.VisitFile(g.File)
-	}
-	return fmt.Errorf("type %T does not define a non-empty union type", g)
-}
-
-func (g *GlobalEventPayloadSessionNextToolSuccessPropertiesContentItem) validate() error {
-	if g == nil {
-		return fmt.Errorf("type %T is nil", g)
-	}
-	var fields []string
-	if g.Text != nil {
-		fields = append(fields, "text")
-	}
-	if g.File != nil {
-		fields = append(fields, "file")
-	}
-	if len(fields) == 0 {
-		if g.Type != "" {
-			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", g, g.Type)
-		}
-		return fmt.Errorf("type %T is empty", g)
-	}
-	if len(fields) > 1 {
-		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", g, fields)
-	}
-	if g.Type != "" {
-		field := fields[0]
-		if g.Type != field {
-			return fmt.Errorf(
-				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
-				g,
-				g.Type,
-				g,
-			)
-		}
-	}
-	return nil
-}
-
 var (
 	globalEventPayloadSessionNextToolSuccessPropertiesProviderFieldExecuted = big.NewInt(1 << 0)
 	globalEventPayloadSessionNextToolSuccessPropertiesProviderFieldMetadata = big.NewInt(1 << 1)
 )
 
 type GlobalEventPayloadSessionNextToolSuccessPropertiesProvider struct {
-	Executed bool                      `json:"executed" url:"executed"`
-	Metadata map[string]map[string]any `json:"metadata,omitempty" url:"metadata,omitempty"`
+	Executed bool                 `json:"executed" url:"executed"`
+	Metadata *LlmProviderMetadata `json:"metadata,omitempty" url:"metadata,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -20403,7 +20206,7 @@ func (g *GlobalEventPayloadSessionNextToolSuccessPropertiesProvider) GetExecuted
 	return g.Executed
 }
 
-func (g *GlobalEventPayloadSessionNextToolSuccessPropertiesProvider) GetMetadata() map[string]map[string]any {
+func (g *GlobalEventPayloadSessionNextToolSuccessPropertiesProvider) GetMetadata() *LlmProviderMetadata {
 	if g == nil {
 		return nil
 	}
@@ -20433,7 +20236,7 @@ func (g *GlobalEventPayloadSessionNextToolSuccessPropertiesProvider) SetExecuted
 
 // SetMetadata sets the Metadata field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GlobalEventPayloadSessionNextToolSuccessPropertiesProvider) SetMetadata(metadata map[string]map[string]any) {
+func (g *GlobalEventPayloadSessionNextToolSuccessPropertiesProvider) SetMetadata(metadata *LlmProviderMetadata) {
 	g.Metadata = metadata
 	g.require(globalEventPayloadSessionNextToolSuccessPropertiesProviderFieldMetadata)
 }
@@ -23183,6 +22986,125 @@ func (g *GlobalEventPayloadWorktreeReadyProperties) String() string {
 	return fmt.Sprintf("%#v", g)
 }
 
+type LlmProviderMetadata = map[string]map[string]any
+
+type LlmToolContent struct {
+	Type string
+	Text *ToolTextContent
+	File *ToolFileContent
+}
+
+func (l *LlmToolContent) GetType() string {
+	if l == nil {
+		return ""
+	}
+	return l.Type
+}
+
+func (l *LlmToolContent) GetText() *ToolTextContent {
+	if l == nil {
+		return nil
+	}
+	return l.Text
+}
+
+func (l *LlmToolContent) GetFile() *ToolFileContent {
+	if l == nil {
+		return nil
+	}
+	return l.File
+}
+
+func (l *LlmToolContent) UnmarshalJSON(data []byte) error {
+	var unmarshaler struct {
+		Type string `json:"type"`
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	l.Type = unmarshaler.Type
+	if unmarshaler.Type == "" {
+		return fmt.Errorf("%T did not include discriminant type", l)
+	}
+	switch unmarshaler.Type {
+	case "text":
+		value := new(ToolTextContent)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		l.Text = value
+	case "file":
+		value := new(ToolFileContent)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		l.File = value
+	}
+	return nil
+}
+
+func (l LlmToolContent) MarshalJSON() ([]byte, error) {
+	if err := l.validate(); err != nil {
+		return nil, err
+	}
+	if l.Text != nil {
+		return internal.MarshalJSONWithExtraProperty(l.Text, "type", "text")
+	}
+	if l.File != nil {
+		return internal.MarshalJSONWithExtraProperty(l.File, "type", "file")
+	}
+	return nil, fmt.Errorf("type %T does not define a non-empty union type", l)
+}
+
+type LlmToolContentVisitor interface {
+	VisitText(*ToolTextContent) error
+	VisitFile(*ToolFileContent) error
+}
+
+func (l *LlmToolContent) Accept(visitor LlmToolContentVisitor) error {
+	if l.Text != nil {
+		return visitor.VisitText(l.Text)
+	}
+	if l.File != nil {
+		return visitor.VisitFile(l.File)
+	}
+	return fmt.Errorf("type %T does not define a non-empty union type", l)
+}
+
+func (l *LlmToolContent) validate() error {
+	if l == nil {
+		return fmt.Errorf("type %T is nil", l)
+	}
+	var fields []string
+	if l.Text != nil {
+		fields = append(fields, "text")
+	}
+	if l.File != nil {
+		fields = append(fields, "file")
+	}
+	if len(fields) == 0 {
+		if l.Type != "" {
+			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", l, l.Type)
+		}
+		return fmt.Errorf("type %T is empty", l)
+	}
+	if len(fields) > 1 {
+		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", l, fields)
+	}
+	if l.Type != "" {
+		field := fields[0]
+		if l.Type != field {
+			return fmt.Errorf(
+				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
+				l,
+				l.Type,
+				l,
+			)
+		}
+	}
+	return nil
+}
+
 var (
 	locationRefFieldDirectory   = big.NewInt(1 << 0)
 	locationRefFieldWorkspaceID = big.NewInt(1 << 1)
@@ -23281,6 +23203,122 @@ func (l *LocationRef) String() string {
 		return value
 	}
 	return fmt.Sprintf("%#v", l)
+}
+
+var (
+	modelRefFieldID         = big.NewInt(1 << 0)
+	modelRefFieldProviderID = big.NewInt(1 << 1)
+	modelRefFieldVariant    = big.NewInt(1 << 2)
+)
+
+type ModelRef struct {
+	ID         string  `json:"id" url:"id"`
+	ProviderID string  `json:"providerID" url:"providerID"`
+	Variant    *string `json:"variant,omitempty" url:"variant,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (m *ModelRef) GetID() string {
+	if m == nil {
+		return ""
+	}
+	return m.ID
+}
+
+func (m *ModelRef) GetProviderID() string {
+	if m == nil {
+		return ""
+	}
+	return m.ProviderID
+}
+
+func (m *ModelRef) GetVariant() *string {
+	if m == nil {
+		return nil
+	}
+	return m.Variant
+}
+
+func (m *ModelRef) GetExtraProperties() map[string]interface{} {
+	if m == nil {
+		return nil
+	}
+	return m.extraProperties
+}
+
+func (m *ModelRef) require(field *big.Int) {
+	if m.explicitFields == nil {
+		m.explicitFields = big.NewInt(0)
+	}
+	m.explicitFields.Or(m.explicitFields, field)
+}
+
+// SetID sets the ID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (m *ModelRef) SetID(id string) {
+	m.ID = id
+	m.require(modelRefFieldID)
+}
+
+// SetProviderID sets the ProviderID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (m *ModelRef) SetProviderID(providerID string) {
+	m.ProviderID = providerID
+	m.require(modelRefFieldProviderID)
+}
+
+// SetVariant sets the Variant field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (m *ModelRef) SetVariant(variant *string) {
+	m.Variant = variant
+	m.require(modelRefFieldVariant)
+}
+
+func (m *ModelRef) UnmarshalJSON(data []byte) error {
+	type unmarshaler ModelRef
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*m = ModelRef(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *m)
+	if err != nil {
+		return err
+	}
+	m.extraProperties = extraProperties
+	m.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (m *ModelRef) MarshalJSON() ([]byte, error) {
+	type embed ModelRef
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*m),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, m.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (m *ModelRef) String() string {
+	if m == nil {
+		return "<nil>"
+	}
+	if len(m.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(m.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(m); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", m)
 }
 
 type PermissionV2Reply string
@@ -24494,6 +24532,154 @@ func (q *QuestionV2Tool) String() string {
 		return value
 	}
 	return fmt.Sprintf("%#v", q)
+}
+
+var (
+	revertStateFieldMessageID = big.NewInt(1 << 0)
+	revertStateFieldPartID    = big.NewInt(1 << 1)
+	revertStateFieldSnapshot  = big.NewInt(1 << 2)
+	revertStateFieldDiff      = big.NewInt(1 << 3)
+	revertStateFieldFiles     = big.NewInt(1 << 4)
+)
+
+type RevertState struct {
+	MessageID string      `json:"messageID" url:"messageID"`
+	PartID    *string     `json:"partID,omitempty" url:"partID,omitempty"`
+	Snapshot  *string     `json:"snapshot,omitempty" url:"snapshot,omitempty"`
+	Diff      *string     `json:"diff,omitempty" url:"diff,omitempty"`
+	Files     []*FileDiff `json:"files,omitempty" url:"files,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (r *RevertState) GetMessageID() string {
+	if r == nil {
+		return ""
+	}
+	return r.MessageID
+}
+
+func (r *RevertState) GetPartID() *string {
+	if r == nil {
+		return nil
+	}
+	return r.PartID
+}
+
+func (r *RevertState) GetSnapshot() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Snapshot
+}
+
+func (r *RevertState) GetDiff() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Diff
+}
+
+func (r *RevertState) GetFiles() []*FileDiff {
+	if r == nil {
+		return nil
+	}
+	return r.Files
+}
+
+func (r *RevertState) GetExtraProperties() map[string]interface{} {
+	if r == nil {
+		return nil
+	}
+	return r.extraProperties
+}
+
+func (r *RevertState) require(field *big.Int) {
+	if r.explicitFields == nil {
+		r.explicitFields = big.NewInt(0)
+	}
+	r.explicitFields.Or(r.explicitFields, field)
+}
+
+// SetMessageID sets the MessageID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RevertState) SetMessageID(messageID string) {
+	r.MessageID = messageID
+	r.require(revertStateFieldMessageID)
+}
+
+// SetPartID sets the PartID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RevertState) SetPartID(partID *string) {
+	r.PartID = partID
+	r.require(revertStateFieldPartID)
+}
+
+// SetSnapshot sets the Snapshot field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RevertState) SetSnapshot(snapshot *string) {
+	r.Snapshot = snapshot
+	r.require(revertStateFieldSnapshot)
+}
+
+// SetDiff sets the Diff field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RevertState) SetDiff(diff *string) {
+	r.Diff = diff
+	r.require(revertStateFieldDiff)
+}
+
+// SetFiles sets the Files field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RevertState) SetFiles(files []*FileDiff) {
+	r.Files = files
+	r.require(revertStateFieldFiles)
+}
+
+func (r *RevertState) UnmarshalJSON(data []byte) error {
+	type unmarshaler RevertState
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*r = RevertState(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *r)
+	if err != nil {
+		return err
+	}
+	r.extraProperties = extraProperties
+	r.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (r *RevertState) MarshalJSON() ([]byte, error) {
+	type embed RevertState
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*r),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, r.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (r *RevertState) String() string {
+	if r == nil {
+		return "<nil>"
+	}
+	if len(r.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(r.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(r); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", r)
 }
 
 var (
