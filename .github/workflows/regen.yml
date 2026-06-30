@@ -8,9 +8,18 @@ name: regen
 # build/test. Only once generate + build + test all pass does it commit the
 # regenerated SDK to main, bump the patch version, and cut a GitHub release.
 #
-# Note: anything pushed/tagged here uses the default GITHUB_TOKEN, which by
-# design does NOT trigger other workflows — so the release must happen inline
-# in this job rather than via a separate "on: tag push" workflow.
+# Publishing pushes a commit + tag straight to main. main is protected by a
+# repository ruleset, and on a personal repo the only actors that can bypass it
+# are real users with the admin role — the default GITHUB_TOKEN
+# (github-actions[bot]) is not one, so its push is rejected (GH013). We
+# therefore check out (and push) with RELEASE_TOKEN, a PAT belonging to an
+# admin, which the ruleset's "repository admins can always bypass" entry
+# permits. The bypass comes from the PAT's owner, not github.actor, so this
+# behaves identically whether the run is a manual dispatch or the cron.
+#
+# RELEASE_TOKEN: fine-grained PAT, repo = Acksell/opencode-go-sdk, with
+# Contents: read & write. If the secret is absent the expression falls back to
+# GITHUB_TOKEN (regen + test still run; only the final publish push fails).
 
 on:
   workflow_dispatch:
@@ -27,6 +36,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # need full tag history to compute the next version
+          token: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
 
       - uses: actions/setup-python@v5
         with:
