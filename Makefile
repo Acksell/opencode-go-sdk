@@ -20,7 +20,9 @@ regen: pull trim generate   ## (default-ish) pull upstream spec → trim → fer
 pull:   ## fetch opencode's OpenAPI at OPENCODE_REF (default: latest release)
 	@ref="$(OPENCODE_REF)"; \
 	if [ "$$ref" = "latest" ]; then \
-	  ref="$$(curl -fsSL https://api.github.com/repos/$(OPENCODE_REPO)/releases/latest \
+	  auth="$${GITHUB_TOKEN:-$${GH_TOKEN:-}}"; \
+	  ref="$$(curl -fsSL $${auth:+-H "Authorization: Bearer $$auth"} \
+	    https://api.github.com/repos/$(OPENCODE_REPO)/releases/latest \
 	    | python3 -c 'import json,sys; print(json.load(sys.stdin)["tag_name"])')"; \
 	  echo "→ resolved latest release: $$ref"; \
 	fi; \
