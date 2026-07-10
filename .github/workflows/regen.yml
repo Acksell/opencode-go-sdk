@@ -2,11 +2,19 @@ name: regen
 
 # Automated regeneration of the SDK from upstream opencode. Runs:
 #   - On manual trigger (workflow_dispatch)
-#   - Weekly on Mondays at 03:00 UTC
+#   - Daily at 03:00 UTC
+#
+# Each run syncs against the LATEST upstream GitHub release (not the dev
+# branch), and the SDK tag mirrors the upstream version: upstream v1.17.18 →
+# sdk/v1.17.18. If that tag already exists the run exits early — nothing new
+# to sync. Only the latest release is taken; upstream versions published and
+# superseded between runs get no tag (gaps are acceptable). GitHub Actions
+# cannot subscribe to another repo's release events, hence cron polling.
 #
 # The job fails fast if generation fails or the resulting SDK doesn't
 # build/test. Only once generate + build + test all pass does it commit the
-# regenerated SDK to main, bump the patch version, and cut a GitHub release.
+# regenerated SDK to main, tag it with the mirrored version, and cut a GitHub
+# release.
 #
 # Publishing pushes a commit + tag straight to main. main is protected by a
 # repository ruleset, and on a personal repo the only actors that can bypass it
@@ -24,7 +32,7 @@ name: regen
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 3 * * 1"
+    - cron: "0 3 * * *"
 
 permissions:
   contents: write
@@ -35,34 +43,65 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # need full tag history to compute the next version
+          fetch-depth: 0 # need full tag history for the already-synced check
           token: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
 
+      - name: resolve upstream release
+        id: upstream
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          upstream="$(gh api repos/anomalyco/opencode/releases/latest --jq .tag_name)"
+          # If upstream ever ships v2.x, Go requires a /v2 module-path suffix
+          # for the mirrored tag to resolve — revisit the scheme then.
+          [[ "$upstream" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "unexpected upstream tag: $upstream"; exit 1; }
+          tag="sdk/${upstream}"
+          skip=false
+          # Only skip on main; off-main dispatches always exercise the full
+          # generate+test path (publish is blocked off-main anyway).
+          if [ "${GITHUB_REF}" = "refs/heads/main" ] && git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
+            echo "$tag already exists — upstream $upstream already synced."
+            skip=true
+          fi
+          {
+            echo "upstream=$upstream"
+            echo "tag=$tag"
+            echo "skip=$skip"
+          } >>"$GITHUB_OUTPUT"
+
       - uses: actions/setup-python@v5
+        if: steps.upstream.outputs.skip != 'true'
         with:
           python-version: "3.12"
 
       - uses: actions/setup-node@v4
+        if: steps.upstream.outputs.skip != 'true'
         with:
           node-version: "20"
 
       - uses: actions/setup-go@v5
+        if: steps.upstream.outputs.skip != 'true'
         with:
           go-version: "1.22"
           cache: false
 
       - name: install fern CLI
+        if: steps.upstream.outputs.skip != 'true'
         run: npm install -g fern-api
 
       - name: pull + trim + generate
-        run: make regen
+        if: steps.upstream.outputs.skip != 'true'
+        run: make regen OPENCODE_REF=${{ steps.upstream.outputs.upstream }}
         env:
           FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
 
       - name: build + test generated SDK
+        if: steps.upstream.outputs.skip != 'true'
         run: make test
 
       - name: commit, tag, and release
+        if: steps.upstream.outputs.skip != 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -75,37 +114,32 @@ jobs:
             exit 0
           fi
 
-          if [ -z "$(git status --porcelain)" ]; then
-            echo "No changes from regeneration — nothing to release."
-            exit 0
-          fi
+          # The SDK tag mirrors the upstream release version. The module lives
+          # in the sdk/ subdir, so release tags must carry the sdk/ path prefix
+          # for `go get github.com/acksell/opencode-go-sdk/sdk@vX.Y.Z` to resolve.
+          upstream="${{ steps.upstream.outputs.upstream }}"
+          tag="${{ steps.upstream.outputs.tag }}"
+          echo "Releasing $tag (upstream $upstream)"
 
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          # Bump the patch on the latest sdk/vX.Y.Z tag. The module lives in the
-          # sdk/ subdir, so release tags must carry the sdk/ path prefix for
-          # `go get github.com/acksell/opencode-go-sdk/sdk@vX.Y.Z` to resolve.
-          latest="$(git tag -l 'sdk/v*' | sed 's#^sdk/v##' | sort -V | tail -1)"
-          if [ -z "$latest" ]; then
-            next="0.1.0"
-          else
-            IFS=. read -r major minor patch <<<"$latest"
-            next="${major}.${minor}.$((patch + 1))"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add -A
+            git commit -m "regen: sync upstream opencode ${upstream} (${tag})"
+            git push origin HEAD:main
           fi
-          tag="sdk/v${next}"
-          echo "Releasing $tag"
 
-          git add -A
-          git commit -m "regen: sync from upstream opencode spec ($tag)"
-          git push origin HEAD:main
-
+          # Byte-identical output → no commit; tag HEAD anyway. The tag IS the
+          # version claim, and multiple sdk tags on one commit are fine for Go.
           git tag "$tag"
           git push origin "$tag"
 
           notes_file="$(mktemp)"
           {
             echo "Automated SDK regeneration from the upstream opencode OpenAPI spec."
+            echo
+            echo "Mirrors upstream release [anomalyco/opencode ${upstream}](https://github.com/anomalyco/opencode/releases/tag/${upstream})."
             echo
             echo '```'
             echo "go get github.com/acksell/opencode-go-sdk/sdk@$tag"

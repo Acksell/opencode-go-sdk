@@ -3,8 +3,9 @@
 Go SDK for [opencode](https://opencode.ai), generated with [Fern](https://buildwithfern.com/)
 from a filtered subset of opencode's OpenAPI.
 
-The committed SDK is regenerated automatically every Monday from
-[upstream's `openapi.json`](https://raw.githubusercontent.com/anomalyco/opencode/dev/packages/sdk/openapi.json),
+The committed SDK is regenerated automatically every day from the OpenAPI
+spec of the latest tagged
+[opencode release](https://github.com/anomalyco/opencode/releases),
 so it tracks opencode with no manual work per version bump.
 
 ```bash
@@ -12,13 +13,21 @@ go get github.com/acksell/opencode-go-sdk/sdk@latest
 ```
 
 The module lives in the `sdk/` subdirectory, so its tags are prefixed `sdk/`.
-To pin a specific release, the version selector is the full tag — e.g.
-`@sdk/v0.1.2`, not a bare `@v0.1.2`.
+SDK tags mirror the upstream release the SDK was generated from (from
+`v1.17.x` onward): running opencode `1.17.18` means
+
+```bash
+go get github.com/acksell/opencode-go-sdk/sdk@sdk/v1.17.18
+```
+
+The version selector is always the full tag — `@sdk/v1.17.18`, not a bare
+`@v1.17.18`. The daily sync takes only the latest upstream release, so a
+version published and superseded within the same day may have no tag — pin
+the closest lower one (the spec rarely changes between adjacent patches).
 
 > [!IMPORTANT]
-> Watch for version drift between your installed opencode CLI and this SDK.
-> opencode has shipped breaking changes even in minor releases — bump the CLI
-> and the SDK in lockstep, and only after your tests pass.
+> opencode has shipped breaking changes even in minor releases. Pin the SDK
+> tag matching your installed opencode CLI version, and bump both in lockstep.
 
 opencode's published OpenAPI exposes 131 endpoints — over Fern's 50-endpoint
 hobby-tier cap. This repo holds a trim filter that reduces opencode's spec to
@@ -35,10 +44,18 @@ make test      # build + test the regenerated SDK
 Or step-by-step:
 
 ```bash
-make pull       # fetch opencode's published OpenAPI from anomalyco/opencode
+make pull       # fetch opencode's OpenAPI at the latest release tag
 make trim       # filter to allow-list → fern/openapi/trimmed.json
 make generate   # fern generate the Go SDK
 make help       # list all targets
+```
+
+`make pull` resolves the latest GitHub release of `anomalyco/opencode` and
+fetches the spec at that tag. To pin a specific release or branch instead:
+
+```bash
+make regen OPENCODE_REF=v1.17.18   # a specific release tag
+make regen OPENCODE_REF=dev        # the (unstable) dev branch, for testing
 ```
 
 To regen against a locally-running opencode-serve instead of upstream:
@@ -93,9 +110,12 @@ Allow-list only changes when a consumer needs to opt into a new top-level area.
 
 ## Automated regeneration
 
-`.github/workflows/regen.yml` runs `make regen && make test` weekly (Mondays
-03:00 UTC) and on manual `workflow_dispatch`. If the regenerated SDK builds
-and tests pass, it opens a PR with the changes.
+`.github/workflows/regen.yml` runs daily (03:00 UTC) and on manual
+`workflow_dispatch`. It resolves the latest upstream release; if the mirrored
+`sdk/v<version>` tag already exists it exits early. Otherwise it runs
+`make regen && make test` against that release, and — only if build and tests
+pass — commits the regenerated SDK to `main`, tags it `sdk/v<version>`, and
+creates a GitHub release.
 
 ## Repo layout
 
@@ -103,7 +123,7 @@ and tests pass, it opens a PR with the changes.
 opencode-go-sdk/
 ├── README.md
 ├── Makefile                          one-command regen workflow
-├── .github/workflows/regen.yml       weekly + on-demand CI regen
+├── .github/workflows/regen.yml       daily + on-demand CI regen
 ├── fern/
 │   ├── fern.config.json              Fern org + CLI version
 │   ├── generators.yml                Go SDK generator config (api + group + output path)

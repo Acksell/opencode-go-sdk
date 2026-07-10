@@ -2,10 +2,12 @@ SHELL := bash
 .SHELLFLAGS := -eu -o pipefail -c
 .DEFAULT_GOAL := help
 
-# Where to fetch opencode's published OpenAPI from. opencode is maintained by
-# anomalyco; the spec lives under packages/sdk/openapi.json on the dev branch.
-# (The repo used to live at sst/opencode — that's stale.)
-OPENCODE_SPEC_URL ?= https://raw.githubusercontent.com/anomalyco/opencode/dev/packages/sdk/openapi.json
+# Which upstream ref to generate from. Defaults to the latest GitHub release
+# of anomalyco/opencode (the repo used to live at sst/opencode — that's stale);
+# the spec lives under packages/sdk/openapi.json at every ref. Override for
+# testing, e.g. `make regen OPENCODE_REF=dev`.
+OPENCODE_REF ?= latest
+OPENCODE_REPO := anomalyco/opencode
 
 # Alternative: pull from a locally-running opencode-serve instance.
 # Use `make pull-local` to switch over.
@@ -15,10 +17,19 @@ OPENCODE_SERVER ?= http://127.0.0.1:4096
 regen: pull trim generate   ## (default-ish) pull upstream spec → trim → fern generate
 
 .PHONY: pull
-pull:   ## fetch opencode's published OpenAPI from upstream (anomalyco/opencode)
-	@echo "→ fetching $(OPENCODE_SPEC_URL)"
-	@curl -fsSL "$(OPENCODE_SPEC_URL)" >opencode-spec.json
-	@echo "  wrote opencode-spec.json ($$(wc -c <opencode-spec.json) bytes)"
+pull:   ## fetch opencode's OpenAPI at OPENCODE_REF (default: latest release)
+	@ref="$(OPENCODE_REF)"; \
+	if [ "$$ref" = "latest" ]; then \
+	  auth="$${GITHUB_TOKEN:-$${GH_TOKEN:-}}"; \
+	  ref="$$(curl -fsSL $${auth:+-H "Authorization: Bearer $$auth"} \
+	    https://api.github.com/repos/$(OPENCODE_REPO)/releases/latest \
+	    | python3 -c 'import json,sys; print(json.load(sys.stdin)["tag_name"])')"; \
+	  echo "→ resolved latest release: $$ref"; \
+	fi; \
+	url="https://raw.githubusercontent.com/$(OPENCODE_REPO)/$$ref/packages/sdk/openapi.json"; \
+	echo "→ fetching $$url"; \
+	curl -fsSL "$$url" >opencode-spec.json; \
+	echo "  wrote opencode-spec.json ($$(wc -c <opencode-spec.json) bytes)"
 
 .PHONY: pull-local
 pull-local:   ## fetch from a running opencode-serve (OPENCODE_SERVER, default :4096)
@@ -33,7 +44,7 @@ trim:   ## filter opencode-spec.json to the allow-list → fern/openapi/trimmed.
 
 .PHONY: generate
 generate:   ## run fern generate against the trimmed spec
-	@cd fern && fern generate --group local
+	@cd fern && fern generate --group local --force
 
 .PHONY: check
 check:   ## validate the Fern config + trimmed spec without generating

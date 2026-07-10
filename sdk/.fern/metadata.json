@@ -8,8 +8,7 @@
     },
     "retryStatusCodes": "legacy"
   },
-  "originGitCommit": "38f52236f7407de5a35885019d294f849e81784d",
+  "originGitCommit": "fe5e9e03c4c9c4077c0c83d29efcc441e544b578",
   "originGitCommitIsDirty": true,
-  "invokedBy": "ci",
-  "ciProvider": "github"
+  "invokedBy": "manual"
 }
