@@ -16,6 +16,7 @@ Minimal code snippet or steps to reproduce the behavior.
 What you expected to happen.
 
 **Environment**
+
 - SDK version:
 - Go version:
 - OpenCode server version:
