@@ -7936,7 +7936,7 @@ func TestGettersModelCapabilitiesInterleaved(t *testing.T) {
 func TestSettersModelCapabilitiesInterleavedField(t *testing.T) {
 	t.Run("SetField", func(t *testing.T) {
 		obj := &ModelCapabilitiesInterleavedField{}
-		var fernTestValueField ModelCapabilitiesInterleavedFieldField
+		var fernTestValueField *ModelCapabilitiesInterleavedFieldField
 		obj.SetField(fernTestValueField)
 		assert.Equal(t, fernTestValueField, obj.Field)
 		assert.NotNil(t, obj.explicitFields)
@@ -7949,11 +7949,21 @@ func TestGettersModelCapabilitiesInterleavedField(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &ModelCapabilitiesInterleavedField{}
-		var expected ModelCapabilitiesInterleavedFieldField
+		var expected *ModelCapabilitiesInterleavedFieldField
 		obj.Field = expected
 
 		// Act & Assert
 		assert.Equal(t, expected, obj.GetField(), "getter should return the property value")
+	})
+
+	t.Run("GetField_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &ModelCapabilitiesInterleavedField{}
+		obj.Field = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetField(), "getter should return nil when property is nil")
 	})
 
 	t.Run("GetField_NilReceiver", func(t *testing.T) {
@@ -7975,7 +7985,7 @@ func TestSettersMarkExplicitModelCapabilitiesInterleavedField(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &ModelCapabilitiesInterleavedField{}
-		var fernTestValueField ModelCapabilitiesInterleavedFieldField
+		var fernTestValueField *ModelCapabilitiesInterleavedFieldField
 
 		// Act
 		obj.SetField(fernTestValueField)
@@ -8000,6 +8010,55 @@ func TestSettersMarkExplicitModelCapabilitiesInterleavedField(t *testing.T) {
 
 		// Note: This does not explicitly assert the presence of a specific JSON field
 		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
+func TestGettersModelCapabilitiesInterleavedFieldField(t *testing.T) {
+	t.Run("GetModelCapabilitiesInterleavedFieldFieldZero", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &ModelCapabilitiesInterleavedFieldField{}
+		var expected ModelCapabilitiesInterleavedFieldFieldZero
+		obj.ModelCapabilitiesInterleavedFieldFieldZero = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetModelCapabilitiesInterleavedFieldFieldZero(), "getter should return the property value")
+	})
+
+	t.Run("GetModelCapabilitiesInterleavedFieldFieldZero_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *ModelCapabilitiesInterleavedFieldField
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetModelCapabilitiesInterleavedFieldFieldZero() // Should return zero value
+	})
+
+	t.Run("GetString", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &ModelCapabilitiesInterleavedFieldField{}
+		var expected string
+		obj.String = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetString(), "getter should return the property value")
+	})
+
+	t.Run("GetString_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *ModelCapabilitiesInterleavedFieldField
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetString() // Should return zero value
 	})
 
 }
@@ -32531,35 +32590,35 @@ func TestEnumInvalidRequestErrorTag(t *testing.T) {
 	})
 }
 
-func TestEnumModelCapabilitiesInterleavedFieldField(t *testing.T) {
+func TestEnumModelCapabilitiesInterleavedFieldFieldZero(t *testing.T) {
 	t.Run("NewFromString_reasoning", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewModelCapabilitiesInterleavedFieldFieldFromString("reasoning")
+		val, err := NewModelCapabilitiesInterleavedFieldFieldZeroFromString("reasoning")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, ModelCapabilitiesInterleavedFieldField("reasoning"), val, "enum value should match expected wire value")
+		assert.Equal(t, ModelCapabilitiesInterleavedFieldFieldZero("reasoning"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_reasoning_content", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewModelCapabilitiesInterleavedFieldFieldFromString("reasoning_content")
+		val, err := NewModelCapabilitiesInterleavedFieldFieldZeroFromString("reasoning_content")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, ModelCapabilitiesInterleavedFieldField("reasoning_content"), val, "enum value should match expected wire value")
+		assert.Equal(t, ModelCapabilitiesInterleavedFieldFieldZero("reasoning_content"), val, "enum value should match expected wire value")
 	})
 
-	t.Run("NewFromString_reasoning_details", func(t *testing.T) {
+	t.Run("NewFromString_reasoning_text", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewModelCapabilitiesInterleavedFieldFieldFromString("reasoning_details")
+		val, err := NewModelCapabilitiesInterleavedFieldFieldZeroFromString("reasoning_text")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, ModelCapabilitiesInterleavedFieldField("reasoning_details"), val, "enum value should match expected wire value")
+		assert.Equal(t, ModelCapabilitiesInterleavedFieldFieldZero("reasoning_text"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewModelCapabilitiesInterleavedFieldFieldFromString("invalid_value_that_does_not_exist")
+		_, err := NewModelCapabilitiesInterleavedFieldFieldZeroFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewModelCapabilitiesInterleavedFieldFieldFromString("reasoning")
+		val, err := NewModelCapabilitiesInterleavedFieldFieldZeroFromString("reasoning")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)

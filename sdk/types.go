@@ -4504,7 +4504,7 @@ var (
 )
 
 type ModelCapabilitiesInterleavedField struct {
-	Field ModelCapabilitiesInterleavedFieldField `json:"field" url:"field"`
+	Field *ModelCapabilitiesInterleavedFieldField `json:"field" url:"field"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -4513,9 +4513,9 @@ type ModelCapabilitiesInterleavedField struct {
 	rawJSON         json.RawMessage
 }
 
-func (m *ModelCapabilitiesInterleavedField) GetField() ModelCapabilitiesInterleavedFieldField {
+func (m *ModelCapabilitiesInterleavedField) GetField() *ModelCapabilitiesInterleavedFieldField {
 	if m == nil {
-		return ""
+		return nil
 	}
 	return m.Field
 }
@@ -4536,7 +4536,7 @@ func (m *ModelCapabilitiesInterleavedField) require(field *big.Int) {
 
 // SetField sets the Field field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (m *ModelCapabilitiesInterleavedField) SetField(field ModelCapabilitiesInterleavedFieldField) {
+func (m *ModelCapabilitiesInterleavedField) SetField(field *ModelCapabilitiesInterleavedFieldField) {
 	m.Field = field
 	m.require(modelCapabilitiesInterleavedFieldFieldField)
 }
@@ -4583,28 +4583,90 @@ func (m *ModelCapabilitiesInterleavedField) String() string {
 	return fmt.Sprintf("%#v", m)
 }
 
-type ModelCapabilitiesInterleavedFieldField string
+type ModelCapabilitiesInterleavedFieldField struct {
+	ModelCapabilitiesInterleavedFieldFieldZero ModelCapabilitiesInterleavedFieldFieldZero
+	String                                     string
+
+	typ string
+}
+
+func (m *ModelCapabilitiesInterleavedFieldField) GetModelCapabilitiesInterleavedFieldFieldZero() ModelCapabilitiesInterleavedFieldFieldZero {
+	if m == nil {
+		return ""
+	}
+	return m.ModelCapabilitiesInterleavedFieldFieldZero
+}
+
+func (m *ModelCapabilitiesInterleavedFieldField) GetString() string {
+	if m == nil {
+		return ""
+	}
+	return m.String
+}
+
+func (m *ModelCapabilitiesInterleavedFieldField) UnmarshalJSON(data []byte) error {
+	var valueModelCapabilitiesInterleavedFieldFieldZero ModelCapabilitiesInterleavedFieldFieldZero
+	if err := json.Unmarshal(data, &valueModelCapabilitiesInterleavedFieldFieldZero); err == nil {
+		m.typ = "ModelCapabilitiesInterleavedFieldFieldZero"
+		m.ModelCapabilitiesInterleavedFieldFieldZero = valueModelCapabilitiesInterleavedFieldFieldZero
+		return nil
+	}
+	var valueString string
+	if err := json.Unmarshal(data, &valueString); err == nil {
+		m.typ = "String"
+		m.String = valueString
+		return nil
+	}
+	return fmt.Errorf("%s cannot be deserialized as a %T", data, m)
+}
+
+func (m ModelCapabilitiesInterleavedFieldField) MarshalJSON() ([]byte, error) {
+	if m.typ == "ModelCapabilitiesInterleavedFieldFieldZero" || m.ModelCapabilitiesInterleavedFieldFieldZero != "" {
+		return json.Marshal(m.ModelCapabilitiesInterleavedFieldFieldZero)
+	}
+	if m.typ == "String" || m.String != "" {
+		return json.Marshal(m.String)
+	}
+	return nil, fmt.Errorf("type %T does not include a non-empty union type", m)
+}
+
+type ModelCapabilitiesInterleavedFieldFieldVisitor interface {
+	VisitModelCapabilitiesInterleavedFieldFieldZero(ModelCapabilitiesInterleavedFieldFieldZero) error
+	VisitString(string) error
+}
+
+func (m *ModelCapabilitiesInterleavedFieldField) Accept(visitor ModelCapabilitiesInterleavedFieldFieldVisitor) error {
+	if m.typ == "ModelCapabilitiesInterleavedFieldFieldZero" || m.ModelCapabilitiesInterleavedFieldFieldZero != "" {
+		return visitor.VisitModelCapabilitiesInterleavedFieldFieldZero(m.ModelCapabilitiesInterleavedFieldFieldZero)
+	}
+	if m.typ == "String" || m.String != "" {
+		return visitor.VisitString(m.String)
+	}
+	return fmt.Errorf("type %T does not include a non-empty union type", m)
+}
+
+type ModelCapabilitiesInterleavedFieldFieldZero string
 
 const (
-	ModelCapabilitiesInterleavedFieldFieldReasoning        ModelCapabilitiesInterleavedFieldField = "reasoning"
-	ModelCapabilitiesInterleavedFieldFieldReasoningContent ModelCapabilitiesInterleavedFieldField = "reasoning_content"
-	ModelCapabilitiesInterleavedFieldFieldReasoningDetails ModelCapabilitiesInterleavedFieldField = "reasoning_details"
+	ModelCapabilitiesInterleavedFieldFieldZeroReasoning        ModelCapabilitiesInterleavedFieldFieldZero = "reasoning"
+	ModelCapabilitiesInterleavedFieldFieldZeroReasoningContent ModelCapabilitiesInterleavedFieldFieldZero = "reasoning_content"
+	ModelCapabilitiesInterleavedFieldFieldZeroReasoningText    ModelCapabilitiesInterleavedFieldFieldZero = "reasoning_text"
 )
 
-func NewModelCapabilitiesInterleavedFieldFieldFromString(s string) (ModelCapabilitiesInterleavedFieldField, error) {
+func NewModelCapabilitiesInterleavedFieldFieldZeroFromString(s string) (ModelCapabilitiesInterleavedFieldFieldZero, error) {
 	switch s {
 	case "reasoning":
-		return ModelCapabilitiesInterleavedFieldFieldReasoning, nil
+		return ModelCapabilitiesInterleavedFieldFieldZeroReasoning, nil
 	case "reasoning_content":
-		return ModelCapabilitiesInterleavedFieldFieldReasoningContent, nil
-	case "reasoning_details":
-		return ModelCapabilitiesInterleavedFieldFieldReasoningDetails, nil
+		return ModelCapabilitiesInterleavedFieldFieldZeroReasoningContent, nil
+	case "reasoning_text":
+		return ModelCapabilitiesInterleavedFieldFieldZeroReasoningText, nil
 	}
-	var t ModelCapabilitiesInterleavedFieldField
+	var t ModelCapabilitiesInterleavedFieldFieldZero
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (m ModelCapabilitiesInterleavedFieldField) Ptr() *ModelCapabilitiesInterleavedFieldField {
+func (m ModelCapabilitiesInterleavedFieldFieldZero) Ptr() *ModelCapabilitiesInterleavedFieldFieldZero {
 	return &m
 }
 

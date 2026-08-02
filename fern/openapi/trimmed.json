@@ -10864,11 +10864,18 @@
                     "type": "object",
                     "properties": {
                       "field": {
-                        "type": "string",
-                        "enum": [
-                          "reasoning",
-                          "reasoning_content",
-                          "reasoning_details"
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "enum": [
+                              "reasoning",
+                              "reasoning_content",
+                              "reasoning_text"
+                            ]
+                          },
+                          {
+                            "type": "string"
+                          }
                         ]
                       }
                     },
